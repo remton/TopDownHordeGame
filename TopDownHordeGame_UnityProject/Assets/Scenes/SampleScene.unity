@@ -222,12 +222,13 @@ GameObject:
   m_Component:
   - component: {fileID: 213791155}
   - component: {fileID: 213791154}
-  - component: {fileID: 213791153}
   - component: {fileID: 213791156}
   - component: {fileID: 213791157}
-  m_Layer: 0
+  - component: {fileID: 213791153}
+  - component: {fileID: 213791158}
+  m_Layer: 7
   m_Name: Zombie
-  m_TagString: Untagged
+  m_TagString: Zombie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -246,7 +247,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerToFollow: {fileID: 1178093767}
   moveSpeed: 1.5
-  rb: {fileID: 213791157}
+  damage: 1
+  playerDistForLunge: 1.15
+  lungeCooldown: 0.5
 --- !u!212 &213791154
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -352,7 +355,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 0.1
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -360,6 +363,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &213791158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 213791152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea3ea3845553936448f3700aa19b5f14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waitTime: 0.3
+  distance: 1.5
+  lungeTime: 0.3
+  damage: 1
+  lungeSpeed: 6
 --- !u!1 &251393953
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,9 +807,10 @@ GameObject:
   - component: {fileID: 1178093768}
   - component: {fileID: 1178093772}
   - component: {fileID: 1178093773}
-  m_Layer: 0
+  - component: {fileID: 1178093774}
+  m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1021,6 +1042,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1178093774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1178093767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c93edc630b131bb408cb338fac3eaefc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 10
+  bleedOutTime: 5
 --- !u!1 &1539114434
 GameObject:
   m_ObjectHideFlags: 0

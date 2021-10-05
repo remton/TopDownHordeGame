@@ -19,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Camera camera;
     [SerializeField] private Rigidbody2D rb;
 
+    private bool doMovement = true;
+
     private bool isRunning = false;
     private Vector2 moveDir;
     private Vector2 lookDir;
@@ -34,7 +36,16 @@ public class PlayerMovement : MonoBehaviour
 
     //called after every frame
     private void FixedUpdate() {
-        Move(moveDir);
+        if(doMovement)
+            Move(moveDir);
+    }
+
+    public void DisableMovement() {
+        doMovement = false;
+    }
+
+    public void EnableMovement() {
+        doMovement = true;
     }
 
     // Called whenever a change in movement input. Moves the player based in walk and run speed
