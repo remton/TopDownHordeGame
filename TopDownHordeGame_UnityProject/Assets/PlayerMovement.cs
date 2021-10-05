@@ -15,7 +15,9 @@ public class PlayerMovement : MonoBehaviour
 {
     public float walkSpeed;
     public float runSpeed;
+
     [SerializeField] private Camera camera;
+    [SerializeField] private Rigidbody2D rb;
 
     private bool isRunning = false;
     private Vector2 moveDir;
@@ -25,11 +27,14 @@ public class PlayerMovement : MonoBehaviour
     // If mouse input was detected this is true if gamepad this is false
     private bool useMouseToLook;
 
-    //called every frame
     private void Update() {
-        Move(moveDir);
         if (useMouseToLook)
             LookAtMouse();
+    }
+
+    //called after every frame
+    private void FixedUpdate() {
+        Move(moveDir);
     }
 
     // Called whenever a change in movement input. Moves the player based in walk and run speed
@@ -52,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
         useMouseToLook = false;
         if (context.ReadValue<Vector2>() == Vector2.zero)
             return;
-        LookAt(context.ReadValue<Vector2>());
+        LookInDir(context.ReadValue<Vector2>());
     }
 
     // called whenever run input event is called
@@ -61,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Faces the player towards the given direction vector
-    private void LookAt(Vector2 lookDir2D) {
+    private void LookInDir(Vector2 lookDir2D) {
         Vector3 lookDir3D = new Vector3(lookDir2D.x, lookDir2D.y, transform.position.z);
         transform.right = lookDir3D;
     }
@@ -70,19 +75,20 @@ public class PlayerMovement : MonoBehaviour
     private void LookAtMouse() {
         Vector2 myPos = transform.position;
         Vector2 dir = mousePos - myPos;
-        LookAt(dir);
+        LookInDir(dir);
     }
 
-    //Moves the player based on the given direction
+    // Moves the player based on the given direction
+    // Should be called in fixed update
     private void Move(Vector2 movementDir) {
         Vector2 newPos = transform.position;
 
         if (isRunning)
-            newPos += runSpeed * movementDir * Time.deltaTime;
+            newPos += runSpeed * movementDir * Time.fixedDeltaTime;
         else
-            newPos += walkSpeed * movementDir * Time.deltaTime;
+            newPos += walkSpeed * movementDir * Time.fixedDeltaTime;
 
-        transform.position = newPos;
+        rb.MovePosition(newPos);
     }
 
 }

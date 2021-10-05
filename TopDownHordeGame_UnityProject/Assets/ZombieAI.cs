@@ -7,26 +7,35 @@ public class ZombieAI : MonoBehaviour
     public GameObject playerToFollow;
     public float moveSpeed;
 
+    [SerializeField] Rigidbody2D rb;
+
     // Position to move to
     private Vector2 targetPos;
     private Vector2 moveDir;
 
     private void Update() {
-        MoveTowards(playerToFollow);
-        LookAt(moveDir);
+        LookToDir(moveDir);
     }
 
-    private void LookAt(Vector2 lookDir2D) {
+    //called after every frame
+    private void FixedUpdate() {
+        MoveTowards(playerToFollow.transform.position);
+    }
+
+    // Faces zombie in the given direction
+    private void LookToDir(Vector2 lookDir2D) {
         Vector3 lookDir3D = new Vector3(lookDir2D.x, lookDir2D.y, transform.position.z);
         transform.right = lookDir3D;
     }
 
-    private void MoveTowards(GameObject target) {
-        Vector3 targetPos = target.transform.position;
+    //moves toward the given position
+    //should be called in fixedUpdate
+    private void MoveTowards(Vector3 targetPos) {
         moveDir = targetPos - transform.position;
         moveDir.Normalize();
-        Vector3 moveDir3D = new Vector3(moveDir.x, moveDir.y, transform.position.z);
-        transform.position += moveDir3D * moveSpeed * Time.deltaTime;
+        Vector2 newPos = transform.position;
+        newPos += moveDir * moveSpeed * Time.fixedDeltaTime;
+        rb.MovePosition(newPos);
     }
 
 }
