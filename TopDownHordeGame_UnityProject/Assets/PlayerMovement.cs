@@ -34,7 +34,8 @@ public class PlayerMovement : MonoBehaviour
 
     // Called whenever a change in movement input. Moves the player based in walk and run speed
     public void OnMove(InputAction.CallbackContext context) {
-        moveDir = context.ReadValue<Vector2>();
+        Vector2 moveInput = context.ReadValue<Vector2>();
+        moveDir = moveInput.normalized;
     }
 
     // called whenever mouse position input event is called (Keyboard inputs only)
