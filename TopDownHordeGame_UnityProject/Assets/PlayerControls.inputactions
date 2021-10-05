@@ -7,7 +7,7 @@
             "actions": [
                 {
                     "name": "Movement",
-                    "type": "PassThrough",
+                    "type": "Value",
                     "id": "608e8608-6c48-4183-a1b9-f46735e1efde",
                     "expectedControlType": "Vector2",
                     "processors": "",
@@ -34,6 +34,14 @@
                     "type": "Value",
                     "id": "f9b5794f-b78b-444b-bcc0-778d79c7c621",
                     "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Run",
+                    "type": "Button",
+                    "id": "baa5f1b1-6844-4cec-bbd6-80ce3bae7d33",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 }
@@ -146,6 +154,28 @@
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "MousePos",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "756877bf-1f61-4951-9b48-3285641ecf74",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Run",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bdfde898-e553-42fb-bcb5-69b706959eb7",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Run",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
