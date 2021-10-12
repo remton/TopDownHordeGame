@@ -29,6 +29,10 @@ public class PlayerMovement : MonoBehaviour
     // If mouse input was detected this is true if gamepad this is false
     private bool useMouseToLook;
 
+    // THis is used by other scripts to access what direction the player is looking
+    private Vector2 currentLookDir;
+    public Vector2 GetCurrentLookDir() { return currentLookDir; }
+
     private void Update() {
         if (useMouseToLook)
             LookAtMouse();
@@ -80,6 +84,7 @@ public class PlayerMovement : MonoBehaviour
     private void LookInDir(Vector2 lookDir2D) {
         Vector3 lookDir3D = new Vector3(lookDir2D.x, lookDir2D.y, transform.position.z);
         transform.right = lookDir3D;
+        currentLookDir = lookDir2D;
     }
 
     // Faces player towards the mousePos vector
