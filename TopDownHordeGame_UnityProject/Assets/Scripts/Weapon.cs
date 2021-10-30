@@ -53,5 +53,4 @@ public class Weapon : MonoBehaviour
         inMag--;
         Debug.Log(name + ": " + inMag.ToString() + " / " + inReserve.ToString());
     }
-
 }
