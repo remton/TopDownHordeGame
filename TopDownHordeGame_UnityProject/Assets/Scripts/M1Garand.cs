@@ -18,13 +18,21 @@ public class M1Garand : Weapon
             trail.CreateTrailDir(startPos, direction);
         }
 
-
-        RaycastHit2D hitInfo = Physics2D.Raycast(player.transform.position, direction, Mathf.Infinity, LayerMask.GetMask("Zombie"));
-        if (hitInfo) {
-            GameObject zombieHit = hitInfo.transform.gameObject;
+        RaycastHit2D[] hitInfos = Physics2D.RaycastAll(player.transform.position, direction, Mathf.Infinity, LayerMask.GetMask("Zombie"));
+        int loopLimit = (penatration < hitInfos.Length) ? penatration : hitInfos.Length; // minimum of penatration or number of hits
+        for (int i = 0; i < loopLimit; i++) {
+            GameObject zombieHit = hitInfos[i].transform.gameObject;
             if (zombieHit.CompareTag("Zombie")) {
                 zombieHit.GetComponent<ZombieHealth>().Damage(damage);
             }
         }
+
+        //RaycastHit2D hitInfo = Physics2D.Raycast(player.transform.position, direction, Mathf.Infinity, LayerMask.GetMask("Zombie"));
+        //if (hitInfo) {
+        //    GameObject zombieHit = hitInfo.transform.gameObject;
+        //    if (zombieHit.CompareTag("Zombie")) {
+        //        zombieHit.GetComponent<ZombieHealth>().Damage(damage);
+        //    }
+        //}
     }
 }

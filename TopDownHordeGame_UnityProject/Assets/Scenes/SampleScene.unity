@@ -1796,6 +1796,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6429082733309257626, guid: 5b052c79d1303c04396797d03783426e, type: 3}
+      propertyPath: penatration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6429082733309257626, guid: 5b052c79d1303c04396797d03783426e, type: 3}
       propertyPath: reserveSize
       value: 100
       objectReference: {fileID: 0}
@@ -1850,6 +1854,10 @@ PrefabInstance:
     - target: {fileID: 7851220935407024695, guid: 5b052c79d1303c04396797d03783426e, type: 3}
       propertyPath: duration
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7851220935407024695, guid: 5b052c79d1303c04396797d03783426e, type: 3}
+      propertyPath: maxDistance
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7851220935407024695, guid: 5b052c79d1303c04396797d03783426e, type: 3}
       propertyPath: trailObjPrefab

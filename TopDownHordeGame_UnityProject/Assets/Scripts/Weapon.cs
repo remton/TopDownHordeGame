@@ -9,6 +9,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private float swapTime;   // time to switch to this weapon (handled in playerWeaponControl)
     [SerializeField] private float movePenalty; // subtractive penalty to movespeed when equipped (handled in playerWeaponControl)
 
+    [SerializeField] protected int penatration; // number of zombies able to be hit by one bullet. (Should be at least 1)
     [SerializeField] protected int damage;        // damage per bullet
     [SerializeField] protected int magSize;       // size of this weapons magazine
     [SerializeField] protected int reserveSize;   // max ammo that can be held with this weapon
