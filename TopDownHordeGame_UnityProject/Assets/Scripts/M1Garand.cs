@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class M1Garand : Weapon
 {
-    public FireEffectController trail;
+    public FireEffectController effectController;
     public override void Fire(GameObject player, Vector2 direction) {
         base.Fire(player, direction);
         RaycastHit2D effectRay = Physics2D.Raycast(player.transform.position, direction, Mathf.Infinity, LayerMask.GetMask("Wall"));
@@ -12,10 +12,10 @@ public class M1Garand : Weapon
         if (effectRay) {
             Vector2 hitPoint = effectRay.point;
             Vector2 endPos = new Vector3(hitPoint.x, hitPoint.y, 0);
-            trail.CreateTrail(startPos, endPos);
+            effectController.CreateTrail(startPos, endPos);
         }
         else {
-            trail.CreateTrailDir(startPos, direction);
+            effectController.CreateTrailDir(startPos, direction);
         }
 
         RaycastHit2D[] hitInfos = Physics2D.RaycastAll(player.transform.position, direction, Mathf.Infinity, LayerMask.GetMask("Zombie"));

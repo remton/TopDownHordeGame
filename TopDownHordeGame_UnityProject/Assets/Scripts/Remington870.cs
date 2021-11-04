@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Remington870 : Weapon
 {
-    public FireEffectController trail;
+    public FireEffectController effectController;
     public int pelletCount;
     public float spreadAngle;
 
@@ -14,10 +14,10 @@ public class Remington870 : Weapon
         if (effectRay) {
             Vector2 hitPoint = effectRay.point;
             Vector2 endPos = new Vector3(hitPoint.x, hitPoint.y, 0);
-            trail.CreateTrail(startPos, endPos);
+            effectController.CreateTrail(startPos, endPos);
         }
         else {
-            trail.CreateTrailDir(startPos, direction);
+            effectController.CreateTrailDir(startPos, direction);
         }
 
         RaycastHit2D[] hitInfos = Physics2D.RaycastAll(player.transform.position, direction, Mathf.Infinity, LayerMask.GetMask("Zombie"));
