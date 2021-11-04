@@ -9,11 +9,11 @@ public class Weapon : MonoBehaviour
     [SerializeField] private float swapTime;   // time to switch to this weapon (handled in playerWeaponControl)
     [SerializeField] private float movePenalty; // subtractive penalty to movespeed when equipped (handled in playerWeaponControl)
 
-    [SerializeField] private int damage;        // damage per bullet
-    [SerializeField] private int magSize;       // size of this weapons magazine
-    [SerializeField] private int reserveSize;   // max ammo that can be held with this weapon
-    private int inMag = 0; // bullets in magazine
-    private int inReserve = 0; // bullets in reserve
+    [SerializeField] protected int damage;        // damage per bullet
+    [SerializeField] protected int magSize;       // size of this weapons magazine
+    [SerializeField] protected int reserveSize;   // max ammo that can be held with this weapon
+    protected int inMag = 0; // bullets in magazine
+    protected int inReserve = 0; // bullets in reserve
 
     public float GetReloadTime() { return reloadTime; }
     public float GetFireDeley() { return fireDeley; }
