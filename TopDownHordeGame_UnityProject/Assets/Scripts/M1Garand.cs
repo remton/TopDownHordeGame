@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class M1Garand : Weapon
 {
-    public BulletTrail trail;
+    public FireEffectController trail;
     public override void Fire(GameObject player, Vector2 direction) {
         base.Fire(player, direction);
         RaycastHit2D effectRay = Physics2D.Raycast(player.transform.position, direction, Mathf.Infinity, LayerMask.GetMask("Wall"));
@@ -19,10 +19,12 @@ public class M1Garand : Weapon
         }
 
 
-        RaycastHit2D damageRay = Physics2D.Raycast(player.transform.position, direction, Mathf.Infinity, LayerMask.GetMask("Zombie"));
-        GameObject zombieHit = damageRay.transform.gameObject;
-        if (zombieHit.CompareTag("Zombie")) {
-            zombieHit.GetComponent<ZombieHealth>().Damage(damage);
+        RaycastHit2D hitInfo = Physics2D.Raycast(player.transform.position, direction, Mathf.Infinity, LayerMask.GetMask("Zombie"));
+        if (hitInfo) {
+            GameObject zombieHit = hitInfo.transform.gameObject;
+            if (zombieHit.CompareTag("Zombie")) {
+                zombieHit.GetComponent<ZombieHealth>().Damage(damage);
+            }
         }
     }
 }

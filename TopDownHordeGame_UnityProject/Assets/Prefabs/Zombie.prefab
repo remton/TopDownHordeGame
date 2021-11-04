@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6956723953377203762}
   - component: {fileID: 6956723953377203766}
   - component: {fileID: 6956723953377203761}
+  - component: {fileID: -2455652057355692573}
   m_Layer: 7
   m_Name: Zombie
   m_TagString: Zombie
@@ -168,3 +169,16 @@ MonoBehaviour:
   lungeTime: 0.15
   damage: 1
   lungeSpeed: 6
+--- !u!114 &-2455652057355692573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6956723953377203767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57777ccf48295b345939986a9c4f6b7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 10
