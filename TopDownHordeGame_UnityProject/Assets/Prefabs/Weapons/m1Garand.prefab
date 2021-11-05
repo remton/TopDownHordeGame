@@ -94,7 +94,8 @@ MonoBehaviour:
   fireDeley: 1
   swapTime: 1
   movePenalty: 1
+  penatration: 0
   damage: 1
   magSize: 10
   reserveSize: 100
-  trail: {fileID: 0}
+  effectController: {fileID: 7851220935407024695}

@@ -52,7 +52,7 @@ MonoBehaviour:
   damage: 2
   magSize: 5
   reserveSize: 50
-  trail: {fileID: 280554672184955303}
+  effectController: {fileID: 280554672184955303}
   pelletCount: 5
   spreadAngle: 35
 --- !u!1 &280554672184955302

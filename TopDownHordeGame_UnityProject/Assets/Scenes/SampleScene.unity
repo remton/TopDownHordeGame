@@ -1173,6 +1173,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 535fcab7145b2de4c93abf1cdc9385da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1265401410 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 280554672184955303, guid: b623ab2bb0daa0944951ca52c3be8b67, type: 3}
+  m_PrefabInstance: {fileID: 280554671308439478}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14961e36a52fb9046828cf5baf6ae0d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1419287169
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1757,6 +1768,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Remington870
       objectReference: {fileID: 0}
+    - target: {fileID: 280554671962952437, guid: b623ab2bb0daa0944951ca52c3be8b67, type: 3}
+      propertyPath: effectController
+      value: 
+      objectReference: {fileID: 1265401410}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b623ab2bb0daa0944951ca52c3be8b67, type: 3}
 --- !u!1001 &6429082733564588798
@@ -1878,6 +1893,10 @@ PrefabInstance:
       propertyPath: reserveSize
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 6429082733309257626, guid: 5b052c79d1303c04396797d03783426e, type: 3}
+      propertyPath: effectController
+      value: 
+      objectReference: {fileID: 568659058}
     - target: {fileID: 6429082733309257627, guid: 5b052c79d1303c04396797d03783426e, type: 3}
       propertyPath: m_RootOrder
       value: 0
