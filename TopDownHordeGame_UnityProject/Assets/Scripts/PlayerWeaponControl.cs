@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
 
 //TODO:
@@ -17,7 +18,9 @@ public class PlayerWeaponControl : MonoBehaviour
     private void Start() {
         foreach (Weapon weapon in weapons) {
             weapon.AddReserveAmmo(int.MaxValue);
+            weapon.Reload();
         }
+        if (EventAmmoChanged != null) EventAmmoChanged.Invoke(weapons[equippedIndex].GetInMag(), weapons[equippedIndex].GetInReserve());
     }
 
     [SerializeField] private List<Weapon> weapons;
@@ -38,13 +41,18 @@ public class PlayerWeaponControl : MonoBehaviour
         return next;
     }
 
+    public delegate void AmmoChanged(int mag, int reserve);
+    public event AmmoChanged EventAmmoChanged;
+    //Whenever ammo is changed add this code:
+    //if (EventAmmoChanged != null) EventAmmoChanged.Invoke(weapons[equippedIndex].GetInMag(), weapons[equippedIndex].GetInReserve());
+
+
     // Swap Weapon control
     /// <summary> called when swap weapon button is pressed</summary>
     public void OnSwapWeapon(InputAction.CallbackContext context) {
         // Make sure this input is pressing down, not pulling off
         if (context.action.triggered == true)
             StartSwapWeapon();
-
     }
     private void StartSwapWeapon() {
         if (isReloading)
@@ -63,6 +71,7 @@ public class PlayerWeaponControl : MonoBehaviour
     private void Swap() {
         Debug.Log("Swapped!");
         equippedIndex = NextWeaponIndex();
+        if (EventAmmoChanged != null) EventAmmoChanged.Invoke(weapons[equippedIndex].GetInMag(), weapons[equippedIndex].GetInReserve());
     }
     private void CancelSwap() {
         isSwapping = false;
@@ -98,6 +107,7 @@ public class PlayerWeaponControl : MonoBehaviour
     private void Reload() {
         Debug.Log("Reloaded!");
         weapons[equippedIndex].Reload();
+        if (EventAmmoChanged != null) EventAmmoChanged.Invoke(weapons[equippedIndex].GetInMag(), weapons[equippedIndex].GetInReserve());
     }
     private void CancelReload() {
         isReloading = false;
@@ -143,6 +153,7 @@ public class PlayerWeaponControl : MonoBehaviour
             return;
         }
         weapons[equippedIndex].Fire(gameObject, playerMovement.GetCurrentLookDir());
+        if (EventAmmoChanged != null) EventAmmoChanged.Invoke(weapons[equippedIndex].GetInMag(), weapons[equippedIndex].GetInReserve());
     }
     private void CancelShoot() {
         shootButtonDown = false;

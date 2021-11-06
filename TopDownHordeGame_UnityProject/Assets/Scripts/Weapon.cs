@@ -16,6 +16,9 @@ public class Weapon : MonoBehaviour
     protected int inMag = 0; // bullets in magazine
     protected int inReserve = 0; // bullets in reserve
 
+    public int GetInMag() { return inMag; }
+    public int GetInReserve() { return inReserve; }
+
     public float GetReloadTime() { return reloadTime; }
     public float GetFireDeley() { return fireDeley; }
     public float GetSwapTime() { return swapTime; }
