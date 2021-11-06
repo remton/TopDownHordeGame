@@ -10,9 +10,7 @@ public class HitBoxController : MonoBehaviour {
     public void SetActive(bool b) { active = b; }
     public bool GetActive() { return active; }
 
-    /// <summary>
-    /// Calls EventObjEnter for every obj already in the hitbox
-    /// </summary>
+    /// <summary>Calls EventObjEnter for every obj already in the hitbox that has an active tag</summary>
     public void ForceEntry() {
         foreach (GameObject obj in objsInBox) {
             if(Utilities.CompareTags(obj, activeTags))
