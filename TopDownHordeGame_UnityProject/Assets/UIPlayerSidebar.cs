@@ -32,12 +32,14 @@ public class UIPlayerSidebar : MonoBehaviour
         player = newPlayer;
         player.GetComponent<PlayerWeaponControl>().EventAmmoChanged += UpdateAmmoTxt;
         player.GetComponent<PlayerHealth>().EventHealthChanged += UpdateHealthTxt;
+        player.GetComponent<PlayerStats>().EventBankChange += UpdateBankTxt;
     }
     //Removes this objects methods from the events linked to its player
     public void DetachCurrentPlayer() {
         if(player != null) {
             player.GetComponent<PlayerWeaponControl>().EventAmmoChanged -= UpdateAmmoTxt;
             player.GetComponent<PlayerHealth>().EventHealthChanged -= UpdateHealthTxt;
+            player.GetComponent<PlayerStats>().EventBankChange -= UpdateBankTxt;
         }
     }
 

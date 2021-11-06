@@ -7,6 +7,10 @@ public class ZombieHealth : MonoBehaviour
     [SerializeField] private int maxHealth;
     private int health;
 
+    public bool isDead() {
+        return health <= 0;
+    }
+
     private void Start() {
         health = maxHealth;
     }

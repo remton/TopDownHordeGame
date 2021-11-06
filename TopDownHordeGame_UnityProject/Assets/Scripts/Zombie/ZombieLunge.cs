@@ -16,7 +16,6 @@ public class ZombieLunge : MonoBehaviour
     //[SerializeField] private float hitboxDist; // distance of the hitbox of this attack
 
     private bool isLunging = false;
-    private bool attackHit = false;
     private bool isWaitingToLunge = false;
     private Vector2 dir;
     private Vector2 targetPos;

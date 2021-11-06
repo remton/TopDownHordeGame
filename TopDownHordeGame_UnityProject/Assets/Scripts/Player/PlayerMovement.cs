@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public float walkSpeed;
     public float runSpeed;
 
-    [SerializeField] private Camera camera;
+    [SerializeField] private Camera mainCamera;
     [SerializeField] private Rigidbody2D rb;
 
     private bool doMovement = true;
@@ -62,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
     public void OnMousePos(InputAction.CallbackContext context) {
         useMouseToLook = true;
         Vector2 mouseScreenPos = context.ReadValue<Vector2>();
-        mousePos = camera.ScreenToWorldPoint(mouseScreenPos);
+        mousePos = mainCamera.ScreenToWorldPoint(mouseScreenPos);
         LookAtMouse();
     }
 
