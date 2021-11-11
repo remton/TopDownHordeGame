@@ -46,6 +46,7 @@ public class ZombieAI : MonoBehaviour
             else
             {
                 window.GetComponent<Window>().MoveToInside(gameObject);
+                inside = true;
             }
         }
          else if (!lungeOnCooldown && Vector2.Distance(playerToFollow.transform.position, transform.position) <= playerDistForLunge) {
