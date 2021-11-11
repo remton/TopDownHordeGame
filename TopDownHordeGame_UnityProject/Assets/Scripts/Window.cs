@@ -6,7 +6,7 @@ public class Window : MonoBehaviour
 {
     [SerializeField] GameObject insideNode;
 
-    private int health;
+    [SerializeField] private int health;
     private bool isOpen = false;
     public void Damage(int d) {
         if (health <= 0)

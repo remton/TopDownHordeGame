@@ -6,7 +6,6 @@ using UnityEngine.Events;
 public class ZombieWindowAttack : MonoBehaviour
 {
     [SerializeField] private float waitTime;
-    [SerializeField] private float windowAttackTime;
 
     private int damage = 1;
     private bool isWaitingToAttack = false;
