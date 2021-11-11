@@ -41,7 +41,7 @@ public class ZombieAI : MonoBehaviour
         {
             if (!window.GetComponent<Window>().GetIsOpen())
             {
-                windowAttack.WindowAttack(window); 
+                windowAttack.WindowAttack(window.GetComponent<Window>()); 
             }
             else
             {
