@@ -27,8 +27,7 @@ public class ZombieAI : MonoBehaviour
     private bool inside = false; // ERIC TEST
     [SerializeField] private GameObject window;
     [SerializeField] private float windowAttackDistance; 
-    private void SetWindow; 
-
+    
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
         zombieLunge = GetComponent<ZombieLunge>();
@@ -94,6 +93,10 @@ public class ZombieAI : MonoBehaviour
         isLunging = false;
         lungeOnCooldown = true;
         timeUntilLungeCooldown = lungeCooldown;
+    }
+
+    public void SetWindow(GameObject newWindow) {
+
     }
 
 }
