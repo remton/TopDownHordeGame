@@ -12,6 +12,7 @@ public class ZombieAI : MonoBehaviour
 
     private Rigidbody2D rb;
     private ZombieLunge zombieLunge;
+    private ZombieWindowAttack windowAttack;
 
     // Position to move to
     private Vector2 targetPos;
@@ -31,20 +32,20 @@ public class ZombieAI : MonoBehaviour
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
         zombieLunge = GetComponent<ZombieLunge>();
-        
+        windowAttack = GetComponent<ZombieWindowAttack>();
     }
 
     private void Update() {
         LookToDir(moveDir);
         if (!inside && Vector2.Distance(window.transform.position, transform.position) <= windowAttackDistance )
         {
-            if (!window.GetIsOpen())
+            if (!window.GetComponent<Window>().GetIsOpen())
             {
-            zomnbieWindowAttack.Attack(window); 
+                windowAttack.WindowAttack(window); 
             }
             else
             {
-                window.MoveToInside();
+                window.GetComponent<Window>().MoveToInside(gameObject);
             }
         }
          else if (!lungeOnCooldown && Vector2.Distance(playerToFollow.transform.position, transform.position) <= playerDistForLunge) {
