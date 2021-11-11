@@ -11,10 +11,11 @@ public class ZombieWindowAttack : MonoBehaviour
     private int damage = 1;
     private bool isWaitingToAttack = false;
     private float timeUntilWaitOver;
+    private Window myWindow;
 
-    private void Damage(GameObject window)
+    private void Damage()
     {
-        window.GetComponent<Window>().Damage(damage);
+        myWindow.GetComponent<Window>().Damage(damage);
     }
 
     public void WindowAttack(Window window)
@@ -45,6 +46,6 @@ public class ZombieWindowAttack : MonoBehaviour
     private void WaitOver()
     {
         isWaitingToAttack= false;
-        Damage(myWindow);
+        Damage();
     }
 }
