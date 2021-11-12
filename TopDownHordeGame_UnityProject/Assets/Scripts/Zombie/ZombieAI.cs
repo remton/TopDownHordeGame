@@ -9,7 +9,6 @@ public class ZombieAI : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float damage;
 
-
     private Rigidbody2D rb;
     private ZombieLunge zombieLunge;
     private ZombieWindowAttack windowAttack;
@@ -25,7 +24,9 @@ public class ZombieAI : MonoBehaviour
 
     private bool lungeOnCooldown;
     private float timeUntilLungeCooldown;
-    private bool inside = false; // ERIC TEST
+    
+    [SerializeField] private bool inside; // If false this zombie will path to the closest window
+
     [SerializeField] private GameObject window;
     [SerializeField] private float windowAttackDistance; 
     

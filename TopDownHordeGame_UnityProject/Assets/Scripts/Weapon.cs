@@ -60,7 +60,7 @@ public class Weapon : MonoBehaviour
     }
 
     protected void FireShot(GameObject player, Vector2 direction) {
-        RaycastHit2D effectRay = Physics2D.Raycast(player.transform.position, direction, Mathf.Infinity, LayerMask.GetMask("Wall"));
+        RaycastHit2D effectRay = Physics2D.Raycast(player.transform.position, direction, Mathf.Infinity, LayerMask.GetMask("BulletCollider"));
         Vector2 startPos = new Vector3(player.transform.position.x, player.transform.position.y, 0);
         if (effectRay) {
             Vector2 hitPoint = effectRay.point;
