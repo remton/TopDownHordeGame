@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour
-{
+public class PlayerHealth : MonoBehaviour {
     public int maxHealth;
     public float bleedOutTime;
     private int health;
@@ -11,8 +10,13 @@ public class PlayerHealth : MonoBehaviour
     private bool isBleedingOut;
     private bool isDead = false;
 
+    public delegate void HealthChanged(int health, int max);
+    public event HealthChanged EventHealthChanged;
+    //if(EventHealthChanged != null){EventHealthChanged.Invoke(health, maxHealth); }
+
     private void Start() {
         health = maxHealth;
+        if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
     }
 
     private void Update() {
@@ -33,6 +37,7 @@ public class PlayerHealth : MonoBehaviour
         if (newHealth > maxHealth)
             newHealth = maxHealth;
         health = newHealth;
+        if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
     }
 
     public void Damage(int damageAmount) {
@@ -45,12 +50,14 @@ public class PlayerHealth : MonoBehaviour
             newHealth = 0;
         }
         health = newHealth;
+        if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
     }
 
     public void Revive() {
         isBleedingOut = false;
         health = maxHealth;
         Debug.Log("Revived!");
+        if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
     }
 
     private void GoDown() {

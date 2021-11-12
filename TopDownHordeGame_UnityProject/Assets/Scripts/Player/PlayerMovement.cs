@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public float walkSpeed;
     public float runSpeed;
 
-    [SerializeField] private Camera camera;
+    [SerializeField] private Camera mainCamera;
     [SerializeField] private Rigidbody2D rb;
 
     private bool doMovement = true;
@@ -28,6 +28,10 @@ public class PlayerMovement : MonoBehaviour
 
     // If mouse input was detected this is true if gamepad this is false
     private bool useMouseToLook;
+
+    // THis is used by other scripts to access what direction the player is looking
+    private Vector2 currentLookDir;
+    public Vector2 GetCurrentLookDir() { return currentLookDir; }
 
     private void Update() {
         if (useMouseToLook)
@@ -58,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
     public void OnMousePos(InputAction.CallbackContext context) {
         useMouseToLook = true;
         Vector2 mouseScreenPos = context.ReadValue<Vector2>();
-        mousePos = camera.ScreenToWorldPoint(mouseScreenPos);
+        mousePos = mainCamera.ScreenToWorldPoint(mouseScreenPos);
         LookAtMouse();
     }
 
@@ -80,6 +84,7 @@ public class PlayerMovement : MonoBehaviour
     private void LookInDir(Vector2 lookDir2D) {
         Vector3 lookDir3D = new Vector3(lookDir2D.x, lookDir2D.y, transform.position.z);
         transform.right = lookDir3D;
+        currentLookDir = lookDir2D;
     }
 
     // Faces player towards the mousePos vector
