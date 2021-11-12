@@ -9,8 +9,10 @@ public class ZombieAI : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float damage;
 
+
     private Rigidbody2D rb;
     private ZombieLunge zombieLunge;
+    private ZombieWindowAttack windowAttack;
 
     // Position to move to
     private Vector2 targetPos;
@@ -23,15 +25,31 @@ public class ZombieAI : MonoBehaviour
 
     private bool lungeOnCooldown;
     private float timeUntilLungeCooldown;
-
-    private void Start() {
+    private bool inside = false; // ERIC TEST
+    [SerializeField] private GameObject window;
+    [SerializeField] private float windowAttackDistance; 
+    
+    private void Awake() {
         rb = GetComponent<Rigidbody2D>();
         zombieLunge = GetComponent<ZombieLunge>();
+        windowAttack = GetComponent<ZombieWindowAttack>();
     }
 
     private void Update() {
         LookToDir(moveDir);
-        if(!lungeOnCooldown && Vector2.Distance(playerToFollow.transform.position, transform.position) <= playerDistForLunge) {
+        if (!inside && Vector2.Distance(window.transform.position, transform.position) <= windowAttackDistance )
+        {
+            if (!window.GetComponent<Window>().GetIsOpen())
+            {
+                windowAttack.WindowAttack(window.GetComponent<Window>()); 
+            }
+            else
+            {
+                window.GetComponent<Window>().MoveToInside(gameObject);
+                inside = true;
+            }
+        }
+         else if (!lungeOnCooldown && Vector2.Distance(playerToFollow.transform.position, transform.position) <= playerDistForLunge) {
             zombieLunge.Lunge(moveDir);
             isLunging = true;
         }
@@ -46,8 +64,15 @@ public class ZombieAI : MonoBehaviour
 
     //called after every frame
     private void FixedUpdate() {
-        if(!isLunging)
-            MoveTowards(playerToFollow.transform.position);
+        if (!isLunging)
+            if (inside)
+            {
+                MoveTowards(playerToFollow.transform.position);
+            }
+            else
+            {
+                MoveTowards(window.transform.position);
+            }
     }
 
     // Faces zombie in the given direction
@@ -70,6 +95,10 @@ public class ZombieAI : MonoBehaviour
         isLunging = false;
         lungeOnCooldown = true;
         timeUntilLungeCooldown = lungeCooldown;
+    }
+
+    public void SetWindow(GameObject newWindow) {
+
     }
 
 }

@@ -12,8 +12,6 @@ public class ZombieLunge : MonoBehaviour
 
     [SerializeField] private int damage;
     [SerializeField] private float lungeSpeed;
-    //[SerializeField] private Vector2 hitboxSize; // size of the hitbox width + height of this attack
-    //[SerializeField] private float hitboxDist; // distance of the hitbox of this attack
 
     private bool isLunging = false;
     private bool isWaitingToLunge = false;
@@ -25,7 +23,7 @@ public class ZombieLunge : MonoBehaviour
     private ZombieAI AI;
     private Rigidbody2D rb;
 
-    private void Start() {
+    private void Awake() {
         AI = GetComponent<ZombieAI>();
         rb = GetComponent<Rigidbody2D>();
         hitBox.SetActive(false);
