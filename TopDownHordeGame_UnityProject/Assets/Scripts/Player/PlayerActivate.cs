@@ -9,7 +9,7 @@ public class PlayerActivate : MonoBehaviour
     public event Activate EventPlayerActivate;
 
     public void OnActivateButton(InputAction.CallbackContext context) {
-        if (context.action.triggered && EventPlayerActivate != null) { }
+        if (context.action.triggered && EventPlayerActivate != null)
             EventPlayerActivate.Invoke();
     }
 
