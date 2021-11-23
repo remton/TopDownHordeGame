@@ -87,7 +87,6 @@ GameObject:
   - component: {fileID: 6956723953377203766}
   - component: {fileID: 6956723953377203761}
   - component: {fileID: -2455652057355692573}
-  - component: {fileID: 1753227149290513955}
   m_Layer: 7
   m_Name: Zombie
   m_TagString: Zombie
@@ -222,12 +221,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerToFollow: {fileID: 0}
-  moveSpeed: 1.5
+  speed: 0
   damage: 1
   playerDistForLunge: 1.15
   lungeCooldown: 0.5
-  window: {fileID: 0}
-  windowAttackDistance: 1.2
 --- !u!114 &6956723953377203761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,17 +255,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57777ccf48295b345939986a9c4f6b7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
---- !u!114 &1753227149290513955
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6956723953377203767}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13b14d8b536256a44a278dc6895fa64d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waitTime: 0.5

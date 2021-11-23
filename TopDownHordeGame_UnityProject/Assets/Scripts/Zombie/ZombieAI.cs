@@ -6,12 +6,11 @@ public class ZombieAI : MonoBehaviour
 {
     public GameObject playerToFollow;
 
-    [SerializeField] private float moveSpeed;
-    [SerializeField] private float damage;
+    private float speed;
+    private float damage;
 
     private Rigidbody2D rb;
     private ZombieLunge zombieLunge;
-    private ZombieWindowAttack windowAttack;
 
     // Position to move to
     private Vector2 targetPos;
@@ -24,33 +23,23 @@ public class ZombieAI : MonoBehaviour
 
     private bool lungeOnCooldown;
     private float timeUntilLungeCooldown;
-    
-    [SerializeField] private bool inside; // If false this zombie will path to the closest window
 
-    [SerializeField] private GameObject window;
-    [SerializeField] private float windowAttackDistance; 
-    
+    public void SetValues(int newHealth, float newSpeed, int newDamage) {
+        GetComponent<ZombieHealth>().SetMaxHealth(newHealth);
+        speed = newSpeed;
+        damage = newDamage;
+    }
+
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
         zombieLunge = GetComponent<ZombieLunge>();
-        windowAttack = GetComponent<ZombieWindowAttack>();
+        //TODO: Find closest player instead of using FindObjectWithTag
+        playerToFollow = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void Update() {
         LookToDir(moveDir);
-        if (!inside && Vector2.Distance(window.transform.position, transform.position) <= windowAttackDistance )
-        {
-            if (!window.GetComponent<Window>().GetIsOpen())
-            {
-                windowAttack.WindowAttack(window.GetComponent<Window>()); 
-            }
-            else
-            {
-                window.GetComponent<Window>().MoveToInside(gameObject);
-                inside = true;
-            }
-        }
-         else if (!lungeOnCooldown && Vector2.Distance(playerToFollow.transform.position, transform.position) <= playerDistForLunge) {
+        if (!lungeOnCooldown && Vector2.Distance(playerToFollow.transform.position, transform.position) <= playerDistForLunge) {
             zombieLunge.Lunge(moveDir);
             isLunging = true;
         }
@@ -66,14 +55,7 @@ public class ZombieAI : MonoBehaviour
     //called after every frame
     private void FixedUpdate() {
         if (!isLunging)
-            if (inside)
-            {
-                MoveTowards(playerToFollow.transform.position);
-            }
-            else
-            {
-                MoveTowards(window.transform.position);
-            }
+            MoveTowards(playerToFollow.transform.position);
     }
 
     // Faces zombie in the given direction
@@ -88,7 +70,7 @@ public class ZombieAI : MonoBehaviour
         moveDir = targetPos - transform.position;
         moveDir.Normalize();
         Vector2 newPos = transform.position;
-        newPos += moveDir * moveSpeed * Time.fixedDeltaTime;
+        newPos += moveDir * speed * Time.fixedDeltaTime;
         rb.MovePosition(newPos);
     }
 
@@ -97,9 +79,4 @@ public class ZombieAI : MonoBehaviour
         lungeOnCooldown = true;
         timeUntilLungeCooldown = lungeCooldown;
     }
-
-    public void SetWindow(GameObject newWindow) {
-
-    }
-
 }
