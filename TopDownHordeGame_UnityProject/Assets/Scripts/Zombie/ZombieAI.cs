@@ -39,7 +39,7 @@ public class ZombieAI : MonoBehaviour
 
     private void Update() {
         LookToDir(moveDir);
-        if (!lungeOnCooldown && Vector2.Distance(playerToFollow.transform.position, transform.position) <= playerDistForLunge) {
+        if (playerToFollow!=null && !lungeOnCooldown && Vector2.Distance(playerToFollow.transform.position, transform.position) <= playerDistForLunge) {
             zombieLunge.Lunge(moveDir);
             isLunging = true;
         }
@@ -54,7 +54,7 @@ public class ZombieAI : MonoBehaviour
 
     //called after every frame
     private void FixedUpdate() {
-        if (!isLunging)
+        if (playerToFollow != null && !isLunging)
             MoveTowards(playerToFollow.transform.position);
     }
 

@@ -16,8 +16,8 @@ public class PlayerMovement : MonoBehaviour
     public float walkSpeed;
     public float runSpeed;
 
-    [SerializeField] private Camera mainCamera;
     [SerializeField] private Rigidbody2D rb;
+    private Camera mainCamera;
 
     private bool doMovement = true;
 
@@ -32,6 +32,13 @@ public class PlayerMovement : MonoBehaviour
     // THis is used by other scripts to access what direction the player is looking
     private Vector2 currentLookDir;
     public Vector2 GetCurrentLookDir() { return currentLookDir; }
+
+    private void Awake() {
+        mainCamera = Camera.main;   
+        if(mainCamera != null) {
+            Debug.Log("camera  set :(");
+        }
+    }
 
     private void Update() {
         if (useMouseToLook)
@@ -60,9 +67,14 @@ public class PlayerMovement : MonoBehaviour
 
     // called whenever mouse position input event is called (Keyboard inputs only)
     public void OnMousePos(InputAction.CallbackContext context) {
+        if(Camera.main == null) {
+            Debug.Log("Camera gone?! \\o_0/");
+            return;
+        }
+
         useMouseToLook = true;
         Vector2 mouseScreenPos = context.ReadValue<Vector2>();
-        mousePos = mainCamera.ScreenToWorldPoint(mouseScreenPos);
+        mousePos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
         LookAtMouse();
     }
 
