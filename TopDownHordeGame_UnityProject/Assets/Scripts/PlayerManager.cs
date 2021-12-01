@@ -7,6 +7,7 @@ public class PlayerManager : MonoBehaviour
 {
     public GameObject playerPrefab;
     public GameObject spawnPoint;
+    public PlayerSidebarManager sidebarManager;
     private List<GameObject> players = new List<GameObject>();
     private int numPlayers;
 
@@ -24,6 +25,7 @@ public class PlayerManager : MonoBehaviour
             playerObj.transform.position = spawnPoint.transform.position;
             playerObj.GetComponent<PlayerInput>().camera = Camera.main;
             players.Add(playerObj);
+            sidebarManager.AddSidebar(playerObj);
         }
     }
 
