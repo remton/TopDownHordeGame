@@ -13,6 +13,15 @@ public class PlayerManager : MonoBehaviour
 
     public List<GameObject> GetPlayers() { return players; }
 
+    public delegate void OnPlayersChange(List<GameObject> players);
+    public event OnPlayersChange EventPlayersChange;
+
+    public static PlayerManager instance;
+    private void Awake() {
+        if(instance == null) { instance = this; }
+        else { Debug.Log("Two playerManagers active. Destroying one..."); }
+    }
+
     private void Start() {
         CreatePlayers();
     }
@@ -27,11 +36,13 @@ public class PlayerManager : MonoBehaviour
             players.Add(playerObj);
             sidebarManager.AddSidebar(playerObj);
         }
+        if(EventPlayersChange != null) { EventPlayersChange.Invoke(players); }
     }
 
     public void RemovePlayer(int index) {
         GameObject p = players[index];
         players.RemoveAt(index);
         Destroy(p);
+        if (EventPlayersChange != null) { EventPlayersChange.Invoke(players); }
     }
 }

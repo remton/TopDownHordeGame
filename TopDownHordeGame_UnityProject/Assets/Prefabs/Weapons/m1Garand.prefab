@@ -90,12 +90,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb16d19346e4acb4f95bfb87ddb7df84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reloadTime: 1
-  fireDeley: 1
+  reloadTime: 1.2
+  fireDeley: 0.7
   swapTime: 1
   movePenalty: 1
-  penatration: 0
-  damage: 10
+  penatration: 1
+  damage: 5
   magSize: 10
   reserveSize: 100
   effectController: {fileID: 7851220935407024695}
