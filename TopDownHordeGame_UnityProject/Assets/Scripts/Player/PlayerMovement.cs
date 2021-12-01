@@ -37,6 +37,22 @@ public class PlayerMovement : MonoBehaviour
         mainCamera = Camera.main;   
     }
 
+
+    public void OnDeviceChange(InputDevice device, InputDeviceChange deviceChange) {
+        string deviceClass = device.description.deviceClass;
+        if (deviceClass == "keyboard") {
+            Debug.Log("Keyboard configured");
+            useMouseToLook = true;
+        }
+        else if (deviceClass == "gamepad") {
+            Debug.Log("Gamepad configured");
+            useMouseToLook = false;
+        }
+        else {
+            Debug.Log("input calss " + deviceClass + "not recognized");
+        }
+    }
+
     private void Update() {
         if (useMouseToLook)
             LookAtMouse();
@@ -68,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Camera gone?! \\o_0/");
             return;
         }
-
+        
         useMouseToLook = true;
         Vector2 mouseScreenPos = context.ReadValue<Vector2>();
         mousePos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
@@ -77,7 +93,6 @@ public class PlayerMovement : MonoBehaviour
 
     // called whenever a change in look direction input event is called (gamepad inputs only)
     public void OnLook(InputAction.CallbackContext context) {
-
         useMouseToLook = false;
         if (context.ReadValue<Vector2>() == Vector2.zero)
             return;
