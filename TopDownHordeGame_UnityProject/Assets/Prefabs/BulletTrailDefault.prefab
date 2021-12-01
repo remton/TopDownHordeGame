@@ -39,7 +39,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5599144035722061591}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -83,8 +83,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.02277862
-        value: 0.029999383
+        time: 0.009690393
+        value: 0.059235223
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -97,24 +97,24 @@ LineRenderer:
     colorGradient:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 0}
-      key1: {r: 1, g: 0.8705883, b: 0, a: 0.39215687}
-      key2: {r: 1, g: 0.7339252, b: 0, a: 0.8627451}
+      key1: {r: 1, g: 0.8705883, b: 0, a: 0.50980395}
+      key2: {r: 1, g: 0.7339252, b: 0, a: 1}
       key3: {r: 1, g: 0.36676446, b: 0, a: 0.8627451}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 19275
-      ctime2: 50693
-      ctime3: 60331
+      ctime1: 11180
+      ctime2: 47995
+      ctime3: 64764
       ctime4: 0
       ctime5: 0
       ctime6: 0
       ctime7: 0
-      atime0: 7325
-      atime1: 23516
-      atime2: 42020
+      atime0: 4819
+      atime1: 13878
+      atime2: 27949
       atime3: 42020
       atime4: 0
       atime5: 0

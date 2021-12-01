@@ -95,7 +95,7 @@ MonoBehaviour:
   swapTime: 1
   movePenalty: 1
   penatration: 0
-  damage: 1
+  damage: 10
   magSize: 10
   reserveSize: 100
   effectController: {fileID: 7851220935407024695}
