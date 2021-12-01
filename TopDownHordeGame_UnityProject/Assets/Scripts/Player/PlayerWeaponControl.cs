@@ -71,7 +71,7 @@ public class PlayerWeaponControl : MonoBehaviour
     private void Swap() {
         Debug.Log("Swapped!");
         equippedIndex = NextWeaponIndex();
-        if (EventAmmoChanged != null) EventAmmoChanged.Invoke(weapons[equippedIndex].GetInMag(), weapons[equippedIndex].GetInReserve());
+        UpdateVisuals();
     }
     private void CancelSwap() {
         isSwapping = false;
@@ -107,7 +107,7 @@ public class PlayerWeaponControl : MonoBehaviour
     private void Reload() {
         Debug.Log("Reloaded!");
         weapons[equippedIndex].Reload();
-        if (EventAmmoChanged != null) EventAmmoChanged.Invoke(weapons[equippedIndex].GetInMag(), weapons[equippedIndex].GetInReserve());
+        UpdateVisuals();
     }
     private void CancelReload() {
         isReloading = false;
@@ -153,10 +153,32 @@ public class PlayerWeaponControl : MonoBehaviour
             return;
         }
         weapons[equippedIndex].Fire(gameObject, playerMovement.GetCurrentLookDir());
-        if (EventAmmoChanged != null) EventAmmoChanged.Invoke(weapons[equippedIndex].GetInMag(), weapons[equippedIndex].GetInReserve());
+        UpdateVisuals();
     }
     private void CancelShoot() {
         shootButtonDown = false;
+    }
+
+    private void UpdateVisuals() {
+        if (EventAmmoChanged != null) EventAmmoChanged.Invoke(weapons[equippedIndex].GetInMag(), weapons[equippedIndex].GetInReserve());
+    }
+
+    public void PickUpWeapon(GameObject weaponPrefab) {
+        if (isReloading)
+            CancelReload();
+        if (isSwapping)
+            CancelSwap();
+        if (isWaitingToShoot)
+            CancelShoot();
+        Debug.Log("Picked up: " + weaponPrefab.name);
+        GameObject weaponObj = Instantiate(weaponPrefab, transform);
+        Weapon weapon = weaponObj.GetComponent<Weapon>();
+        weapon.AddReserveAmmo(weapon.GetReserveSize());
+        if(weapons[equippedIndex] != null) {
+            Destroy(weapons[equippedIndex].gameObject);
+        }
+        weapons[equippedIndex] = weapon;
+        UpdateVisuals();
     }
 
     private void Update() {

@@ -13,9 +13,12 @@ public class PlayerStats : MonoBehaviour
     public delegate void BankChange(int bank);
     public event BankChange EventBankChange;
 
+    public int GetBank() { return bank; }
+
     private void Start() {
         if (EventBankChange != null) { EventBankChange.Invoke(bank); }
     }
+
 
     public void AddMoney(int amount) {
         bank += amount;

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HitBoxController : MonoBehaviour {
+    [Header("Capital sensative tags")]
     [SerializeField] private List<string> activeTags = new List<string>(); // Events only triggered when an objet with one of these tags is detected
-    private bool active;
+    private bool active = true;
     private List<GameObject> objsInBox = new List<GameObject>();
 
     public void SetActive(bool b) { active = b; }

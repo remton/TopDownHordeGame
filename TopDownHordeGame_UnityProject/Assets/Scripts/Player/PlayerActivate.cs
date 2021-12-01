@@ -5,12 +5,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerActivate : MonoBehaviour
 {
-    public delegate void Activate();
+    public delegate void Activate(GameObject player);
     public event Activate EventPlayerActivate;
 
     public void OnActivateButton(InputAction.CallbackContext context) {
         if (context.action.triggered && EventPlayerActivate != null)
-            EventPlayerActivate.Invoke();
+            EventPlayerActivate.Invoke(gameObject);
     }
 
 }

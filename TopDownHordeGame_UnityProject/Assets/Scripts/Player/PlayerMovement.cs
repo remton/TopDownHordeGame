@@ -35,9 +35,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake() {
         mainCamera = Camera.main;   
-        if(mainCamera != null) {
-            Debug.Log("camera  set :(");
-        }
     }
 
     private void Update() {
