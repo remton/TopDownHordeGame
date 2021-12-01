@@ -7,6 +7,8 @@ public class RoundController : MonoBehaviour
     [SerializeField] private GameObject zombiePrefab;
     [SerializeField] private int round;
 
+    [SerializeField] private RoundDisplay display;
+
     public List<Window> windows;
     public List<GameObject> players;
 
@@ -44,6 +46,7 @@ public class RoundController : MonoBehaviour
         speed = GetSpeed();
         health = GetHealth();
         damage = GetDamage();
+        display.RoundChange(round);
         Debug.Log("Round: " + round.ToString());
     }
 
@@ -89,6 +92,7 @@ public class RoundController : MonoBehaviour
         speed = GetSpeed();
         health = GetHealth();
         damage = GetDamage();
+        display.RoundChange(round);
         Debug.Log("Round: " + round.ToString());
     }
 
