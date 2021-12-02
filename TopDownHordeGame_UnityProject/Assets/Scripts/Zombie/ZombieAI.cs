@@ -1,16 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ZombieAI : MonoBehaviour
 {
-    public GameObject playerToFollow;
+    public GameObject target;
 
-    private float speed;
-    private float damage;
-
-    private Rigidbody2D rb;
     private ZombieLunge zombieLunge;
+    private ZombiePathfind zombiePath;
+    private ZombieHealth zombieHealth;
 
     // Position to move to
     private Vector2 targetPos;
@@ -25,23 +24,32 @@ public class ZombieAI : MonoBehaviour
     private float timeUntilLungeCooldown;
 
     public void SetValues(int newHealth, float newSpeed, int newDamage) {
-        GetComponent<ZombieHealth>().SetMaxHealth(newHealth);
-        speed = newSpeed;
-        damage = newDamage;
+        zombieHealth.SetMaxHealth(newHealth);
+        zombiePath.target = target;
+    }
+
+    private void FindTarget() {
+        target = GameObject.FindGameObjectWithTag("Player");
+        zombiePath.target = target;
     }
 
     private void Awake() {
-        rb = GetComponent<Rigidbody2D>();
         zombieLunge = GetComponent<ZombieLunge>();
-        //TODO: Find closest player instead of using FindObjectWithTag
-        playerToFollow = GameObject.FindGameObjectWithTag("Player");
+        zombiePath = GetComponent<ZombiePathfind>();
+        zombieHealth = GetComponent<ZombieHealth>();
+        FindTarget();
+    }
+
+    private void Start() {
+        zombiePath.SetActive(true);
     }
 
     private void Update() {
-        LookToDir(moveDir);
-        if (playerToFollow!=null && !lungeOnCooldown && Vector2.Distance(playerToFollow.transform.position, transform.position) <= playerDistForLunge) {
+        //zombie lunges
+        if (target!=null && !lungeOnCooldown && Vector2.Distance(target.transform.position, transform.position) <= playerDistForLunge) {
             zombieLunge.Lunge(moveDir);
             isLunging = true;
+            zombiePath.SetActive(false);
         }
 
         //Lunge cooldown management
@@ -52,31 +60,10 @@ public class ZombieAI : MonoBehaviour
         }
     }
 
-    //called after every frame
-    private void FixedUpdate() {
-        if (playerToFollow != null && !isLunging)
-            MoveTowards(playerToFollow.transform.position);
-    }
-
-    // Faces zombie in the given direction
-    private void LookToDir(Vector2 lookDir2D) {
-        Vector3 lookDir3D = new Vector3(lookDir2D.x, lookDir2D.y, transform.position.z);
-        transform.right = lookDir3D;
-    }
-
-    //moves toward the given position
-    //should be called in fixedUpdate
-    private void MoveTowards(Vector3 targetPos) {
-        moveDir = targetPos - transform.position;
-        moveDir.Normalize();
-        Vector2 newPos = transform.position;
-        newPos += moveDir * speed * Time.fixedDeltaTime;
-        rb.MovePosition(newPos);
-    }
-
     public void OnLungeEnd() {
         isLunging = false;
         lungeOnCooldown = true;
         timeUntilLungeCooldown = lungeCooldown;
+        zombiePath.SetActive(true);   
     }
 }
