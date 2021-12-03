@@ -6,13 +6,15 @@ public class PlayerPerkHolder : MonoBehaviour
 {
     private List<Perk> perks;
 
-    public void AddPerk(Perk p) {
-        p.OnPerkGained(this.gameObject);
-        perks.Add(p);
+    public void AddPerk(GameObject perkPrefab) {
+        perkPrefab.GetComponent<Perk>().OnPerkGained(this.gameObject);
+        GameObject perkObj = Instantiate(perkPrefab, transform);
+        perks.Add(perkObj.GetComponent<Perk>());
     }
     public void RemoveAllPerks() {
         for (int i = 0; i < perks.Count; i++) {
-            perks[i].OnPerkLost(this.gameObject);
+            perks[i].GetComponent<Perk>().OnPerkLost(this.gameObject);
+            Destroy(perks[i].gameObject);
         }
         perks.Clear();
     }

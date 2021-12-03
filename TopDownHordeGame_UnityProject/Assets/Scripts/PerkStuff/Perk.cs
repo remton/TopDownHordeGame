@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Perk : MonoBehaviour
 {
-    public int cost;
 
     //This is where the perk activates. Maybe it changes a stat value, maybe it subsribes to an event.
     public virtual void OnPerkGained(GameObject player) {
