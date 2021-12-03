@@ -23,6 +23,7 @@ public class RoundController : MonoBehaviour
     float timeUntilNextSpawn;
 
     int maxZombies;
+    public int maxActiveZombies;
     float speed;
     int health;
     int damage;
@@ -65,7 +66,7 @@ public class RoundController : MonoBehaviour
         //Zombie Spawning
         if (!isWaitingForNextRound) {
             if(timeUntilNextSpawn <= 0) {
-                if (numberActiveZombies < maxZombies) {
+                if (zombiesSpawnedThisRound < maxZombies && numberActiveZombies < maxActiveZombies) {
                     timeUntilNextSpawn = spawnDeley;
                     int i = Mathf.RoundToInt(Random.Range(0, (windows.Count)));
                     windows[i].AddZombiesToQueue(1); // the window handles spawning the zombie
@@ -98,8 +99,10 @@ public class RoundController : MonoBehaviour
 
     private int GetMaxZombies() {
         if (round > 15)
-            round = 15;
-        return 5 + 8 * round;
+            return 5 + 8 * 15;
+        else {
+            return 5 + 8 * round;
+        }
     }
 
     //Returns how many zombies per second to spawn
@@ -109,8 +112,11 @@ public class RoundController : MonoBehaviour
 
     private float GetSpeed() {
         if (round > 10)
-            round = 10;
-        return 0.7f + (3f/10f) * round;
+            return 0.7f + (3f/10f) * 10;
+        else
+        {
+            return (.7f + (3f / 10f) * round);
+        }
     }
     private int GetHealth() {
         return Mathf.FloorToInt(Mathf.Sqrt(80f * round)) - 3;
