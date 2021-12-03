@@ -5,6 +5,9 @@ using UnityEngine.Tilemaps;
 
 public class Window : MonoBehaviour
 {
+    //used and set by roundcontroller to determine which windows are active
+    [HideInInspector] public bool isActive;
+
     [SerializeField] private float breakDelay; // the delay in seconds between each zombie hit to the window health
     private float timeUntilNextBreak; 
 

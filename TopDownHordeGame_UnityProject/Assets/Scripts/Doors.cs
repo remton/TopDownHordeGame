@@ -44,7 +44,7 @@ public class Doors : MonoBehaviour
     private void openDoor()
     {
         doorHolder.SetActive(false);
-        RoundController.instance.AddActiveWindows(roomWindows); 
+        RoundController.instance.ActivateWindows(roomWindows); 
     }
 
 }

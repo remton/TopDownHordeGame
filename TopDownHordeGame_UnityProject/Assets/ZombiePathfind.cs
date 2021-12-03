@@ -23,6 +23,7 @@ public class ZombiePathfind : MonoBehaviour {
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+        agent.updatePosition = false;   
     }
 
     private void FixedUpdate() {

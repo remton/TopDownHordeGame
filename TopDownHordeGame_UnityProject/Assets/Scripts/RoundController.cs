@@ -9,7 +9,8 @@ public class RoundController : MonoBehaviour
 
     [SerializeField] private RoundDisplay display;
 
-    public List<Window> activeWindows;
+    public List<Window> startRoomWindows;
+    private List<Window> activeWindows = new List<Window>();
     public List<GameObject> players;
 
     bool isWaitingForNextRound = false;
@@ -49,9 +50,13 @@ public class RoundController : MonoBehaviour
         damage = GetDamage();
         display.RoundChange(round);
         Debug.Log("Round: " + round.ToString());
+
+        ActivateWindows(startRoomWindows);
     }
 
     private void Update() {
+
+
         //Manages round changing
         if(zombiesSpawnedThisRound >= maxZombies && numberActiveZombies <= 0) {
             isWaitingForNextRound = true;
@@ -64,19 +69,24 @@ public class RoundController : MonoBehaviour
             }
         }
         //Zombie Spawning
-        if (!isWaitingForNextRound) {
-            if(timeUntilNextSpawn <= 0) {
-                if (zombiesSpawnedThisRound < maxZombies && numberActiveZombies < maxActiveZombies) {
-                    timeUntilNextSpawn = spawnDeley;
-                    int i = Mathf.RoundToInt(Random.Range(0, (activeWindows.Count)));
-                    activeWindows[i].AddZombiesToQueue(1); // the window handles spawning the zombie
-                    zombiesSpawnedThisRound++;
-                    numberActiveZombies++;
+        if (activeWindows.Count != 0) {
+            if (!isWaitingForNextRound) {
+                if(timeUntilNextSpawn <= 0) {
+                    if (zombiesSpawnedThisRound < maxZombies && numberActiveZombies < maxActiveZombies) {
+                        timeUntilNextSpawn = spawnDeley;
+                        int i = Mathf.RoundToInt(Random.Range(0, activeWindows.Count));
+                        activeWindows[i].AddZombiesToQueue(1); // the window handles spawning the zombie
+                        zombiesSpawnedThisRound++;
+                        numberActiveZombies++;
+                    }
+                }
+                else {
+                    timeUntilNextSpawn -= Time.deltaTime;
                 }
             }
-            else {
-                timeUntilNextSpawn -= Time.deltaTime;
-            }
+        }
+        else {
+            Debug.Log("NO ACTIVE WINDOWS!!!! -_-");
         }
     }
 
@@ -125,9 +135,16 @@ public class RoundController : MonoBehaviour
         return Mathf.FloorToInt(Mathf.Sqrt(2f * round));
     }
 
-    public void AddActiveWindows(List<Window> windows) {
-        foreach (Window window in windows) {
-            activeWindows.Add(window);
+    public void ActivateWindows(List<Window> windows) {
+
+        for (int i = 0; i < windows.Count; i++) {
+            if (!windows[i].isActive) {
+                windows[i].isActive = true;
+                activeWindows.Add(windows[i]);
+            }
+            else {
+                Debug.Log("window: " + windows[i].name + " already active");
+            }
         }
     }
 }
