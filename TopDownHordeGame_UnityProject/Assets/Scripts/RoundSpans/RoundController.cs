@@ -136,7 +136,6 @@ public class RoundController : MonoBehaviour
     }
 
     public void ActivateWindows(List<Window> windows) {
-
         for (int i = 0; i < windows.Count; i++) {
             if (!windows[i].isActive) {
                 windows[i].isActive = true;

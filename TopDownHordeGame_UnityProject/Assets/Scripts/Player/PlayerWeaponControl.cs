@@ -28,6 +28,7 @@ public class PlayerWeaponControl : MonoBehaviour
 
     private bool isSwapping;
     private float timeUntilSwap;
+
     private bool isReloading;
     private float timeUntilReload;
     private bool shootButtonDown;
@@ -57,7 +58,7 @@ public class PlayerWeaponControl : MonoBehaviour
     private void StartSwapWeapon() {
         if (isReloading)
             CancelReload();
-//        Debug.Log("Swapping . . .");
+        Debug.Log("Swapping . . .");
         isSwapping = true;
         timeUntilSwap = weapons[NextWeaponIndex()].GetSwapTime();
     }
@@ -69,7 +70,7 @@ public class PlayerWeaponControl : MonoBehaviour
         timeUntilSwap -= Time.deltaTime;
     }
     private void Swap() {
- //       Debug.Log("Swapped!");
+        Debug.Log("Swapped!");
         equippedIndex = NextWeaponIndex();
         UpdateVisuals();
     }
@@ -93,7 +94,7 @@ public class PlayerWeaponControl : MonoBehaviour
             return;
         }
 
-//        Debug.Log("Reloading . . .");
+        Debug.Log("Reloading . . .");
         isReloading = true;
         timeUntilReload = weapons[equippedIndex].GetReloadTime();
     }

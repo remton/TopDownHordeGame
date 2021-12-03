@@ -23,6 +23,9 @@ public class CameraController : MonoBehaviour
     }
 
     public void MoveToMidpointOfPlayers() {
+        if (players.Count == 0)
+            return;
+
         //get midpoint of all players
         float sumX = 0;
         float sumY = 0;

@@ -41,7 +41,7 @@ public class ZombieAI : MonoBehaviour
     }
 
     private void Start() {
-        zombiePath.SetActive(true);
+        zombiePath.Activate(2*Time.deltaTime);
     }
 
     private void Update() {
