@@ -5631,6 +5631,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a38f2be4f397d944841ed89313ecdbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isActive: 0
   breakDelay: 1
   health: 5
   isOpen: 0
@@ -5653,7 +5654,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 893541384}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.6, y: 6.78, z: 0}
+  m_LocalPosition: {x: 2.6, y: 5.56, z: 0}
   m_LocalScale: {x: 0.4731752, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 297376574}
@@ -5817,7 +5818,7 @@ GameObject:
   - component: {fileID: 1026786699}
   - component: {fileID: 1026786698}
   m_Layer: 9
-  m_Name: Window (1)
+  m_Name: StartWindow
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -5835,6 +5836,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a38f2be4f397d944841ed89313ecdbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isActive: 0
   breakDelay: 1
   health: 5
   isOpen: 0
@@ -5857,7 +5859,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1026786697}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.6, y: -1.11, z: 0}
+  m_LocalPosition: {x: 6.6, y: -2.7, z: 0}
   m_LocalScale: {x: 0.4731752, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 297376574}
@@ -6089,7 +6091,7 @@ MonoBehaviour:
   zombiePrefab: {fileID: 6956723953377203767, guid: 4412f1af9ed220f4a924d6646b25bd45, type: 3}
   round: 1
   display: {fileID: 1235508278}
-  activeWindows:
+  startRoomWindows:
   - {fileID: 1026786698}
   players: []
   pauseBetweenRounds: 0
@@ -8505,6 +8507,7 @@ MonoBehaviour:
   doorHolder: {fileID: 130398692}
   roomWindows:
   - {fileID: 893541385}
+  - {fileID: 1026786698}
 --- !u!4 &1476809642
 Transform:
   m_ObjectHideFlags: 0
