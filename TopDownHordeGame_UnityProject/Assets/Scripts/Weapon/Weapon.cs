@@ -58,7 +58,7 @@ public class Weapon : MonoBehaviour
     /// <summary> Fires weapon instantly (fireDeley is handled in PlayerWeaponControl script) </summary>
     public virtual void Fire(GameObject player, Vector2 direction) {
         inMag--;
-        Debug.Log(name + ": " + inMag.ToString() + " / " + inReserve.ToString());
+//        Debug.Log(name + ": " + inMag.ToString() + " / " + inReserve.ToString());
     }
 
     protected void FireShot(GameObject player, Vector2 direction) {

@@ -93,7 +93,7 @@ public class PlayerWeaponControl : MonoBehaviour
             return;
         }
 
-        Debug.Log("Reloading . . .");
+//        Debug.Log("Reloading . . .");
         isReloading = true;
         timeUntilReload = weapons[equippedIndex].GetReloadTime();
     }

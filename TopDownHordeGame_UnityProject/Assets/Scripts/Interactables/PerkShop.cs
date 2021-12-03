@@ -6,11 +6,13 @@ public class PerkShop : MonoBehaviour
 {
     public GameObject perkPrefab;
     public int cost;
+    private bool alreadyHave = false;
     public void TryBuyPerk(GameObject player)
     {
         PlayerStats playerStats = player.GetComponent<PlayerStats>();
         PlayerPerkHolder perkHolder = player.GetComponent<PlayerPerkHolder>();
-        if (playerStats.GetBank() >= cost)
+        alreadyHave = player.GetComponent<PlayerPerkHolder>().HavePerk(perkPrefab);
+        if (playerStats.GetBank() >= cost && !alreadyHave)
         {
 
             playerStats.SpendMoney(cost);
@@ -19,9 +21,12 @@ public class PerkShop : MonoBehaviour
 
             Debug.Log("Your money should have been taken.");
         }
+        else if (playerStats.GetBank() < cost){
+            Debug.Log("You want product, I want money.");
+        }
         else
         {
-            Debug.Log("You want product, I want money.");
+            Debug.Log("You should already have the perk.");
         }
     }
 
