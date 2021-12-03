@@ -9,7 +9,7 @@ public class RoundController : MonoBehaviour
 
     [SerializeField] private RoundDisplay display;
 
-    public List<Window> windows;
+    public List<Window> activeWindows;
     public List<GameObject> players;
 
     bool isWaitingForNextRound = false;
@@ -68,8 +68,8 @@ public class RoundController : MonoBehaviour
             if(timeUntilNextSpawn <= 0) {
                 if (zombiesSpawnedThisRound < maxZombies && numberActiveZombies < maxActiveZombies) {
                     timeUntilNextSpawn = spawnDeley;
-                    int i = Mathf.RoundToInt(Random.Range(0, (windows.Count)));
-                    windows[i].AddZombiesToQueue(1); // the window handles spawning the zombie
+                    int i = Mathf.RoundToInt(Random.Range(0, (activeWindows.Count)));
+                    activeWindows[i].AddZombiesToQueue(1); // the window handles spawning the zombie
                     zombiesSpawnedThisRound++;
                     numberActiveZombies++;
                 }
@@ -123,5 +123,11 @@ public class RoundController : MonoBehaviour
     }
     private int GetDamage() {
         return Mathf.FloorToInt(Mathf.Sqrt(2f * round));
+    }
+
+    public void AddActiveWindows(List<Window> windows) {
+        foreach (Window window in windows) {
+            activeWindows.Add(window);
+        }
     }
 }
