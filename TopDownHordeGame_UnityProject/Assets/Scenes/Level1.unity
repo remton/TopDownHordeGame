@@ -6089,8 +6089,7 @@ MonoBehaviour:
   zombiePrefab: {fileID: 6956723953377203767, guid: 4412f1af9ed220f4a924d6646b25bd45, type: 3}
   round: 1
   display: {fileID: 1235508278}
-  windows:
-  - {fileID: 893541385}
+  activeWindows:
   - {fileID: 1026786698}
   players: []
   pauseBetweenRounds: 0
