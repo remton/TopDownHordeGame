@@ -12,9 +12,11 @@ public class PerkShop : MonoBehaviour
         PlayerPerkHolder perkHolder = player.GetComponent<PlayerPerkHolder>();
         if (playerStats.GetBank() >= cost)
         {
+
             playerStats.SpendMoney(cost);
             player.GetComponent<PlayerPerkHolder>().AddPerk(perkPrefab);
-            player.GetComponent<PlayerHealth>().Damage(0);
+
+
             Debug.Log("Your money should have been taken.");
         }
         else

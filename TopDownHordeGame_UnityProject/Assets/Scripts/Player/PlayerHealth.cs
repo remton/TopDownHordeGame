@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour {
-    public int maxHealth;
+    [SerializeField] private int maxHealth;
     public float bleedOutTime;
     private int health;
     private float timeUntilDeath;
@@ -26,6 +26,12 @@ public class PlayerHealth : MonoBehaviour {
             if (timeUntilDeath <= 0)
                 Die();
         }
+    }
+    public int GetMaxHealth() { return maxHealth; }
+    public void ChangeMaxHealth(int newMax)
+    {
+        maxHealth = newMax;
+        if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
     }
 
     //Heals by healAmount up to maxHealth
