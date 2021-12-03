@@ -11,6 +11,7 @@ public class Window : MonoBehaviour
     [SerializeField] private int health; // health of the boards on this window
 
     [SerializeField] private bool isOpen = false;
+    public bool canSpawn = false;
     private int numInQueue = 0;
 
     public Vector3Int topTile;

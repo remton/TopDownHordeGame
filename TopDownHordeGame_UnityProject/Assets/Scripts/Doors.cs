@@ -6,6 +6,7 @@ public class Doors : MonoBehaviour
 {
     public int cost;
     public GameObject doorHolder;
+    public List<Window> roomWindows; 
 
     public void TryBuyDoor(GameObject player)
     {
@@ -43,6 +44,7 @@ public class Doors : MonoBehaviour
     private void openDoor()
     {
         doorHolder.SetActive(false);
+        RoundController.instance.AddActiveWindows(roomWindows); 
     }
 
 }

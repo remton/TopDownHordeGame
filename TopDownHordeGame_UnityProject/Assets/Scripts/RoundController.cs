@@ -130,10 +130,4 @@ public class RoundController : MonoBehaviour
             activeWindows.Add(window);
         }
     }
-
-    //REMI SAYS HI
-
 }
-
-
-// Eric is testing
