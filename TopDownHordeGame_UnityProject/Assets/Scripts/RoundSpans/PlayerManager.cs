@@ -15,10 +15,17 @@ public class PlayerManager : MonoBehaviour
     private List<GameObject> players = new List<GameObject>();
     private int numPlayers;
 
-    public List<GameObject> GetPlayers() { return players; }
+    public List<GameObject> GetActivePlayers() {
+        List<GameObject> activePlayers = new List<GameObject>();
+        foreach (GameObject player in players) {
+            if (!player.GetComponent<PlayerHealth>().GetIsDead())
+                activePlayers.Add(player);
+        }
+        return activePlayers;
+    }
 
     public delegate void OnPlayersChange(List<GameObject> players);
-    public event OnPlayersChange EventPlayersChange;
+    public event OnPlayersChange EventActivePlayersChange;
 
     public static PlayerManager instance;
     private void Awake() {
@@ -40,7 +47,7 @@ public class PlayerManager : MonoBehaviour
             players.Add(playerObj);
             sidebarManager.AddSidebar(playerObj);
         }
-        if(EventPlayersChange != null) { EventPlayersChange.Invoke(players); }
+        if(EventActivePlayersChange != null) { EventActivePlayersChange.Invoke(GetActivePlayers()); }
     }
 
     public void RespawnDeadPlayers() {
@@ -50,19 +57,21 @@ public class PlayerManager : MonoBehaviour
                 player.SetActive(true);
             }
         }
+        if (EventActivePlayersChange != null) { EventActivePlayersChange.Invoke(GetActivePlayers()); }
     }
 
     public void OnPlayerDie(GameObject player) {
         player.SetActive(false);
         player.transform.position = deadPlayerLocation.transform.position;
         CheckGameOver();
+        if (EventActivePlayersChange != null) { EventActivePlayersChange.Invoke(GetActivePlayers()); }
     }
 
     public void RemovePlayer(int index) {
         GameObject p = players[index];
         players.RemoveAt(index);
         Destroy(p);
-        if (EventPlayersChange != null) { EventPlayersChange.Invoke(players); }
+        if (EventActivePlayersChange != null) { EventActivePlayersChange.Invoke(GetActivePlayers()); }
     }
     private void CheckGameOver() {
         foreach (GameObject player in players) {

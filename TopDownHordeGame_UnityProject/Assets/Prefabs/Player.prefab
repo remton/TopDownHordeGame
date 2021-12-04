@@ -107,7 +107,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 30
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -305,7 +305,7 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d2e345ff-4b5b-4885-9ba6-3f82ab36996e
     m_ActionName: Player/Activate[/Keyboard/e]
-  m_NeverAutoSwitchControlSchemes: 0
+  m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1

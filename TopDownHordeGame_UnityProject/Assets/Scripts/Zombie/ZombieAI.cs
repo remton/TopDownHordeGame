@@ -46,8 +46,8 @@ public class ZombieAI : MonoBehaviour
 
     private void Start() {
         zombiePath.Activate(2*Time.deltaTime);
-        PlayerManager.instance.EventPlayersChange += FindTarget;
-        FindTarget(PlayerManager.instance.GetPlayers());
+        PlayerManager.instance.EventActivePlayersChange += FindTarget;
+        FindTarget(PlayerManager.instance.GetActivePlayers());
     }
 
     private void Update() {
@@ -68,7 +68,7 @@ public class ZombieAI : MonoBehaviour
         //Update target coundown
         if(timeUntilCheckTarget <= 0) {
             timeUntilCheckTarget = timeBetweenTargetChecks;
-            FindTarget(PlayerManager.instance.GetPlayers());
+            FindTarget(PlayerManager.instance.GetActivePlayers());
         }
     }
 
@@ -76,5 +76,9 @@ public class ZombieAI : MonoBehaviour
         lungeOnCooldown = true;
         timeUntilLungeCooldown = lungeCooldown;
         zombiePath.SetActive(true);   
+    }
+
+    private void OnDestroy() {
+        PlayerManager.instance.EventActivePlayersChange -= FindTarget;
     }
 }

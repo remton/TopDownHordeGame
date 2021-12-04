@@ -415,6 +415,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PerkShop (Bolt)
       objectReference: {fileID: 0}
+    - target: {fileID: 6384169342850317514, guid: 2dded438d53ac93438635b5ba757bdf8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7267059395379977065, guid: 2dded438d53ac93438635b5ba757bdf8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.51
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2dded438d53ac93438635b5ba757bdf8, type: 3}
 --- !u!114 &60081120 stripped
@@ -5764,6 +5772,14 @@ PrefabInstance:
     - target: {fileID: 2826289129498633894, guid: 2dded438d53ac93438635b5ba757bdf8, type: 3}
       propertyPath: m_Name
       value: PerkShop (Stockpile)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6384169342850317514, guid: 2dded438d53ac93438635b5ba757bdf8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7267059395379977065, guid: 2dded438d53ac93438635b5ba757bdf8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.19
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2dded438d53ac93438635b5ba757bdf8, type: 3}
@@ -12657,6 +12673,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7267059395379977065, guid: 2dded438d53ac93438635b5ba757bdf8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 7980629337431206759, guid: 2dded438d53ac93438635b5ba757bdf8, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1810509083
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2dded438d53ac93438635b5ba757bdf8, type: 3}
 --- !u!1 &914393318
@@ -13010,6 +13034,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PerkShop (Resistance)
       objectReference: {fileID: 0}
+    - target: {fileID: 6384169342850317514, guid: 2dded438d53ac93438635b5ba757bdf8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7267059395379977065, guid: 2dded438d53ac93438635b5ba757bdf8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.43
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2dded438d53ac93438635b5ba757bdf8, type: 3}
 --- !u!1001 &1005758492
@@ -13228,6 +13260,14 @@ PrefabInstance:
     - target: {fileID: 2826289129498633894, guid: 2dded438d53ac93438635b5ba757bdf8, type: 3}
       propertyPath: m_Name
       value: PerkShop (Fired Up)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6384169342850317514, guid: 2dded438d53ac93438635b5ba757bdf8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7267059395379977065, guid: 2dded438d53ac93438635b5ba757bdf8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2dded438d53ac93438635b5ba757bdf8, type: 3}
@@ -13572,6 +13612,10 @@ PrefabInstance:
       propertyPath: weaponPrefab
       value: 
       objectReference: {fileID: 280554671962952436, guid: b623ab2bb0daa0944951ca52c3be8b67, type: 3}
+    - target: {fileID: 7952285027928121954, guid: 446f747992bcc224eb7f198f719f8e94, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.53
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 446f747992bcc224eb7f198f719f8e94, type: 3}
 --- !u!1 &1235508275
@@ -19802,6 +19846,14 @@ PrefabInstance:
     - target: {fileID: 2826289129498633894, guid: 2dded438d53ac93438635b5ba757bdf8, type: 3}
       propertyPath: m_Name
       value: PerkShop (Again)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6384169342850317514, guid: 2dded438d53ac93438635b5ba757bdf8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7267059395379977065, guid: 2dded438d53ac93438635b5ba757bdf8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.24
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2dded438d53ac93438635b5ba757bdf8, type: 3}

@@ -73,8 +73,8 @@ public class CameraController : MonoBehaviour
     // -- Get players from player manager --
     // We use start instead of awake since playermanager needs to set its instance first
     private void Start() {
-        players = PlayerManager.instance.GetPlayers();
-        PlayerManager.instance.EventPlayersChange += OnPlayersChanged;
+        players = PlayerManager.instance.GetActivePlayers();
+        PlayerManager.instance.EventActivePlayersChange += OnPlayersChanged;
     }
     
     public void OnPlayersChanged(List<GameObject> newPlayers) {
@@ -82,6 +82,6 @@ public class CameraController : MonoBehaviour
     }
 
     private void OnDestroy() {
-        PlayerManager.instance.EventPlayersChange -= OnPlayersChanged;
+        PlayerManager.instance.EventActivePlayersChange -= OnPlayersChanged;
     }
 }
