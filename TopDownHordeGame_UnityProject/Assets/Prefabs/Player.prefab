@@ -350,6 +350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reloadSpeedMult: 1
+  fireRateMult: 1
   maxWeapons: 2
   weapons:
   - {fileID: 5108542874940747112}
