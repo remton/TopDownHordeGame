@@ -6,19 +6,12 @@ using UnityEngine.AI;
 public class ZombieAI : MonoBehaviour
 {
     public GameObject target;
-
     private ZombieLunge zombieLunge;
     private ZombiePathfind zombiePath;
     private ZombieHealth zombieHealth;
 
-    // Position to move to
-    private Vector2 targetPos;
-
     public float playerDistForLunge;
-    private bool isLunging;
-
     [SerializeField] private float lungeCooldown;
-
     private bool lungeOnCooldown;
     private float timeUntilLungeCooldown;
 
@@ -49,7 +42,6 @@ public class ZombieAI : MonoBehaviour
             zombiePath.SetActive(false);
             Vector2 dir = target.transform.position - transform.position;
             zombieLunge.Lunge(dir);
-            isLunging = true;
         }
 
         //Lunge cooldown management
@@ -61,7 +53,6 @@ public class ZombieAI : MonoBehaviour
     }
 
     public void OnLungeEnd() {
-        isLunging = false;
         lungeOnCooldown = true;
         timeUntilLungeCooldown = lungeCooldown;
         zombiePath.SetActive(true);   

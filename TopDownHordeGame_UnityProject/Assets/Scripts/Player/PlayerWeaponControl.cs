@@ -11,6 +11,20 @@ using UnityEngine.Events;
 public class PlayerWeaponControl : MonoBehaviour
 {
     private PlayerMovement playerMovement;
+
+    public float reloadSpeedMult;
+
+    [SerializeField] private int maxWeapons;
+    public void SetWeaponCount(int newCount) {
+        for (int i = 0; i < maxWeapons - newCount; i++) {
+            if (weapons[i] != null) {
+                Destroy(weapons[equippedIndex].gameObject);
+            }
+            weapons.RemoveAt(i);
+        }
+        maxWeapons = newCount;
+    }
+
     private void Awake() {
         playerMovement = GetComponent<PlayerMovement>();
     }
@@ -96,7 +110,7 @@ public class PlayerWeaponControl : MonoBehaviour
 
         Debug.Log("Reloading . . .");
         isReloading = true;
-        timeUntilReload = weapons[equippedIndex].GetReloadTime();
+        timeUntilReload = weapons[equippedIndex].GetReloadTime() * reloadSpeedMult;
     }
     private void ReloadUpdate() {
         if(timeUntilReload <= 0) {
@@ -175,10 +189,16 @@ public class PlayerWeaponControl : MonoBehaviour
         GameObject weaponObj = Instantiate(weaponPrefab, transform);
         Weapon weapon = weaponObj.GetComponent<Weapon>();
         weapon.AddReserveAmmo(weapon.GetReserveSize());
-        if(weapons[equippedIndex] != null) {
-            Destroy(weapons[equippedIndex].gameObject);
+        if(maxWeapons > weapons.Count) {
+            weapons.Add(weapon);
+            equippedIndex = weapons.Count - 1;
         }
-        weapons[equippedIndex] = weapon;
+        else {
+            if (weapons[equippedIndex] != null) {
+                Destroy(weapons[equippedIndex].gameObject);
+            }
+            weapons[equippedIndex] = weapon;
+        }
         UpdateVisuals();
     }
 
