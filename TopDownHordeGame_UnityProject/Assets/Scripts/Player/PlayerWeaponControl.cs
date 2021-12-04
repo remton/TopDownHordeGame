@@ -13,6 +13,7 @@ public class PlayerWeaponControl : MonoBehaviour
     private PlayerMovement playerMovement;
 
     public float reloadSpeedMult;
+    public float fireRateMult;
 
     [SerializeField] private int maxWeapons;
     public void SetWeaponCount(int newCount) {
@@ -142,7 +143,7 @@ public class PlayerWeaponControl : MonoBehaviour
         }
         else {
             Shoot();
-            timeUntilShoot = weapons[equippedIndex].GetFireDeley();
+            timeUntilShoot = weapons[equippedIndex].GetFireDeley() * fireRateMult;
             isWaitingToShoot = true;
         }
     }
