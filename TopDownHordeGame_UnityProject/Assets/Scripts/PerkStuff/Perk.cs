@@ -5,7 +5,7 @@ using UnityEngine;
 
 public enum PerkType
 {
-    resistance
+    resistance, recovery 
 }
 
 public class Perk : MonoBehaviour

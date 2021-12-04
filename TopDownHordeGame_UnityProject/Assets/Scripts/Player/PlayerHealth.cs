@@ -9,8 +9,11 @@ public class PlayerHealth : MonoBehaviour {
     private float timeUntilDeath;
     private bool isBleedingOut;
     private bool isDead = false;
-    [SerializeField] float healHitDelay; 
-    [SerializeField] float healInterval; 
+    private int regenAmount = 1;
+    private float regenHitDelay = 10; 
+    private float regenInterval = 4;
+    private float timeSinceHit;
+    private float timeSinceRegen;
 
     public delegate void HealthChanged(int health, int max);
     public event HealthChanged EventHealthChanged;
@@ -28,18 +31,18 @@ public class PlayerHealth : MonoBehaviour {
             if (timeUntilDeath <= 0)
                 Die();
         }
+        RegenUpdate();
     }
     public int GetMaxHealth() { return maxHealth; }
-    public void ChangeMaxHealth(int newMax)
+    public void ChangeMaxHealth(float balance)
     {
-        maxHealth = newMax;
+        maxHealth = Mathf.RoundToInt(balance * maxHealth);
         if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
     }
 
     //Heals by healAmount up to maxHealth
     public void Heal(int healAmount) {
-        if (isBleedingOut || isDead)
-            return;
+
 
         int newHealth = health + healAmount;
         if (newHealth > maxHealth)
@@ -47,7 +50,30 @@ public class PlayerHealth : MonoBehaviour {
         health = newHealth;
         if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
     }
-    public void 
+    public void RegenUpdate() // Called every frame update, checks if player should be healing. If so, call Heal function 
+    {
+        if (isBleedingOut || isDead)
+            return;
+
+        if (timeSinceHit < regenHitDelay)
+        {
+            timeSinceHit += Time.deltaTime;
+        }
+        else if (timeSinceRegen < regenInterval)
+        {
+            timeSinceRegen += Time.deltaTime;
+        }
+        else
+        {
+            Heal(regenAmount);
+            timeSinceRegen = 0;
+        }
+    }
+    public void ChangeRegenValues(float balance) // Called by Recovery perk, increases speed of healing
+    {
+        regenHitDelay *= balance;
+        regenInterval *= balance;
+    }
 
     public void Damage(int damageAmount) {
         if (isBleedingOut || isDead)
@@ -59,7 +85,7 @@ public class PlayerHealth : MonoBehaviour {
             newHealth = 0;
         }
         health = newHealth;
-        if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
+        if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); timeSinceHit = 0; } // timeSinceHit resets health regeneration in RegenUpdate function
     }
 
     public void Revive() {
