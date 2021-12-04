@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeaponShop : MonoBehaviour
 {
     public GameObject weaponPrefab;
+    public GameObject popupCanvas;
     public int cost;
 
     public void TryBuyWeapon(GameObject player) {
@@ -30,9 +31,11 @@ public class WeaponShop : MonoBehaviour
 
     public void OnPlayerEnter(GameObject player) {
         player.GetComponent<PlayerActivate>().EventPlayerActivate += TryBuyWeapon;
+        popupCanvas.SetActive(true);
     }
     public void OnPlayerExit(GameObject player) {
         player.GetComponent<PlayerActivate>().EventPlayerActivate -= TryBuyWeapon;
+        popupCanvas.SetActive(false);
     }
 
 
