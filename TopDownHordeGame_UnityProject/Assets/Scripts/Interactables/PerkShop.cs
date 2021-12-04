@@ -26,7 +26,7 @@ public class PerkShop : MonoBehaviour
         }
         else
         {
-            Debug.Log("You should already have the perk.");
+            Debug.Log("You should already have this perk.");
         }
     }
 
