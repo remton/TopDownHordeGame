@@ -349,8 +349,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fad3b091521bf914f89be7df7dc5797d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reloadSpeedMult: 0
-  allowedWeaponCount: 2
+  reloadSpeedMult: 1
+  maxWeapons: 2
   weapons:
   - {fileID: 5108542874940747112}
 --- !u!114 &1620798982028091925
