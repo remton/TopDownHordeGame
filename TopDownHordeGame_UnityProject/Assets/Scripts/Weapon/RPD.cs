@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RPK : Weapon
+public class RPD : Weapon
 {
     public int pelletCount;
     public float spreadAngle;
