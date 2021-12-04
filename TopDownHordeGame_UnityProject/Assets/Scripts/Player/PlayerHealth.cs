@@ -47,7 +47,6 @@ public class PlayerHealth : MonoBehaviour {
         health = newHealth;
         if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
     }
-    public void 
 
     public void Damage(int damageAmount) {
         if (isBleedingOut || isDead)

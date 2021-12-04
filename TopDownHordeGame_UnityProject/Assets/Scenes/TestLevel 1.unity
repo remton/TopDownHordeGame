@@ -13655,6 +13655,11 @@ MonoBehaviour:
   m_Area: 0
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
+--- !u!1 &1314819989 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4590138639701474655, guid: fdaa186f29264d54e908b62e9fefef57, type: 3}
+  m_PrefabInstance: {fileID: 681466131}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1722027485
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13819,7 +13824,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 1620798982028091906, guid: 24095689da8009847b8fb7270d917583, type: 3}
-  spawnPoint: {fileID: 0}
+  spawnPoint: {fileID: 1314819989}
   sidebarManager: {fileID: 29389820}
 --- !u!4 &1768317677
 Transform:
