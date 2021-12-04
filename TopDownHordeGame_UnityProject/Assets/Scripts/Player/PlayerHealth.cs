@@ -15,6 +15,8 @@ public class PlayerHealth : MonoBehaviour {
     private float timeSinceHit;
     private float timeSinceRegen;
 
+    public bool GetIsDead() { return isDead; }
+
     public delegate void HealthChanged(int health, int max);
     public event HealthChanged EventHealthChanged;
     //if(EventHealthChanged != null){EventHealthChanged.Invoke(health, maxHealth); }
@@ -42,8 +44,6 @@ public class PlayerHealth : MonoBehaviour {
 
     //Heals by healAmount up to maxHealth
     public void Heal(int healAmount) {
-
-
         int newHealth = health + healAmount;
         if (newHealth > maxHealth)
             newHealth = maxHealth;
@@ -104,6 +104,7 @@ public class PlayerHealth : MonoBehaviour {
     private void Die() {
         isBleedingOut = false;
         isDead = true;
+        PlayerManager.instance.CheckGameOver();
         Debug.Log("You Died");
     }
 }

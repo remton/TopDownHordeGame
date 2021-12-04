@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour
 {
+    public string GameOverScene;
+
     public GameObject playerPrefab;
     public GameObject spawnPoint;
     public PlayerSidebarManager sidebarManager;
@@ -44,5 +47,12 @@ public class PlayerManager : MonoBehaviour
         players.RemoveAt(index);
         Destroy(p);
         if (EventPlayersChange != null) { EventPlayersChange.Invoke(players); }
+    }
+    public void CheckGameOver() {
+        foreach (GameObject player in players) {
+            if (player.GetComponent<PlayerHealth>().GetIsDead()) {
+                SceneManager.LoadScene(GameOverScene);
+            }
+        }
     }
 }

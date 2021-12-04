@@ -47,14 +47,14 @@ MonoBehaviour:
   reloadTime: 0.2
   fireDeley: 0.5
   swapTime: 0.5
-  movePenalty: 0
+  movePenalty: 1
   penatration: 2
-  damage: 2
+  damage: 1
   magSize: 5
   reserveSize: 50
   effectController: {fileID: 280554672184955303}
-  pelletCount: 5
-  spreadAngle: 35
+  pelletCount: 7
+  spreadAngle: 20
 --- !u!1 &280554672184955302
 GameObject:
   m_ObjectHideFlags: 0
