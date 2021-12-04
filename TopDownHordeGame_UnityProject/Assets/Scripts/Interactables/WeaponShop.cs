@@ -28,6 +28,7 @@ public class WeaponShop : MonoBehaviour
         hitbox = GetComponent<HitBoxController>();
         hitbox.EventObjEnter += OnPlayerEnter;
         hitbox.EventObjExit += OnPlayerExit;
+        popupCanvas.SetActive(false);
     }
 
     public void OnPlayerEnter(GameObject player) {
