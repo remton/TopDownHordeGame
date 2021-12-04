@@ -13,7 +13,6 @@ public class ZombieAI : MonoBehaviour
 
     // Position to move to
     private Vector2 targetPos;
-    private Vector2 moveDir;
 
     public float playerDistForLunge;
     private bool isLunging;
@@ -41,15 +40,16 @@ public class ZombieAI : MonoBehaviour
     }
 
     private void Start() {
-        zombiePath.SetActive(true);
+        zombiePath.Activate(2*Time.deltaTime);
     }
 
     private void Update() {
         //zombie lunges
         if (target!=null && !lungeOnCooldown && Vector2.Distance(target.transform.position, transform.position) <= playerDistForLunge) {
-            zombieLunge.Lunge(moveDir);
-            isLunging = true;
             zombiePath.SetActive(false);
+            Vector2 dir = target.transform.position - transform.position;
+            zombieLunge.Lunge(dir);
+            isLunging = true;
         }
 
         //Lunge cooldown management

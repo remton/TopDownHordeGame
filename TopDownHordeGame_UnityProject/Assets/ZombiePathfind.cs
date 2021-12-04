@@ -10,9 +10,15 @@ public class ZombiePathfind : MonoBehaviour {
     private NavMeshAgent agent;
 
     public void SetActive(bool b) {
-        agent.updatePosition = b;
+        agent.enabled = b;
         UpdatePath();
     }
+    public void Activate(float waitTime) {
+        timeUntilSetActive = waitTime;
+        waitingToActivate = true;
+    }
+    private float timeUntilSetActive;
+    private bool waitingToActivate = false;
 
     [SerializeField] private float timeBetweenPathUpdates;
 
@@ -23,26 +29,33 @@ public class ZombiePathfind : MonoBehaviour {
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
-        agent.updatePosition = false;   
+    }
+
+    private void Update() {
+        // Handle Activate off delay
+        if (waitingToActivate) {
+            timeUntilSetActive -= Time.deltaTime;
+            if (timeUntilSetActive <= 0) {
+                waitingToActivate = false;
+                SetActive(true);
+            }
+        }
     }
 
     private void FixedUpdate() {
+        if (!agent.enabled)
+            return;
+
         // Here we deal with updating our path
         if (timeUntilPathUpdate <= 0) {
             timeUntilPathUpdate = timeBetweenPathUpdates;
             UpdatePath();
         }
-        timeUntilPathUpdate -= Time.deltaTime;
-    }
-
-    // Faces zombie in the given direction
-    private void LookToDir(Vector2 lookDir2D) {
-        Vector3 lookDir3D = new Vector3(lookDir2D.x, lookDir2D.y, transform.position.z);
-        transform.right = lookDir3D;
+        timeUntilPathUpdate -= Time.fixedDeltaTime;
     }
 
     private void UpdatePath() {
-        if (target != null) {
+        if (target != null && agent.enabled) {
             Vector3 pos = new Vector3(target.transform.position.x, target.transform.position.y, transform.position.z);
             agent.SetDestination(pos);
   //          Debug.Log("path updated");
