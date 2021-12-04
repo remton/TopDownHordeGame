@@ -94,6 +94,17 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "",
+                    "id": "92320467-18f3-48bd-aa5f-f44673ff835c",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Eric keyboard",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "WASD",
                     "id": "544f3c04-f327-4158-8116-6fbbf18d2c60",
                     "path": "2DVector",
@@ -160,6 +171,61 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "2D Vector",
+                    "id": "88560507-4f41-4d11-ac4c-a835c04908ec",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "75370a19-a8ca-481d-89ca-8bb0311b48bd",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Eric keyboard",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "ffb5e6c0-7b89-4f9e-a1cf-eb247a8e1f8c",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Eric keyboard",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "651dc802-904d-4576-9eca-c8b042330b76",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Eric keyboard",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "e5a68221-ccf0-46fe-9ec6-cf443303b38b",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Eric keyboard",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "c78b9008-0668-4354-9d01-f6c56b600125",
                     "path": "<Gamepad>/rightStick",
@@ -177,6 +243,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
+                    "action": "MousePos",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7e159fb3-07c0-4161-bd7c-3db78b366ba7",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Eric keyboard",
                     "action": "MousePos",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -205,6 +282,17 @@
                 },
                 {
                     "name": "",
+                    "id": "8177744f-7bab-48ac-aaa1-cb68eec5dad5",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Eric keyboard",
+                    "action": "Run",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "c4617103-00b2-4702-a464-3ceb08324f64",
                     "path": "<Keyboard>/q",
                     "interactions": "",
@@ -221,6 +309,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
+                    "action": "SwapWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a658adce-045a-4372-a8ea-c9cee19025b8",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Eric keyboard",
                     "action": "SwapWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -249,6 +348,17 @@
                 },
                 {
                     "name": "",
+                    "id": "65a9b80f-3888-4a3f-a4d6-8011362d553a",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Eric keyboard",
+                    "action": "Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "c8caea09-ca13-476b-8c8f-6d54c1ae610f",
                     "path": "<Gamepad>/buttonWest",
                     "interactions": "",
@@ -265,6 +375,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
+                    "action": "Activate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b34c69af-2ac8-4e1d-a494-d60cc6533b66",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Eric keyboard",
                     "action": "Activate",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -296,6 +417,22 @@
                 {
                     "devicePath": "<Gamepad>",
                     "isOptional": true,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Eric keyboard",
+            "bindingGroup": "Eric keyboard",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": false,
                     "isOR": false
                 }
             ]
