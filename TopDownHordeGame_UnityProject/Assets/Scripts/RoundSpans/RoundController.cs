@@ -59,15 +59,18 @@ public class RoundController : MonoBehaviour
 
 
         //Manages round changing
-        if(zombiesSpawnedThisRound >= zombiesToSpawn && numberActiveZombies <= 0) {
-            isWaitingForNextRound = true;
-            timeUntilRoundStart = pauseBetweenRounds;
-        }
+        
         if (isWaitingForNextRound) {
             if (timeUntilRoundStart <= Time.deltaTime) {
                 isWaitingForNextRound = false;
                 NextRound();
             }
+            timeUntilRoundStart -= Time.deltaTime; 
+        }
+        else if (zombiesSpawnedThisRound >= zombiesToSpawn && numberActiveZombies <= 0)
+        {
+            isWaitingForNextRound = true;
+            timeUntilRoundStart = pauseBetweenRounds;
         }
         //Zombie Spawning
         if (activeWindows.Count != 0) {
@@ -106,6 +109,7 @@ public class RoundController : MonoBehaviour
         damage = GetDamage();
         display.RoundChange(round);
         spawnDelay = GetSpawnDeley();
+        zombiesSpawnedThisRound = 0; 
         Debug.Log("Round: " + round.ToString());
     }
 
