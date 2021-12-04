@@ -159,9 +159,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e20029f53d889334ca1fc953803a8e29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  perkPrefab: {fileID: 6246296268875244572, guid: fadf924a7f467a24e83c0211ab2d4f92, type: 3}
+  perkPrefab: {fileID: 0}
   popupCanvas: {fileID: 6384169342850317514}
-  cost: 1500
 --- !u!1 &6384169342850317514
 GameObject:
   m_ObjectHideFlags: 0

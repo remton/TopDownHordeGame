@@ -14,6 +14,8 @@ public class PlayerWeaponControl : MonoBehaviour
 
     public float reloadSpeedMult;
     public float fireRateMult;
+    public float magMult;
+    public float reserveMult;
 
     [SerializeField] private int maxWeapons;
     public void SetWeaponCount(int newCount) {
@@ -35,7 +37,7 @@ public class PlayerWeaponControl : MonoBehaviour
             weapon.AddReserveAmmo(int.MaxValue);
             weapon.Reload();
         }
-        if (EventAmmoChanged != null) EventAmmoChanged.Invoke(weapons[equippedIndex].GetInMag(), weapons[equippedIndex].GetInReserve());
+        if (EventAmmoChanged != null) EventAmmoChanged.Invoke(Mathf.RoundToInt(weapons[equippedIndex].GetInMag() * magMult), Mathf.RoundToInt(weapons[equippedIndex].GetInReserve() * reserveMult));
     }
 
     [SerializeField] private List<Weapon> weapons;
@@ -176,7 +178,7 @@ public class PlayerWeaponControl : MonoBehaviour
     }
 
     private void UpdateVisuals() {
-        if (EventAmmoChanged != null) EventAmmoChanged.Invoke(weapons[equippedIndex].GetInMag(), weapons[equippedIndex].GetInReserve());
+        if (EventAmmoChanged != null) EventAmmoChanged.Invoke(Mathf.RoundToInt(weapons[equippedIndex].GetInMag() * magMult), Mathf.RoundToInt(weapons[equippedIndex].GetInReserve() * reserveMult));
     }
 
     public void PickUpWeapon(GameObject weaponPrefab) {
