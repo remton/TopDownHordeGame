@@ -202,8 +202,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0.1
-  m_AngularDrag: 0.05
+  m_LinearDrag: 3.5
+  m_AngularDrag: 0.5
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -223,8 +223,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  playerDistForLunge: 1.15
-  lungeCooldown: 0.5
+  playerDistForLunge: 1.7
+  lungeCooldown: 2
 --- !u!114 &6956723953377203761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,9 +240,9 @@ MonoBehaviour:
   hitBox: {fileID: 4164462514332702161}
   waitTime: 0.3
   distance: 1.5
-  lungeTime: 0.15
+  lungeTime: 0.2
   damage: 1
-  lungeSpeed: 6
+  lungeSpeed: 4
 --- !u!114 &-2455652057355692573
 MonoBehaviour:
   m_ObjectHideFlags: 0

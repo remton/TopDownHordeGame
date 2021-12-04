@@ -54,12 +54,6 @@ public class ZombiePathfind : MonoBehaviour {
         timeUntilPathUpdate -= Time.fixedDeltaTime;
     }
 
-    // Faces zombie in the given direction BROKEN
-    private void LookToDir(Vector2 lookDir2D) {
-        Vector3 lookDir3D = new Vector3(lookDir2D.x, lookDir2D.y, transform.position.z);
-        transform.right = lookDir3D;
-    }
-
     private void UpdatePath() {
         if (target != null && agent.enabled) {
             Vector3 pos = new Vector3(target.transform.position.x, target.transform.position.y, transform.position.z);

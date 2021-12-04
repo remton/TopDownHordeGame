@@ -35,6 +35,7 @@ public class ZombieLunge : MonoBehaviour
     }
 
     public void Lunge(Vector2 d) {
+
         if (AI == null) {
             Debug.LogError("Cannot call Lunge before setting the zombie AI");
             return;
