@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PerkShop : MonoBehaviour
 {
+
     public GameObject perkPrefab;
+    public GameObject popupCanvas;
     public int cost;
     private bool alreadyHave = false;
     public void TryBuyPerk(GameObject player)
@@ -43,10 +46,13 @@ public class PerkShop : MonoBehaviour
     public void OnPlayerEnter(GameObject player)
     {
         player.GetComponent<PlayerActivate>().EventPlayerActivate += TryBuyPerk;
+        popupCanvas.SetActive(true);
+        popupCanvas.GetComponentInChildren<Text>().text = perkPrefab.name + "\n$" + cost;
     }
     public void OnPlayerExit(GameObject player)
     {
         player.GetComponent<PlayerActivate>().EventPlayerActivate -= TryBuyPerk;
+        popupCanvas.SetActive(false);
     }
 
 

@@ -104,7 +104,7 @@ public class PlayerHealth : MonoBehaviour {
     private void Die() {
         isBleedingOut = false;
         isDead = true;
-        PlayerManager.instance.CheckGameOver();
-        Debug.Log("You Died");
+        PlayerManager.instance.OnPlayerDie(gameObject);
+        gameObject.SetActive(false);
     }
 }

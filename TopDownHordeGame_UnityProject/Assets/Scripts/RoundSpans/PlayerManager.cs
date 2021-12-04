@@ -10,6 +10,7 @@ public class PlayerManager : MonoBehaviour
 
     public GameObject playerPrefab;
     public GameObject spawnPoint;
+    public GameObject deadPlayerLocation;
     public PlayerSidebarManager sidebarManager;
     private List<GameObject> players = new List<GameObject>();
     private int numPlayers;
@@ -42,17 +43,33 @@ public class PlayerManager : MonoBehaviour
         if(EventPlayersChange != null) { EventPlayersChange.Invoke(players); }
     }
 
+    public void RespawnDeadPlayers() {
+        foreach (GameObject player in players) {
+            if (player.GetComponent<PlayerHealth>().GetIsDead()) {
+                player.transform.position = spawnPoint.transform.position;
+                player.SetActive(true);
+            }
+        }
+    }
+
+    public void OnPlayerDie(GameObject player) {
+        player.SetActive(false);
+        player.transform.position = deadPlayerLocation.transform.position;
+        CheckGameOver();
+    }
+
     public void RemovePlayer(int index) {
         GameObject p = players[index];
         players.RemoveAt(index);
         Destroy(p);
         if (EventPlayersChange != null) { EventPlayersChange.Invoke(players); }
     }
-    public void CheckGameOver() {
+    private void CheckGameOver() {
         foreach (GameObject player in players) {
-            if (player.GetComponent<PlayerHealth>().GetIsDead()) {
-                SceneManager.LoadScene(GameOverScene);
+            if (!player.GetComponent<PlayerHealth>().GetIsDead()) {
+                return;
             }
         }
+        SceneManager.LoadScene(GameOverScene);
     }
 }

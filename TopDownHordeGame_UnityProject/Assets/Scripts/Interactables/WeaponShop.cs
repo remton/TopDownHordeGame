@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WeaponShop : MonoBehaviour
 {
@@ -32,6 +33,7 @@ public class WeaponShop : MonoBehaviour
     public void OnPlayerEnter(GameObject player) {
         player.GetComponent<PlayerActivate>().EventPlayerActivate += TryBuyWeapon;
         popupCanvas.SetActive(true);
+        popupCanvas.GetComponentInChildren<Text>().text = weaponPrefab.name + "\n$" + cost;
     }
     public void OnPlayerExit(GameObject player) {
         player.GetComponent<PlayerActivate>().EventPlayerActivate -= TryBuyWeapon;
