@@ -22,6 +22,7 @@ public class Weapon : MonoBehaviour
     public int GetInMag() { return inMag; }
     public int GetInReserve() { return inReserve; }
 
+    public void SetReloadTime(float newTime) { reloadTime = newTime; }
     public float GetReloadTime() { return reloadTime; }
     public float GetFireDeley() { return fireDeley; }
     public float GetSwapTime() { return swapTime; }
