@@ -13010,6 +13010,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2826289129498633817, guid: 2dded438d53ac93438635b5ba757bdf8, type: 3}
+      propertyPath: perkPrefab
+      value: 
+      objectReference: {fileID: 6246296268875244572, guid: fadf924a7f467a24e83c0211ab2d4f92, type: 3}
     - target: {fileID: 2826289129498633818, guid: 2dded438d53ac93438635b5ba757bdf8, type: 3}
       propertyPath: m_RootOrder
       value: 5
