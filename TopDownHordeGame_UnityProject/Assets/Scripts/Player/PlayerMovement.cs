@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isRunning = false;
     private Vector2 moveDir;
     private Vector2 lookDir;
-    private Vector2 mousePos;
+    private Vector2 mouseScreenPos;
 
     // If mouse input was detected this is true if gamepad this is false
     private bool useMouseToLook;
@@ -86,8 +86,7 @@ public class PlayerMovement : MonoBehaviour
         }
         
         useMouseToLook = true;
-        Vector2 mouseScreenPos = context.ReadValue<Vector2>();
-        mousePos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
+        mouseScreenPos = context.ReadValue<Vector2>();
         LookAtMouse();
     }
 
@@ -114,6 +113,7 @@ public class PlayerMovement : MonoBehaviour
     // Faces player towards the mousePos vector
     private void LookAtMouse() {
         Vector2 myPos = transform.position;
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
         Vector2 dir = mousePos - myPos;
         LookInDir(dir);
     }
