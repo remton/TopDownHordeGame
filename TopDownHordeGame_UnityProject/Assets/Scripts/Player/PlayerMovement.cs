@@ -13,8 +13,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float walkSpeed;
-    public float runSpeed;
+    private float walkSpeed = 2;
+    private float runSpeed = 4;
 
     [SerializeField] private Rigidbody2D rb;
     private Camera mainCamera;
@@ -129,6 +129,11 @@ public class PlayerMovement : MonoBehaviour
             newPos += walkSpeed * movementDir * Time.fixedDeltaTime;
 
         rb.MovePosition(newPos);
+    }
+
+    public void ChangeRunSpeed(float balance)
+    {
+        runSpeed *= balance;
     }
 
 }
