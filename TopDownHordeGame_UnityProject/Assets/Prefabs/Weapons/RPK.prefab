@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &280554671962952436
+--- !u!1 &6091863861613352169
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,59 +8,59 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 280554671962952434}
-  - component: {fileID: 280554671962952437}
+  - component: {fileID: 5172184768637683229}
+  - component: {fileID: 5112120546164950310}
   m_Layer: 0
-  m_Name: Remington870
+  m_Name: RPK
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &280554671962952434
+--- !u!4 &5172184768637683229
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 280554671962952436}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.5080917, y: -0.66486335, z: 8.665298}
+  m_GameObject: {fileID: 6091863861613352169}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -23.59534, y: -0.30849427, z: -5.008786}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 280554672184955300}
+  - {fileID: 7464435425784226721}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &280554671962952437
+--- !u!114 &5112120546164950310
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 280554671962952436}
+  m_GameObject: {fileID: 6091863861613352169}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f8dc6a8bfcee8046a2dada9ebbe4f57, type: 3}
+  m_Script: {fileID: 11500000, guid: cf548ad34e199244eaa2731bbe0b717c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reloadTime: 0.2
-  fireDeley: 0.5
-  swapTime: 0.5
+  reloadTime: 3
+  fireDeley: 0.05
+  swapTime: 1
   movePenalty: 1
   penatration: 2
-  damage: 1
-  magSize: 5
-  reserveSize: 50
-  effectController: {fileID: 280554672184955303}
-  pelletCount: 7
-  spreadAngle: 20
---- !u!1001 &2705043079366501084
+  damage: 5
+  magSize: 100
+  reserveSize: 3000
+  effectController: {fileID: 7464435425784226722}
+  pelletCount: 1
+  spreadAngle: 10
+--- !u!1001 &4753976966705058009
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 280554671962952434}
+    m_TransformParent: {fileID: 5172184768637683229}
     m_Modifications:
     - target: {fileID: 2769296667775464312, guid: 7d9940cc4635be54da99373e2c0dfb27, type: 3}
       propertyPath: m_RootOrder
@@ -112,15 +112,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d9940cc4635be54da99373e2c0dfb27, type: 3}
---- !u!4 &280554672184955300 stripped
+--- !u!4 &7464435425784226721 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2769296667775464312, guid: 7d9940cc4635be54da99373e2c0dfb27, type: 3}
-  m_PrefabInstance: {fileID: 2705043079366501084}
+  m_PrefabInstance: {fileID: 4753976966705058009}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &280554672184955303 stripped
+--- !u!114 &7464435425784226722 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2769296667775464315, guid: 7d9940cc4635be54da99373e2c0dfb27, type: 3}
-  m_PrefabInstance: {fileID: 2705043079366501084}
+  m_PrefabInstance: {fileID: 4753976966705058009}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
