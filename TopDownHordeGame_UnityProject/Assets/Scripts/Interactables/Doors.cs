@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Doors : MonoBehaviour
 {
     public int cost;
     public GameObject doorHolder;
+    public GameObject popupCanvas;
     public List<Window> roomWindows; 
 
     public void TryBuyDoor(GameObject player)
@@ -31,15 +33,19 @@ public class Doors : MonoBehaviour
         hitbox = GetComponent<HitBoxController>();
         hitbox.EventObjEnter += OnPlayerEnter;
         hitbox.EventObjExit += OnPlayerExit;
+        popupCanvas.SetActive(false);
     }
 
     public void OnPlayerEnter(GameObject player)
     {
         player.GetComponent<PlayerActivate>().EventPlayerActivate += TryBuyDoor;
+        popupCanvas.GetComponentInChildren<Text>().text = "$" + cost;
+        popupCanvas.SetActive(true);
     }
     public void OnPlayerExit(GameObject player)
     {
         player.GetComponent<PlayerActivate>().EventPlayerActivate -= TryBuyDoor;
+        popupCanvas.SetActive(false);
     }
     private void openDoor()
     {
