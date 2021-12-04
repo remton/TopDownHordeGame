@@ -13272,8 +13272,8 @@ MonoBehaviour:
   startRoomWindows:
   - {fileID: 955746581}
   players: []
-  pauseBetweenRounds: 0
-  maxActiveZombies: 5
+  pauseBetweenRounds: 0.5
+  maxActiveZombies: 500
 --- !u!4 &1235508277
 Transform:
   m_ObjectHideFlags: 0
@@ -19764,6 +19764,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ea2cd8abd552c44b73044dc2bcb41f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameOverScene: PreGame
   playerPrefab: {fileID: 1620798982028091906, guid: 24095689da8009847b8fb7270d917583, type: 3}
   spawnPoint: {fileID: 1314819989}
   sidebarManager: {fileID: 29389820}
