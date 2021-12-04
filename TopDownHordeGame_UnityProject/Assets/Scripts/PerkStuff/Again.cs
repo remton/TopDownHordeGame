@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Again : Perk
 {
-    private float balance = .9F; // Percent increase of speed 
+    private float balance = .9F; // Multiplier for reloadTime 
     //This is where the perk activates. This changes the regen values of the player.
     public override void OnPerkGained(GameObject player)
     {
