@@ -19,6 +19,7 @@ public class Weapon : MonoBehaviour
 
     public int GetReserveSize() { return reserveSize; }
 
+    public int GetMagSize() { return magSize; }
     public int GetInMag() { return inMag; }
     public int GetInReserve() { return inReserve; }
 
@@ -40,6 +41,16 @@ public class Weapon : MonoBehaviour
     /// <summary> Reloads weapon instantly (reloadTime is handled in PlayerWeaponControl script) </summary>
     public void Reload() {
         if(inReserve >= magSize) {
+            inReserve -= magSize - inMag;
+            inMag = magSize;
+        }
+        else {
+            inMag = inReserve;
+            inReserve = 0;
+        }
+    }
+    public void Reload(int magSize) {
+        if (inReserve >= magSize) {
             inReserve -= magSize - inMag;
             inMag = magSize;
         }

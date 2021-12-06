@@ -34,10 +34,11 @@ public class PlayerWeaponControl : MonoBehaviour
 
     private void Start() {
         foreach (Weapon weapon in weapons) {
-            weapon.AddReserveAmmo(int.MaxValue);
+            Debug.Log("ADDING AMMO TO: " + weapon.name);
+            weapon.AddReserveAmmo(Mathf.RoundToInt(weapon.GetReserveSize() * reserveMult));
             weapon.Reload();
         }
-        if (EventAmmoChanged != null) EventAmmoChanged.Invoke(Mathf.RoundToInt(weapons[equippedIndex].GetInMag() * magMult), Mathf.RoundToInt(weapons[equippedIndex].GetInReserve() * reserveMult));
+        if (EventAmmoChanged != null) EventAmmoChanged.Invoke(Mathf.RoundToInt(weapons[equippedIndex].GetInMag()), weapons[equippedIndex].GetInReserve());
     }
 
     [SerializeField] private List<Weapon> weapons;
@@ -124,7 +125,7 @@ public class PlayerWeaponControl : MonoBehaviour
     }
     private void Reload() {
         Debug.Log("Reloaded!");
-        weapons[equippedIndex].Reload();
+        weapons[equippedIndex].Reload(Mathf.RoundToInt(weapons[equippedIndex].GetMagSize() * magMult));
         UpdateVisuals();
     }
     private void CancelReload() {
@@ -178,7 +179,7 @@ public class PlayerWeaponControl : MonoBehaviour
     }
 
     private void UpdateVisuals() {
-        if (EventAmmoChanged != null) EventAmmoChanged.Invoke(Mathf.RoundToInt(weapons[equippedIndex].GetInMag() * magMult), Mathf.RoundToInt(weapons[equippedIndex].GetInReserve() * reserveMult));
+        if (EventAmmoChanged != null) EventAmmoChanged.Invoke(Mathf.RoundToInt(weapons[equippedIndex].GetInMag()), Mathf.RoundToInt(weapons[equippedIndex].GetInReserve()));
     }
 
     public void PickUpWeapon(GameObject weaponPrefab) {
@@ -191,7 +192,7 @@ public class PlayerWeaponControl : MonoBehaviour
         Debug.Log("Picked up: " + weaponPrefab.name);
         GameObject weaponObj = Instantiate(weaponPrefab, transform);
         Weapon weapon = weaponObj.GetComponent<Weapon>();
-        weapon.AddReserveAmmo(weapon.GetReserveSize());
+        weapon.AddReserveAmmo(Mathf.RoundToInt(weapon.GetReserveSize() * reserveMult));
         if(maxWeapons > weapons.Count) {
             weapons.Add(weapon);
             equippedIndex = weapons.Count - 1;

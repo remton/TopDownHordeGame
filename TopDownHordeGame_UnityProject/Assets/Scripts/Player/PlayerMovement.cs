@@ -37,7 +37,6 @@ public class PlayerMovement : MonoBehaviour
         mainCamera = Camera.main;   
     }
 
-
     public void OnDeviceChange(InputDevice device, InputDeviceChange deviceChange) {
         string deviceClass = device.description.deviceClass;
         if (deviceClass == "keyboard") {
