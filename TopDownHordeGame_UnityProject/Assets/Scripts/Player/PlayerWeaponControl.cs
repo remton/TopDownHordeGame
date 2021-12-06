@@ -16,6 +16,10 @@ public class PlayerWeaponControl : MonoBehaviour
     public float fireRateMult;
     public float magMult;
     public float reserveMult;
+    public float electricRadius;
+    public int electricDamage;
+    public GameObject electricPrefab;
+
 
     [SerializeField] private int maxWeapons;
     public void SetWeaponCount(int newCount) {
@@ -167,8 +171,14 @@ public class PlayerWeaponControl : MonoBehaviour
     private void Shoot() {
         if (weapons[equippedIndex].MagEmpty()) {
             //TODO: show player a reload message or auto reload
-            if(!isReloading)
+            if (!isReloading)
+            {
                 StartReload();
+                if (GetComponent<PlayerPerkHolder>().HavePerk(electricPrefab))  // Check if the player has the Electric reload perk. 
+                {
+                    GetComponent<PlayerPerkHolder>().CallElectricDamage(electricPrefab);  // To do: Fix this to make it call the Electric perk's damage function. 
+                }
+            }
             return;
         }
         weapons[equippedIndex].Fire(gameObject, playerMovement.GetCurrentLookDir());

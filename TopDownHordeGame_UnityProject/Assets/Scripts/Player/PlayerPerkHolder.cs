@@ -31,4 +31,14 @@ public class PlayerPerkHolder : MonoBehaviour
         }
         return (false); 
     }
+    public void CallElectricDamage(GameObject testPerk)
+    {
+        for (int i = 0; i < perks.Count; i++)
+        {
+            if (perks[i].type == testPerk.GetComponent<Perk>().type)
+            {
+                perks[i].GetComponent<Electric>().ElectricReloadDamage(this.gameObject); 
+            }
+        }
+    }
 }

@@ -45,13 +45,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reloadTime: 3
-  fireDeley: 0.05
+  fireDeley: 0.092307694
   swapTime: 1
   movePenalty: 1
   penatration: 2
   damage: 5
   magSize: 100
-  reserveSize: 3000
+  reserveSize: 300
   effectController: {fileID: 7464435425784226722}
   pelletCount: 1
   spreadAngle: 10
