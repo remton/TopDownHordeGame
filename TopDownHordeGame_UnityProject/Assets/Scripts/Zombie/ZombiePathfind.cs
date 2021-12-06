@@ -29,6 +29,7 @@ public class ZombiePathfind : MonoBehaviour {
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+        agent.enabled = false; // navmeshagent starts disabled to fix spawning teleportation issues
     }
 
     private void Update() {

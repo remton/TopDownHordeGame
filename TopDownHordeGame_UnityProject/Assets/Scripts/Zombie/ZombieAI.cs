@@ -45,6 +45,7 @@ public class ZombieAI : MonoBehaviour
     }
 
     private void Start() {
+        //Activate after a deley fixes issues with navmesh teleporting zombies (navmeshagent must be deactivated at start)
         zombiePath.Activate(2*Time.deltaTime);
         PlayerManager.instance.EventActivePlayersChange += FindTarget;
         FindTarget(PlayerManager.instance.GetActivePlayers());
