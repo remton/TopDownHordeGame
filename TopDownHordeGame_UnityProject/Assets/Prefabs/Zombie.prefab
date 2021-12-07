@@ -225,6 +225,7 @@ MonoBehaviour:
   target: {fileID: 0}
   playerDistForLunge: 1.7
   lungeCooldown: 2
+  timeBetweenTargetChecks: 0
 --- !u!114 &6956723953377203761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,7 +277,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6956723953377203767}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.32
   m_Speed: 1.5
