@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isRunning = false;
     private Vector2 moveDir;
     private Vector2 lookDir;
-    private Vector2 mouseScreenPos;
+    public Vector2 mouseScreenPos;
 
     // If mouse input was detected this is true if gamepad this is false
     private bool useMouseToLook;

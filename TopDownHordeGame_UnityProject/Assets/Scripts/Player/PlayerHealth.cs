@@ -105,6 +105,5 @@ public class PlayerHealth : MonoBehaviour {
         isBleedingOut = false;
         isDead = true;
         PlayerManager.instance.OnPlayerDie(gameObject);
-        gameObject.SetActive(false);
     }
 }

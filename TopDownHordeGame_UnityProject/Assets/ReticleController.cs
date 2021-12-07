@@ -6,34 +6,44 @@ using UnityEngine.InputSystem;
 public class ReticleController : MonoBehaviour
 {
     private bool useGamePad;
-    public List<GameObject> gamepadPlayers = new List<GameObject>();
-    public List<GameObject> reticles = new List<GameObject>();
+    private GameObject playerWithMouse;
+    private GameObject mouseReticle;
+    private List<GameObject> gamepadPlayers = new List<GameObject>();
+    private List<GameObject> gamepadReticles = new List<GameObject>();
     public GameObject reticlePrefab;
-    public Texture2D cursorReplacor;
-    public GameObject Canvas;
 
     //used with gamepad for how far to display the reticle
     public float radius;
 
     void OnPlayersChanged(List<GameObject> newPlayers) {
-        gamepadPlayers.Clear();
-        foreach (GameObject reticle in reticles) {
+        Destroy(mouseReticle);
+        mouseReticle = null;
+        playerWithMouse = null;
+        foreach (GameObject reticle in gamepadReticles) {
             Destroy(reticle);
         }
+        gamepadPlayers.Clear();
+        gamepadReticles.Clear();
+
+
         for (int i = 0; i < newPlayers.Count; i++) {
             if (newPlayers[i].GetComponent<PlayerInput>().currentControlScheme == "Gamepad") {
                 gamepadPlayers.Add(newPlayers[i]);
-                reticles.Add(Instantiate(reticlePrefab, Canvas.transform));
+                gamepadReticles.Add(Instantiate(reticlePrefab, transform));
+            }
+            else {
+                // Using mouse
+                playerWithMouse = newPlayers[i];
+                mouseReticle = Instantiate(reticlePrefab, transform);
+                Cursor.visible = false;
             }
         }
-    }
-
-    private void Awake() {
-        Cursor.SetCursor(cursorReplacor, Vector2.zero, CursorMode.Auto);
+        
     }
 
     private void Start() {
         PlayerManager.instance.EventActivePlayersChange += OnPlayersChanged;
+        OnPlayersChanged(PlayerManager.instance.GetActivePlayers());
     }
 
     private void Update() {
@@ -41,8 +51,15 @@ public class ReticleController : MonoBehaviour
         foreach (GameObject player in gamepadPlayers) {
             Vector3 newReticlePosInWorld = player.GetComponent<PlayerMovement>().GetCurrentLookDir().normalized * radius;
             newReticlePosInWorld += player.transform.position;
-            reticles[i].transform.position = RectTransformUtility.WorldToScreenPoint(Camera.main, newReticlePosInWorld);
+            gamepadReticles[i].transform.position = newReticlePosInWorld;
             i++;
+        }
+
+        if (playerWithMouse) {
+            Vector2 mouseScreenPos = playerWithMouse.GetComponent<PlayerMovement>().mouseScreenPos;
+            Vector3 newReticlePos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
+            newReticlePos.z = 0;
+            mouseReticle.transform.position = newReticlePos;
         }
     }
 

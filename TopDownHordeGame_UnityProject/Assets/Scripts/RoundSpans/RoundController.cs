@@ -109,7 +109,8 @@ public class RoundController : MonoBehaviour
         damage = GetDamage();
         display.RoundChange(round);
         spawnDelay = GetSpawnDeley();
-        zombiesSpawnedThisRound = 0; 
+        zombiesSpawnedThisRound = 0;
+        PlayerManager.instance.RespawnDeadPlayers();
         Debug.Log("Round: " + round.ToString());
     }
 
