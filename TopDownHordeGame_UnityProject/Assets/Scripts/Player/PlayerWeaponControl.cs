@@ -16,6 +16,7 @@ public class PlayerWeaponControl : MonoBehaviour
     public float fireRateMult;
     public float magMult;
     public float reserveMult;
+
     public float electricRadius;
     public int electricDamage;
     public GameObject electricPrefab;
