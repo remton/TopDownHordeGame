@@ -25,6 +25,8 @@ public class Electric : Perk
 //        player.GetComponent<PlayerWeaponControl>().electricRadius = (1 / balanceRadius);
     }
 
+
+
     public void ElectricReloadDamage(GameObject player)
     {
         Debug.Log("Electric Reload should have activated. ");
@@ -37,10 +39,9 @@ public class Electric : Perk
 
         electricReloadObj.transform.localScale = balanceScale;
 
-        RaycastHit2D[] hitInfos = Physics2D.RaycastAll(player.transform.position, circle, Mathf.Infinity, LayerMask.GetMask("Zombie"));
+        List<GameObject> zombiesHit = electricReloadObj.GetComponent<HitBoxController>().Hits();
 
-        if (zombieHit.CompareTag("Zombie"))
-        {
+        foreach (GameObject zombieHit in zombiesHit) {
             zombieHit.GetComponent<ZombieHealth>().Damage(balanceDamage);
             player.GetComponent<PlayerStats>().AddMoney(1); // Give the player money for electricity hitting someone 
             if (zombieHit.GetComponent<ZombieHealth>().isDead())

@@ -19,6 +19,10 @@ public class HitBoxController : MonoBehaviour {
         }
     }
 
+    public List<GameObject> Hits() {
+        return objsInBox;
+    }
+
     public delegate void ObjEnter(GameObject obj);
     public event ObjEnter EventObjEnter;
 
