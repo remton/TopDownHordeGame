@@ -6158,7 +6158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8354f4e111be1b541ae08a73b75aedde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammoPrefab: {fileID: 0}
+  ammoPrefab: {fileID: 177272599253269483, guid: dad35b44912a3a941a1947d28e0771e1, type: 3}
   carpenterPrefab: {fileID: 6069895156401686289, guid: 56470756366baca4c8fa7d7ea329918d, type: 3}
   killPrefab: {fileID: 19701994243007283, guid: 07c9492da6f586e4eb7b63ff73f9b787, type: 3}
   nukePrefab: {fileID: 7609820944762314030, guid: 79b5ba03f56338c408ab4555c56e8c35, type: 3}
@@ -6166,7 +6166,6 @@ MonoBehaviour:
   round: 0
   startRoomWindows: []
   players: []
-  pauseBetweenRounds: 0
   maxActiveZombies: 0
 --- !u!4 &518587570
 Transform:
