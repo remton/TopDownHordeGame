@@ -20280,11 +20280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48e1ca83ae870874ca5c0745168da5c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gamepadPlayers: []
-  reticles: []
-  reticlePrefab: {fileID: 4298085115205752350, guid: d468e391df3c67e4db5a7ebdb19117ec, type: 3}
-  cursorReplacor: {fileID: 2800000, guid: a38785dd6d1148443af26dd4fdd84520, type: 3}
-  Canvas: {fileID: 1188416773}
+  reticlePrefab: {fileID: 6389048016344100703, guid: 16fb9e6acd053c544a3934c680d56763, type: 3}
   radius: 2
 --- !u!1001 &1848305844
 PrefabInstance:

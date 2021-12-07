@@ -47,7 +47,7 @@ MonoBehaviour:
   reloadTime: 0.2
   fireDeley: 0.5
   swapTime: 0.5
-  movePenalty: 1
+  movePenalty: 0.95
   penatration: 2
   damage: 1
   magSize: 5

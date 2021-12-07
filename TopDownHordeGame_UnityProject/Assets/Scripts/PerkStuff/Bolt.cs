@@ -10,14 +10,14 @@ public class Bolt : Perk
     public override void OnPerkGained(GameObject player)
     {
         Debug.Log("Perk: " + name + " gained");
-        player.GetComponent<PlayerMovement>().ChangeRunSpeed(balance);
+        player.GetComponent<PlayerMovement>().runSpeedMultipliers.Add(balance);
     }
 
     //This is where the perk deactivates. This changes the regen values of the player.
     public override void OnPerkLost(GameObject player)
     {
         Debug.Log("Perk: " + name + " lost");
-        player.GetComponent<PlayerMovement>().ChangeRunSpeed(1 / balance);
+        player.GetComponent<PlayerMovement>().runSpeedMultipliers.Remove(balance);
     }
 }
 
