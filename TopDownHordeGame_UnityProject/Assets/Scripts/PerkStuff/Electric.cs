@@ -25,10 +25,16 @@ public class Electric : Perk
 //        player.GetComponent<PlayerWeaponControl>().electricRadius = (1 / balanceRadius);
     }
 
-
+    public void DamageZombies(GameObject zombie) {
+        zombie.GetComponent<ZombieHealth>().Damage(balanceDamage);
+        player.GetComponent<PlayerStats>().AddMoney(1); // Give the player money for electricity hitting someone 
+        if (zombie.GetComponent<ZombieHealth>().isDead())
+            player.GetComponent<PlayerStats>().AddKill();
+    }
 
     public void ElectricReloadDamage(GameObject player)
     {
+        this.player = player;
         Debug.Log("Electric Reload should have activated. ");
         GameObject electricReloadObj = Instantiate(electricReloadPrefab, transform);
         electricReloadObj.transform.position = player.transform.position;
@@ -38,16 +44,10 @@ public class Electric : Perk
         balanceScale.z = balanceRadius;
 
         electricReloadObj.transform.localScale = balanceScale;
+        electricReloadObj.GetComponent<HitBoxController>().EventObjEnter += DamageZombies;
+        //Before destroying electricreloadobj
+        //electricReloadObj.GetComponent<HitBoxController>().EventObjEnter -= DamageZombies;
 
-        List<GameObject> zombiesHit = electricReloadObj.GetComponent<HitBoxController>().Hits();
-
-        foreach (GameObject zombieHit in zombiesHit) {
-            zombieHit.GetComponent<ZombieHealth>().Damage(balanceDamage);
-            player.GetComponent<PlayerStats>().AddMoney(1); // Give the player money for electricity hitting someone 
-            if (zombieHit.GetComponent<ZombieHealth>().isDead())
-                player.GetComponent<PlayerStats>().AddKill();
-        }
-        
         // To Do: Cause the reload to create a shockwave visual effect and damage all zombies it touches.
         /*        CircleCollider2D myCircle
         GameObject trailObj = Instantiate(circleObjPrefab);
