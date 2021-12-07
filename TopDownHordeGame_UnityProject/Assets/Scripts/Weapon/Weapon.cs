@@ -27,7 +27,8 @@ public class Weapon : MonoBehaviour
     public float GetReloadTime() { return reloadTime; }
     public float GetFireDeley() { return fireDeley; }
     public float GetSwapTime() { return swapTime; }
-    public float GetMovePenalty() { return movePenalty; }
+    public float GetMoveMult() { return movePenalty; }
+
 
     /// <summary> Returns true if there is not ammo in the magazine </summary>
     public bool MagEmpty() {

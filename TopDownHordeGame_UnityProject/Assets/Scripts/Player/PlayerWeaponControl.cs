@@ -44,6 +44,8 @@ public class PlayerWeaponControl : MonoBehaviour
             weapon.Reload();
         }
         if (EventAmmoChanged != null) EventAmmoChanged.Invoke(Mathf.RoundToInt(weapons[equippedIndex].GetInMag()), weapons[equippedIndex].GetInReserve());
+        playerMovement.runSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
+        playerMovement.walkSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
     }
 
     [SerializeField] private List<Weapon> weapons;
@@ -94,7 +96,11 @@ public class PlayerWeaponControl : MonoBehaviour
     }
     private void Swap() {
         Debug.Log("Swapped!");
+        playerMovement.runSpeedMultipliers.Remove(weapons[equippedIndex].GetMoveMult());
+        playerMovement.walkSpeedMultipliers.Remove(weapons[equippedIndex].GetMoveMult());
         equippedIndex = NextWeaponIndex();
+        playerMovement.runSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
+        playerMovement.walkSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
         UpdateVisuals();
     }
     private void CancelSwap() {
@@ -112,6 +118,8 @@ public class PlayerWeaponControl : MonoBehaviour
     public void StartReload() {
         if (isSwapping)
             return;
+        CancelShoot();
+
         if (weapons[equippedIndex].ReserveEmpty()) {
             StartSwapWeapon();
             return;
@@ -149,7 +157,7 @@ public class PlayerWeaponControl : MonoBehaviour
         if (isWaitingToShoot) {
             return;
         }
-        else {
+        else if (shootButtonDown) {
             Shoot();
             timeUntilShoot = weapons[equippedIndex].GetFireDeley() * fireRateMult;
             isWaitingToShoot = true;
@@ -194,6 +202,8 @@ public class PlayerWeaponControl : MonoBehaviour
     }
 
     public void PickUpWeapon(GameObject weaponPrefab) {
+        playerMovement.runSpeedMultipliers.Remove(weapons[equippedIndex].GetMoveMult());
+        playerMovement.walkSpeedMultipliers.Remove(weapons[equippedIndex].GetMoveMult());
         if (isReloading)
             CancelReload();
         if (isSwapping)
@@ -215,6 +225,8 @@ public class PlayerWeaponControl : MonoBehaviour
             weapons[equippedIndex] = weapon;
         }
         UpdateVisuals();
+        playerMovement.runSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
+        playerMovement.walkSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
     }
 
     private void Update() {

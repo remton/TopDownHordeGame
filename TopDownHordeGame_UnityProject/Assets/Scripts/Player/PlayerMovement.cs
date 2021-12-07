@@ -16,6 +16,40 @@ public class PlayerMovement : MonoBehaviour
     private float walkSpeed = 2;
     private float runSpeed = 4;
 
+    public List<float> walkSpeedMultipliers = new List<float>();
+    public List<float> runSpeedMultipliers = new List<float>();
+    private float walkSpeedMult() {
+        float multSumFast = 0;
+        float multSumSlow = 0;
+        foreach (float num in walkSpeedMultipliers) {
+            if (num < 1)
+                multSumSlow += 1 / num;
+            else
+                multSumFast += num;
+        }
+        if (multSumFast == 0)
+            multSumFast = 1;
+        if (multSumSlow == 0)
+            multSumSlow = 1;
+        return multSumFast * (1 / (multSumSlow));
+    }
+    private float runSpeedMult() {
+        float multSumFast = 0;
+        float multSumSlow = 0;
+        foreach (float num in runSpeedMultipliers) {
+            if (num < 1)
+                multSumSlow += 1 / num;
+            else
+                multSumFast += num;
+        }
+        if (multSumFast == 0)
+            multSumFast = 1;
+        if (multSumSlow == 0)
+            multSumSlow = 1;
+        return multSumFast * (1/(multSumSlow));
+    }
+
+
     [SerializeField] private Rigidbody2D rb;
     private Camera mainCamera;
 
@@ -32,6 +66,8 @@ public class PlayerMovement : MonoBehaviour
     // THis is used by other scripts to access what direction the player is looking
     private Vector2 currentLookDir;
     public Vector2 GetCurrentLookDir() { return currentLookDir; }
+
+    public float movementMult = 1;
 
     private void Awake() {
         mainCamera = Camera.main;   
@@ -123,16 +159,10 @@ public class PlayerMovement : MonoBehaviour
         Vector2 newPos = transform.position;
 
         if (isRunning)
-            newPos += runSpeed * movementDir * Time.fixedDeltaTime;
+            newPos += runSpeedMult() * runSpeed * movementDir * Time.fixedDeltaTime;
         else
-            newPos += walkSpeed * movementDir * Time.fixedDeltaTime;
+            newPos += walkSpeedMult() * walkSpeed * movementDir * Time.fixedDeltaTime;
 
         rb.MovePosition(newPos);
     }
-
-    public void ChangeRunSpeed(float balance)
-    {
-        runSpeed *= balance;
-    }
-
 }

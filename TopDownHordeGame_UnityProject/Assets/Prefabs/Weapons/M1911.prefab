@@ -44,11 +44,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reloadTime: 0.9
-  fireDeley: 0.71
+  fireDeley: 0.2
   swapTime: 0.9
-  movePenalty: 1
+  movePenalty: 1.1
   penatration: 1
   damage: 1
   magSize: 8
-  reserveSize: 72
+  reserveSize: 80
   effectController: {fileID: 2769296667775464315, guid: 7d9940cc4635be54da99373e2c0dfb27, type: 3}
