@@ -47,8 +47,10 @@ public class ZombieHealth : MonoBehaviour
     {
         Debug.Log(name + ": \"*dies\"");
         RoundController.instance.ZombieDies();
-        chance = Random.Range(0, 1000);
-        // MagicController.MagicDrop(chance) // CALL DROP FUNCTION -- UNSURE OF WHERE TO PUT IT CURRENTLY 
+        // MagicController.MagicDrop(chance) 
+        Vector3 myLocation = transform.position;
+        MagicController.instance.MagicDrop(myLocation);
         Destroy(gameObject);
+
     }
 }

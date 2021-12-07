@@ -13,13 +13,13 @@ public class MagicController : MonoBehaviour
     [SerializeField] private GameObject killPrefab;
     [SerializeField] private GameObject nukePrefab;
     [SerializeField] private GameObject salePrefab;
+
+    private GameObject ammoObj;
+
     [SerializeField] private int round;
 
     public List<Window> startRoomWindows;
     public List<GameObject> players;
-
-    [SerializeField] private float pauseBetweenRounds;
-    private float timeUntilRoundStart;
 
     private float spawnDelay;
     private float timeUntilNextSpawn;
@@ -30,12 +30,17 @@ public class MagicController : MonoBehaviour
     int health;
     int damage;
 
-    public static RoundController instance;
+    public static MagicController instance;
 
     private void Awake()
     {
         //Initial round values
         Debug.Log("Magic controller is awake.");
+
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(gameObject);
 
      }
 
@@ -99,19 +104,21 @@ public class MagicController : MonoBehaviour
 //        return zombieObj;
     } */
 
-    public void MagicDrop(int chance, Vector3 zombieLocation)
+    public void MagicDrop(Vector3 zombieLocation)
     {
-        if (chance > 950)
+        int chance = Random.Range(0, 1000);
+        if (chance > 0)
         {
             // SpawnAmmo
-            GameObject obj = Instantiate(ammoPrefab);
-            obj.transform.position = zombieLocation;
+            Debug.Log("Ammo Drop");
+            ammoObj = Instantiate(ammoPrefab, transform);
+            ammoObj.transform.position = zombieLocation;
+
         }
         else if (chance > 880)
         {
             // SpawnCarpenter
-            GameObject obj = Instantiate(carpenterPrefab);
-            obj.transform.position = zombieLocation;
+
         }
         else if (chance > 750)
         {

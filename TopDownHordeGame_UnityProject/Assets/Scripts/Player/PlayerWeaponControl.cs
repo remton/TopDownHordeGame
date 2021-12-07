@@ -228,4 +228,12 @@ public class PlayerWeaponControl : MonoBehaviour
             ReloadUpdate();
         }
     }
+    public void RefillWeaponReserve()
+    {
+        int i = 0;
+        Weapon weapon = weapons[0];
+        for (i = 0; i < weapons.Count; i++)
+        weapon.AddReserveAmmo(Mathf.RoundToInt(weapon.GetReserveSize() * reserveMult - weapon.GetInReserve()));
+        UpdateVisuals();
+    }
 }
