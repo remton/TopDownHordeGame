@@ -6,7 +6,9 @@ using UnityEngine;
 public class Electric : Perk
 {
     private int balanceDamage = 3; // Damage for reload 
-    private float balanceRadius = 0.4F; // Radius for reload 
+    private float balanceRadius = 1.7F; // Radius for reload 
+    public GameObject circleObjPrefab;
+    public GameObject electricReloadPrefab;
     //This is where the perk activates. This changes the regen values of the player.
     public override void OnPerkGained(GameObject player)
     {
@@ -26,30 +28,51 @@ public class Electric : Perk
     public void ElectricReloadDamage(GameObject player)
     {
         Debug.Log("Electric Reload should have activated. ");
-        // To Do: Cause the reload to create an shockwave visual effect and damage all zombies it touches.
-/*        CircleCollider2D myCircle
-        RaycastHit2D effectRay = Physics2D.Raycast(player.transform.position, circle, Mathf.Infinity, LayerMask.GetMask("BulletCollider"));
-        Vector2 startPos = new Vector3(player.transform.position.x, player.transform.position.y, 0);
-        if (effectRay)
-        {
-            Vector2 hitPoint = effectRay.point;
-            Vector2 endPos = new Vector3(hitPoint.x, hitPoint.y, 0);
-//            effectController.CreateTrail(startPos, endPos);
-        }
-        else
-        {
-//            effectController.CreateTrailDir(startPos, direction);
-        }
+        GameObject electricReloadObj = Instantiate(electricReloadPrefab, transform);
+        electricReloadObj.transform.position = player.transform.position;
+        Vector3 balanceScale;
+        balanceScale.x = balanceRadius;
+        balanceScale.y = balanceRadius;
+        balanceScale.z = balanceRadius;
+
+        electricReloadObj.transform.localScale = balanceScale;
 
         RaycastHit2D[] hitInfos = Physics2D.RaycastAll(player.transform.position, circle, Mathf.Infinity, LayerMask.GetMask("Zombie"));
+
+        if (zombieHit.CompareTag("Zombie"))
+        {
+            zombieHit.GetComponent<ZombieHealth>().Damage(balanceDamage);
+            player.GetComponent<PlayerStats>().AddMoney(1); // Give the player money for electricity hitting someone 
+            if (zombieHit.GetComponent<ZombieHealth>().isDead())
+                player.GetComponent<PlayerStats>().AddKill();
+        }
         
-            GameObject zombieHit = hitInfos[i].transform.gameObject;
-            if (zombieHit.CompareTag("Zombie"))
-            {
-                zombieHit.GetComponent<ZombieHealth>().Damage(balanceDamage);
-                player.GetComponent<PlayerStats>().AddMoney(1); // Give the player money for electricity hitting someone 
-                if (zombieHit.GetComponent<ZombieHealth>().isDead())
-                    player.GetComponent<PlayerStats>().AddKill();
-        } */
+        // To Do: Cause the reload to create a shockwave visual effect and damage all zombies it touches.
+        /*        CircleCollider2D myCircle
+        GameObject trailObj = Instantiate(circleObjPrefab);
+        trailObj.GetComponent<BulletTrail>().Init(player.x, player.y, duration);
+                RaycastHit2D effectRay = Physics2D.Raycast(player.transform.position, circle, Mathf.Infinity, LayerMask.GetMask("BulletCollider"));
+                Vector2 startPos = new Vector3(player.transform.position.x, player.transform.position.y, 0);
+                if (effectRay)
+                {
+                    Vector2 hitPoint = effectRay.point;
+                    Vector2 endPos = new Vector3(hitPoint.x, hitPoint.y, 0);
+        //            effectController.CreateTrail(startPos, endPos);
+                }
+                else
+                {
+        //            effectController.CreateTrailDir(startPos, direction);
+                }
+
+                RaycastHit2D[] hitInfos = Physics2D.RaycastAll(player.transform.position, circle, Mathf.Infinity, LayerMask.GetMask("Zombie"));
+
+                    GameObject zombieHit = hitInfos[i].transform.gameObject;
+                    if (zombieHit.CompareTag("Zombie"))
+                    {
+                        zombieHit.GetComponent<ZombieHealth>().Damage(balanceDamage);
+                        player.GetComponent<PlayerStats>().AddMoney(1); // Give the player money for electricity hitting someone 
+                        if (zombieHit.GetComponent<ZombieHealth>().isDead())
+                            player.GetComponent<PlayerStats>().AddKill();
+                } */
     }
 }

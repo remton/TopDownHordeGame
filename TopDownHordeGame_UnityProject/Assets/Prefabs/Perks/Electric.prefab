@@ -44,4 +44,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: 1000
-  type: 0
+  type: 2
+  circleObjPrefab: {fileID: 5752626159775955786, guid: 1614186579c0ca9449231d796e048fae, type: 3}
+  electricReloadPrefab: {fileID: 5752626159775955786, guid: 1614186579c0ca9449231d796e048fae, type: 3}

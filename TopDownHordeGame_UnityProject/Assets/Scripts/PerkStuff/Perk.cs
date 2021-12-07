@@ -5,7 +5,7 @@ using UnityEngine;
 
 public enum PerkType
 {
-    Again, Bolt, Extra, FiredUp, Mags, Resistance, Recovery, Stockpile
+    Again, Bolt, Electric, Extra, FiredUp, Mags, Resistance, Recovery, Stockpile
 }
 
 public class Perk : MonoBehaviour
