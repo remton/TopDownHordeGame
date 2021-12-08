@@ -77,13 +77,12 @@ public class MagicController : MonoBehaviour
             carpenterObj = Instantiate(nukePrefab, transform);
             carpenterObj.transform.position = zombieLocation;
         }
-        else if (chance > 1000)
+        else if (chance > 995)
         {
             Debug.Log("Sale Drop");
             carpenterObj = Instantiate(salePrefab, transform);
             carpenterObj.transform.position = zombieLocation;
         }
-
     }
 }
 

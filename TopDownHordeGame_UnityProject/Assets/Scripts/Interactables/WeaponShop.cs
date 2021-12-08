@@ -8,6 +8,7 @@ public class WeaponShop : MonoBehaviour
     public GameObject weaponPrefab;
     public GameObject popupCanvas;
     public int cost;
+    private int backupCost;
 
     public void TryBuyWeapon(GameObject player) {
         PlayerStats playerStats = player.GetComponent<PlayerStats>();
@@ -40,6 +41,17 @@ public class WeaponShop : MonoBehaviour
         player.GetComponent<PlayerActivate>().EventPlayerActivate -= TryBuyWeapon;
         popupCanvas.SetActive(false);
     }
-
+    public void SaleStart(float price)
+    {
+        backupCost = cost;
+        Debug.Log("Price before: " + cost);
+        cost = Mathf.FloorToInt(cost * price);
+        Debug.Log("Price now: " + cost);
+    }
+    public void SaleEnd()
+    {
+        cost = backupCost;
+        Debug.Log("Price after end: " + cost);
+    }
 
 }

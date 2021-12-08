@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2221262006972185402}
   m_Layer: 0
   m_Name: Recovery
-  m_TagString: Untagged
+  m_TagString: Perk
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,5 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b12ca5e380a5b2b4fb4ace844a170137, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   cost: 2500
   type: 6

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7950894735282945794}
   m_Layer: 0
   m_Name: Electric
-  m_TagString: Untagged
+  m_TagString: Perk
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f04cb28b537d5e46a2fc12c78555d5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   cost: 1000
   type: 2
   circleObjPrefab: {fileID: 5752626159775955786, guid: 1614186579c0ca9449231d796e048fae, type: 3}

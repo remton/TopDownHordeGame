@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6760239181099462179}
   m_Layer: 0
   m_Name: Stockpile
-  m_TagString: Untagged
+  m_TagString: Perk
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,5 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b90ca032cfb1d69419b83f9cfc7a797f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   cost: 3000
   type: 7

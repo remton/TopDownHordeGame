@@ -26,4 +26,5 @@ public class Perk : MonoBehaviour
         Debug.Log("Perk: " + name + " lost");
         this.player = null;
     }
+
 }

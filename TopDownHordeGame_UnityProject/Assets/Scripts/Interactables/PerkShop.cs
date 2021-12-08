@@ -9,6 +9,7 @@ public class PerkShop : MonoBehaviour
     public GameObject perkPrefab;
     public GameObject popupCanvas;
     private int cost;
+    private int backupCost;
     private bool alreadyHave = false;
     public void TryBuyPerk(GameObject player)
     {
@@ -56,6 +57,17 @@ public class PerkShop : MonoBehaviour
         player.GetComponent<PlayerActivate>().EventPlayerActivate -= TryBuyPerk;
         popupCanvas.SetActive(false);
     }
-
+    public void SaleStart(float price)
+    {
+        backupCost = cost;
+        Debug.Log("Price before: " + cost);
+        cost = Mathf.FloorToInt(cost * price);
+        Debug.Log("Price now: " + cost);
+    }
+    public void SaleEnd()
+    {
+        cost = backupCost;
+        Debug.Log("Price after end: " + cost);
+    }
 
 }

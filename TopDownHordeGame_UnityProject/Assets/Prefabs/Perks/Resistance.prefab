@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7957357392916379510}
   m_Layer: 0
   m_Name: Resistance
-  m_TagString: Untagged
+  m_TagString: Perk
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,5 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b008f87e38a81b74ebc96c7844b5ed80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   cost: 1800
   type: 5
