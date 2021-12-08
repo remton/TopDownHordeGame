@@ -322,8 +322,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3514d31fcd34ec4e94393a70c03507b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  walkSpeedMultipliers: []
+  runSpeedMultipliers: []
   rb: {fileID: 1620798982028091912}
   mouseScreenPos: {x: 0, y: 0}
+  movementMult: 1
 --- !u!114 &1620798982028091915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -385,7 +388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   payPerKill: 50
-  bank: 23456
+  bank: 0
 --- !u!114 &6541580502185974050
 MonoBehaviour:
   m_ObjectHideFlags: 0

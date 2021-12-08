@@ -49,7 +49,7 @@ public class Kill : MonoBehaviour
     }
     private void StallForDuration()
     {
-        Debug.Log("In stall");
+//        Debug.Log("In stall");
 
         if (currentTime >= balanceTime)
         {

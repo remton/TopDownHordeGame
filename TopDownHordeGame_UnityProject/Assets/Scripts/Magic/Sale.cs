@@ -76,13 +76,13 @@ public class Sale : MonoBehaviour
         perks = GameObject.FindGameObjectsWithTag("Perk");
         foreach (GameObject current in perks)
         {
-            Debug.Log("In the reset loop");
+            Debug.Log("In the perk reset loop");
             current.GetComponent<PerkShop>().SaleEnd();
         }
         weapons = GameObject.FindGameObjectsWithTag("Weapon Shop");
         foreach (GameObject current in weapons)
         {
-            Debug.Log("In perk loop");
+            Debug.Log("In the weapon reset loop");
             current.GetComponent<WeaponShop>().SaleStart(balanceCost);
         }
         Debug.Log("Power Up: " + name + " lost");
