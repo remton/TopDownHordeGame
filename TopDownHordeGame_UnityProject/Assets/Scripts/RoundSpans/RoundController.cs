@@ -153,4 +153,8 @@ public class RoundController : MonoBehaviour
             }
         }
     }
+    public List<Window> GetActiveWindows()
+    {
+        return (activeWindows);
+    }
 }

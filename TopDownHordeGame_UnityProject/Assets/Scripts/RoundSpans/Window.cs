@@ -12,6 +12,7 @@ public class Window : MonoBehaviour
     private float timeUntilNextBreak; 
 
     [SerializeField] private int health; // health of the boards on this window
+    [SerializeField] private int maxHealth;
 
     [SerializeField] private bool isOpen = false;
     public bool canSpawn = false;
@@ -42,6 +43,11 @@ public class Window : MonoBehaviour
     }
     public void Heal(int h) {
         health += h;
+        SetWindowBoarded();
+    }
+    public void FullRepair()
+    {
+        health = maxHealth;
         SetWindowBoarded();
     }
     public bool GetIsOpen() {

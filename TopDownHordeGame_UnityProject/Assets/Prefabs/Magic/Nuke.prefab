@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 4159429163525772429}
   - component: {fileID: 6190829296741634575}
   - component: {fileID: -4832033588556187626}
+  - component: {fileID: 6761678191272831582}
+  - component: {fileID: 3668125518098200057}
   m_Layer: 0
   m_Name: Nuke
   m_TagString: Untagged
@@ -45,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   time: 0
-  type: 0
+  type: 3
 --- !u!212 &-4832033588556187626
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -98,3 +100,33 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &6761678191272831582
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7609820944762314030}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!114 &3668125518098200057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7609820944762314030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 613adb43c86583f4093d871f5bbb9c85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeTags:
+  - Player

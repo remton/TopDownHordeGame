@@ -11,6 +11,7 @@ public class Weapon : MonoBehaviour
 
     [SerializeField] protected int penatration; // number of zombies able to be hit by one bullet. (Should be at least 1)
     [SerializeField] protected int damage;        // damage per bullet
+    private int damageBackup;
     [SerializeField] protected int magSize;       // size of this weapons magazine
     [SerializeField] protected int reserveSize;   // max ammo that can be held with this weapon
     [SerializeField] protected FireEffectController effectController;
@@ -22,8 +23,15 @@ public class Weapon : MonoBehaviour
     public int GetMagSize() { return magSize; }
     public int GetInMag() { return inMag; }
     public int GetInReserve() { return inReserve; }
-
     public void SetReloadTime(float newTime) { reloadTime = newTime; }
+    public int GetDamage() { return damage; }
+    public void ResetDamage() { 
+        damage = damageBackup; 
+    } 
+    public void SetKillDamage(int killDamage) {
+        damageBackup = damage; 
+        damage = killDamage; 
+    }
     public float GetReloadTime() { return reloadTime; }
     public float GetFireDeley() { return fireDeley; }
     public float GetSwapTime() { return swapTime; }

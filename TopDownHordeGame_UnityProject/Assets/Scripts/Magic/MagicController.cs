@@ -15,6 +15,10 @@ public class MagicController : MonoBehaviour
     [SerializeField] private GameObject salePrefab;
 
     private GameObject ammoObj;
+    private GameObject carpenterObj;
+    private GameObject killObj;
+    private GameObject nukeObj;
+    private GameObject saleObj;
 
     [SerializeField] private int round;
 
@@ -43,100 +47,41 @@ public class MagicController : MonoBehaviour
             Destroy(gameObject);
 
      }
-
-    private void Update()
-    {
-
-
-        //Manages round changing
-        /*
-                if (isWaitingForNextRound)
-                {
-                    if (timeUntilRoundStart <= Time.deltaTime)
-                    {
-                        isWaitingForNextRound = false;
-                        NextRound();
-                    }
-                    timeUntilRoundStart -= Time.deltaTime;
-                }
-                else if (zombiesSpawnedThisRound >= zombiesToSpawn && numberActiveZombies <= 0)
-                {
-                    isWaitingForNextRound = true;
-                    timeUntilRoundStart = pauseBetweenRounds;
-                }
-        */
-
-        //Zombie Spawning
-        /*        if (activeWindows.Count != 0)
-                {
-                    if (!isWaitingForNextRound)
-                    {
-                        if (timeUntilNextSpawn <= 0)
-                        {
-                            if (zombiesSpawnedThisRound < zombiesToSpawn && numberActiveZombies < maxActiveZombies)
-                            {
-                                int i = Mathf.RoundToInt(Random.Range(0, activeWindows.Count));
-                                activeWindows[i].AddZombiesToQueue(1); // the window handles spawning the zombie
-                                zombiesSpawnedThisRound++;
-                                numberActiveZombies++;
-                            }
-                            timeUntilNextSpawn = spawnDelay;
-                        }
-                        else
-                        {
-                            timeUntilNextSpawn -= Time.deltaTime;
-                        }
-                    }
-                }
-                else
-                {
-                    Debug.Log("NO ACTIVE WINDOWS!!!! -_-");
-                }
-            }
-        */
-    }
-
-/*    public GameObject CreateMagic()
-    {
-//    GameObject zombieObj = Instantiate(zombiePrefab);
-//      ZombieAI zombie = zombieObj.GetComponent<ZombieAI>();
-//        zombie.SetValues(GetHealth(), GetSpeed(), GetDamage());
-//        return zombieObj;
-    } */
-
     public void MagicDrop(Vector3 zombieLocation)
     {
         int chance = Random.Range(0, 1000);
-        if (chance > 0)
+        if (chance > 999)
         {
             // SpawnAmmo
             Debug.Log("Ammo Drop");
             ammoObj = Instantiate(ammoPrefab, transform);
             ammoObj.transform.position = zombieLocation;
-
         }
-        else if (chance > 880)
+        else if (chance >998)
         {
             // SpawnCarpenter
-
+            Debug.Log("Carpenter Drop");
+            carpenterObj = Instantiate(carpenterPrefab, transform);
+            carpenterObj.transform.position = zombieLocation;
         }
-        else if (chance > 750)
+        else if (chance > 997)
         {
             // SpawnKill
-            GameObject obj = Instantiate(killPrefab);
-            obj.transform.position = zombieLocation;
+            Debug.Log("Kill Drop");
+            carpenterObj = Instantiate(killPrefab, transform);
+            carpenterObj.transform.position = zombieLocation;
         }
-        else if (chance > 730)
+        else if (chance > 996)
         {
-            // SpawnNuke // FUNCTIONS NOT IMPLEMENTED
-            GameObject obj = Instantiate(nukePrefab);
-            obj.transform.position = zombieLocation;
+            Debug.Log("Nuke Drop");
+            carpenterObj = Instantiate(nukePrefab, transform);
+            carpenterObj.transform.position = zombieLocation;
         }
-        else if (chance > 600)
+        else if (chance > 1000)
         {
-            // SpawnSale 
-            GameObject obj = Instantiate(salePrefab);
-            obj.transform.position = zombieLocation;
+            Debug.Log("Sale Drop");
+            carpenterObj = Instantiate(salePrefab, transform);
+            carpenterObj.transform.position = zombieLocation;
         }
 
     }
