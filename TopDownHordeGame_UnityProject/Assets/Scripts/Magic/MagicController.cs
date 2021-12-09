@@ -19,6 +19,7 @@ public class MagicController : MonoBehaviour
     private GameObject killObj;
     private GameObject nukeObj;
     private GameObject saleObj;
+    public bool selling = false;
 
     [SerializeField] private int round;
 
@@ -77,9 +78,10 @@ public class MagicController : MonoBehaviour
             carpenterObj = Instantiate(nukePrefab, transform);
             carpenterObj.transform.position = zombieLocation;
         }
-        else if (chance > 995)
+        else if (chance > 995 && !selling)
         {
             Debug.Log("Sale Drop");
+            selling = true;
             carpenterObj = Instantiate(salePrefab, transform);
             carpenterObj.transform.position = zombieLocation;
         }

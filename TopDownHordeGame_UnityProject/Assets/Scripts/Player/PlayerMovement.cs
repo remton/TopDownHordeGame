@@ -33,17 +33,18 @@ public class PlayerMovement : MonoBehaviour
             multSumSlow = 1;
         return multSumFast * (1 / (multSumSlow));
     }
-    private float runSpeedMult() {
+    private float runSpeedMult() { // To Do: Fix: Bolt perk combined with M1911 weapon speed allows the player to sprint through zombies and take 0 damage 
         float multSumFast = 0;
         float multSumSlow = 0;
         foreach (float num in runSpeedMultipliers) {
             if (num < 1)
                 multSumSlow += 1 / num;
             else
-                multSumFast += num;
+                multSumFast += num - 1; // If the -1 is not here, the player speed quickly spirals out of control 
         }
-        if (multSumFast == 0)
-            multSumFast = 1;
+        multSumFast++; // This makes the player fast multiplier be at least one 
+//        if (multSumFast == 0)
+//            multSumFast = 1;
         if (multSumSlow == 0)
             multSumSlow = 1;
         return multSumFast * (1/(multSumSlow));

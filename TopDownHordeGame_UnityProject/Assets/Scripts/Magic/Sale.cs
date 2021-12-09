@@ -83,9 +83,10 @@ public class Sale : MonoBehaviour
         foreach (GameObject current in weapons)
         {
             Debug.Log("In the weapon reset loop");
-            current.GetComponent<WeaponShop>().SaleStart(balanceCost);
+            current.GetComponent<WeaponShop>().SaleEnd();
         }
         Debug.Log("Power Up: " + name + " lost");
+        MagicController.instance.selling = false;
         Destroy(gameObject);
     }
 }

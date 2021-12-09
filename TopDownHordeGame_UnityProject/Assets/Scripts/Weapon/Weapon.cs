@@ -49,7 +49,7 @@ public class Weapon : MonoBehaviour
 
     /// <summary> Reloads weapon instantly (reloadTime is handled in PlayerWeaponControl script) </summary>
     public void Reload() {
-        if (inReserve + inMag >= magSize) // To Do: Test that this properly reloads the last mag of an RPD. It previously discarded the ammunition in the last magazine. 
+        if (inReserve + inMag >= magSize) // Check to make sure total of current mag and reserve is more than a full mag 
         {
             inReserve -= magSize - inMag;
             inMag = magSize;
@@ -60,7 +60,7 @@ public class Weapon : MonoBehaviour
         }
     }
     public void Reload(int magSize) {
-        if (inReserve + inMag >= magSize) // To Do: Test that this properly reloads the last mag of an RPD. It previously discarded the ammunition in the last magazine. 
+        if (inReserve + inMag >= magSize) // Check to make sure total of current mag and reserve is more than a full mag 
         { 
             inReserve -= magSize - inMag;
             inMag = magSize;
