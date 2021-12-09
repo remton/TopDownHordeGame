@@ -35,7 +35,7 @@ public class Sale : MonoBehaviour
             Debug.Log("In perk loop");
             current.GetComponent<PerkShop>().SaleStart(balanceCost);
         }
-        weapons = GameObject.FindGameObjectsWithTag("Weapon Shop");
+        weapons = GameObject.FindGameObjectsWithTag("WeaponShop");
         foreach (GameObject current in weapons)
         {
             Debug.Log("In perk loop");
@@ -79,7 +79,7 @@ public class Sale : MonoBehaviour
             Debug.Log("In the perk reset loop");
             current.GetComponent<PerkShop>().SaleEnd();
         }
-        weapons = GameObject.FindGameObjectsWithTag("Weapon Shop");
+        weapons = GameObject.FindGameObjectsWithTag("WeaponShop");
         foreach (GameObject current in weapons)
         {
             Debug.Log("In the weapon reset loop");

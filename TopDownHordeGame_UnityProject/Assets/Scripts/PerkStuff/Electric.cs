@@ -5,18 +5,18 @@ using UnityEngine;
 
 public class Electric : Perk
 {
-    private int balanceDamage = 3; // Damage for reload 
-    private float balanceRadius = 1.7F; // Radius for reload 
+    private int balanceDamage = 4; // Damage for reload 
+    private float balanceRadius = 1.8F; // Radius for reload 
     public GameObject circleObjPrefab;
     public GameObject electricReloadPrefab;
     private GameObject electricReloadObj;
-    //This is where the perk activates. This changes the regen values of the player.
+    //This is where the perk activates. 
     public override void OnPerkGained(GameObject player)
     {
         Debug.Log("Perk: " + name + " gained");
     }
 
-    //This is where the perk deactivates. This changes the regen values of the player.
+    //This is where the perk deactivates. 
     public override void OnPerkLost(GameObject player)
     {
         Debug.Log("Perk: " + name + " lost");

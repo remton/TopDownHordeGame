@@ -37,7 +37,8 @@ public class WeaponShop : MonoBehaviour
         popupCanvas.SetActive(true);
         popupCanvas.GetComponentInChildren<Text>().text = weaponPrefab.name + "\n$" + cost;
     }
-    public void OnPlayerExit(GameObject player) {
+    public void OnPlayerExit(GameObject player) 
+    {
         player.GetComponent<PlayerActivate>().EventPlayerActivate -= TryBuyWeapon;
         popupCanvas.SetActive(false);
     }
