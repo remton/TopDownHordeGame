@@ -249,7 +249,7 @@ public class PlayerWeaponControl : MonoBehaviour
         int i = 0;
         Weapon weapon = weapons[0];
         for (i = 0; i < weapons.Count; i++)
-        weapon.AddReserveAmmo(Mathf.RoundToInt(weapon.GetReserveSize() * reserveMult - weapon.GetInReserve()));
+        weapon.AddReserveAmmo(Mathf.RoundToInt(weapon.GetReserveSize() * reserveMult /* - weapon.GetInReserve() */ )); //Changed AddReserveAmmo function. The commented out portion may be unnecessary. 
         UpdateVisuals();
     }
     public void KillDamage(int killDamage)

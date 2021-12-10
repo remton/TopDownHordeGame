@@ -77,8 +77,8 @@ public class Weapon : MonoBehaviour
     /// <summary> adds the given amount of bullets to the reserve ammo up to reserveSize </summary>
     public void AddReserveAmmo(int amount) {
         inReserve += amount;
-        if (inReserve > reserveSize)
-            inReserve = reserveSize;
+//        if (inReserve > reserveSize)
+//            inReserve = reserveSize;
     }
 
     /// <summary> Fires weapon instantly (fireDeley is handled in PlayerWeaponControl script) </summary>
