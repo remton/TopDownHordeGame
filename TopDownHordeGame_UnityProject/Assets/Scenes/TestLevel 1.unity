@@ -13802,7 +13802,7 @@ MonoBehaviour:
   startRoomWindows:
   - {fileID: 955746581}
   players: []
-  pauseBetweenRounds: 0.5
+  pauseBetweenRounds: 3
   maxActiveZombies: 500
 --- !u!4 &1235508277
 Transform:
@@ -13832,7 +13832,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   popup: {fileID: 350365487}
   smallDisplay: {fileID: 1015722686}
-  displayTime: 5
+  displayTime: 3
 --- !u!1001 &1237833365
 PrefabInstance:
   m_ObjectHideFlags: 0

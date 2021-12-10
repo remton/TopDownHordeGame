@@ -15,6 +15,9 @@ public class UIPlayerSidebar : MonoBehaviour
     public Text bankTxt;
     private static readonly string bankTxtDefault = "Bank: ${bank}";
 
+    public Text weaponTxt;
+    private static readonly string weaponTxtDefault = "Weapon: {weapon}";
+
     public Image weaponImg;
     public List<Image> perkImgs;
 
@@ -33,6 +36,7 @@ public class UIPlayerSidebar : MonoBehaviour
         player.GetComponent<PlayerWeaponControl>().EventAmmoChanged += UpdateAmmoTxt;
         player.GetComponent<PlayerHealth>().EventHealthChanged += UpdateHealthTxt;
         player.GetComponent<PlayerStats>().EventBankChange += UpdateBankTxt;
+        player.GetComponent<PlayerWeaponControl>().EventWeaponChanged += UpdateWeaponTxt;
     }
     //Removes this objects methods from the events linked to its player
     public void DetachCurrentPlayer() {
@@ -40,6 +44,7 @@ public class UIPlayerSidebar : MonoBehaviour
             player.GetComponent<PlayerWeaponControl>().EventAmmoChanged -= UpdateAmmoTxt;
             player.GetComponent<PlayerHealth>().EventHealthChanged -= UpdateHealthTxt;
             player.GetComponent<PlayerStats>().EventBankChange -= UpdateBankTxt;
+            player.GetComponent<PlayerWeaponControl>().EventWeaponChanged -= UpdateWeaponTxt;
         }
     }
 
@@ -61,6 +66,13 @@ public class UIPlayerSidebar : MonoBehaviour
         newTxt = newTxt.Replace("{health}", health.ToString());
         newTxt = newTxt.Replace("{max}", max.ToString());
         HealthTxt.text = newTxt;
+    }
+
+    public void UpdateWeaponTxt(string weaponName)
+    {
+        string newTxt = weaponTxtDefault;
+        newTxt = newTxt.Replace("{weapon}", weaponName);
+        weaponTxt.text = newTxt;
     }
 
     public void UpdateWeaponImg(Sprite img) {

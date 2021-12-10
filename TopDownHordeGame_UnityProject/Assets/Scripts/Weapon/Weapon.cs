@@ -8,18 +8,19 @@ public class Weapon : MonoBehaviour
     [SerializeField] private float fireDeley;   // time between shots (handled in playerWeaponControl)
     [SerializeField] private float swapTime;   // time to switch to this weapon (handled in playerWeaponControl)
     [SerializeField] private float movePenalty; // subtractive penalty to movespeed when equipped (handled in playerWeaponControl)
-
+    [SerializeField] private string weaponName; // Weapon name for display
     [SerializeField] protected int penatration; // number of zombies able to be hit by one bullet. (Should be at least 1)
     [SerializeField] protected int damage;        // damage per bullet
-    private int damageBackup;
+    private int damageBackup;                     // Used to reset damage for the magic that makes players intantly kill zombies
     [SerializeField] protected int magSize;       // size of this weapons magazine
     [SerializeField] protected int reserveSize;   // max ammo that can be held with this weapon
     [SerializeField] protected FireEffectController effectController;
     protected int inMag = 0; // bullets in magazine
     protected int inReserve = 0; // bullets in reserve
 
-    public int GetReserveSize() { return reserveSize; }
+    
 
+    public int GetReserveSize() { return reserveSize; }
     public int GetMagSize() { return magSize; }
     public int GetInMag() { return inMag; }
     public int GetInReserve() { return inReserve; }
@@ -36,6 +37,8 @@ public class Weapon : MonoBehaviour
     public float GetFireDeley() { return fireDeley; }
     public float GetSwapTime() { return swapTime; }
     public float GetMoveMult() { return movePenalty; }
+    public string GetWeaponName() { return weaponName; }
+
 
 
     /// <summary> Returns true if there is not ammo in the magazine </summary>

@@ -44,6 +44,7 @@ public class PlayerWeaponControl : MonoBehaviour
             weapon.Reload();
         }
         if (EventAmmoChanged != null) EventAmmoChanged.Invoke(Mathf.RoundToInt(weapons[equippedIndex].GetInMag()), weapons[equippedIndex].GetInReserve());
+        if (EventWeaponChanged != null) EventWeaponChanged.Invoke(weapons[equippedIndex].GetWeaponName());
         playerMovement.runSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
         playerMovement.walkSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
     }
@@ -69,6 +70,8 @@ public class PlayerWeaponControl : MonoBehaviour
 
     public delegate void AmmoChanged(int mag, int reserve);
     public event AmmoChanged EventAmmoChanged;
+    public delegate void WeaponChanged(string weaponName);
+    public event WeaponChanged EventWeaponChanged;
     //Whenever ammo is changed add this code:
     //if (EventAmmoChanged != null) EventAmmoChanged.Invoke(weapons[equippedIndex].GetInMag(), weapons[equippedIndex].GetInReserve());
 
@@ -199,11 +202,12 @@ public class PlayerWeaponControl : MonoBehaviour
 
     private void UpdateVisuals() {
         if (EventAmmoChanged != null) EventAmmoChanged.Invoke(Mathf.RoundToInt(weapons[equippedIndex].GetInMag()), Mathf.RoundToInt(weapons[equippedIndex].GetInReserve()));
+        if (EventWeaponChanged != null) EventWeaponChanged.Invoke(weapons[equippedIndex].GetWeaponName()); 
     }
 
     public void PickUpWeapon(GameObject weaponPrefab) {
         playerMovement.runSpeedMultipliers.Remove(weapons[equippedIndex].GetMoveMult());
-        playerMovement.walkSpeedMultipliers.Remove(weapons[equippedIndex].GetMoveMult());
+        playerMovement.walkSpeedMultipliers.Remove(weapons[equippedIndex].GetMoveMult()); 
         if (isReloading)
             CancelReload();
         if (isSwapping)
