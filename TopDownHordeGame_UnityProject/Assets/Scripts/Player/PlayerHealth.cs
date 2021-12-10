@@ -91,6 +91,7 @@ public class PlayerHealth : MonoBehaviour {
     public void Revive() {
         isBleedingOut = false;
         health = maxHealth;
+        GetComponent<PlayerMovement>().EnableMovement();
         Debug.Log("Revived!");
         if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
     }
@@ -98,6 +99,7 @@ public class PlayerHealth : MonoBehaviour {
     private void GoDown() {
         timeUntilDeath = bleedOutTime;
         isBleedingOut = true;
+        GetComponent<PlayerMovement>().DisableMovement();
         Debug.Log("Bleeding out!");
     }
 
