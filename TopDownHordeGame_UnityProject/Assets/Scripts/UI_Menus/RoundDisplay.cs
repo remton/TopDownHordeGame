@@ -28,7 +28,10 @@ public class RoundDisplay : MonoBehaviour
         popup.SetActive(false);
         isDisplayingPopup = false;
     }
-
+    public bool GetIsDisplayingPopup()
+    {
+        return isDisplayingPopup;
+    }
     private void Update() {
         if (isDisplayingPopup) {
             if(timeUntilEndPopup <= 0) {

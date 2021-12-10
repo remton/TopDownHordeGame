@@ -16,6 +16,12 @@ public class PlayerMovement : MonoBehaviour
     private float walkSpeed = 2;
     private float runSpeed = 4;
 
+    private float staminaRemaining = 5F;
+    private float staminaMaximum = 5F;
+    private float staminaRegenRateWalking = .0125F;
+    private float staminaRegenRateStanding = .025F;
+    private float staminaDrainRate = .05F;
+
     public List<float> walkSpeedMultipliers = new List<float>();
     public List<float> runSpeedMultipliers = new List<float>();
     private float walkSpeedMult() {
@@ -33,21 +39,21 @@ public class PlayerMovement : MonoBehaviour
             multSumSlow = 1;
         return multSumFast * (1 / (multSumSlow));
     }
-    private float runSpeedMult() { // To Do: Fix: Bolt perk combined with M1911 weapon speed allows the player to sprint through zombies and take 0 damage 
+    private float runSpeedMult() { // Fixed: Bolt perk combined with M1911 weapon speed no longer allows the player to sprint through zombies and take 0 damage. Changed calculation for the multiplier to fix this.  
         float multSumFast = 0;
         float multSumSlow = 0;
         foreach (float num in runSpeedMultipliers) {
             if (num < 1)
                 multSumSlow += 1 / num;
             else
-                multSumFast += num - 1; // If the -1 is not here, the player speed quickly spirals out of control 
+                multSumFast += num - 1; // If the -1 is not here, the player speed quickly spirals out of control when stacking positive buffs. 
         }
         multSumFast++; // This makes the player fast multiplier be at least one 
-//        if (multSumFast == 0)
-//            multSumFast = 1;
+                       //        if (multSumFast == 0)
+                       //            multSumFast = 1;
         if (multSumSlow == 0)
             multSumSlow = 1;
-        return multSumFast * (1/(multSumSlow));
+        return multSumFast * (1 / (multSumSlow));
     }
 
 
@@ -71,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
     public float movementMult = 1;
 
     private void Awake() {
-        mainCamera = Camera.main;   
+        mainCamera = Camera.main;
     }
 
     public void OnDeviceChange(InputDevice device, InputDeviceChange deviceChange) {
@@ -96,8 +102,10 @@ public class PlayerMovement : MonoBehaviour
 
     //called after every frame
     private void FixedUpdate() {
-        if(doMovement)
+        if (doMovement)
             Move(moveDir);
+        //        if (staminaRemaining < staminaMaximum && moveDir.x == 0 && moveDir.y == 0)
+        //            staminaRemaining += staminaRegenRate;
     }
 
     public void DisableMovement() {
@@ -116,11 +124,11 @@ public class PlayerMovement : MonoBehaviour
 
     // called whenever mouse position input event is called (Keyboard inputs only)
     public void OnMousePos(InputAction.CallbackContext context) {
-        if(Camera.main == null) {
+        if (Camera.main == null) {
             Debug.Log("Camera gone?! \\o_0/");
             return;
         }
-        
+
         useMouseToLook = true;
         mouseScreenPos = context.ReadValue<Vector2>();
         LookAtMouse();
@@ -156,14 +164,27 @@ public class PlayerMovement : MonoBehaviour
 
     // Moves the player based on the given direction
     // Should be called in fixed update
-    private void Move(Vector2 movementDir) {
+    private void Move(Vector2 movementDir)
+    {
         Vector2 newPos = transform.position;
+        if (movementDir.x != 0 || movementDir.y != 0)
+        {
+            if (isRunning && staminaRemaining > 0)
+            {
+                newPos += runSpeedMult() * runSpeed * movementDir * Time.fixedDeltaTime;
+                staminaRemaining -= staminaDrainRate;
 
-        if (isRunning)
-            newPos += runSpeedMult() * runSpeed * movementDir * Time.fixedDeltaTime;
+            }
+            else
+            {
+                newPos += walkSpeedMult() * walkSpeed * movementDir * Time.fixedDeltaTime;
+                if (staminaRemaining < staminaMaximum)
+                    staminaRemaining += staminaRegenRateWalking;
+            }
+            rb.MovePosition(newPos);
+        }
         else
-            newPos += walkSpeedMult() * walkSpeed * movementDir * Time.fixedDeltaTime;
-
-        rb.MovePosition(newPos);
+            if (staminaRemaining < staminaMaximum) 
+                staminaRemaining += staminaRegenRateStanding;
     }
 }

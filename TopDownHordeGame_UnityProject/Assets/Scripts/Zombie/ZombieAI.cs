@@ -21,6 +21,7 @@ public class ZombieAI : MonoBehaviour
     public void SetValues(int newHealth, float newSpeed, int newDamage) {
         zombieHealth.SetMaxHealth(newHealth);
         zombiePath.target = target;
+        zombieLunge.SetDamage(newDamage);
     }
 
     //Sets the target to the closeset player

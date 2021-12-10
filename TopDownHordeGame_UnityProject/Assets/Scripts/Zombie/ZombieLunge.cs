@@ -33,6 +33,10 @@ public class ZombieLunge : MonoBehaviour
     private void Damage(GameObject player) {
         player.GetComponent<PlayerHealth>().Damage(damage);
     }
+    public void SetDamage(int newDamage)
+    {
+        damage = newDamage;
+    }
 
     public void Lunge(Vector2 d) {
 

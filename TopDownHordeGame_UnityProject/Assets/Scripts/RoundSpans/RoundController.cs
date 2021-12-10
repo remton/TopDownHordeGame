@@ -14,6 +14,7 @@ public class RoundController : MonoBehaviour
     public List<GameObject> players;
 
     bool isWaitingForNextRound = false;
+    bool hasShownRoundChange = false;
     [SerializeField] private float pauseBetweenRounds;
     private float timeUntilRoundStart;
 
@@ -61,6 +62,10 @@ public class RoundController : MonoBehaviour
         //Manages round changing
         
         if (isWaitingForNextRound) {
+            if (/*!display.GetIsDisplayingPopup()*/ !hasShownRoundChange) { 
+                display.RoundChange(round + 1); // This shows the display before the zombies start spawning 
+                hasShownRoundChange = true;
+            }
             if (timeUntilRoundStart <= Time.deltaTime) {
                 isWaitingForNextRound = false;
                 NextRound();
@@ -107,7 +112,8 @@ public class RoundController : MonoBehaviour
         speed = GetSpeed();
         health = GetHealth();
         damage = GetDamage();
-        display.RoundChange(round);
+        //        display.RoundChange(round); // This is handled elsewhere "display before the zombies start spawning" (currently line 64)
+        hasShownRoundChange = false;
         spawnDelay = GetSpawnDeley();
         zombiesSpawnedThisRound = 0;
         PlayerManager.instance.RespawnDeadPlayers();
@@ -129,10 +135,10 @@ public class RoundController : MonoBehaviour
 
     private float GetSpeed() {
         if (round > 10)
-            return 1.2f + (3f/10f) * 10;
+            return 1.2f + (3f/10f) * 10 + Random.Range(-.4F, .8F); // Gives zombies a random speed
         else
         {
-            return (1.2f + (3f / 10f) * round);
+            return (1.2f + (3f / 10f) * round + Random.Range(-.04F * round, .08F * round)); // Gives zombies a random speed
         }
     }
     private int GetHealth() {
