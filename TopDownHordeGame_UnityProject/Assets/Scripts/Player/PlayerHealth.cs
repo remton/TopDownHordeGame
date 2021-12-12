@@ -108,4 +108,12 @@ public class PlayerHealth : MonoBehaviour {
         isDead = true;
         PlayerManager.instance.OnPlayerDie(gameObject);
     }
+
+    public bool IsBleedingOut() {
+        return isBleedingOut;
+    }
+    public float GetBleedOutTimeRatio() {
+        return timeUntilDeath/bleedOutTime;
+    }
+
 }
