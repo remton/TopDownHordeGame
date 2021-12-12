@@ -22,6 +22,11 @@ public class PlayerMovement : MonoBehaviour
     private float staminaRegenRateStanding = .025F;
     private float staminaDrainRate = .05F;
 
+    /// <summary> returns the ratio of current stamina to max stamina  </summary>
+    public float GetStaminaRatio() {
+        return staminaRemaining / staminaMaximum;
+    }
+
     public List<float> walkSpeedMultipliers = new List<float>();
     public List<float> runSpeedMultipliers = new List<float>();
     private float walkSpeedMult() {
