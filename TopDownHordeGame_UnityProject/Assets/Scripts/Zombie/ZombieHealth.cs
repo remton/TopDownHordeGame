@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ZombieHealth : MonoBehaviour
 {
+    public ParticleSystem particle;
+    public GameObject deathEffectObj; 
+
     private int chance;
     public void SetMaxHealth(int newMax)
     {
@@ -32,6 +35,7 @@ public class ZombieHealth : MonoBehaviour
         health -= amount;
         if (health <= 0)
             Die();
+        particle.Play();
         //if (EventHealthChange != null) { EventHealthChange.Invoke(health); }
     }
 
@@ -50,7 +54,8 @@ public class ZombieHealth : MonoBehaviour
         // MagicController.MagicDrop(chance) 
         Vector3 myLocation = transform.position;
         MagicController.instance.MagicDrop(myLocation);
+        GameObject obj = Instantiate(deathEffectObj);
+        obj.transform.position = transform.position;
         Destroy(gameObject);
-
     }
 }
