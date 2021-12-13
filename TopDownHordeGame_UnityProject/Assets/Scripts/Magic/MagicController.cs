@@ -21,19 +21,10 @@ public class MagicController : MonoBehaviour
     private GameObject saleObj;
     public bool selling = false;
 
-    [SerializeField] private int round;
-
     public List<Window> startRoomWindows;
     public List<GameObject> players;
 
-    private float spawnDelay;
-    private float timeUntilNextSpawn;
-
-    int zombiesToSpawn;
     public int maxActiveZombies;
-    float speed;
-    int health;
-    int damage;
 
     public static MagicController instance;
 
@@ -50,40 +41,44 @@ public class MagicController : MonoBehaviour
      }
     public void MagicDrop(Vector3 zombieLocation)
     {
-        int chance = Random.Range(0, 1000);
-        if (chance > 999)
+        int chance = Random.Range(0, 200); // 1 / 200 chance for a magic drop
+        if (chance == 199)
         {
-            // SpawnAmmo
-            Debug.Log("Ammo Drop");
-            ammoObj = Instantiate(ammoPrefab, transform);
-            ammoObj.transform.position = zombieLocation;
-        }
-        else if (chance >998)
-        {
-            // SpawnCarpenter
-            Debug.Log("Carpenter Drop");
-            carpenterObj = Instantiate(carpenterPrefab, transform);
-            carpenterObj.transform.position = zombieLocation;
-        }
-        else if (chance > 997)
-        {
-            // SpawnKill
-            Debug.Log("Kill Drop");
-            carpenterObj = Instantiate(killPrefab, transform);
-            carpenterObj.transform.position = zombieLocation;
-        }
-        else if (chance > 996)
-        {
-            Debug.Log("Nuke Drop");
-            carpenterObj = Instantiate(nukePrefab, transform);
-            carpenterObj.transform.position = zombieLocation;
-        }
-        else if (chance > 995 && !selling)
-        {
-            Debug.Log("Sale Drop");
-            selling = true;
-            carpenterObj = Instantiate(salePrefab, transform);
-            carpenterObj.transform.position = zombieLocation;
+            chance = Random.Range(0, 1000); // The magics can be balanced to make some more likely than others 
+            if (chance >= 800)
+            {
+                // SpawnAmmo
+                Debug.Log("Ammo Drop");
+                ammoObj = Instantiate(ammoPrefab, transform);
+                ammoObj.transform.position = zombieLocation;
+            }
+            else if (chance >= 600)
+            {
+                // SpawnCarpenter
+                Debug.Log("Carpenter Drop");
+                carpenterObj = Instantiate(carpenterPrefab, transform);
+                carpenterObj.transform.position = zombieLocation;
+            }
+            else if (chance >= 400)
+            {
+                // SpawnKill
+                Debug.Log("Kill Drop");
+                killObj = Instantiate(killPrefab, transform);
+                killObj.transform.position = zombieLocation;
+            }
+            else if (chance >= 200)
+            {
+                Debug.Log("Nuke Drop");
+                nukeObj = Instantiate(nukePrefab, transform);
+                nukeObj.transform.position = zombieLocation;
+            }
+            else if (chance >= 0 && !selling)
+            {
+                Debug.Log("Sale Drop");
+                selling = true;
+                saleObj = Instantiate(salePrefab, transform);
+                saleObj.transform.position = zombieLocation;
+            }
         }
     }
 }

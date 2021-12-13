@@ -60,6 +60,7 @@ public class PerkShop : MonoBehaviour
     public void SaleStart(float price)
     {
         backupCost = cost;
+        Debug.Log("Perk Name: " + perkPrefab);
         Debug.Log("Price before: " + cost);
         cost = Mathf.FloorToInt(cost * price);
         Debug.Log("Price now: " + cost);

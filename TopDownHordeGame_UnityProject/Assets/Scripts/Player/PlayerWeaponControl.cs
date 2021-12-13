@@ -246,11 +246,11 @@ public class PlayerWeaponControl : MonoBehaviour
     }
     public void RefillWeaponReserve()
     {
-        int i = 0;
-        Weapon weapon = weapons[0];
-        for (i = 0; i < weapons.Count; i++)
-        weapon.AddReserveAmmo(Mathf.RoundToInt(weapon.GetReserveSize() * reserveMult /* - weapon.GetInReserve() */ )); //Changed AddReserveAmmo function. The commented out portion may be unnecessary. 
-        UpdateVisuals();
+        foreach(Weapon current in weapons)
+        {
+            current.AddReserveAmmo(Mathf.RoundToInt(current.GetReserveSize() * reserveMult - current.GetInReserve())); //Changed AddReserveAmmo function. The commented out portion may be unnecessary. 
+            UpdateVisuals();
+        }
     }
     public void KillDamage(int killDamage)
     {

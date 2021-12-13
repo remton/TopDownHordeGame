@@ -29,7 +29,7 @@ public class Sale : MonoBehaviour
     {
         GetComponent<HitBoxController>().EventObjEnter -= Touch;
         Debug.Log("Power Up: " + name + " activated");
-        perks = GameObject.FindGameObjectsWithTag("Perk");
+        perks = GameObject.FindGameObjectsWithTag("PerkShop");
         foreach (GameObject current in perks)
         {
             Debug.Log("In perk loop");
@@ -73,7 +73,7 @@ public class Sale : MonoBehaviour
     //This is where the perk deactivates. Maybe it changes a stat value, maybe it unsibscribes from an event.
     public virtual void Stop()
     {
-        perks = GameObject.FindGameObjectsWithTag("Perk");
+        perks = GameObject.FindGameObjectsWithTag("PerkShop");
         foreach (GameObject current in perks)
         {
             Debug.Log("In the perk reset loop");

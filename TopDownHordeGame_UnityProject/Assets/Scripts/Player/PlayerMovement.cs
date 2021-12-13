@@ -16,8 +16,8 @@ public class PlayerMovement : MonoBehaviour
     private float walkSpeed = 2;
     private float runSpeed = 4;
 
-    private float staminaRemaining = 5F;
-    private float staminaMaximum = 5F;
+    private float staminaRemaining = 10F;
+    private float staminaMaximum = 10F;
     private float staminaRegenRateWalking = .0125F;
     private float staminaRegenRateStanding = .025F;
     private float staminaDrainRate = .05F;
@@ -69,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isRunning = false;
     private Vector2 moveDir;
-    private Vector2 lookDir;
+    private Vector2 lookDir; // This is not being used 
     public Vector2 mouseScreenPos;
 
     // If mouse input was detected this is true if gamepad this is false
