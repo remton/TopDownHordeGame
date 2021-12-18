@@ -109,8 +109,6 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate() {
         if (doMovement)
             Move(moveDir);
-        //        if (staminaRemaining < staminaMaximum && moveDir.x == 0 && moveDir.y == 0)
-        //            staminaRemaining += staminaRegenRate;
     }
 
     public void DisableMovement() {
