@@ -11,6 +11,10 @@ public class PreGameController : MonoBehaviour
     public Text numPlayerTxt;
     public string sceneToLoad;
 
+    private void Awake() {
+        Cursor.visible = true; // Make sure we can see the cursor since it is made invisible and replaced by the reticle during gameplay
+    }
+
     private void Start() {
         numPlayerTxt.text = numPlayers.ToString();
     }
