@@ -68,6 +68,9 @@ public class PlayerWeaponControl : MonoBehaviour
         return next;
     }
 
+
+    public delegate void ReloadCalled(float reloadTimeSec);
+    public event ReloadCalled EventReloadCalled;
     public delegate void AmmoChanged(int mag, int reserve);
     public event AmmoChanged EventAmmoChanged;
     public delegate void WeaponChanged(string weaponName);
@@ -84,6 +87,8 @@ public class PlayerWeaponControl : MonoBehaviour
             StartSwapWeapon();
     }
     private void StartSwapWeapon() {
+        if (isSwapping)
+            return;
         if (isReloading)
             CancelReload();
         Debug.Log("Swapping . . .");
@@ -119,7 +124,7 @@ public class PlayerWeaponControl : MonoBehaviour
             StartReload();
     }
     public void StartReload() {
-        if (isSwapping)
+        if (isSwapping || isReloading)
             return;
         CancelShoot();
 
@@ -131,6 +136,7 @@ public class PlayerWeaponControl : MonoBehaviour
         Debug.Log("Reloading . . .");
         isReloading = true;
         timeUntilReload = weapons[equippedIndex].GetReloadTime() * reloadSpeedMult;
+        if (EventReloadCalled != null) EventReloadCalled.Invoke(timeUntilReload);
     }
     private void ReloadUpdate() {
         if(timeUntilReload <= 0) {

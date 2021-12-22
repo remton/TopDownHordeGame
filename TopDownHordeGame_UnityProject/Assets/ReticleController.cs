@@ -25,16 +25,19 @@ public class ReticleController : MonoBehaviour
         gamepadPlayers.Clear();
         gamepadReticles.Clear();
 
-
+        //Add reticles
         for (int i = 0; i < newPlayers.Count; i++) {
             if (newPlayers[i].GetComponent<PlayerInput>().currentControlScheme == "Gamepad") {
                 gamepadPlayers.Add(newPlayers[i]);
-                gamepadReticles.Add(Instantiate(reticlePrefab, transform));
+                GameObject newRet = Instantiate(reticlePrefab, transform);
+                newRet.GetComponent<Reticle>().player = newPlayers[i];
+                gamepadReticles.Add(newRet);
             }
             else {
                 // Using mouse
                 playerWithMouse = newPlayers[i];
                 mouseReticle = Instantiate(reticlePrefab, transform);
+                mouseReticle.GetComponent<Reticle>().player = newPlayers[i];
                 Cursor.visible = false;
             }
         }

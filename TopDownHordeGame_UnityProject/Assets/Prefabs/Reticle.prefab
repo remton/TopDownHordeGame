@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1498456478219719576}
   - component: {fileID: 4945136840017352797}
+  - component: {fileID: 8459598550982608162}
+  - component: {fileID: 1390630536893055009}
   m_Layer: 5
   m_Name: Reticle
   m_TagString: Untagged
@@ -83,3 +85,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8459598550982608162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6389048016344100703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3a3825ce8581c84c94d9ddafcf9f045, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reloadAnim: {fileID: 7400000, guid: fd8bd7d04a807ce4fbbcd2160462b018, type: 2}
+  player: {fileID: 0}
+--- !u!95 &1390630536893055009
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6389048016344100703}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0f32e1ab4f8d7744084c58e6bdb5f46d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
