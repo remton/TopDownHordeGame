@@ -113,7 +113,7 @@ public class PlayerHealth : MonoBehaviour {
         health = maxHealth;
         isDead = false;
         GetComponent<PlayerMovement>().EnableMovement();
-        GetComponent<PlayerWeaponControl>().ResetWeapons();
+//        GetComponent<PlayerWeaponControl>().ResetWeapons();
         Debug.Log("Revived!");
         if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
     }
