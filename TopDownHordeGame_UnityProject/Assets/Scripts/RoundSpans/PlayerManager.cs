@@ -18,14 +18,15 @@ public class PlayerManager : MonoBehaviour
     public List<GameObject> GetActivePlayers() {
         List<GameObject> activePlayers = new List<GameObject>();
         foreach (GameObject player in players) {
+//            Debug.Log("This player is dead?       " + player.GetComponent<PlayerHealth>().GetIsDead());
             if (!player.GetComponent<PlayerHealth>().GetIsDead())
                 activePlayers.Add(player);
         }
         return activePlayers;
     }
 
-    public delegate void OnPlayersChange(List<GameObject> players);
-    public event OnPlayersChange EventActivePlayersChange;
+    public delegate void OnPlayersChanged(List<GameObject> players);
+    public event OnPlayersChanged EventActivePlayersChange;
 
     public static PlayerManager instance;
     private void Awake() {
@@ -53,13 +54,26 @@ public class PlayerManager : MonoBehaviour
     public void RespawnDeadPlayers() {
         foreach (GameObject player in players) {
             if (player.GetComponent<PlayerHealth>().GetIsDead()) {
-                player.transform.position = spawnPoint.transform.position;
                 player.SetActive(true);
+                player.transform.position = spawnPoint.transform.position;
+                player.GetComponent<PlayerHealth>().Respawn();
+                Debug.Log("Player respawned") ;
             }
         }
         if (EventActivePlayersChange != null) { EventActivePlayersChange.Invoke(GetActivePlayers()); }
     }
-
+    public void ReviveDownedPlayers()
+    {
+        foreach (GameObject player in players)
+        {
+            if (player.GetComponent<PlayerHealth>().IsBleedingOut())
+            {
+                player.GetComponent<PlayerHealth>().Revive();
+                Debug.Log("Player revived.");
+            }
+        }
+        if (EventActivePlayersChange != null) { EventActivePlayersChange.Invoke(GetActivePlayers()); }
+    }
     public void OnPlayerDie(GameObject player) {
         player.SetActive(false);
         player.transform.position = deadPlayerLocation.transform.position;

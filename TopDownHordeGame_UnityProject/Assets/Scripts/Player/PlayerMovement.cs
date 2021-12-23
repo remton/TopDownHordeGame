@@ -18,8 +18,8 @@ public class PlayerMovement : MonoBehaviour
 
     private float staminaRemaining = 10F;
     private float staminaMaximum = 10F;
-    private float staminaRegenRateWalking = .0125F;
-    private float staminaRegenRateStanding = .025F;
+    private float staminaRegenRateWalking = .01375F;
+    private float staminaRegenRateStanding = .0275F;
     private float staminaDrainRate = .05F;
 
     /// <summary> returns the ratio of current stamina to max stamina  </summary>

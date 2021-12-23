@@ -16,6 +16,7 @@ public class PlayerWeaponControl : MonoBehaviour
     public float fireRateMult;
     public float magMult;
     public float reserveMult;
+    public GameObject starterWeaponPrefab;
 
     public float electricRadius;
     public int electricDamage;
@@ -275,5 +276,11 @@ public class PlayerWeaponControl : MonoBehaviour
         for (i = 0; i < weapons.Count; i++)
             weapon.ResetDamage();
         UpdateVisuals();
+    }
+    public void ResetWeapons()
+    {
+        SetWeaponCount(0);
+        SetWeaponCount(2);
+        PickUpWeapon(starterWeaponPrefab);
     }
 }

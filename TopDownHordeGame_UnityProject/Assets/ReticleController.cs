@@ -17,6 +17,7 @@ public class ReticleController : MonoBehaviour
 
     void OnPlayersChanged(List<GameObject> newPlayers) {
         Destroy(mouseReticle);
+//        Debug.Log("Reticle OnPlayersChanged was called.");
         mouseReticle = null;
         playerWithMouse = null;
         foreach (GameObject reticle in gamepadReticles) {

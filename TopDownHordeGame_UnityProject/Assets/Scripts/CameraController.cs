@@ -79,6 +79,9 @@ public class CameraController : MonoBehaviour
     
     public void OnPlayersChanged(List<GameObject> newPlayers) {
         players = newPlayers;
+        //        players = PlayerManager.instance.GetActivePlayers();
+//        Debug.Log("Camera OnPlayersChanged was called.");
+
     }
 
     private void OnDestroy() {

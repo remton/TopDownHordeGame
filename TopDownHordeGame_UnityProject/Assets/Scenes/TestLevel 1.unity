@@ -11072,7 +11072,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 519420031}
-  edgeBufferSize: 5
+  edgeBufferSize: 7
   minSize: 4.5
   maxSize: 8
 --- !u!20 &519420031

@@ -108,7 +108,15 @@ public class PlayerHealth : MonoBehaviour {
         isDead = true;
         PlayerManager.instance.OnPlayerDie(gameObject);
     }
-
+    public void Respawn()
+    {
+        health = maxHealth;
+        isDead = false;
+        GetComponent<PlayerMovement>().EnableMovement();
+        GetComponent<PlayerWeaponControl>().ResetWeapons();
+        Debug.Log("Revived!");
+        if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
+    }
     public bool IsBleedingOut() {
         return isBleedingOut;
     }

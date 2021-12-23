@@ -225,7 +225,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 1
   m_AngularDrag: 30
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -476,6 +476,7 @@ MonoBehaviour:
   fireRateMult: 1
   magMult: 1
   reserveMult: 1
+  starterWeaponPrefab: {fileID: 4588798819567209700, guid: dddf0d8df2ee23b4ab9a0dff3c7c1ada, type: 3}
   electricRadius: 10
   electricDamage: 10
   electricPrefab: {fileID: 7920108413950733430, guid: 63bc2d6571b51ed4fbef6330636d64a8, type: 3}

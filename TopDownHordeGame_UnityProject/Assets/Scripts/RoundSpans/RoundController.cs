@@ -62,8 +62,10 @@ public class RoundController : MonoBehaviour
         //Manages round changing
         
         if (isWaitingForNextRound) {
-            if (/*!display.GetIsDisplayingPopup()*/ !hasShownRoundChange) { 
-                display.RoundChange(round + 1); // This shows the display before the zombies start spawning 
+            if (!hasShownRoundChange) { 
+                display.RoundChange(round + 1); //display before the zombies start spawning
+                PlayerManager.instance.ReviveDownedPlayers();
+                PlayerManager.instance.RespawnDeadPlayers();
                 hasShownRoundChange = true;
             }
             if (timeUntilRoundStart <= Time.deltaTime) {
@@ -112,7 +114,7 @@ public class RoundController : MonoBehaviour
         speed = GetSpeed();
         health = GetHealth();
         damage = GetDamage();
-        //        display.RoundChange(round); // This is handled elsewhere "display before the zombies start spawning" (currently line 64)
+        //        display.RoundChange(round); // This is handled elsewhere "display before the zombies start spawning" 
         hasShownRoundChange = false;
         spawnDelay = GetSpawnDeley();
         zombiesSpawnedThisRound = 0;
