@@ -9,7 +9,10 @@ public class Window : MonoBehaviour
     [HideInInspector] public bool isActive;
 
     [SerializeField] private float breakDelay; // the delay in seconds between each zombie hit to the window health
-    private float timeUntilNextBreak; 
+    private float timeUntilNextBreak;
+
+    private float spawnDelay;
+    private float timeUntilSpawn;
 
     [SerializeField] private int health; // health of the boards on this window
     [SerializeField] private int maxHealth;
@@ -55,21 +58,37 @@ public class Window : MonoBehaviour
     }
 
     private void Update() {
-        if (isOpen) {
+        if (isOpen && numInQueue > 0)
+        {
             //spawns a zombie for every zombie in the queue
-            for (; numInQueue>0; numInQueue--) {
+            //            for (; numInQueue > 0; numInQueue--) {
+            //                timeUntilSpawn = spawnDelay;
+            if (timeUntilSpawn > 0)
+            {
+                timeUntilSpawn -= Time.deltaTime;
+            }
+            else
+            {
                 SpawnZombie();
+                timeUntilSpawn = spawnDelay;
+                numInQueue--;
             }
         }
-        else {
-            if(timeUntilNextBreak <= 0) {
+        //      }
+        else
+        {
+            if (timeUntilNextBreak <= 0)
+            {
                 timeUntilNextBreak = breakDelay;
                 //damage the window for each zombie in the queue
-                for (int i = 0; i < numInQueue; i++) {
-                    if(health <= 0) {
+                for (int i = 0; i < numInQueue; i++)
+                {
+                    if (health <= 0)
+                    {
                         SetWindowOpen();
                     }
-                    else {
+                    else
+                    {
                         Damage(1);
                     }
                 }
@@ -88,6 +107,7 @@ public class Window : MonoBehaviour
 
     private void SetWindowOpen() {
         Debug.Log("OPEN WINDOW");
+        spawnDelay = .05F;
         isOpen = true;
         tilemap.SetTile(topTile, openTop);
         tilemap.SetTile(midTile, openMid);

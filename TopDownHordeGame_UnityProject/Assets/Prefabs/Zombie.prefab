@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4727604383481053326}
   - component: {fileID: 4727604383481053313}
   - component: {fileID: 4727604383481053312}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: ZombieHitEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4817,7 +4817,7 @@ GameObject:
   - component: {fileID: 7680590451608520419}
   - component: {fileID: 3753625905578734239}
   - component: {fileID: 4164462514332702161}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: LungeHitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4895,7 +4895,7 @@ GameObject:
   - component: {fileID: -2455652057355692573}
   - component: {fileID: 8163446417953433952}
   - component: {fileID: 3017018676422336411}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: Zombie
   m_TagString: Zombie
   m_Icon: {fileID: 0}

@@ -425,7 +425,7 @@ MonoBehaviour:
     m_ActionId: d2e345ff-4b5b-4885-9ba6-3f82ab36996e
     m_ActionName: Player/Activate[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 1
-  m_DefaultControlScheme: Keyboard
+  m_DefaultControlScheme: Eric keyboard
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -473,7 +473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reloadSpeedMult: 1
-  fireRateMult: 1
+  fireDelayMult: 1
   magMult: 1
   reserveMult: 1
   starterWeaponPrefab: {fileID: 2093619312353819989, guid: fdf774ac936edeb448f010811a3c19dc, type: 3}
@@ -482,7 +482,7 @@ MonoBehaviour:
   electricPrefab: {fileID: 7920108413950733430, guid: 63bc2d6571b51ed4fbef6330636d64a8, type: 3}
   maxWeapons: 2
   weapons:
-  - {fileID: 4665321404495983258}
+  - {fileID: 1843269170670028921, guid: fdf774ac936edeb448f010811a3c19dc, type: 3}
 --- !u!114 &1620798982028091925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -709,14 +709,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1317619421317616089, guid: fdf774ac936edeb448f010811a3c19dc, type: 3}
   m_PrefabInstance: {fileID: 6424972635141389027}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4665321404495983258 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1843269170670028921, guid: fdf774ac936edeb448f010811a3c19dc, type: 3}
-  m_PrefabInstance: {fileID: 6424972635141389027}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8d8d952117d7a54cae64dd13e1b5acc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

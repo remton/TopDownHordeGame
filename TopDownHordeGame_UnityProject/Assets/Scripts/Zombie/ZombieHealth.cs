@@ -49,9 +49,8 @@ public class ZombieHealth : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log(name + ": \"*dies\"");
+//        Debug.Log(name + ": \"*dies\"");
         RoundController.instance.ZombieDies();
-        // MagicController.MagicDrop(chance) 
         Vector3 myLocation = transform.position;
         MagicController.instance.MagicDrop(myLocation);
         GameObject obj = Instantiate(deathEffectObj);

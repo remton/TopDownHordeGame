@@ -10,14 +10,14 @@ public class FiredUp : Perk
     public override void OnPerkGained(GameObject player)
     {
         Debug.Log("Perk: " + name + " gained"); 
-        player.GetComponent<PlayerWeaponControl>().fireRateMult = (balance);
+        player.GetComponent<PlayerWeaponControl>().fireDelayMult = (balance);
     }
 
     //This is where the perk deactivates. This changes the fire rate of the player.
     public override void OnPerkLost(GameObject player)
     {
         Debug.Log("Perk: " + name + " lost");
-        player.GetComponent<PlayerWeaponControl>().fireRateMult = (1 / balance);
+        player.GetComponent<PlayerWeaponControl>().fireDelayMult = (1 / balance);
     }
 }
 

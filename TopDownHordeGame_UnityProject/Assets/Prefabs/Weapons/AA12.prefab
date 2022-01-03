@@ -43,14 +43,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a840deff011aee4b946dce077adef33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reloadTime: 1.2
+  reloadTime: 1.3
   fireDeley: 0.2
   swapTime: 1.3
   movePenalty: 0.95
   weaponName: AA12
   penatration: 1
   damage: 2
-  magSize: 20
+  magSize: 14
   reserveSize: 160
   effectController: {fileID: 2769296667775464315, guid: 7d9940cc4635be54da99373e2c0dfb27, type: 3}
   pelletCount: 8

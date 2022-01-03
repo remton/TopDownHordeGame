@@ -13,7 +13,7 @@ public class PlayerWeaponControl : MonoBehaviour
     private PlayerMovement playerMovement;
 
     public float reloadSpeedMult;
-    public float fireRateMult;
+    public float fireDelayMult;
     public float magMult;
     public float reserveMult;
     public GameObject starterWeaponPrefab;
@@ -169,7 +169,7 @@ public class PlayerWeaponControl : MonoBehaviour
         }
         else if (shootButtonDown) {
             Shoot();
-            timeUntilShoot = weapons[equippedIndex].GetFireDeley() * fireRateMult;
+            timeUntilShoot = weapons[equippedIndex].GetFireDeley() * fireDelayMult;
             isWaitingToShoot = true;
         }
     }
@@ -270,7 +270,7 @@ public class PlayerWeaponControl : MonoBehaviour
     }
     public void ResetKillDamage()
     {
-        Debug.Log("Damage should be changed");
+        Debug.Log("Damage should be reset");
         int i = 0;
         Weapon weapon = weapons[0];
         for (i = 0; i < weapons.Count; i++)

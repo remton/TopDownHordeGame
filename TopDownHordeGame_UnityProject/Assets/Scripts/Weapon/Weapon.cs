@@ -88,28 +88,45 @@ public class Weapon : MonoBehaviour
     }
 
     protected void FireShot(GameObject player, Vector2 direction) {
-        RaycastHit2D effectRay = Physics2D.Raycast(player.transform.position, direction, Mathf.Infinity, LayerMask.GetMask("BulletCollider"));
-        Vector2 startPos = new Vector3(player.transform.position.x, player.transform.position.y, 0);
-        if (effectRay) {
-            Vector2 hitPoint = effectRay.point;
-            Vector2 endPos = new Vector3(hitPoint.x, hitPoint.y, 0);
-            effectController.CreateTrail(startPos, endPos);
-        }
-        else {
-            effectController.CreateTrailDir(startPos, direction);
-        }
+        RaycastHit2D[] hitInfos = Physics2D.RaycastAll(player.transform.position, direction, Mathf.Infinity, LayerMask.GetMask("BulletCollider"));
+        int hitZombies = 0;
 
-        RaycastHit2D[] hitInfos = Physics2D.RaycastAll(player.transform.position, direction, Mathf.Infinity, LayerMask.GetMask("Zombie"));
-        int loopLimit = (penatration < hitInfos.Length) ? penatration : hitInfos.Length; // minimum of penatration or number of hits
+        Vector2 startPos = new Vector3(player.transform.position.x, player.transform.position.y, 0);
+        int loopLimit = hitInfos.Length;
+        Debug.Log("loopLimit = " + loopLimit);
+
         for (int i = 0; i < loopLimit; i++) {
             GameObject zombieHit = hitInfos[i].transform.gameObject;
-            if (zombieHit.CompareTag("Zombie")) {
+            if (zombieHit.CompareTag("Zombie"))
+            {
+                hitZombies++;
+                Debug.Log("   Zombie " + i + " is: " + zombieHit);
                 zombieHit.GetComponent<ZombieHealth>().Damage(damage);
                 player.GetComponent<PlayerStats>().AddMoney(1); // Give the player money for shooting someone 
                 if (zombieHit.GetComponent<ZombieHealth>().isDead())
+                {
                     player.GetComponent<PlayerStats>().AddKill();
+                    Debug.Log("      Zombie" + i + "died.");
+                }
+
+                if (hitZombies >= penatration)
+                {
+                    Debug.Log("Drawing to " + zombieHit + ". i = " + i + "/" + loopLimit);
+                    Vector2 hitPoint = zombieHit.transform.position;
+                    Vector2 endPos = new Vector3(hitPoint.x, hitPoint.y, 0);
+                    effectController.CreateTrail(startPos, endPos);
+                    break;
+                }
+                
+            }
+            if (zombieHit.CompareTag("Wall"))
+            {
+                Debug.Log("Drawing to the wall");
+                Vector2 hitPoint = hitInfos[i].point;
+                Vector2 endPos = new Vector3(hitPoint.x, hitPoint.y, 0);
+                effectController.CreateTrail(startPos, endPos);
+                break;
             }
         }
     }
-
-}
+} 

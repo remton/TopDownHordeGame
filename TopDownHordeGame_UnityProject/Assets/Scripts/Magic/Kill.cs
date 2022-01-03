@@ -4,7 +4,6 @@ using UnityEngine;
 
 
 
-
 public class Kill : MonoBehaviour
 {
     public int time;
@@ -65,7 +64,6 @@ public class Kill : MonoBehaviour
     //This is where the perk deactivates. Maybe it changes a stat value, maybe it unsibscribes from an event.
     public virtual void Stop()
     {
-        players = PlayerManager.instance.GetActivePlayers();
         foreach (GameObject current in players)
         {
             Debug.Log("In the reset loop");

@@ -34,6 +34,7 @@ public class RoundController : MonoBehaviour
 
     public void ZombieDies() {
         instance.numberActiveZombies--;
+        Debug.Log("                 numberActiveZombies = " + numberActiveZombies);
     }
 
     private void Awake() {
@@ -83,7 +84,7 @@ public class RoundController : MonoBehaviour
         if (activeWindows.Count != 0) {
             if (!isWaitingForNextRound) {
                 if(timeUntilNextSpawn <= 0) {
-                    if (zombiesSpawnedThisRound < zombiesToSpawn && numberActiveZombies < maxActiveZombies) {
+                    if (zombiesSpawnedThisRound < zombiesToSpawn) {
                         int i = Mathf.RoundToInt(Random.Range(0, activeWindows.Count));
                         activeWindows[i].AddZombiesToQueue(1); // the window handles spawning the zombie
                         zombiesSpawnedThisRound++;
@@ -132,15 +133,15 @@ public class RoundController : MonoBehaviour
 
     //Returns how many zombies per second to spawn
     private float GetSpawnDeley() {
-        return Mathf.Exp(-0.15f * (round-4)) + 0.1f;
+        return Mathf.Exp(-0.15f * (round-4)) + 0.15f;
     }
 
     private float GetSpeed() {
         if (round > 10)
-            return 1.2f + (3f/10f) * 10 + Random.Range(-.4F, .8F); // Gives zombies a random speed
+            return 1.2f + 3f / 10f * 10 + Random.Range(-.4F, .8F); // Gives zombies a random speed
         else
         {
-            return (1.2f + (3f / 10f) * round + Random.Range(-.04F * round, .08F * round)); // Gives zombies a random speed
+            return 1.2f + 3f / 10f * round + Random.Range(-.04F * round, .08F * round); // Gives zombies a random speed
         }
     }
     private int GetHealth() {
@@ -163,6 +164,6 @@ public class RoundController : MonoBehaviour
     }
     public List<Window> GetActiveWindows()
     {
-        return (activeWindows);
+        return activeWindows;
     }
 }
