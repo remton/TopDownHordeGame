@@ -40,7 +40,7 @@ public class Weapon : MonoBehaviour
     public string GetWeaponName() { return weaponName; }
 
 
-
+    
     /// <summary> Returns true if there is not ammo in the magazine </summary>
     public bool MagEmpty() {
         return inMag <= 0;
@@ -77,7 +77,7 @@ public class Weapon : MonoBehaviour
     /// <summary> adds the given amount of bullets to the reserve ammo up to reserveSize </summary>
     public void AddReserveAmmo(int amount) {
         inReserve += amount;
-//        if (inReserve > reserveSize)
+//        if (inReserve > reserveSize * GetComponent<PlayerWeaponControl>().reserveMult)
 //            inReserve = reserveSize;
     }
 

@@ -24,6 +24,7 @@ public class PlayerWeaponControl : MonoBehaviour
 
 
     [SerializeField] private int maxWeapons;
+    [SerializeField] public List<Weapon> weapons;
     public void SetWeaponCount(int newCount) {
         for (int i = 0; i < maxWeapons - newCount; i++) {
             if (weapons[i] != null) {
@@ -39,18 +40,21 @@ public class PlayerWeaponControl : MonoBehaviour
     }
 
     private void Start() {
+        Debug.Log("Start has been called");
         foreach (Weapon weapon in weapons) {
+            Debug.Log("Weapon loop is working");
             Debug.Log("ADDING AMMO TO: " + weapon.name);
             weapon.AddReserveAmmo(Mathf.RoundToInt(weapon.GetReserveSize() * reserveMult));
+            Debug.Log("Reserve ammo added");
             weapon.Reload();
+            Debug.Log("Reloaded");
         }
-        if (EventAmmoChanged != null) EventAmmoChanged.Invoke(Mathf.RoundToInt(weapons[equippedIndex].GetInMag()), weapons[equippedIndex].GetInReserve());
-        if (EventWeaponChanged != null) EventWeaponChanged.Invoke(weapons[equippedIndex].GetWeaponName());
+        EventAmmoChanged.Invoke(Mathf.RoundToInt(weapons[equippedIndex].GetInMag()), weapons[equippedIndex].GetInReserve());
+        EventWeaponChanged.Invoke(weapons[equippedIndex].GetWeaponName());
         playerMovement.runSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
         playerMovement.walkSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
     }
 
-    [SerializeField] private List<Weapon> weapons;
     private int equippedIndex;
 
     private bool isSwapping;
@@ -271,9 +275,7 @@ public class PlayerWeaponControl : MonoBehaviour
     public void ResetKillDamage()
     {
         Debug.Log("Damage should be reset");
-        int i = 0;
-        Weapon weapon = weapons[0];
-        for (i = 0; i < weapons.Count; i++)
+        foreach (Weapon weapon in weapons)
             weapon.ResetDamage();
         UpdateVisuals();
     }

@@ -482,7 +482,7 @@ MonoBehaviour:
   electricPrefab: {fileID: 7920108413950733430, guid: 63bc2d6571b51ed4fbef6330636d64a8, type: 3}
   maxWeapons: 2
   weapons:
-  - {fileID: 1843269170670028921, guid: fdf774ac936edeb448f010811a3c19dc, type: 3}
+  - {fileID: 4665321404495983258}
 --- !u!114 &1620798982028091925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -709,3 +709,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1317619421317616089, guid: fdf774ac936edeb448f010811a3c19dc, type: 3}
   m_PrefabInstance: {fileID: 6424972635141389027}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4665321404495983258 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1843269170670028921, guid: fdf774ac936edeb448f010811a3c19dc, type: 3}
+  m_PrefabInstance: {fileID: 6424972635141389027}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8d8d952117d7a54cae64dd13e1b5acc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

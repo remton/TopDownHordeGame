@@ -67,7 +67,8 @@ public class Kill : MonoBehaviour
         foreach (GameObject current in players)
         {
             Debug.Log("In the reset loop");
-            current.GetComponent<PlayerWeaponControl>().ResetKillDamage();
+            foreach (Weapon currentWeapon in current.GetComponent<PlayerWeaponControl>().weapons)
+            currentWeapon.GetComponent<PlayerWeaponControl>().ResetKillDamage();
         }
         Debug.Log("Power Up: " + name + " lost");
         Destroy(gameObject);
