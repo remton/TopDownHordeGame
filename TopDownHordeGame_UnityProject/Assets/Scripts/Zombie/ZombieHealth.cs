@@ -49,7 +49,7 @@ public class ZombieHealth : MonoBehaviour
 
     private void Die()
     {
-//        Debug.Log(name + ": \"*dies\"");
+        Debug.Log(name + ": \"*dies\"");
         RoundController.instance.ZombieDies();
         Vector3 myLocation = transform.position;
         MagicController.instance.MagicDrop(myLocation);

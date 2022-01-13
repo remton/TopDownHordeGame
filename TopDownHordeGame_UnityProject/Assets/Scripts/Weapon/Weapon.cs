@@ -87,44 +87,38 @@ public class Weapon : MonoBehaviour
 //        Debug.Log(name + ": " + inMag.ToString() + " / " + inReserve.ToString());
     }
 
-    protected void FireShot(GameObject player, Vector2 direction) {
-        RaycastHit2D[] hitInfos = Physics2D.RaycastAll(player.transform.position, direction, Mathf.Infinity, LayerMask.GetMask("BulletCollider"));
+    protected void FireShot(GameObject player, Vector2 direction) { 
+        string[] mask = { "BulletCollider", "Zombie", "Door"};
+        RaycastHit2D[] hitInfos = Physics2D.RaycastAll(player.transform.position, direction, Mathf.Infinity, LayerMask.GetMask(mask));
         int hitZombies = 0;
 
         Vector2 startPos = new Vector3(player.transform.position.x, player.transform.position.y, 0);
-        int loopLimit = hitInfos.Length;
-        Debug.Log("loopLimit = " + loopLimit);
 
-        for (int i = 0; i < loopLimit; i++) {
-            GameObject zombieHit = hitInfos[i].transform.gameObject;
-            if (zombieHit.CompareTag("Zombie"))
+        for (int i = 0; i < hitInfos.Length; i++)
+        {
+            GameObject hitObj = hitInfos[i].transform.gameObject;
+            if (hitObj.CompareTag("Zombie"))
             {
                 hitZombies++;
-                Debug.Log("   Zombie " + i + " is: " + zombieHit);
-                zombieHit.GetComponent<ZombieHealth>().Damage(damage);
+                hitObj.GetComponent<ZombieHealth>().Damage(damage);
                 player.GetComponent<PlayerStats>().AddMoney(1); // Give the player money for shooting someone 
-                if (zombieHit.GetComponent<ZombieHealth>().isDead())
+                if (hitObj.GetComponent<ZombieHealth>().isDead())
                 {
                     player.GetComponent<PlayerStats>().AddKill();
-                    Debug.Log("      Zombie" + i + "died.");
                 }
 
-                if (hitZombies >= penatration)
+                if (hitZombies == penatration)
                 {
-                    Debug.Log("Drawing to " + zombieHit + ". i = " + i + "/" + loopLimit);
-                    Vector2 hitPoint = zombieHit.transform.position;
-                    Vector2 endPos = new Vector3(hitPoint.x, hitPoint.y, 0);
-                    effectController.CreateTrail(startPos, endPos);
+                    Vector2 hitPoint = hitInfos[i].point;
+                    effectController.CreateTrail(startPos, hitPoint);
                     break;
                 }
-                
             }
-            if (zombieHit.CompareTag("Wall"))
+            else if (hitObj.CompareTag("Wall") || hitObj.CompareTag("Door"))
             {
                 Debug.Log("Drawing to the wall");
                 Vector2 hitPoint = hitInfos[i].point;
-                Vector2 endPos = new Vector3(hitPoint.x, hitPoint.y, 0);
-                effectController.CreateTrail(startPos, endPos);
+                effectController.CreateTrail(startPos, hitPoint);
                 break;
             }
         }

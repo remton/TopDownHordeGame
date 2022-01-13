@@ -34,6 +34,8 @@ public class RoundController : MonoBehaviour
 
     public void ZombieDies() {
         instance.numberActiveZombies--;
+        if (instance.numberActiveZombies < 0)
+            numberActiveZombies = 0;
         Debug.Log("                 numberActiveZombies = " + numberActiveZombies);
     }
 
