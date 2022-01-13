@@ -6,7 +6,7 @@ public class RPG : Weapon
 {
     protected int balanceDamage = 4; // Damage for reload 
     protected float balanceRadius = 1.8F; // Radius for reload 
-    protected float flySpeed = 3F; 
+    protected float flySpeed = 30F; 
     public GameObject rocketObj; 
     public GameObject rocketObjPrefab;
     public GameObject player;
@@ -22,8 +22,9 @@ public class RPG : Weapon
     public void FireRocket(GameObject player, Vector2 direction)
     {
         Vector3 playerPos = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
-        Instantiate(rocketObjPrefab, playerPos, Quaternion.identity);
         playerLookDir = direction;
+        GameObject rocket = Instantiate(rocketObjPrefab, playerPos, Quaternion.identity);
+        rocket.GetComponent<Rocket>().Init(player, playerLookDir.normalized, balanceDamage, balanceRadius, flySpeed);
     } 
     public float GetFlySpeed()
     {
