@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6396399298110489018}
   - component: {fileID: -512873134856680351}
   - component: {fileID: -213541478100332637}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RocketPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 6396399298110489017}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -16.4906, y: 7.1775, z: 0}
-  m_LocalScale: {x: 0.5387, y: 0.6925, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.14, z: 0.2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -131,6 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionPrefab: {fileID: 625011097304364378, guid: 77ed71e9d93daf64fa1ce44bd12258a8, type: 3}
+  timeUntilDestroy: 0.1
   rb: {fileID: -213541478100332637}
 --- !u!50 &-213541478100332637
 Rigidbody2D:

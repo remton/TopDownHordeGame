@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class RPG : Weapon 
 {
-    protected int balanceDamage = 4; // Damage for reload 
-    protected float balanceRadius = 1.8F; // Radius for reload 
+    protected int balanceDamage = 10; // Damage for reload 
+    protected float balanceRadius = 3.8F; // Radius for reload 
     protected float flySpeed = 30F; 
-    public GameObject rocketObj; 
+//`    public GameObject rocketObj; 
     public GameObject rocketObjPrefab;
     public GameObject player;
     private Vector3 playerPos;
@@ -25,7 +25,8 @@ public class RPG : Weapon
         playerLookDir = direction;
         GameObject rocket = Instantiate(rocketObjPrefab, playerPos, Quaternion.identity);
         rocket.GetComponent<Rocket>().Init(player, playerLookDir.normalized, balanceDamage, balanceRadius, flySpeed);
-    } 
+
+    }
     public float GetFlySpeed()
     {
         return flySpeed;
