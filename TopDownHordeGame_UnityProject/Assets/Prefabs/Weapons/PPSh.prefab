@@ -51,7 +51,7 @@ MonoBehaviour:
   penatration: 1
   damage: 1
   magSize: 35
-  reserveSize: 525
+  reserveSize: 700
   effectController: {fileID: 2769296667775464315, guid: 7d9940cc4635be54da99373e2c0dfb27, type: 3}
   pelletCount: 1
-  spreadAngle: 20
+  spreadAngle: 16

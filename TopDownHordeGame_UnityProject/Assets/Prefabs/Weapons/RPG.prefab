@@ -45,14 +45,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reloadTime: 1.8
   fireDeley: 0
-  swapTime: 2.5
+  swapTime: 2
   movePenalty: 0.7
   weaponName: RPG
   penatration: 1
-  damage: 15
+  damage: 21
   magSize: 1
   reserveSize: 10
   effectController: {fileID: 2769296667775464315, guid: 7d9940cc4635be54da99373e2c0dfb27, type: 3}
-  rocketObj: {fileID: 6396399298110489017, guid: 8cdeb959bda28654e8e2935ee6e478a3, type: 3}
+  balanceRadius: 5
   rocketObjPrefab: {fileID: 6396399298110489017, guid: 8cdeb959bda28654e8e2935ee6e478a3, type: 3}
   player: {fileID: 0}

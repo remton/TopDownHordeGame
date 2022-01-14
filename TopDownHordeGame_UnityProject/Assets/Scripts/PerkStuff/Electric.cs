@@ -6,7 +6,7 @@ using UnityEngine;
 public class Electric : Perk
 {
     private int balanceDamage = 4; // Damage for reload 
-    private float balanceRadius = 1.8F; // Radius for reload 
+    private float balanceRadius = 2.6F; // Radius for reload 
     public GameObject circleObjPrefab;
     public GameObject electricReloadPrefab;
     private GameObject electricReloadObj;

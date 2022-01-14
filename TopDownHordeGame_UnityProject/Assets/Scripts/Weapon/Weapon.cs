@@ -101,7 +101,7 @@ public class Weapon : MonoBehaviour
             {
                 hitZombies++;
                 hitObj.GetComponent<ZombieHealth>().Damage(damage);
-                player.GetComponent<PlayerStats>().AddMoney(1); // Give the player money for shooting someone 
+                player.GetComponent<PlayerStats>().AddMoney(2); // Give the player money for shooting someone 
                 if (hitObj.GetComponent<ZombieHealth>().isDead())
                 {
                     player.GetComponent<PlayerStats>().AddKill();
