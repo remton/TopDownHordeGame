@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ZombieHealth : MonoBehaviour
 {
-    public ParticleSystem particle;
+    //public ParticleSystem particle;
+    public GameObject hitEffectObj;
     public GameObject deathEffectObj; 
 
     private int chance;
@@ -35,7 +36,8 @@ public class ZombieHealth : MonoBehaviour
         health -= amount;
         if (health <= 0)
             Die();
-        particle.Play();
+        GameObject obj = Instantiate(hitEffectObj);
+        obj.transform.position = transform.position;
         //if (EventHealthChange != null) { EventHealthChange.Invoke(health); }
     }
 
