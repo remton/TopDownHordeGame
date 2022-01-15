@@ -73,6 +73,7 @@ public class UIPlayerSidebar : MonoBehaviour
         string newTxt = weaponTxtDefault;
         newTxt = newTxt.Replace("{weapon}", weaponName);
         weaponTxt.text = newTxt;
+        weaponTxt.resizeTextForBestFit = true;
     }
 
     public void UpdateWeaponImg(Sprite img) {

@@ -21,6 +21,7 @@ public class Reticle : MonoBehaviour
     }
 
     private void OnDestroy() {
-        player.GetComponent<PlayerWeaponControl>().EventReloadCalled -= PlayReloadAnim;
+        if(player)
+            player.GetComponent<PlayerWeaponControl>().EventReloadCalled -= PlayReloadAnim;
     }
 }

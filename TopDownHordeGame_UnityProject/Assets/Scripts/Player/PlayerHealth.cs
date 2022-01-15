@@ -14,7 +14,7 @@ public class PlayerHealth : MonoBehaviour {
     private float regenInterval = 4;
     private float timeSinceHit;
     private float timeSinceRegen;
-
+    public GameObject hitEffectObj;
     public bool GetIsDead() { return isDead; }
 
     public delegate void HealthChanged(int health, int max);
@@ -85,7 +85,13 @@ public class PlayerHealth : MonoBehaviour {
             newHealth = 0;
         }
         health = newHealth;
-        if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); timeSinceHit = 0; } // timeSinceHit resets health regeneration in RegenUpdate function
+
+        //Hit effect
+        GameObject obj = Instantiate(hitEffectObj);
+        obj.transform.position = transform.position;
+
+        // timeSinceHit resets health regeneration in RegenUpdate function
+        if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); timeSinceHit = 0; } 
     }
 
     public void Revive() {
