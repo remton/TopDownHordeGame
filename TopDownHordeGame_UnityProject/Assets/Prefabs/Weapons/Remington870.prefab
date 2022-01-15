@@ -51,6 +51,7 @@ MonoBehaviour:
   weaponName: Remton 870
   penatration: 2
   damage: 1
+  damageBackup: 1
   magSize: 5
   reserveSize: 50
   effectController: {fileID: 280554672184955303}

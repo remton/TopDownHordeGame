@@ -265,18 +265,16 @@ public class PlayerWeaponControl : MonoBehaviour
     }
     public void KillDamage(int killDamage)
     {
-        Debug.Log("Damage should be changed"); 
-        int i = 0;
-        Weapon weapon = weapons[0];
-        for (i = 0; i < weapons.Count; i++)
-            weapon.SetKillDamage(killDamage);
+        Debug.Log("Damage should be changed");
+        foreach (Weapon current in weapons)
+            current.SetKillDamage(killDamage);
         UpdateVisuals();
     }
     public void ResetKillDamage()
     {
         Debug.Log("Damage should be reset");
-        foreach (Weapon weapon in weapons)
-            weapon.ResetDamage();
+        foreach (Weapon current in weapons)
+            current.ResetDamage();
         UpdateVisuals();
     }
     public void ResetWeapons()

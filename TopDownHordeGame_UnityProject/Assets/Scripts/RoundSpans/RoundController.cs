@@ -36,7 +36,6 @@ public class RoundController : MonoBehaviour
         instance.numberActiveZombies--;
         if (instance.numberActiveZombies < 0)
             numberActiveZombies = 0;
-        Debug.Log("                 numberActiveZombies = " + numberActiveZombies);
     }
 
     private void Awake() {

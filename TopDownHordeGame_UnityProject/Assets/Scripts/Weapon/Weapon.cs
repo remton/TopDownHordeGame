@@ -11,7 +11,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private string weaponName; // Weapon name for display
     [SerializeField] protected int penatration; // number of zombies able to be hit by one bullet. (Should be at least 1)
     [SerializeField] protected int damage;        // damage per bullet
-    private int damageBackup;                     // Used to reset damage for the magic that makes players intantly kill zombies
+    [SerializeField] private int damageBackup;                     // Used to reset damage for the magic that makes players intantly kill zombies
     [SerializeField] protected int magSize;       // size of this weapons magazine
     [SerializeField] protected int reserveSize;   // max ammo that can be held with this weapon
     [SerializeField] protected FireEffectController effectController;
@@ -30,7 +30,6 @@ public class Weapon : MonoBehaviour
         damage = damageBackup; 
     } 
     public void SetKillDamage(int killDamage) {
-        damageBackup = damage; 
         damage = killDamage; 
     }
     public float GetReloadTime() { return reloadTime; }

@@ -51,6 +51,7 @@ MonoBehaviour:
   weaponName: RPD
   penatration: 3
   damage: 3
+  damageBackup: 3
   magSize: 100
   reserveSize: 300
   effectController: {fileID: 7464435425784226722}

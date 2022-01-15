@@ -51,6 +51,7 @@ MonoBehaviour:
   weaponName: .50 Cal
   penatration: 25
   damage: 35
+  damageBackup: 35
   magSize: 5
   reserveSize: 35
   effectController: {fileID: 775099094963114822}

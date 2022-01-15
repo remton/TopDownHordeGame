@@ -10,10 +10,12 @@ public class Carpenter : MonoBehaviour
     public int time;
     public MagicType type;
     private List<Window> windows;
+    private GameObject[] players;
 
     private void Awake()
     {
         GetComponent<HitBoxController>().EventObjEnter += Touch;
+        GameObject.FindGameObjectsWithTag("Player");
     }
 
     //This is where the perk activates. Maybe it changes a stat value, maybe it subsribes to an event.
@@ -25,6 +27,10 @@ public class Carpenter : MonoBehaviour
         foreach (Window current in windows)
         {
             current.GetComponent<Window>().FullRepair();
+        }
+        foreach (GameObject current in players)
+        {
+            current.GetComponent<PlayerStats>().AddMoney(1200);
         }
         Stop();
     }

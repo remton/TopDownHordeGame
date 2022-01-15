@@ -11,7 +11,7 @@ public class Kill : MonoBehaviour
     private float balanceTime = 5.0F;
     private float currentTime = 0F;
     private bool touched; 
-    private List<GameObject> players;
+    private GameObject[] players;
     private Vector3 holdingRoom; 
 
     private void Awake()
@@ -26,7 +26,7 @@ public class Kill : MonoBehaviour
     {
         GetComponent<HitBoxController>().EventObjEnter -= Touch;
         Debug.Log("Power Up: " + name + " activated");
-        players = PlayerManager.instance.GetActivePlayers();
+        players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject current in players)
         {
             Debug.Log("In player loop");
@@ -52,7 +52,6 @@ public class Kill : MonoBehaviour
 
         if (currentTime >= balanceTime)
         {
-            currentTime = 0F;
             Debug.Log("Done stalling");
             Stop();
         }
@@ -64,11 +63,14 @@ public class Kill : MonoBehaviour
     //This is where the perk deactivates. Maybe it changes a stat value, maybe it unsibscribes from an event.
     public virtual void Stop()
     {
+        players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject current in players)
         {
             Debug.Log("In the reset loop");
-            foreach (Weapon currentWeapon in current.GetComponent<PlayerWeaponControl>().weapons)
-            currentWeapon.GetComponent<PlayerWeaponControl>().ResetKillDamage();
+
+            current.GetComponent<PlayerWeaponControl>().ResetKillDamage();
+
+
         }
         Debug.Log("Power Up: " + name + " lost");
         Destroy(gameObject);

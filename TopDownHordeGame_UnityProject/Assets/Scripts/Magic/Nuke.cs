@@ -11,6 +11,7 @@ public class Nuke : MonoBehaviour
     public MagicType type;
     public GameObject zombiePrefab;
     private GameObject[] zombies;
+    private GameObject[] players;
 
     private void Awake()
     {
@@ -23,9 +24,14 @@ public class Nuke : MonoBehaviour
         GetComponent<HitBoxController>().EventObjEnter -= Touch;
         Debug.Log("Power Up: " + name + " spawned");
         zombies = GameObject.FindGameObjectsWithTag("Zombie");
+        players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject current in zombies)
         {
             current.GetComponent<ZombieHealth>().Damage(500);
+        }
+        foreach (GameObject current in players)
+        {
+            current.GetComponent<PlayerStats>().AddMoney(500);
         }
         Stop();
     }

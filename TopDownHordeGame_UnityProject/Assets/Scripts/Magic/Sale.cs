@@ -10,7 +10,7 @@ public class Sale : MonoBehaviour
     public int time;
     public MagicType type;
     private float balanceCost = .2F;
-    private float balanceTime = 5.0F;
+    private float balanceTime = 30.0F;
     private float currentTime = 0F;
     private bool touched;
     private GameObject[] perks;
