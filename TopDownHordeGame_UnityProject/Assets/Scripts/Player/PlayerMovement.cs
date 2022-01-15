@@ -22,17 +22,24 @@ public class PlayerMovement : MonoBehaviour
     private float staminaRegenRateStanding = .0275F;
     private float staminaDrainRate = .05F;
 
+    private bool wentBelowThreshold = false;
+    private float staminaThreshold = 2;
+    private bool stillRunning = true;
+
     /// <summary> returns the ratio of current stamina to max stamina  </summary>
-    public float GetStaminaRatio() {
+    public float GetStaminaRatio()
+    {
         return staminaRemaining / staminaMaximum;
     }
 
     public List<float> walkSpeedMultipliers = new List<float>();
     public List<float> runSpeedMultipliers = new List<float>();
-    private float walkSpeedMult() {
+    private float walkSpeedMult()
+    {
         float multSumFast = 0;
         float multSumSlow = 0;
-        foreach (float num in walkSpeedMultipliers) {
+        foreach (float num in walkSpeedMultipliers)
+        {
             if (num < 1)
                 multSumSlow += 1 / num;
             else
@@ -44,10 +51,12 @@ public class PlayerMovement : MonoBehaviour
             multSumSlow = 1;
         return multSumFast * (1 / (multSumSlow));
     }
-    private float runSpeedMult() { // Fixed: Bolt perk combined with M1911 weapon speed no longer allows the player to sprint through zombies and take 0 damage. Changed calculation for the multiplier to fix this.  
+    private float runSpeedMult()
+    { // Fixed: Bolt perk combined with M1911 weapon speed no longer allows the player to sprint through zombies and take 0 damage. Changed calculation for the multiplier to fix this.  
         float multSumFast = 0;
         float multSumSlow = 0;
-        foreach (float num in runSpeedMultipliers) {
+        foreach (float num in runSpeedMultipliers)
+        {
             if (num < 1)
                 multSumSlow += 1 / num;
             else
@@ -81,53 +90,65 @@ public class PlayerMovement : MonoBehaviour
 
     public float movementMult = 1;
 
-    private void Awake() {
+    private void Awake()
+    {
         mainCamera = Camera.main;
     }
 
-    public void OnDeviceChange(InputDevice device, InputDeviceChange deviceChange) {
+    public void OnDeviceChange(InputDevice device, InputDeviceChange deviceChange)
+    {
         string deviceClass = device.description.deviceClass;
-        if (deviceClass == "keyboard") {
+        if (deviceClass == "keyboard")
+        {
             Debug.Log("Keyboard configured");
             useMouseToLook = true;
         }
-        else if (deviceClass == "gamepad") {
+        else if (deviceClass == "gamepad")
+        {
             Debug.Log("Gamepad configured");
             useMouseToLook = false;
         }
-        else {
+        else
+        {
             Debug.Log("input calss " + deviceClass + "not recognized");
         }
     }
 
-    private void Update() {
+    private void Update()
+    {
         if (useMouseToLook)
             LookAtMouse();
     }
 
     //called after every frame
-    private void FixedUpdate() {
+    private void FixedUpdate()
+    {
         if (doMovement)
             Move(moveDir);
     }
 
-    public void DisableMovement() {
+    public void DisableMovement()
+    {
         doMovement = false;
     }
 
-    public void EnableMovement() {
+    public void EnableMovement()
+    {
         doMovement = true;
     }
 
     // Called whenever a change in movement input. Moves the player based in walk and run speed
-    public void OnMove(InputAction.CallbackContext context) {
+    public void OnMove(InputAction.CallbackContext context)
+    {
         Vector2 moveInput = context.ReadValue<Vector2>();
         moveDir = moveInput.normalized;
     }
 
     // called whenever mouse position input event is called (Keyboard inputs only)
-    public void OnMousePos(InputAction.CallbackContext context) {
-        if (Camera.main == null) {
+    public void OnMousePos(InputAction.CallbackContext context)
+    {
+        if (Camera.main == null)
+        {
             Debug.Log("Camera gone?! \\o_0/");
             return;
         }
@@ -138,7 +159,8 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // called whenever a change in look direction input event is called (gamepad inputs only)
-    public void OnLook(InputAction.CallbackContext context) {
+    public void OnLook(InputAction.CallbackContext context)
+    {
         useMouseToLook = false;
         if (context.ReadValue<Vector2>() == Vector2.zero)
             return;
@@ -146,23 +168,43 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // called whenever run input event is called
-    public void OnRun(InputAction.CallbackContext context) {
+    public void OnRun(InputAction.CallbackContext context)
+    {
         isRunning = context.action.triggered;
     }
 
     // Faces the player towards the given direction vector
-    private void LookInDir(Vector2 lookDir2D) {
+    private void LookInDir(Vector2 lookDir2D)
+    {
         Vector3 lookDir3D = new Vector3(lookDir2D.x, lookDir2D.y, transform.position.z);
         transform.right = lookDir3D;
         currentLookDir = lookDir2D;
     }
 
     // Faces player towards the mousePos vector
-    private void LookAtMouse() {
+    private void LookAtMouse()
+    {
         Vector2 myPos = transform.position;
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
         Vector2 dir = mousePos - myPos;
         LookInDir(dir);
+    }
+    private void RegenStamina(Vector2 movementDir)
+    {
+        if (!isRunning && staminaRemaining < staminaMaximum)
+        {
+            if (movementDir.x != 0 || movementDir.y != 0)
+            {
+                staminaRemaining += staminaRegenRateWalking;
+            }
+            else
+                staminaRemaining += staminaRegenRateStanding;
+            if (staminaRemaining > staminaThreshold)
+            {
+                wentBelowThreshold = false;
+                stillRunning = true;
+            }
+        }
     }
 
     // Moves the player based on the given direction
@@ -170,24 +212,29 @@ public class PlayerMovement : MonoBehaviour
     private void Move(Vector2 movementDir)
     {
         Vector2 newPos = transform.position;
+
         if (movementDir.x != 0 || movementDir.y != 0)
         {
-            if (isRunning && staminaRemaining > 0)
+            if (isRunning && staminaRemaining > 0 && stillRunning)
             {
                 newPos += runSpeedMult() * runSpeed * movementDir * Time.fixedDeltaTime;
                 staminaRemaining -= staminaDrainRate;
-
+                if (staminaRemaining < staminaThreshold)
+                {
+                    wentBelowThreshold = true;
+                }
             }
             else
             {
                 newPos += walkSpeedMult() * walkSpeed * movementDir * Time.fixedDeltaTime;
-                if (staminaRemaining < staminaMaximum)
-                    staminaRemaining += staminaRegenRateWalking;
+                if (wentBelowThreshold)
+                {
+                    stillRunning = false;
+                }
             }
             rb.MovePosition(newPos);
         }
-        else
-            if (staminaRemaining < staminaMaximum) 
-                staminaRemaining += staminaRegenRateStanding;
+        RegenStamina(movementDir);
     }
 }
+
