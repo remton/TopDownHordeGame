@@ -20,6 +20,7 @@ public class RoundController : MonoBehaviour
 
     int zombiesSpawnedThisRound;
     int numberActiveZombies;
+    int numPlayers;
 
     private float spawnDelay;
     private float timeUntilNextSpawn;
@@ -46,14 +47,19 @@ public class RoundController : MonoBehaviour
             Destroy(this.gameObject);
             Debug.LogWarning("Two instances of round controller active! One is being destroyed!");
         }
+    }
+    private void Start()
+    {
         //Initial round values
+        numPlayers = GameSettings.instance.numPlayers;
         zombiesToSpawn = GetMaxZombies();
         speed = GetSpeed();
         health = GetHealth();
         damage = GetDamage();
         display.RoundChange(round);
         spawnDelay = GetSpawnDeley();
-        Debug.Log("Round: " + round.ToString());
+        //Debug.Log("Round: " + round.ToString());
+        Debug.Log(numPlayers + " players");
 
         ActivateWindows(startRoomWindows);
     }
@@ -116,7 +122,6 @@ public class RoundController : MonoBehaviour
         speed = GetSpeed();
         health = GetHealth();
         damage = GetDamage();
-        //        display.RoundChange(round); // This is handled elsewhere "display before the zombies start spawning" 
         hasShownRoundChange = false;
         spawnDelay = GetSpawnDeley();
         zombiesSpawnedThisRound = 0;
@@ -126,12 +131,12 @@ public class RoundController : MonoBehaviour
 
     private int GetMaxZombies() {
         if (round > 15)
-            return 5 + 8 * 15;
+            return Mathf.FloorToInt(5 + 8 * 15 * Mathf.Log10(6 + Mathf.Pow(numPlayers, 3) / 2));
         else {
-            return 5 + 8 * round;
+            Debug.Log((numPlayers + " players in GetMaxZombies"));
+            return Mathf.FloorToInt(5 + 8 * round * Mathf.Log10(6 + Mathf.Pow(numPlayers, 3) / 2));
         }
     }
-
     //Returns how many zombies per second to spawn
     private float GetSpawnDeley() {
         return Mathf.Exp(-0.15f * (round-4)) + 0.15f;
