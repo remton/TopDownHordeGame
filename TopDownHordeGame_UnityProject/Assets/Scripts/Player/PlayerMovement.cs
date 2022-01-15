@@ -191,7 +191,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void RegenStamina(Vector2 movementDir)
     {
-        if (!isRunning && staminaRemaining < staminaMaximum)
+        if ((!isRunning || !stillRunning) && staminaRemaining < staminaMaximum)
         {
             if (movementDir.x != 0 || movementDir.y != 0)
             {
