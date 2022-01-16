@@ -50,12 +50,11 @@ MonoBehaviour:
   movePenalty: 0.7
   weaponName: RPD
   penatration: 3
-  damage: 3
-  damageBackup: 3
+  baseDamage: 3
+  reloadAmount: 0
   magSize: 100
   reserveSize: 300
   effectController: {fileID: 7464435425784226722}
-  pelletCount: 1
   spreadAngle: 12
 --- !u!1001 &4753976966705058009
 PrefabInstance:

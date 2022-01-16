@@ -49,8 +49,8 @@ MonoBehaviour:
   movePenalty: 0.7
   weaponName: RPG
   penatration: 1
-  damage: 21
-  damageBackup: 21
+  baseDamage: 21
+  reloadAmount: 0
   magSize: 1
   reserveSize: 10
   effectController: {fileID: 2769296667775464315, guid: 7d9940cc4635be54da99373e2c0dfb27, type: 3}

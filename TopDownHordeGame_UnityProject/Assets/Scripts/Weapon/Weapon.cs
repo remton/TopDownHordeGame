@@ -11,6 +11,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private string weaponName; // Weapon name for display
     [SerializeField] protected int penatration; // number of zombies able to be hit by one bullet. (Should be at least 1)
     [SerializeField] private int baseDamage;    // Used to reset damage for the magic that makes players intantly kill zombies
+    [SerializeField] protected int reloadAmount; // amount of bullets to put in mag on reload (used in weapons like the RemTon870)
     [SerializeField] protected int magSize;      // size of this weapons magazine
     [SerializeField] protected int reserveSize;  // max ammo that can be held with this weapon
     [SerializeField] protected FireEffectController effectController;
@@ -22,6 +23,7 @@ public class Weapon : MonoBehaviour
         damage = baseDamage;
     }
 
+    public int GetReloadAmount() { return reloadAmount; }
     public int GetReserveSize() { return reserveSize; }
     public int GetMagSize() { return magSize; }
     public int GetInMag() { return inMag; }
@@ -64,17 +66,17 @@ public class Weapon : MonoBehaviour
         }
     }
     public void Reload(int magSize) {
-        if (inReserve + inMag >= magSize) // Check to make sure total of current mag and reserve is more than a full mag 
-        { 
-            inReserve -= magSize - inMag;
-            inMag = magSize;
+        int newReloadAmount = (reloadAmount==0)?magSize:reloadAmount;
+        int bulletsToReload = ((magSize-inMag) < newReloadAmount) ?(magSize-inMag): newReloadAmount;
+        if(inReserve >= bulletsToReload) {
+            inReserve -= bulletsToReload;
+            inMag += bulletsToReload;
         }
         else {
-            inMag = inReserve + inMag;  
+            inMag = inReserve + inMag;
             inReserve = 0;
         }
     }
-
     /// <summary> adds the given amount of bullets to the reserve ammo up to reserveSize </summary>
     public void AddReserveAmmo(int amount) {
         inReserve += amount;

@@ -44,14 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f8dc6a8bfcee8046a2dada9ebbe4f57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reloadTime: 0.2
+  reloadTime: 0.5
   fireDeley: 0.5
   swapTime: 0.5
   movePenalty: 0.95
   weaponName: Remton 870
   penatration: 2
-  damage: 1
-  damageBackup: 1
+  baseDamage: 1
+  reloadAmount: 1
   magSize: 5
   reserveSize: 50
   effectController: {fileID: 280554672184955303}
