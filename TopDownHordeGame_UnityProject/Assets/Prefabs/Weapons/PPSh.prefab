@@ -44,7 +44,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reloadTime: 0.6
-  fireDeley: 0.048
+  fireDelay: 0
+  burstDelay: 0.048
+  burstCount: 1
   swapTime: 0.9
   movePenalty: 1.03
   weaponName: PPSh

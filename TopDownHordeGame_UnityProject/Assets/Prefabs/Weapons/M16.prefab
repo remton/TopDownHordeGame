@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4588798819567209700
+--- !u!1 &8073295789418756052
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,53 +8,52 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 759818053698442306}
-  - component: {fileID: 5366860736811147488}
+  - component: {fileID: 3987707916546509468}
+  - component: {fileID: 5274739876120782237}
   m_Layer: 0
-  m_Name: AA12
+  m_Name: M16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &759818053698442306
+--- !u!4 &3987707916546509468
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4588798819567209700}
+  m_GameObject: {fileID: 8073295789418756052}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -29.945272, y: 12.341514, z: -1.7795914}
+  m_LocalPosition: {x: -29.173004, y: 8.0613785, z: -4.3653007}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5366860736811147488
+--- !u!114 &5274739876120782237
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4588798819567209700}
+  m_GameObject: {fileID: 8073295789418756052}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a840deff011aee4b946dce077adef33, type: 3}
+  m_Script: {fileID: 11500000, guid: cedc796b9c51c504cbec023981f22b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reloadTime: 1.3
-  fireDelay: 0
-  burstDelay: 0.3
-  burstCount: 1
-  swapTime: 1.3
-  movePenalty: 0.95
-  weaponName: AA12
-  penatration: 1
-  damage: 2
-  damageBackup: 2
-  magSize: 14
-  reserveSize: 160
+  reloadTime: 1
+  fireDelay: 0.075
+  burstDelay: 0.5
+  burstCount: 3
+  swapTime: 1.2
+  movePenalty: 1
+  weaponName: M16
+  penatration: 2
+  damage: 3
+  damageBackup: 3
+  magSize: 30
+  reserveSize: 210
   effectController: {fileID: 2769296667775464315, guid: 7d9940cc4635be54da99373e2c0dfb27, type: 3}
-  pelletCount: 8
-  spreadAngle: 25
+  spreadAngle: 5

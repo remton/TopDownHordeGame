@@ -45,7 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reloadTime: 3
-  fireDeley: 0.092307694
+  fireDelay: 0
+  burstDelay: 0.092
+  burstCount: 0
   swapTime: 1
   movePenalty: 0.7
   weaponName: RPD

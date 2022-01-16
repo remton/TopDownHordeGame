@@ -42,12 +42,12 @@ public class PlayerWeaponControl : MonoBehaviour
     private void Start() {
         Debug.Log("Start has been called");
         foreach (Weapon weapon in weapons) {
-            Debug.Log("Weapon loop is working");
+/*            Debug.Log("Weapon loop is working");
             Debug.Log("ADDING AMMO TO: " + weapon.name);
-            weapon.AddReserveAmmo(Mathf.RoundToInt(weapon.GetReserveSize() * reserveMult));
-            Debug.Log("Reserve ammo added");
+*/            weapon.AddReserveAmmo(Mathf.RoundToInt(weapon.GetReserveSize() * reserveMult));
+//            Debug.Log("Reserve ammo added");
             weapon.Reload();
-            Debug.Log("Reloaded");
+//            Debug.Log("Reloaded");
         }
         EventAmmoChanged.Invoke(Mathf.RoundToInt(weapons[equippedIndex].GetInMag()), weapons[equippedIndex].GetInReserve());
         EventWeaponChanged.Invoke(weapons[equippedIndex].GetWeaponName());
@@ -65,6 +65,11 @@ public class PlayerWeaponControl : MonoBehaviour
     private bool shootButtonDown;
     private bool isWaitingToShoot;
     private float timeUntilShoot;
+
+    private bool isWaitingToBurst;
+    private float timeUntilBurst;
+    private bool isBursting;
+    private int currentBurstBullet;
 
     private int NextWeaponIndex() {
         int next = equippedIndex + 1;
@@ -167,28 +172,67 @@ public class PlayerWeaponControl : MonoBehaviour
         if (isSwapping || isReloading)
             shootButtonDown = false;
 
-        //We are still waiting on the fire deley from the previous shot so we do nothing
-        if (isWaitingToShoot) {
+        //We are still waiting on the fire delay from the previous shot so we do nothing
+        if (isWaitingToShoot || isWaitingToBurst) {
             return;
         }
         else if (shootButtonDown) {
             Shoot();
-            timeUntilShoot = weapons[equippedIndex].GetFireDeley() * fireDelayMult;
+            timeUntilShoot = weapons[equippedIndex].GetFireDelay() * fireDelayMult;
+            timeUntilBurst = weapons[equippedIndex].GetBurstDelay();
             isWaitingToShoot = true;
+            isWaitingToBurst = true;
         }
     }
-    private void ShootUpdate() {
-        if (isWaitingToShoot) {
-            if(timeUntilShoot <= 0) {
-                if (shootButtonDown) {
-                    Shoot();   
-                    timeUntilShoot = weapons[equippedIndex].GetFireDeley();
+    private void BurstUpdate()
+    {
+        if (timeUntilBurst <= 0)
+        {
+            if (shootButtonDown)
+            {
+                currentBurstBullet = 0;
+                isBursting = true;
+            }
+            else
+            {
+                isWaitingToBurst = false;
+            }
+        }
+        else
+        {
+            timeUntilBurst -= Time.deltaTime;
+        }
+
+    }
+    private void ShootUpdate()
+    {
+        if (isBursting)
+        {
+            if (timeUntilShoot <= 0)
+            {
+                if (currentBurstBullet < weapons[equippedIndex].GetBurstCount())
+                {
+                    Shoot();
+                    timeUntilShoot = weapons[equippedIndex].GetFireDelay();
+                    timeUntilBurst = weapons[equippedIndex].GetBurstDelay();
+                    isWaitingToShoot = true;
+                    currentBurstBullet++;
                 }
-                else {
+                else
+                {
                     isWaitingToShoot = false;
+
                 }
             }
-            timeUntilShoot -= Time.deltaTime;
+            else
+            {
+                timeUntilShoot -= Time.deltaTime;
+            }
+            if (currentBurstBullet == weapons[equippedIndex].GetBurstCount())
+            {
+                isBursting = false;
+
+            }
         }
     }
     private void Shoot() {
@@ -199,7 +243,7 @@ public class PlayerWeaponControl : MonoBehaviour
                 StartReload();
                 if (GetComponent<PlayerPerkHolder>().HavePerk(electricPrefab))  // Check if the player has the Electric reload perk. 
                 {
-                    GetComponent<PlayerPerkHolder>().CallElectricDamage(electricPrefab);  // To do: Fix this to make it call the Electric perk's damage function. 
+                    GetComponent<PlayerPerkHolder>().CallElectricDamage(electricPrefab);  // Calls the Electric perk's damage function. 
                 }
             }
             return;
@@ -244,14 +288,17 @@ public class PlayerWeaponControl : MonoBehaviour
         playerMovement.walkSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
     }
 
-    private void Update() {
-        if (isWaitingToShoot) {
-            ShootUpdate();
-        }
-        if (isSwapping) {
+    private void Update()
+    {
+        ShootUpdate();
+        BurstUpdate();
+
+        if (isSwapping)
+        {
             SwapUpdate();
         }
-        if (isReloading) {
+        if (isReloading)
+        {
             ReloadUpdate();
         }
     }

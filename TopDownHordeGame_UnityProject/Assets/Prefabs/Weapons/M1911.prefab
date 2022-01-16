@@ -44,7 +44,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reloadTime: 0.9
-  fireDeley: 0.71
+  fireDelay: 0
+  burstDelay: 0.706
+  burstCount: 1
   swapTime: 0.9
   movePenalty: 1.1
   weaponName: M1911

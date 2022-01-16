@@ -45,7 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reloadTime: 0.2
-  fireDeley: 0.5
+  fireDelay: 0
+  burstDelay: 0.6
+  burstCount: 1
   swapTime: 0.5
   movePenalty: 0.95
   weaponName: Remton 870

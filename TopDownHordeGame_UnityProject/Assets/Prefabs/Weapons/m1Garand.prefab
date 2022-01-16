@@ -91,7 +91,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reloadTime: 1.2
-  fireDeley: 0.7
+  fireDelay: 0
+  burstDelay: 1.333
+  burstCount: 1
   swapTime: 1
   movePenalty: 1
   weaponName: M1 Garand
