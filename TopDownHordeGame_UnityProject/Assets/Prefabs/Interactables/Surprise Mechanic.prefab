@@ -102,7 +102,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -116,7 +116,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.0001, y: 0.0001}
+  m_Size: {x: 1.5, y: 0.7}
   m_EdgeRadius: 0
 --- !u!114 &4967236144506582292
 MonoBehaviour:
@@ -144,7 +144,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d8c3640f3f82b341a1bc838ba84305c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponPrefabList: []
+  weaponPrefabList:
+  - {fileID: 4588798819567209700, guid: dddf0d8df2ee23b4ab9a0dff3c7c1ada, type: 3}
+  - {fileID: 2855130827376799539, guid: c88f2a50eb0803344b38379a417b33f1, type: 3}
+  - {fileID: 6429082733309257629, guid: 5b052c79d1303c04396797d03783426e, type: 3}
+  - {fileID: 8073295789418756052, guid: e7d8b857ddf9e784c9dd8bf0ec1e284d, type: 3}
+  - {fileID: 2093619312353819989, guid: fdf774ac936edeb448f010811a3c19dc, type: 3}
+  - {fileID: 6068070935636465678, guid: 03c84c68c27efe54884213fe71c5f910, type: 3}
+  - {fileID: 280554671962952436, guid: b623ab2bb0daa0944951ca52c3be8b67, type: 3}
+  - {fileID: 6091863861613352169, guid: 7c89dc4549e7e77438ef074080d9bdd1, type: 3}
+  - {fileID: 4997718862678949635, guid: e329ee2c27c925b4796c98eddd85417b, type: 3}
   popupCanvas: {fileID: 8114170279737462288}
   cost: 1250
 --- !u!1 &3305376097176506115
@@ -381,7 +390,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &3144274547545994205
 MonoBehaviour:
   m_ObjectHideFlags: 0

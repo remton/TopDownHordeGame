@@ -53,6 +53,7 @@ MonoBehaviour:
   penatration: 1
   damage: 1
   damageBackup: 1
+  reloadAmount: 1
   magSize: 8
   reserveSize: 80
   effectController: {fileID: 2769296667775464315, guid: 7d9940cc4635be54da99373e2c0dfb27, type: 3}
