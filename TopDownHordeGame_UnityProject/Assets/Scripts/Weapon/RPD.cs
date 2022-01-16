@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class RPD : Weapon
 {
-    public int pelletCount;
     public float spreadAngle;
 
     public override void Fire(GameObject player, Vector2 direction)

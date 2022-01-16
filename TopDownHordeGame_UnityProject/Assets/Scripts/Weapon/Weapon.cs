@@ -10,15 +10,17 @@ public class Weapon : MonoBehaviour
     [SerializeField] private float movePenalty; // subtractive penalty to movespeed when equipped (handled in playerWeaponControl)
     [SerializeField] private string weaponName; // Weapon name for display
     [SerializeField] protected int penatration; // number of zombies able to be hit by one bullet. (Should be at least 1)
-    [SerializeField] protected int damage;        // damage per bullet
-    [SerializeField] private int damageBackup;                     // Used to reset damage for the magic that makes players intantly kill zombies
-    [SerializeField] protected int magSize;       // size of this weapons magazine
-    [SerializeField] protected int reserveSize;   // max ammo that can be held with this weapon
+    [SerializeField] private int baseDamage;    // Used to reset damage for the magic that makes players intantly kill zombies
+    [SerializeField] protected int magSize;      // size of this weapons magazine
+    [SerializeField] protected int reserveSize;  // max ammo that can be held with this weapon
     [SerializeField] protected FireEffectController effectController;
-    protected int inMag = 0; // bullets in magazine
-    protected int inReserve = 0; // bullets in reserve
+    protected int damage;       // damage per bullet
+    protected int inMag = 0;    // bullets in magazine
+    protected int inReserve = 0;// bullets in reserve
 
-    
+    private void Start() {
+        damage = baseDamage;
+    }
 
     public int GetReserveSize() { return reserveSize; }
     public int GetMagSize() { return magSize; }
@@ -27,7 +29,7 @@ public class Weapon : MonoBehaviour
     public void SetReloadTime(float newTime) { reloadTime = newTime; }
     public int GetDamage() { return damage; }
     public void ResetDamage() { 
-        damage = damageBackup; 
+        damage = baseDamage; 
     } 
     public void SetKillDamage(int killDamage) {
         damage = killDamage; 
