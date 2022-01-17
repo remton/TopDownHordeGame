@@ -5,7 +5,6 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     [SerializeField] private float reloadTime;  // time in seconds that this weapon takes to reload
-    [SerializeField] protected int reloadAmount;  // Amount of ammunition to add to the magazine. Used for shotguns that reload one bullet at a time. If left at zero, it default to the magazine size.
     [SerializeField] private float fireDelay;   // time between shots (handled in playerWeaponControl)
     [SerializeField] protected float burstDelay;
     [SerializeField] protected int burstCount;
@@ -56,65 +55,28 @@ public class Weapon : MonoBehaviour
 
     /// <summary> Reloads weapon instantly (reloadTime is handled in PlayerWeaponControl script) </summary>
     public void Reload() {
-
-
-            if (inReserve + inMag >= magSize) // Check to make sure total of current mag and reserve is more than a full mag 
-            {
-                inReserve -= magSize - inMag;
-                inMag = magSize;
-            }
-            else
-            {
-                inMag = inReserve + inMag;
-                inReserve = 0;
-            }
-        
-    }
-    public void Reload(int magSize)
-    {
-        if (reloadAmount == 0)
+        if (inReserve + inMag >= magSize) // Check to make sure total of current mag and reserve is more than a full mag 
         {
-            if (inReserve + inMag >= magSize) // Check to make sure total of current mag and reserve is more than a full mag 
-            {
-                inReserve -= magSize - inMag;
-                inMag = magSize;
-            }
-            else
-            {
-                inMag = inReserve + inMag;
-                inReserve = 0;
-            }
+            inReserve -= magSize - inMag;
+            inMag = magSize;
         }
-
-        else
-        {
-            if (reloadAmount + inMag <= magSize) {
-                if (inReserve >= reloadAmount)
-                {
-                    inReserve -= reloadAmount;
-                    inMag += reloadAmount;
-                }
-                else if (inReserve < reloadAmount)
-                {
-                    inMag += inReserve;
-                    inReserve = 0;
-                }
-            }
-            else
-            {
-                if (inReserve >= reloadAmount)
-                {
-                    inReserve -= magSize - inMag;
-                    inMag += magSize - inMag;
-                }
-                else if (inReserve < reloadAmount)
-                {
-                    inMag += inReserve;
-                    inReserve -= magSize - inMag;
-                } 
-            }
+        else { 
+            inMag = inReserve + inMag;  
+            inReserve = 0;
         }
     }
+    public void Reload(int magSize) {
+        if (inReserve + inMag >= magSize) // Check to make sure total of current mag and reserve is more than a full mag 
+        { 
+            inReserve -= magSize - inMag;
+            inMag = magSize;
+        }
+        else {
+            inMag = inReserve + inMag;  
+            inReserve = 0;
+        }
+    }
+
     /// <summary> adds the given amount of bullets to the reserve ammo up to reserveSize </summary>
     public void AddReserveAmmo(int amount) {
         inReserve += amount;
