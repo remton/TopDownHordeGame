@@ -119,8 +119,8 @@ public class PlayerWeaponControl : MonoBehaviour
     private void CancelSwap() {
         isSwapping = false;
     }
-    
 
+    bool repeatingReload = true;
     // Reload weapon control
     /// <summary> called when reload button is pressed </summary>
     public void OnReload(InputAction.CallbackContext context) {
@@ -132,6 +132,7 @@ public class PlayerWeaponControl : MonoBehaviour
         if (isSwapping || isReloading)
             return;
         CancelShoot();
+        repeatingReload = true;
 
         if (weapons[equippedIndex].ReserveEmpty()) {
             StartSwapWeapon();
@@ -146,14 +147,24 @@ public class PlayerWeaponControl : MonoBehaviour
     private void ReloadUpdate() {
         if(timeUntilReload <= 0) {
             Reload();
-            isReloading = false;
         }
         timeUntilReload -= Time.deltaTime;
     }
     private void Reload() {
-        Debug.Log("Reloaded!");
-        weapons[equippedIndex].Reload(Mathf.RoundToInt(weapons[equippedIndex].GetMagSize() * magMult));
+        int magSize = Mathf.RoundToInt(weapons[equippedIndex].GetMagSize() * magMult);
+        weapons[equippedIndex].Reload(magSize);
         UpdateVisuals();
+        //we need to reload again if... 
+        if (repeatingReload // We havent canceled the reload
+            && weapons[equippedIndex].GetInReserve() > 0 // We still have ammo in reserve
+            && weapons[equippedIndex].GetInMag() < magSize) { //We havent filled our mag yet
+            isReloading = false;
+            StartReload();
+        }
+        else {
+            repeatingReload = false; 
+            isReloading = false;
+        }
     }
     private void CancelReload() {
         isReloading = false;
@@ -164,6 +175,9 @@ public class PlayerWeaponControl : MonoBehaviour
     /// <summary> Called when shoot button state changes </summary>
     public void OnShoot(InputAction.CallbackContext context) {
         shootButtonDown = context.action.triggered;
+        if (shootButtonDown && repeatingReload && !weapons[equippedIndex].MagEmpty())
+            repeatingReload = false;
+
         if (isSwapping || isReloading)
             shootButtonDown = false;
 
@@ -193,6 +207,7 @@ public class PlayerWeaponControl : MonoBehaviour
     }
     private void Shoot() {
         if (weapons[equippedIndex].MagEmpty()) {
+            repeatingReload = true;
             //TODO: show player a reload message or auto reload
             if (!isReloading)
             {

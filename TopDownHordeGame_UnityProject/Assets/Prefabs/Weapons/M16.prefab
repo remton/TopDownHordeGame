@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6068070935636465678
+--- !u!1 &2093619312353819989
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,51 +8,51 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4193631785217874607}
-  - component: {fileID: 2887635924103591734}
+  - component: {fileID: 1317619421317616089}
+  - component: {fileID: 3128542989009549440}
   m_Layer: 0
-  m_Name: PPSh
+  m_Name: M16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4193631785217874607
+--- !u!4 &1317619421317616089
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6068070935636465678}
+  m_GameObject: {fileID: 2093619312353819989}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -31.328485, y: 7.098434, z: -6.210987}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2887635924103591734
+--- !u!114 &3128542989009549440
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6068070935636465678}
+  m_GameObject: {fileID: 2093619312353819989}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cb29c0fce882c043ae311d6820b0719, type: 3}
+  m_Script: {fileID: 11500000, guid: cedc796b9c51c504cbec023981f22b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reloadTime: 0.6
-  fireDeley: 0.048
-  swapTime: 0.9
-  movePenalty: 1.03
-  weaponName: PPSh
+  reloadTime: 0.3
+  fireDeley: 1
+  swapTime: 0.2
+  movePenalty: 1.1
+  weaponName: M16
   penatration: 1
-  baseDamage: 1
-  reloadAmount: 0
-  magSize: 35
-  reserveSize: 700
+  baseDamage: 3
+  magSize: 30
+  reserveSize: 120
   effectController: {fileID: 2769296667775464315, guid: 7d9940cc4635be54da99373e2c0dfb27, type: 3}
-  pelletCount: 1
-  spreadAngle: 16
+  spreadAngle: 15
+  burstTime: 0.4
+  burstCount: 3

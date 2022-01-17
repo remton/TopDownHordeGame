@@ -96,8 +96,8 @@ MonoBehaviour:
   movePenalty: 1
   weaponName: M1 Garand
   penatration: 1
-  damage: 5
-  damageBackup: 5
+  baseDamage: 5
+  reloadAmount: 0
   magSize: 10
   reserveSize: 100
   effectController: {fileID: 7851220935407024695}
