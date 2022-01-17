@@ -26,6 +26,8 @@ public class ZombieAI : MonoBehaviour
 
     //Sets the target to the closeset player
     private void FindTarget(List<GameObject> players) {
+        if (players.Count <= 0)
+            return;
         GameObject closest = players[0];
         float closestDist = Vector2.Distance(players[0].transform.position, transform.position);
         for (int i = 0; i < players.Count; i++) {

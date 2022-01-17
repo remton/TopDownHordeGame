@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public static class Utilities {
+    /// <summary> Checks if a given GameObject has a specific component </summary>
+    public static bool HasComponent<T>(this GameObject obj) where T : Component {
+        return obj.GetComponent<T>() != null;
+    }
+
     public static bool CompareTags(GameObject obj, List<string> tags) {
         for (int i = 0; i < tags.Count; i++) {
             if (obj.CompareTag(tags[i]))
