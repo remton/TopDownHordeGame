@@ -5,7 +5,7 @@ using UnityEngine;
 public class BiggestFanExplosion : MonoBehaviour
 {
     [SerializeField] float balanceRadius;
-    [SerializeField] int balanceDamage;
+    private int balanceDamage;
     [SerializeField] float throwStrength;
     private void Awake()
     {
@@ -17,13 +17,22 @@ public class BiggestFanExplosion : MonoBehaviour
 
         Debug.Log("Resizing explosion object.");
         transform.localScale = balanceScale;
+    }
+    private void Start()
+    {
         GetComponent<HitBoxController>().EventObjEnter += DamagePlayers;
         GetComponent<HitBoxController>().EventObjEnter += Knockback;
+    }
+    public void SetExplosionDamage(int damage)
+    {
+        Debug.Log("Setting damage.");
+        balanceDamage = damage;
     }
     public void DamagePlayers(GameObject actor)
     {
         if (actor.CompareTag("Player"))
         {
+            Debug.Log("Hurting player for " + balanceDamage);
             actor.GetComponent<PlayerHealth>().Damage(balanceDamage);
         }
     }

@@ -103,9 +103,9 @@ public class Weapon : MonoBehaviour
             if (hitObj.CompareTag("Zombie"))
             {
                 hitZombies++;
-                hitObj.GetComponent<ZombieHealth>().Damage(damage);
+                hitObj.GetComponent<PlayerHealth>().Damage(damage);
                 player.GetComponent<PlayerStats>().AddMoney(2); // Give the player money for shooting someone 
-                if (hitObj.GetComponent<ZombieHealth>().isDead())
+                if (hitObj.GetComponent<PlayerHealth>().isDead())
                 {
                     player.GetComponent<PlayerStats>().AddKill();
                 }
