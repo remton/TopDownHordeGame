@@ -119,7 +119,7 @@ public class Weapon : MonoBehaviour
             }
             else if (hitObj.CompareTag("Wall") || hitObj.CompareTag("Door"))
             {
-                Debug.Log("Drawing to the wall");
+//                Debug.Log("Drawing to the wall");
                 Vector2 hitPoint = hitInfos[i].point;
                 effectController.CreateTrail(startPos, hitPoint);
                 break;

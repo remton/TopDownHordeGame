@@ -8,6 +8,7 @@ public class Rocket : MonoBehaviour
     private GameObject explosionObj;
     private int balanceDamage;
     private float balanceRadius;
+    private float throwStrength;
     private float flySpeed;
     private Vector3 rotationTemp;
     private Vector2 moveDir;
@@ -16,7 +17,7 @@ public class Rocket : MonoBehaviour
 
     private GameObject owner;
 
-    public void Init(GameObject newOwner, Vector2 movementDir, int damage, float radius, float speed)
+    public void Init(GameObject newOwner, Vector2 movementDir, int damage, float radius, float speed, float knockback)
     {
         owner = newOwner; 
         transform.position = newOwner.transform.position;
@@ -26,6 +27,7 @@ public class Rocket : MonoBehaviour
         moveDir = movementDir;
         balanceDamage = damage;
         balanceRadius = radius;
+        throwStrength = knockback;
         flySpeed = speed;
         this.GetComponent<HitBoxController>().EventObjEnter += Explode;
     }
@@ -57,7 +59,6 @@ public class Rocket : MonoBehaviour
         Vector3 location = transform.position;
         explosionObj = Instantiate(explosionPrefab, location, Quaternion.identity);
         
-        explosionObj.transform.position = location;
         Vector3 balanceScale;
         balanceScale.x = balanceRadius;
         balanceScale.y = balanceRadius;
@@ -68,6 +69,7 @@ public class Rocket : MonoBehaviour
         Debug.Log("Resizing explosion object.");
         explosionObj.transform.localScale = balanceScale;
         explosionObj.GetComponent<HitBoxController>().EventObjEnter += DamageZombies;
+        explosionObj.GetComponent<HitBoxController>().EventObjEnter += Knockback;
     }
     private void HideRocketObject()
     {
@@ -83,15 +85,28 @@ public class Rocket : MonoBehaviour
     private void DestroyExplosionObject(GameObject explosionObj)
     {
         this.GetComponent<HitBoxController>().EventObjEnter -= DamageZombies;
+        this.GetComponent<HitBoxController>().EventObjEnter -= Knockback;
         Destroy(explosionObj);
         Destroy(this);
     }
     public void DamageZombies(GameObject zombie)
     {
-        zombie.GetComponent<ZombieHealth>().Damage(balanceDamage);
-        owner.GetComponent<PlayerStats>().AddMoney(1); // Give the player money for the explosion hitting someone 
-        if (zombie.GetComponent<ZombieHealth>().isDead())
-            owner.GetComponent<PlayerStats>().AddKill();
+        if (zombie.CompareTag("Zombie"))
+        {
+            zombie.GetComponent<ZombieHealth>().Damage(balanceDamage);
+            owner.GetComponent<PlayerStats>().AddMoney(1); // Give the player money for the explosion hitting someone 
+            if (zombie.GetComponent<ZombieHealth>().isDead())
+                owner.GetComponent<PlayerStats>().AddKill();
+        }
+    }
+    public void Knockback(GameObject creature)
+    {
+        Vector2 epicenterLocation = explosionObj.transform.position;
+        Vector2 creatureLocation = creature.transform.position;
+        Vector2 throwDirection = creatureLocation - epicenterLocation;
+        throwDirection.Normalize();
+        Vector2 throwAmount = throwDirection * throwStrength;
+        creature.GetComponent<Rigidbody2D>().AddForce(throwAmount);
     }
     [SerializeField] private Rigidbody2D rb;
     private void Move(Vector2 movementDir)

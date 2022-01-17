@@ -40,14 +40,14 @@ public class PlayerWeaponControl : MonoBehaviour
     }
 
     private void Start() {
-        Debug.Log("Start has been called");
+//        Debug.Log("Start has been called");
         foreach (Weapon weapon in weapons) {
-            Debug.Log("Weapon loop is working");
-            Debug.Log("ADDING AMMO TO: " + weapon.name);
+//            Debug.Log("Weapon loop is working");
+//            Debug.Log("ADDING AMMO TO: " + weapon.name);
             weapon.AddReserveAmmo(Mathf.RoundToInt(weapon.GetReserveSize() * reserveMult));
-            Debug.Log("Reserve ammo added");
+//            Debug.Log("Reserve ammo added");
             weapon.Reload();
-            Debug.Log("Reloaded");
+//            Debug.Log("Reloaded");
         }
         EventAmmoChanged.Invoke(Mathf.RoundToInt(weapons[equippedIndex].GetInMag()), weapons[equippedIndex].GetInReserve());
         EventWeaponChanged.Invoke(weapons[equippedIndex].GetWeaponName());
@@ -139,7 +139,7 @@ public class PlayerWeaponControl : MonoBehaviour
             return;
         }
 
-        Debug.Log("Reloading . . .");
+//        Debug.Log("Reloading . . .");
         isReloading = true;
         timeUntilReload = weapons[equippedIndex].GetReloadTime() * reloadSpeedMult;
         if (EventReloadCalled != null) EventReloadCalled.Invoke(timeUntilReload);
@@ -280,14 +280,14 @@ public class PlayerWeaponControl : MonoBehaviour
     }
     public void KillDamage(int killDamage)
     {
-        Debug.Log("Damage should be changed");
+//        Debug.Log("Damage should be changed");
         foreach (Weapon current in weapons)
             current.SetKillDamage(killDamage);
         UpdateVisuals();
     }
     public void ResetKillDamage()
     {
-        Debug.Log("Damage should be reset");
+//        Debug.Log("Damage should be reset");
         foreach (Weapon current in weapons)
             current.ResetDamage();
         UpdateVisuals();

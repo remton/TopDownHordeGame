@@ -19,9 +19,19 @@ public class ZombieAI : MonoBehaviour
     private float timeUntilCheckTarget;
 
     public void SetValues(int newHealth, float newSpeed, int newDamage) {
-        zombieHealth.SetMaxHealth(newHealth);
-        zombiePath.target = target;
-        zombieLunge.SetDamage(newDamage);
+        if (gameObject.HasComponent<Basic>())
+        {
+            zombieHealth.SetMaxHealth(newHealth);
+            zombiePath.target = target;
+            zombieLunge.SetDamage(newDamage);
+        }
+        else if (gameObject.HasComponent<BiggestFanDeath>())
+        {
+            zombieHealth.SetMaxHealth(Mathf.FloorToInt(newHealth * .8f));
+            zombiePath.target = target;
+            zombieLunge.SetDamage(Mathf.RoundToInt(newDamage * .9f));
+            gameObject.GetComponent<BiggestFanDeath>().SetExplosionDamage(newDamage * 2);
+        }
     }
 
     //Sets the target to the closeset player
