@@ -15,8 +15,7 @@ public class M16 : Weapon
     private GameObject currPlayer;
 
     private void Awake() {
-        if (GetFireDeley() <= burstTime)
-            burstTime = GetFireDeley();
+        fireDeley += burstTime;
         timebetweenShots = burstTime/burstCount;
 
     }
@@ -48,5 +47,6 @@ public class M16 : Weapon
         angleDiff = Random.Range((baseAngle - spreadAngle / 2), (baseAngle + spreadAngle / 2));
         fireDir = new Vector2(Mathf.Cos(baseAngle + angleDiff * Mathf.Deg2Rad), Mathf.Sin(baseAngle + angleDiff * Mathf.Deg2Rad));
         FireShot(player, fireDir);
+        currPlayer.GetComponent<PlayerWeaponControl>().UpdateVisuals();
     }
 }

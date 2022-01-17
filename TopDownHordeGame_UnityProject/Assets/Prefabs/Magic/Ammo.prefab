@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5000519261679725782}
   - component: {fileID: -2364473678390644116}
   - component: {fileID: -8292711371093170489}
+  - component: {fileID: -7724783286631229692}
   m_Layer: 0
   m_Name: Ammo
   m_TagString: Untagged
@@ -130,3 +131,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeTags:
   - Player
+--- !u!114 &-7724783286631229692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177272599253269483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e20581f1662b184f95a1d9858d4bc02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyTime: 30

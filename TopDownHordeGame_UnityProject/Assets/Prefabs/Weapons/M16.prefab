@@ -44,15 +44,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reloadTime: 0.3
-  fireDeley: 1
+  fireDeley: 0.5
   swapTime: 0.2
   movePenalty: 1.1
   weaponName: M16
   penatration: 1
   baseDamage: 3
+  reloadAmount: 0
   magSize: 30
   reserveSize: 120
   effectController: {fileID: 2769296667775464315, guid: 7d9940cc4635be54da99373e2c0dfb27, type: 3}
-  spreadAngle: 15
-  burstTime: 0.4
+  spreadAngle: 5
+  burstTime: 0.25
   burstCount: 3

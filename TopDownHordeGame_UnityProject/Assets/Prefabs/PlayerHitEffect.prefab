@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2408408245422526202}
   - component: {fileID: 2408408245422526197}
   - component: {fileID: 2408408245422526196}
+  - component: {fileID: 8316371371656077750}
   m_Layer: 7
   m_Name: PlayerHitEffect
   m_TagString: Untagged
@@ -4806,3 +4807,16 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &8316371371656077750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2408408245422526199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e20581f1662b184f95a1d9858d4bc02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyTime: 2

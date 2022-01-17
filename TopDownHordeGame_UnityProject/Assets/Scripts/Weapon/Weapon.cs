@@ -5,7 +5,7 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     [SerializeField] private float reloadTime;  // time in seconds that this weapon takes to reload
-    [SerializeField] private float fireDeley;   // time between shots (handled in playerWeaponControl)
+    [SerializeField] protected float fireDeley;   // time between shots (handled in playerWeaponControl)
     [SerializeField] private float swapTime;   // time to switch to this weapon (handled in playerWeaponControl)
     [SerializeField] private float movePenalty; // subtractive penalty to movespeed when equipped (handled in playerWeaponControl)
     [SerializeField] private string weaponName; // Weapon name for display

@@ -9,5 +9,4 @@ public class TimedDestroy : MonoBehaviour
     void Start(){
         Destroy(gameObject, destroyTime);
     }
-
 }

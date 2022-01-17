@@ -226,7 +226,7 @@ public class PlayerWeaponControl : MonoBehaviour
         shootButtonDown = false;
     }
 
-    private void UpdateVisuals() {
+    public void UpdateVisuals() {
         if (EventAmmoChanged != null) EventAmmoChanged.Invoke(Mathf.RoundToInt(weapons[equippedIndex].GetInMag()), Mathf.RoundToInt(weapons[equippedIndex].GetInReserve()));
         if (EventWeaponChanged != null) EventWeaponChanged.Invoke(weapons[equippedIndex].GetWeaponName()); 
     }
