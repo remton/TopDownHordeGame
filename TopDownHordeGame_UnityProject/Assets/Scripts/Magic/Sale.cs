@@ -28,6 +28,7 @@ public class Sale : MonoBehaviour
     public virtual void Touch(GameObject player)
     {
         GetComponent<HitBoxController>().EventObjEnter -= Touch;
+        GetComponent<TimedDestroyActivate>().isActivated = true; 
         Debug.Log("Power Up: " + name + " activated");
         perks = GameObject.FindGameObjectsWithTag("PerkShop");
         foreach (GameObject current in perks)

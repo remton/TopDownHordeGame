@@ -25,6 +25,7 @@ public class Kill : MonoBehaviour
     public virtual void Touch(GameObject player)
     {
         GetComponent<HitBoxController>().EventObjEnter -= Touch;
+        GetComponent<TimedDestroyActivate>().isActivated = true;
         Debug.Log("Power Up: " + name + " activated");
         players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject current in players)

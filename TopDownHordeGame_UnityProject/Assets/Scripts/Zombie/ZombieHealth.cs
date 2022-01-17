@@ -52,6 +52,8 @@ public class ZombieHealth : MonoBehaviour
     private void Die()
     {
         Debug.Log(name + ": \"*dies\"");
+        if (gameObject.HasComponent<BiggestFanDeath>())
+            GetComponent<BiggestFanDeath>().Explode();
         RoundController.instance.ZombieDies();
         Vector3 myLocation = transform.position;
         MagicController.instance.MagicDrop(myLocation);

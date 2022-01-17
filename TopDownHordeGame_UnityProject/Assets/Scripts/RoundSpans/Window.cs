@@ -98,7 +98,7 @@ public class Window : MonoBehaviour
     }
     
     private void SetWindowBoarded() {
-        Debug.Log("CLOSE WINDOW");
+//        Debug.Log("CLOSE WINDOW");
         isOpen = false;
         tilemap.SetTile(topTile, boardedTop);
         tilemap.SetTile(midTile, boardedMid);
@@ -106,7 +106,7 @@ public class Window : MonoBehaviour
     }
 
     private void SetWindowOpen() {
-        Debug.Log("OPEN WINDOW");
+//        Debug.Log("OPEN WINDOW");
         spawnDelay = .05F;
         isOpen = true;
         tilemap.SetTile(topTile, openTop);

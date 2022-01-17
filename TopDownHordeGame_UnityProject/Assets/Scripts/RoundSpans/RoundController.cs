@@ -31,6 +31,9 @@ public class RoundController : MonoBehaviour
     int health;
     int damage;
 
+    private int zombieI;
+    [SerializeField] GameObject[] zombieList;
+
     public static RoundController instance;
 
     public void ZombieDies() {
@@ -109,11 +112,21 @@ public class RoundController : MonoBehaviour
         }
     }
 
-    public GameObject CreateZombie() {
-        GameObject zombieObj = Instantiate(zombiePrefab);
+    public GameObject CreateZombie()
+    {
+        if (Random.Range(0, 100) == 0)
+        {
+            zombieI = Random.Range(1,zombieList.Length);
+        }
+        else
+        {
+            zombieI = 0;
+        }
+        GameObject zombieObj = Instantiate(zombieList[zombieI]);
         ZombieAI zombie = zombieObj.GetComponent<ZombieAI>();
-        zombie.SetValues(GetHealth(),GetSpeed(),GetDamage());
+        zombie.SetValues(GetHealth(), GetSpeed(), GetDamage());
         return zombieObj;
+
     }
 
     private void NextRound() {

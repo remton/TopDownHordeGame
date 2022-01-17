@@ -36,7 +36,7 @@ public class PlayerStats : MonoBehaviour
 
     public void AddKill() {
         totalKills++;
-        Debug.Log("                                                                 Player kill count: " + totalKills);
+//        Debug.Log("                                                                 Player kill count: " + totalKills);
         AddMoney(payPerKill);
     }
 
