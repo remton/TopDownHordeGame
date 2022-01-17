@@ -45,9 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reloadTime: 2.5
-  fireDelay: 0
-  burstDelay: 1.5
-  burstCount: 1
+  fireDeley: 0.75
   swapTime: 1
   movePenalty: 0.8
   weaponName: .50 Cal

@@ -5,9 +5,7 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     [SerializeField] private float reloadTime;  // time in seconds that this weapon takes to reload
-    [SerializeField] private float fireDelay;   // time between shots (handled in playerWeaponControl)
-    [SerializeField] protected float burstDelay;
-    [SerializeField] protected int burstCount;
+    [SerializeField] private float fireDeley;   // time between shots (handled in playerWeaponControl)
     [SerializeField] private float swapTime;   // time to switch to this weapon (handled in playerWeaponControl)
     [SerializeField] private float movePenalty; // subtractive penalty to movespeed when equipped (handled in playerWeaponControl)
     [SerializeField] private string weaponName; // Weapon name for display
@@ -35,9 +33,7 @@ public class Weapon : MonoBehaviour
         damage = killDamage; 
     }
     public float GetReloadTime() { return reloadTime; }
-    public float GetFireDelay() { return fireDelay; }
-    public float GetBurstDelay() { return burstDelay; }
-    public float GetBurstCount() { return burstCount; }
+    public float GetFireDeley() { return fireDeley; }
     public float GetSwapTime() { return swapTime; }
     public float GetMoveMult() { return movePenalty; }
     public string GetWeaponName() { return weaponName; }
@@ -87,7 +83,7 @@ public class Weapon : MonoBehaviour
     /// <summary> Fires weapon instantly (fireDeley is handled in PlayerWeaponControl script) </summary>
     public virtual void Fire(GameObject player, Vector2 direction) {
         inMag--;
-        Debug.Log(name + ": " + inMag.ToString() + " / " + inReserve.ToString());
+//        Debug.Log(name + ": " + inMag.ToString() + " / " + inReserve.ToString());
     }
 
     protected void FireShot(GameObject player, Vector2 direction) { 
