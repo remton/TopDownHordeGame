@@ -8,8 +8,7 @@ public class ZombieAI : MonoBehaviour
     public GameObject target;
     private ZombieLunge zombieLunge;
     private ZombiePathfind zombiePath;
-    private PlayerHealth zombieHealth;
-    private BiggestFanExplosion biggestFanExplosion;
+    private ZombieHealth zombieHealth;
 
     public float playerDistForLunge;
     [SerializeField] private float lungeCooldown;
@@ -20,21 +19,9 @@ public class ZombieAI : MonoBehaviour
     private float timeUntilCheckTarget;
 
     public void SetValues(int newHealth, float newSpeed, int newDamage) {
-        if (gameObject.HasComponent<Basic>())
-        {
-            zombieHealth.SetMaxHealth(newHealth);
-            zombiePath.target = target;
-            zombieLunge.SetDamage(newDamage);
-
-        }
-        else if (gameObject.HasComponent<BiggestFanDeath>())
-        {
-            zombieHealth.SetMaxHealth(Mathf.FloorToInt(newHealth * .8f));
-            zombiePath.target = target;
-            zombieLunge.SetDamage(newDamage);
-            GetComponent<BiggestFanDeath>().SetExplosionDamage(newDamage * 2);
-        }
-
+        zombieHealth.SetMaxHealth(newHealth);
+        zombiePath.target = target;
+        zombieLunge.SetDamage(newDamage);
     }
 
     //Sets the target to the closeset player
@@ -56,7 +43,7 @@ public class ZombieAI : MonoBehaviour
     private void Awake() {
         zombieLunge = GetComponent<ZombieLunge>();
         zombiePath = GetComponent<ZombiePathfind>();
-        zombieHealth = GetComponent<PlayerHealth>();
+        zombieHealth = GetComponent<ZombieHealth>();
         timeUntilCheckTarget = timeBetweenTargetChecks;
     }
 

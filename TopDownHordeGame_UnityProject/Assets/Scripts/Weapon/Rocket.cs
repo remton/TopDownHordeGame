@@ -93,7 +93,7 @@ public class Rocket : MonoBehaviour
     {
         if (zombie.CompareTag("Zombie"))
         {
-            zombie.GetComponent<PlayerHealth>().Damage(balanceDamage);
+            zombie.GetComponent<ZombieHealth>().Damage(balanceDamage);
             owner.GetComponent<PlayerStats>().AddMoney(1); // Give the player money for the explosion hitting someone 
             if (zombie.GetComponent<ZombieHealth>().isDead())
                 owner.GetComponent<PlayerStats>().AddKill();
