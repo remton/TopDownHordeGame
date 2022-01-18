@@ -9,8 +9,8 @@ public class RoundController : MonoBehaviour
 
     [SerializeField] private RoundDisplay display;
 
-    public List<Window> startRoomWindows;
-    private List<Window> activeWindows = new List<Window>();
+    public List<ZombieSpawn> startRoomWindows;
+    private List<ZombieSpawn> activeSpawns = new List<ZombieSpawn>();
     public List<GameObject> players;
 
     bool isWaitingForNextRound = false;
@@ -64,7 +64,7 @@ public class RoundController : MonoBehaviour
         //Debug.Log("Round: " + round.ToString());
         Debug.Log(numPlayers + " players");
 
-        ActivateWindows(startRoomWindows);
+        ActivateSpawns(startRoomWindows);
     }
 
     private void Update() {
@@ -91,12 +91,12 @@ public class RoundController : MonoBehaviour
             timeUntilRoundStart = pauseBetweenRounds;
         }
         //Zombie Spawning
-        if (activeWindows.Count != 0) {
+        if (activeSpawns.Count != 0) {
             if (!isWaitingForNextRound) {
                 if(timeUntilNextSpawn <= 0) {
                     if (zombiesSpawnedThisRound < zombiesToSpawn) {
-                        int i = Mathf.RoundToInt(Random.Range(0, activeWindows.Count));
-                        activeWindows[i].AddZombiesToQueue(1); // the window handles spawning the zombie
+                        int i = Mathf.RoundToInt(Random.Range(0, activeSpawns.Count));
+                        activeSpawns[i].AddZombiesToQueue(1); // the window handles spawning the zombie
                         zombiesSpawnedThisRound++;
                         numberActiveZombies++;
                     }
@@ -170,19 +170,25 @@ public class RoundController : MonoBehaviour
         return Mathf.FloorToInt(Mathf.Sqrt(2f * round));
     }
 
-    public void ActivateWindows(List<Window> windows) {
-        for (int i = 0; i < windows.Count; i++) {
-            if (!windows[i].isActive) {
-                windows[i].isActive = true;
-                activeWindows.Add(windows[i]);
+    public void ActivateSpawns(List<ZombieSpawn> spawns) {
+        for (int i = 0; i < spawns.Count; i++) {
+            if (!spawns[i].isActive) {
+                spawns[i].isActive = true;
+                activeSpawns.Add(spawns[i]);
             }
             else {
-                Debug.Log("window: " + windows[i].name + " already active");
+                Debug.Log("window: " + spawns[i].name + " already active");
             }
         }
     }
     public List<Window> GetActiveWindows()
     {
-        return activeWindows;
+        List<Window> windows = new List<Window>();
+        foreach (var spawn in activeSpawns) {
+            if(spawn is Window) {
+                windows.Add(spawn as Window);
+            }
+        }
+        return windows;
     }
 }

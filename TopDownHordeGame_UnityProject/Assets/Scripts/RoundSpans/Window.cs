@@ -3,23 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class Window : MonoBehaviour
+public class Window : ZombieSpawn
 {
-    //used and set by roundcontroller to determine which windows are active
-    [HideInInspector] public bool isActive;
-
-    [SerializeField] private float breakDelay; // the delay in seconds between each zombie hit to the window health
-    private float timeUntilNextBreak;
-
-    private float spawnDelay;
-    private float timeUntilSpawn;
-
     [SerializeField] private int health; // health of the boards on this window
     [SerializeField] private int maxHealth;
 
     [SerializeField] private bool isOpen = false;
-    public bool canSpawn = false;
-    private int numInQueue = 0;
+    [SerializeField] protected float breakDelay; // the delay in seconds between each zombie hit to the window health
 
     public Vector3Int topTile;
     public Vector3Int midTile;
@@ -32,11 +22,6 @@ public class Window : MonoBehaviour
     public Tile openTop;
     public Tile openMid;
     public Tile openBottom;
-
-    //Adds a zombie to spawn
-    public void AddZombiesToQueue(int numZombies) {
-        numInQueue += numZombies;
-    }
 
     private void Damage(int d) {
         if (health <= 0) {
@@ -53,7 +38,7 @@ public class Window : MonoBehaviour
         health = maxHealth;
         SetWindowBoarded();
     }
-    public bool GetIsOpen() {
+    public override bool GetIsOpen() {
         return isOpen;
     }
 
@@ -61,34 +46,24 @@ public class Window : MonoBehaviour
         if (isOpen && numInQueue > 0)
         {
             //spawns a zombie for every zombie in the queue
-            //            for (; numInQueue > 0; numInQueue--) {
-            //                timeUntilSpawn = spawnDelay;
-            if (timeUntilSpawn > 0)
-            {
+            if (timeUntilSpawn > 0){
                 timeUntilSpawn -= Time.deltaTime;
             }
-            else
-            {
+            else{
                 SpawnZombie();
                 timeUntilSpawn = spawnDelay;
                 numInQueue--;
             }
         }
-        //      }
-        else
-        {
-            if (timeUntilNextBreak <= 0)
-            {
+        else{
+            if (timeUntilNextBreak <= 0){
                 timeUntilNextBreak = breakDelay;
                 //damage the window for each zombie in the queue
-                for (int i = 0; i < numInQueue; i++)
-                {
-                    if (health <= 0)
-                    {
+                for (int i = 0; i < numInQueue; i++){
+                    if (health <= 0){
                         SetWindowOpen();
                     }
-                    else
-                    {
+                    else{
                         Damage(1);
                     }
                 }

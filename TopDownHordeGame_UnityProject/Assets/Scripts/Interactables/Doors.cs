@@ -9,7 +9,7 @@ public class Doors : MonoBehaviour
     public int cost;
     public GameObject doorHolder;
     public GameObject popupCanvas;
-    public List<Window> roomWindows; 
+    public List<ZombieSpawn> roomSpawns; 
 
     public void TryBuyDoor(GameObject player)
     {
@@ -57,7 +57,7 @@ public class Doors : MonoBehaviour
         isOpen = true;
         doorHolder.SetActive(false);
         popupCanvas.SetActive(false);
-        RoundController.instance.ActivateWindows(roomWindows); 
+        RoundController.instance.ActivateSpawns(roomSpawns); 
     }
 
 }
