@@ -114,19 +114,17 @@ public class RoundController : MonoBehaviour
 
     public GameObject CreateZombie()
     {
-        if (Random.Range(0, 100) == 0)
-        {
-            zombieI = Random.Range(1,zombieList.Length);
+        //spawn special zombie
+        if ((Random.Range(0, 100) == 0)&&zombieList.Length>0){
+            zombieI = Random.Range(0,zombieList.Length);
         }
-        else
-        {
+        else{ //spawn normal zombie
             zombieI = 0;
         }
         GameObject zombieObj = Instantiate(zombieList[zombieI]);
         ZombieAI zombie = zombieObj.GetComponent<ZombieAI>();
         zombie.SetValues(GetHealth(), GetSpeed(), GetDamage());
         return zombieObj;
-
     }
 
     private void NextRound() {

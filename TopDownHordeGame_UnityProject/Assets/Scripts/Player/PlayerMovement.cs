@@ -13,14 +13,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private float walkSpeed = 2;
-    private float runSpeed = 4;
-
+    [SerializeField] private float walkSpeed = 2;
+    [SerializeField] private float runSpeed = 4;
+    [SerializeField] private float staminaRegenRateWalking = .01375F;
+    [SerializeField] private float staminaRegenRateStanding = .0275F;
+    [SerializeField] private float staminaMaximum = 10F;
+    [SerializeField] private float staminaDrainRate = .05F;
     private float staminaRemaining = 10F;
-    private float staminaMaximum = 10F;
-    private float staminaRegenRateWalking = .01375F;
-    private float staminaRegenRateStanding = .0275F;
-    private float staminaDrainRate = .05F;
 
     private bool wentBelowThreshold = false;
     private float staminaThreshold = 2;

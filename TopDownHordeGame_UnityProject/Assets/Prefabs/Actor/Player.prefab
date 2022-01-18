@@ -441,6 +441,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3514d31fcd34ec4e94393a70c03507b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  walkSpeed: 2
+  runSpeed: 3.5
+  staminaRegenRateWalking: 0.03
+  staminaRegenRateStanding: 0.04
+  staminaMaximum: 8
+  staminaDrainRate: 0.09
   walkSpeedMultipliers: []
   runSpeedMultipliers: []
   rb: {fileID: 1620798982028091912}
