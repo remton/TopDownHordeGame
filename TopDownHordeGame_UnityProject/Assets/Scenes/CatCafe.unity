@@ -9613,7 +9613,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: roomSpawns.Array.size
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: roomSpawns.Array.data[0]
@@ -9630,11 +9630,11 @@ PrefabInstance:
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: roomSpawns.Array.data[3]
       value: 
-      objectReference: {fileID: 467809521}
+      objectReference: {fileID: 229441650}
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: roomSpawns.Array.data[4]
       value: 
-      objectReference: {fileID: 2025388486}
+      objectReference: {fileID: 229441650}
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: roomSpawns.Array.data[5]
       value: 
@@ -23374,7 +23374,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: roomSpawns.Array.size
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: roomSpawns.Array.data[0]
@@ -23391,27 +23391,27 @@ PrefabInstance:
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: roomSpawns.Array.data[3]
       value: 
-      objectReference: {fileID: 1161694803}
+      objectReference: {fileID: 1991528768}
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: roomSpawns.Array.data[4]
       value: 
-      objectReference: {fileID: 1519593673}
+      objectReference: {fileID: 79931369}
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: roomSpawns.Array.data[5]
       value: 
-      objectReference: {fileID: 1991528768}
+      objectReference: {fileID: 7182195824442742859}
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: roomSpawns.Array.data[6]
       value: 
-      objectReference: {fileID: 79931369}
+      objectReference: {fileID: 1244139254}
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: roomSpawns.Array.data[7]
       value: 
-      objectReference: {fileID: 7182195824442742859}
+      objectReference: {fileID: 1992916401}
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: roomSpawns.Array.data[8]
       value: 
-      objectReference: {fileID: 1244139254}
+      objectReference: {fileID: 1992916401}
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: roomSpawns.Array.data[9]
       value: 
@@ -83993,16 +83993,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: roomSpawns.Array.size
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: roomSpawns.Array.data[0]
       value: 
-      objectReference: {fileID: 336569017}
+      objectReference: {fileID: 467809521}
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: roomSpawns.Array.data[1]
       value: 
-      objectReference: {fileID: 1697041355}
+      objectReference: {fileID: 2025388486}
+    - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
+      propertyPath: roomSpawns.Array.data[2]
+      value: 
+      objectReference: {fileID: 229441650}
+    - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
+      propertyPath: roomSpawns.Array.data[3]
+      value: 
+      objectReference: {fileID: 1161694803}
+    - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
+      propertyPath: roomSpawns.Array.data[4]
+      value: 
+      objectReference: {fileID: 1519593673}
     - target: {fileID: 72847968915284567, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: m_Name
       value: Door (9)
