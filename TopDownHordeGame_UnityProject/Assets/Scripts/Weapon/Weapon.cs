@@ -134,8 +134,8 @@ public class Weapon : MonoBehaviour
     /// <summary> Fires a shot within the spreadAngle in the given direction </summary>
     protected void FireShot(GameObject player, Vector2 direction, float spreadAngle) {
         direction.Normalize();
-        float baseAngle = Mathf.Atan2(direction.y, direction.x);
-        float angleDiff = Random.Range((baseAngle - spreadAngle / 2), (baseAngle + spreadAngle / 2));
+        float baseAngle = Mathf.Atan2(direction.y, direction.x); //Get the angle (in radians) of the direction vector
+        float angleDiff = Random.Range(-(spreadAngle / 2), (spreadAngle / 2)); //Get a random float to modify the direction angle
         Vector2 fireDir = new Vector2(Mathf.Cos(baseAngle + angleDiff * Mathf.Deg2Rad), Mathf.Sin(baseAngle + angleDiff * Mathf.Deg2Rad));
         FireShot(player, fireDir);
     }
