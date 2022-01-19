@@ -13412,7 +13412,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 7
-      m_TileSpriteIndex: 7
+      m_TileSpriteIndex: 26
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -13622,7 +13622,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 6
-      m_TileSpriteIndex: 6
+      m_TileSpriteIndex: 7
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -13842,7 +13842,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 5
-      m_TileSpriteIndex: 5
+      m_TileSpriteIndex: 6
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -23137,12 +23137,12 @@ Tilemap:
     m_Data: {fileID: -8598377054559718702, guid: a5d4c7e251541aa4a93c3475899da881, type: 3}
   - m_RefCount: 5
     m_Data: {fileID: 7139853532023802179, guid: a5d4c7e251541aa4a93c3475899da881, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: -6327458940839827294, guid: a5d4c7e251541aa4a93c3475899da881, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 5262293654703089473, guid: a5d4c7e251541aa4a93c3475899da881, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 9151867300140558082, guid: a5d4c7e251541aa4a93c3475899da881, type: 3}
   - m_RefCount: 4
     m_Data: {fileID: 251605937842406851, guid: a5d4c7e251541aa4a93c3475899da881, type: 3}
   - m_RefCount: 4
@@ -23179,8 +23179,8 @@ Tilemap:
     m_Data: {fileID: 6117240532715232414, guid: f8c87ac4f32ac814a8efccf16504a331, type: 3}
   - m_RefCount: 31
     m_Data: {fileID: 6439109449348884315, guid: f8c87ac4f32ac814a8efccf16504a331, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 9151867300140558082, guid: a5d4c7e251541aa4a93c3475899da881, type: 3}
   - m_RefCount: 79
     m_Data: {fileID: -1168938005290522966, guid: f8c87ac4f32ac814a8efccf16504a331, type: 3}
   - m_RefCount: 240
@@ -23711,7 +23711,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: cost
-      value: 750
+      value: 1250
       objectReference: {fileID: 0}
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: roomSpawns.Array.size
@@ -24709,12 +24709,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zombiePrefab: {fileID: 6956723953377203767, guid: 4412f1af9ed220f4a924d6646b25bd45, type: 3}
-  round: 1
+  round: 0
   display: {fileID: 1235508278}
   startRoomWindows:
   - {fileID: 336569017}
   - {fileID: 1697041355}
   players: []
+  pauseBeforeGameStart: 5
   pauseBetweenRounds: 10
   maxActiveZombies: 500
   zombieList:

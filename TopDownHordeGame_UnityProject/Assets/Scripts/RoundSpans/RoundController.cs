@@ -15,6 +15,7 @@ public class RoundController : MonoBehaviour
 
     bool isWaitingForNextRound = false;
     bool hasShownRoundChange = false;
+    [SerializeField] private float pauseBeforeGameStart;
     [SerializeField] private float pauseBetweenRounds;
     private float timeUntilRoundStart;
 
@@ -63,15 +64,13 @@ public class RoundController : MonoBehaviour
         spawnDelay = GetSpawnDeley();
         //Debug.Log("Round: " + round.ToString());
         Debug.Log(numPlayers + " players");
-
+        isWaitingForNextRound = true;
+        timeUntilRoundStart = pauseBeforeGameStart;
         ActivateSpawns(startRoomWindows);
     }
 
     private void Update() {
-
-
         //Manages round changing
-        
         if (isWaitingForNextRound) {
             if (!hasShownRoundChange) { 
                 display.RoundChange(round + 1); //display before the zombies start spawning
@@ -150,7 +149,8 @@ public class RoundController : MonoBehaviour
     }
     //Returns how many zombies per second to spawn
     private float GetSpawnDeley() {
-        return Mathf.Exp(-0.15f * (round-4)) + 0.15f;
+        //e^(-0.25*(x-4)) + 0.3
+        return (Mathf.Exp(-0.25f * (round-4))) + 0.3f;
     }
 
     private float GetSpeed() {
