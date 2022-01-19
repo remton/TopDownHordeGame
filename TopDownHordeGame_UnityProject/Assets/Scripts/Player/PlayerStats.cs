@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
+    [SerializeField] private int payPerHit;
     [SerializeField] private int payPerKill;
 
     [SerializeField] private int bank;
@@ -19,7 +20,6 @@ public class PlayerStats : MonoBehaviour
         if (EventBankChange != null) { EventBankChange.Invoke(bank); }
     }
 
-
     public void AddMoney(int amount) {
         bank += amount;
         totalMoneyEarned += amount;
@@ -32,6 +32,10 @@ public class PlayerStats : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void PayForHit() {
+        AddMoney(payPerHit);
     }
 
     public void AddKill() {

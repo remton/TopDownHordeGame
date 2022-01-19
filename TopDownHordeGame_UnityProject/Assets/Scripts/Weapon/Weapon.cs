@@ -87,31 +87,33 @@ public class Weapon : MonoBehaviour
     /// <summary> Fires weapon instantly (fireDeley is handled in PlayerWeaponControl script) </summary>
     public virtual void Fire(GameObject player, Vector2 direction) {
         inMag--;
-//        Debug.Log(name + ": " + inMag.ToString() + " / " + inReserve.ToString());
     }
 
+    // This is NOT called by playerWeaponControl and is just a utility for overriding Fire() in derived Weapon classes
+    /// <summary> Fires a shot in the given direction </summary>
     protected void FireShot(GameObject player, Vector2 direction) { 
+        // Raycast in direction and get all collisions with mask
         string[] mask = { "BulletCollider", "Zombie", "Door"};
         RaycastHit2D[] hitInfos = Physics2D.RaycastAll(player.transform.position, direction, Mathf.Infinity, LayerMask.GetMask(mask));
-        int hitZombies = 0;
-
+        
+        int hitZombies = 0; //Used to count how many zombies we collided with and not hit more than weapon's penetration
+        
+        //Loop through all collisions
         Vector2 startPos = new Vector3(player.transform.position.x, player.transform.position.y, 0);
-
         for (int i = 0; i < hitInfos.Length; i++)
         {
             GameObject hitObj = hitInfos[i].transform.gameObject;
-            if (hitObj.CompareTag("Zombie"))
+            if (hitObj.CompareTag("Zombie")) // We hit a zombie
             {
                 hitZombies++;
                 hitObj.GetComponent<ZombieHealth>().Damage(damage);
-                player.GetComponent<PlayerStats>().AddMoney(2); // Give the player money for shooting someone 
-                if (hitObj.GetComponent<ZombieHealth>().isDead())
-                {
+                player.GetComponent<PlayerStats>().PayForHit();
+                if (hitObj.GetComponent<ZombieHealth>().isDead()){
                     player.GetComponent<PlayerStats>().AddKill();
                 }
 
-                if (hitZombies == penatration)
-                {
+                //We have hit our max number of zombies in one shot so we create the trail and break;
+                if (hitZombies == penatration){
                     Vector2 hitPoint = hitInfos[i].point;
                     effectController.CreateTrail(startPos, hitPoint);
                     break;
@@ -119,11 +121,22 @@ public class Weapon : MonoBehaviour
             }
             else if (hitObj.CompareTag("Wall") || hitObj.CompareTag("Door"))
             {
-//                Debug.Log("Drawing to the wall");
                 Vector2 hitPoint = hitInfos[i].point;
                 effectController.CreateTrail(startPos, hitPoint);
                 break;
             }
+            else {
+                Vector2 trailEnd = direction * effectController.maxDistance;
+                effectController.CreateTrail(startPos, trailEnd);
+            }
         }
+    }
+    /// <summary> Fires a shot within the spreadAngle in the given direction </summary>
+    protected void FireShot(GameObject player, Vector2 direction, float spreadAngle) {
+        direction.Normalize();
+        float baseAngle = Mathf.Atan2(direction.y, direction.x);
+        float angleDiff = Random.Range((baseAngle - spreadAngle / 2), (baseAngle + spreadAngle / 2));
+        Vector2 fireDir = new Vector2(Mathf.Cos(baseAngle + angleDiff * Mathf.Deg2Rad), Mathf.Sin(baseAngle + angleDiff * Mathf.Deg2Rad));
+        FireShot(player, fireDir);
     }
 } 

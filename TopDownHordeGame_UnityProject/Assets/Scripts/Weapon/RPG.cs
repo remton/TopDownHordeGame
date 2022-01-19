@@ -24,6 +24,5 @@ public class RPG : Weapon
         playerLookDir = direction;
         GameObject rocket = Instantiate(rocketObjPrefab, playerPos, Quaternion.identity);
         rocket.GetComponent<Rocket>().Init(player, playerLookDir.normalized, damage, balanceRadius, flySpeed, knockback);
-
     }
 }

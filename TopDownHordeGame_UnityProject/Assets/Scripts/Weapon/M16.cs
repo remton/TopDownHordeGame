@@ -17,7 +17,6 @@ public class M16 : Weapon
     private void Awake() {
         fireDeley += burstTime;
         timebetweenShots = burstTime/burstCount;
-
     }
 
     public override void Fire(GameObject player, Vector2 direction){
@@ -27,7 +26,9 @@ public class M16 : Weapon
     private void Update() {
         if (shotsLeftInBurst > 0) {
             if(timeUntilNextShot <= 0) {
-                FireShot();
+                base.Fire(currPlayer, currPlayer.GetComponent<PlayerMovement>().GetCurrentLookDir());
+                FireShot(currPlayer, currPlayer.GetComponent<PlayerMovement>().GetCurrentLookDir(), spreadAngle);
+                currPlayer.GetComponent<PlayerWeaponControl>().UpdateVisuals();
                 shotsLeftInBurst--;
                 timeUntilNextShot = timebetweenShots;
             }
@@ -35,18 +36,5 @@ public class M16 : Weapon
                 timeUntilNextShot -= Time.deltaTime;
             }
         }
-    }
-    private void FireShot() {
-        GameObject player = currPlayer;
-        Vector2 direction = currPlayer.GetComponent<PlayerMovement>().GetCurrentLookDir();
-        base.Fire(player, direction);
-        direction.Normalize();
-        float baseAngle = Mathf.Atan2(direction.y, direction.x);
-        float angleDiff;
-        Vector2 fireDir;
-        angleDiff = Random.Range((baseAngle - spreadAngle / 2), (baseAngle + spreadAngle / 2));
-        fireDir = new Vector2(Mathf.Cos(baseAngle + angleDiff * Mathf.Deg2Rad), Mathf.Sin(baseAngle + angleDiff * Mathf.Deg2Rad));
-        FireShot(player, fireDir);
-        currPlayer.GetComponent<PlayerWeaponControl>().UpdateVisuals();
     }
 }
