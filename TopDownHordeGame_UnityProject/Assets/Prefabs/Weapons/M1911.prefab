@@ -44,14 +44,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reloadTime: 0.9
-  fireDeley: 0.71
+  fireDeley: 0.65
   swapTime: 0.9
-  movePenalty: 1.1
+  movePenalty: 1.15
   weaponName: M1911
   penatration: 1
   baseDamage: 1
   reloadAmount: 0
   magSize: 8
-  reserveSize: 80
+  reserveSize: 96
   effectController: {fileID: 2769296667775464315, guid: 7d9940cc4635be54da99373e2c0dfb27, type: 3}
   spreadAngle: 2
