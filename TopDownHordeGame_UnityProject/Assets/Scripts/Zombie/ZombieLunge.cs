@@ -7,16 +7,13 @@ public class ZombieLunge : MonoBehaviour
 {
     [SerializeField] private HitBoxController hitBox;
     [SerializeField] private float waitTime;
-    [SerializeField] private float distance;
     [SerializeField] private float lungeTime;
-
     [SerializeField] private int damage;
-    [SerializeField] private float lungeSpeed;
+    [SerializeField] private float lungeForce;
 
     private bool isLunging = false;
     private bool isWaitingToLunge = false;
     private Vector2 dir;
-    private Vector2 targetPos;
     private float timeUntilWaitOver;
     private float timeUntilLungeOver;
     
@@ -25,7 +22,6 @@ public class ZombieLunge : MonoBehaviour
 
     public delegate void LungeEnd();
     public event LungeEnd EventLungeEnd;
-
 
     private void Awake() {
         AI = GetComponent<BasicZombieAI>();
@@ -37,8 +33,7 @@ public class ZombieLunge : MonoBehaviour
     private void Damage(GameObject player) {
         player.GetComponent<PlayerHealth>().Damage(damage);
     }
-    public void SetDamage(int newDamage)
-    {
+    public void SetDamage(int newDamage){
         damage = newDamage;
     }
 
@@ -51,8 +46,6 @@ public class ZombieLunge : MonoBehaviour
         if (isWaitingToLunge || isLunging)
             return;
         dir = d;
-        targetPos = transform.position;
-        targetPos += dir * distance;
         StartWait();
     }
 
@@ -64,9 +57,6 @@ public class ZombieLunge : MonoBehaviour
         }
         if (isLunging) {
             timeUntilLungeOver -= Time.fixedDeltaTime;
-            Vector2 newPos = transform.position;
-            newPos += dir * lungeSpeed * Time.fixedDeltaTime;
-            rb.MovePosition(newPos);
             if (timeUntilLungeOver <=0) {
                 EndLunge();
             }   
@@ -86,6 +76,7 @@ public class ZombieLunge : MonoBehaviour
     private void StartLunge() {
         timeUntilLungeOver = lungeTime;
         isLunging = true;
+        rb.AddForce(dir * lungeForce);
         hitBox.SetActive(true);
         hitBox.ForceEntry();
     }
