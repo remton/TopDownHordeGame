@@ -70,7 +70,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 613adb43c86583f4093d871f5bbb9c85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerTags: []
+  triggerTags:
+  - Player
 --- !u!1 &6956723953377203767
 GameObject:
   m_ObjectHideFlags: 0
