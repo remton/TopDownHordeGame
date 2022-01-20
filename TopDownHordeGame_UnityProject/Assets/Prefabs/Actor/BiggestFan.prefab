@@ -70,8 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 613adb43c86583f4093d871f5bbb9c85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeTags:
-  - Player
+  triggerTags: []
 --- !u!1 &6956723953377203767
 GameObject:
   m_ObjectHideFlags: 0
@@ -84,12 +83,11 @@ GameObject:
   - component: {fileID: 6956723953377203765}
   - component: {fileID: 6956723953377203762}
   - component: {fileID: 6956723953377203763}
-  - component: {fileID: 6956723953377203766}
-  - component: {fileID: 6956723953377203761}
   - component: {fileID: -2455652057355692573}
   - component: {fileID: 8163446417953433952}
   - component: {fileID: 3017018676422336411}
-  - component: {fileID: 415064547043744342}
+  - component: {fileID: 8275643853012576866}
+  - component: {fileID: 1387880836856220121}
   m_Layer: 7
   m_Name: BiggestFan
   m_TagString: Zombie
@@ -211,40 +209,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.64, y: 0.64}
   m_EdgeRadius: 0
---- !u!114 &6956723953377203766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6956723953377203767}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3837f33a8845f0844b33dafa38e88121, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  playerDistForLunge: 1.7
-  lungeCooldown: 2
-  timeBetweenTargetChecks: 0
---- !u!114 &6956723953377203761
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6956723953377203767}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea3ea3845553936448f3700aa19b5f14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitBox: {fileID: 4164462514332702161}
-  waitTime: 0.3
-  distance: 1.7
-  lungeTime: 0.2
-  damage: 1
-  lungeSpeed: 4
 --- !u!114 &-2455652057355692573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,7 +259,7 @@ NavMeshAgent:
   m_BaseOffset: 0.32
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &415064547043744342
+--- !u!114 &8275643853012576866
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -304,7 +268,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 6956723953377203767}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89173619cd4a53c4e8775a038f22da00, type: 3}
+  m_Script: {fileID: 11500000, guid: 1486664fa7ea80540b410f08c63ef07d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionPrefab: {fileID: 625011097304364378, guid: 5b0d6ecbd5708204f9ed034f9f7486a7, type: 3}
+  target: {fileID: 0}
+  timeBetweenTargetChecks: 0.1
+  explosionObj: {fileID: 2669479584483856320, guid: 5b0d6ecbd5708204f9ed034f9f7486a7, type: 3}
+  knockbackStrength: 750
+  playerDistForLunge: 2
+--- !u!114 &1387880836856220121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6956723953377203767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea3ea3845553936448f3700aa19b5f14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitBox: {fileID: 4164462514332702161}
+  waitTime: 0.5
+  distance: 2.5
+  lungeTime: 0.2
+  damage: 1
+  lungeSpeed: 5

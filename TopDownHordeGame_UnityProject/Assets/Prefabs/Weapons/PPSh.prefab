@@ -52,7 +52,7 @@ MonoBehaviour:
   baseDamage: 1
   reloadAmount: 0
   magSize: 35
-  reserveSize: 700
+  reserveSize: 525
   effectController: {fileID: 2769296667775464315, guid: 7d9940cc4635be54da99373e2c0dfb27, type: 3}
   pelletCount: 1
   spreadAngle: 16

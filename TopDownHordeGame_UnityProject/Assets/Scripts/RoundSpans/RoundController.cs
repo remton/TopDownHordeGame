@@ -33,7 +33,7 @@ public class RoundController : MonoBehaviour
     int damage;
 
     private int zombieI;
-    [SerializeField] GameObject[] zombieList;
+    [SerializeField] List<GameObject> zombieList;
 
     public static RoundController instance;
 
@@ -114,15 +114,14 @@ public class RoundController : MonoBehaviour
     public GameObject CreateZombie()
     {
         //spawn special zombie
-        if ((Random.Range(0, 100) == 0)&&zombieList.Length>0){
-            zombieI = Random.Range(0,zombieList.Length);
+        if ((Random.Range(0, 20) == 0)&&zombieList.Count>0){
+            zombieI = Random.Range(0,zombieList.Count);
         }
         else{ //spawn normal zombie
             zombieI = 0;
         }
         GameObject zombieObj = Instantiate(zombieList[zombieI]);
-        ZombieAI zombie = zombieObj.GetComponent<ZombieAI>();
-        zombie.SetValues(GetHealth(), GetSpeed(), GetDamage());
+        zombieObj.GetComponent<ZombieAI>().SetValues(GetHealth(), GetSpeed(), GetDamage());
         return zombieObj;
     }
 

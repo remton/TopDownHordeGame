@@ -6,7 +6,10 @@ public class ZombieHealth : MonoBehaviour
 {
     //public ParticleSystem particle;
     public GameObject hitEffectObj;
-    public GameObject deathEffectObj; 
+    public GameObject deathEffectObj;
+
+    public delegate void onDeath();
+    public event onDeath EventOnDeath;
 
     private int chance;
     public void SetMaxHealth(int newMax)
@@ -21,13 +24,11 @@ public class ZombieHealth : MonoBehaviour
     //public delegate void OnHealthChange(int newHealth);
     //public event OnHealthChange EventHealthChange;
 
-    public bool isDead()
-    {
+    public bool isDead(){
         return health <= 0;
     }
 
-    private void Start()
-    {
+    private void Start(){
         health = maxHealth;
     }
 
@@ -35,7 +36,7 @@ public class ZombieHealth : MonoBehaviour
     {
         health -= amount;
         if (health <= 0)
-            Die();
+            Kill();
         GameObject obj = Instantiate(hitEffectObj);
         obj.transform.position = transform.position;
         //if (EventHealthChange != null) { EventHealthChange.Invoke(health); }
@@ -49,7 +50,7 @@ public class ZombieHealth : MonoBehaviour
         //if (EventHealthChange != null) { EventHealthChange.Invoke(health); }
     }
 
-    private void Die()
+    public void Kill()
     {
         Debug.Log(name + ": \"*dies\"");
         if (gameObject.HasComponent<BiggestFanDeath>())
@@ -59,6 +60,7 @@ public class ZombieHealth : MonoBehaviour
         MagicController.instance.MagicDrop(myLocation);
         GameObject obj = Instantiate(deathEffectObj);
         obj.transform.position = transform.position;
+        if (EventOnDeath != null) EventOnDeath.Invoke();
         Destroy(gameObject);
     }
 }

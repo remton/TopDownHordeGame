@@ -20,11 +20,15 @@ public class ZombieLunge : MonoBehaviour
     private float timeUntilWaitOver;
     private float timeUntilLungeOver;
     
-    private ZombieAI AI;
+    private BasicZombieAI AI;
     private Rigidbody2D rb;
 
+    public delegate void LungeEnd();
+    public event LungeEnd EventLungeEnd;
+
+
     private void Awake() {
-        AI = GetComponent<ZombieAI>();
+        AI = GetComponent<BasicZombieAI>();
         rb = GetComponent<Rigidbody2D>();
         hitBox.SetActive(false);
         hitBox.EventObjEnter += Damage;
@@ -40,9 +44,8 @@ public class ZombieLunge : MonoBehaviour
 
     public void Lunge(Vector2 d) {
 
-        if (AI == null) {
-            Debug.LogError("Cannot call Lunge before setting the zombie AI");
-            return;
+        if (EventLungeEnd == null) {
+            Debug.LogWarning("ZombieLunge.lunge called without setting a callback!");
         }
 
         if (isWaitingToLunge || isLunging)
@@ -90,7 +93,12 @@ public class ZombieLunge : MonoBehaviour
     private void EndLunge() {
         isLunging = false;
         hitBox.SetActive(false);
-        AI.OnLungeEnd();
+        if (EventLungeEnd != null) {
+            EventLungeEnd.Invoke();
+        }
+        else {
+            Debug.LogWarning("ZombieLunge.EndLunge is not returning a callback!");
+        }
     }
 
     private void OnDestroy() {

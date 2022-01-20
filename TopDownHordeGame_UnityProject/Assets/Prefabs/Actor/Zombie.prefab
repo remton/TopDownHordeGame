@@ -70,8 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 613adb43c86583f4093d871f5bbb9c85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeTags:
-  - Player
+  triggerTags: []
 --- !u!1 &6956723953377203767
 GameObject:
   m_ObjectHideFlags: 0
@@ -89,7 +88,6 @@ GameObject:
   - component: {fileID: -2455652057355692573}
   - component: {fileID: 8163446417953433952}
   - component: {fileID: 3017018676422336411}
-  - component: {fileID: 2590262069219759515}
   m_Layer: 7
   m_Name: Zombie
   m_TagString: Zombie
@@ -224,9 +222,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  timeBetweenTargetChecks: 0.1
   playerDistForLunge: 1.7
   lungeCooldown: 2
-  timeBetweenTargetChecks: 0
 --- !u!114 &6956723953377203761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,15 +293,3 @@ NavMeshAgent:
   m_BaseOffset: 0.32
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &2590262069219759515
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6956723953377203767}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b06bc106fe37004a838945d6c8896c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
