@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HitBoxController : MonoBehaviour {
     [Header("Capital sensative tags")]
-    [SerializeField] private List<string> activeTags = new List<string>(); // Events only triggered when an objet with one of these tags is detected
+    public List<string> triggerTags = new List<string>(); // Events only triggered when an objet with one of these tags is detected
     private bool active = true;
     private List<GameObject> objsInBox = new List<GameObject>();
 
@@ -14,7 +14,7 @@ public class HitBoxController : MonoBehaviour {
     /// <summary>Calls EventObjEnter for every obj already in the hitbox that has an active tag</summary>
     public void ForceEntry() {
         foreach (GameObject obj in objsInBox) {
-            if(Utilities.CompareTags(obj, activeTags))
+            if(Utilities.CompareTags(obj, triggerTags))
                 if (EventObjEnter != null) { EventObjEnter.Invoke(obj); }
         }
     }
@@ -29,7 +29,7 @@ public class HitBoxController : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
         objsInBox.Add(collision.gameObject);
         if (!active) return;
-        if (Utilities.CompareTags(collision.gameObject, activeTags))
+        if (Utilities.CompareTags(collision.gameObject, triggerTags))
             if (EventObjEnter != null) { EventObjEnter.Invoke(collision.gameObject); }
     }
 
@@ -39,8 +39,8 @@ public class HitBoxController : MonoBehaviour {
     private void OnTriggerExit2D(Collider2D collision) {
         objsInBox.Remove(collision.gameObject);
         if (!active) return;
-        for (int i = 0; i < activeTags.Count; i++) {
-            if (collision.CompareTag(activeTags[i])) {
+        for (int i = 0; i < triggerTags.Count; i++) {
+            if (collision.CompareTag(triggerTags[i])) {
                 if (EventObjExit != null) { EventObjExit.Invoke(collision.gameObject); }
             }
         }

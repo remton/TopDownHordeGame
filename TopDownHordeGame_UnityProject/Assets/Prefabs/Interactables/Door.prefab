@@ -177,9 +177,7 @@ MonoBehaviour:
   cost: 1000
   doorHolder: {fileID: 72847967375984667}
   popupCanvas: {fileID: 5377004052288633354}
-  roomWindows:
-  - {fileID: 0}
-  - {fileID: 0}
+  roomSpawns: []
 --- !u!61 &72847968915284563
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -218,7 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 613adb43c86583f4093d871f5bbb9c85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeTags:
+  triggerTags:
   - Player
 --- !u!1 &2852732624987347175
 GameObject:

@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 613adb43c86583f4093d871f5bbb9c85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeTags:
+  triggerTags:
   - Zombie
   - Wall
 --- !u!114 &-512873134856680351
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aff649110ecbe146b54281debddb5fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionPrefab: {fileID: 625011097304364378, guid: 77ed71e9d93daf64fa1ce44bd12258a8, type: 3}
+  explosionPrefab: {fileID: 7885101383054547307, guid: 4ec5975d2394ea84e8f91b97233fadb6, type: 3}
   timeUntilDestroy: 0.1
   rb: {fileID: -213541478100332637}
 --- !u!50 &-213541478100332637
