@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -6663775149940204259}
   - component: {fileID: 2518825870984841034}
   - component: {fileID: 3224903848351673780}
+  - component: {fileID: 5333741432192759175}
   m_Layer: 0
   m_Name: Sale
   m_TagString: Untagged
@@ -90,8 +91,8 @@ SpriteRenderer:
   m_SortingLayerID: 1810509083
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.35175622, g: 0.6698113, b: 0.66303784, a: 1}
+  m_Sprite: {fileID: -8445809897889673386, guid: 1c0caa81dd5b41947bbc6da47dd2a342, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -146,3 +147,22 @@ MonoBehaviour:
   destroyTime: 30
   waitingToDestroy: 0
   isActivated: 0
+--- !u!95 &5333741432192759175
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5454472768016782365}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f13d2997c4f5e1d408770ae6ebeead7b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
