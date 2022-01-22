@@ -14,8 +14,10 @@ public class HitBoxController : MonoBehaviour {
     /// <summary>Calls EventObjEnter for every obj already in the hitbox that has an active tag</summary>
     public void ForceEntry() {
         foreach (GameObject obj in objsInBox) {
-            if(Utilities.CompareTags(obj, triggerTags))
-                if (EventObjEnter != null) { EventObjEnter.Invoke(obj); }
+            if (obj != null) {
+                if(Utilities.CompareTags(obj, triggerTags))
+                    if (EventObjEnter != null) { EventObjEnter.Invoke(obj); }
+            }
         }
     }
 

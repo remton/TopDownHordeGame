@@ -3,38 +3,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//Add a timer component to your script
-public class TimerManager : MonoBehaviour
+// Add a timer component to your script and make as many timers as you want :D
+public class Timer : MonoBehaviour
 {
-    class Timer {
+    class SingleTimer {
         public Action onEnd;
         public float timeLeft;
         public bool isTimerRunning;
     }
 
-    private static List<Timer> timers;
-    public static TimerManager instance;
+    private List<SingleTimer> timers;
 
     private void Awake() {
-        if (instance == null)
-            instance = this;
-        else
-            Destroy(this);
-        timers = new List<Timer>();
+        timers = new List<SingleTimer>();
     }
 
-    public static void CreateTimer(float time, Action onEnd) {
-        if (instance == null)
-            Debug.LogError("No TimerManager Instance!!");
+    public void CreateTimer(float time, Action onEnd) {
 
-        Timer newTimer = new Timer();
+        SingleTimer newTimer = new SingleTimer();
         newTimer.onEnd = onEnd;
         newTimer.timeLeft = time;
         newTimer.isTimerRunning = true;
         timers.Add(newTimer);
     }
 
-    private static void RemoveTimer(int index) {
+    private void RemoveTimer(int index) {
         timers.RemoveAt(index);
     }
 

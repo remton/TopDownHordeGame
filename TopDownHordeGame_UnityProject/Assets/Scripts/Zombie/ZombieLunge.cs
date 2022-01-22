@@ -16,7 +16,8 @@ public class ZombieLunge : MonoBehaviour
     private Vector2 dir;
     private float timeUntilWaitOver;
     private float timeUntilLungeOver;
-    
+
+    private Timer timer;
     private BasicZombieAI AI;
     private Rigidbody2D rb;
 
@@ -26,6 +27,7 @@ public class ZombieLunge : MonoBehaviour
     private void Awake() {
         AI = GetComponent<BasicZombieAI>();
         rb = GetComponent<Rigidbody2D>();
+        timer = GetComponent<Timer>();
         hitBox.SetActive(false);
         hitBox.EventObjEnter += Damage;
     }
@@ -49,23 +51,9 @@ public class ZombieLunge : MonoBehaviour
         StartWait();
     }
 
-    void FixedUpdate() {
-        if (isWaitingToLunge) {
-            timeUntilWaitOver -= Time.fixedDeltaTime;
-            if (timeUntilWaitOver <= 0)
-                WaitOver();
-        }
-        if (isLunging) {
-            timeUntilLungeOver -= Time.fixedDeltaTime;
-            if (timeUntilLungeOver <=0) {
-                EndLunge();
-            }   
-        }
-    }
-
     private void StartWait() {
         isWaitingToLunge = true;
-        timeUntilWaitOver = waitTime;
+        timer.CreateTimer(waitTime, WaitOver);
     }
 
     private void WaitOver() {
@@ -74,11 +62,11 @@ public class ZombieLunge : MonoBehaviour
     }
 
     private void StartLunge() {
-        timeUntilLungeOver = lungeTime;
         isLunging = true;
         rb.AddForce(dir * lungeForce);
         hitBox.SetActive(true);
         hitBox.ForceEntry();
+        timer.CreateTimer(lungeTime, EndLunge);
     }
 
     private void EndLunge() {

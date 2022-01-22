@@ -464,7 +464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c93edc630b131bb408cb338fac3eaefc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 1000
   bleedOutTime: 8
   hitEffectObj: {fileID: 2408408245422526199, guid: 89d497461da91eb42910b9e873abe67f, type: 3}
 --- !u!114 &1620798982028091914

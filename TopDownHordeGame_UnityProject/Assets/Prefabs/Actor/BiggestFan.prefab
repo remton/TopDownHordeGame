@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 3017018676422336411}
   - component: {fileID: 8275643853012576866}
   - component: {fileID: 1387880836856220121}
+  - component: {fileID: 1164026406751873685}
   m_Layer: 7
   m_Name: BiggestFan
   m_TagString: Zombie
@@ -293,3 +294,15 @@ MonoBehaviour:
   lungeTime: 0.2
   damage: 0
   lungeForce: 3
+--- !u!114 &1164026406751873685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6956723953377203767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2481c070c49a4dd4cb8ace2ff92559b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
