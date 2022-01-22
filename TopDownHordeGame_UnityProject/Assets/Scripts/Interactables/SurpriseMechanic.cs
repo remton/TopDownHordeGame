@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class SurpriseMechanic : MonoBehaviour
 {
-    public GameObject[] weaponPrefabList;
+    //public GameObject[] weaponPrefabList;
+    public List<RandomChoice> weaponChoices;
     public GameObject popupCanvas;
     public int cost;
     private int backupCost;
@@ -17,8 +18,7 @@ public class SurpriseMechanic : MonoBehaviour
         if (playerStats.GetBank() >= cost)
         {
             playerStats.SpendMoney(cost);
-            int i = Mathf.FloorToInt(Random.Range(0, weaponPrefabList.Length));
-            weaponControl.PickUpWeapon(weaponPrefabList[i]);
+            weaponControl.PickUpWeapon(RandomChoice.ChooseRandom(weaponChoices));
         }
         else
         {
