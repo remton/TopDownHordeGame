@@ -6,8 +6,7 @@ using UnityEngine;
 public class Carpenter : MonoBehaviour
 {
     public MagicType type;
-    private void Awake()
-    {
+    private void Awake(){
         GetComponent<HitBoxController>().EventObjEnter += Touch;
         GameObject.FindGameObjectsWithTag("Player");
     }
