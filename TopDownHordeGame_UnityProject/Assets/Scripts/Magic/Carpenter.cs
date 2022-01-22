@@ -3,15 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
-
 public class Carpenter : MonoBehaviour
 {
-    public int time;
     public MagicType type;
-    private List<Window> windows;
-    private GameObject[] players;
-
     private void Awake()
     {
         GetComponent<HitBoxController>().EventObjEnter += Touch;
@@ -23,12 +17,11 @@ public class Carpenter : MonoBehaviour
     {
         GetComponent<HitBoxController>().EventObjEnter -= Touch;
         Debug.Log("Power Up: " + name + " spawned");
-        windows = RoundController.instance.GetActiveWindows();
-        foreach (Window current in windows)
+        foreach (Window current in RoundController.instance.GetActiveWindows())
         {
             current.GetComponent<Window>().FullRepair();
         }
-        foreach (GameObject current in players)
+        foreach (GameObject current in PlayerManager.instance.GetActivePlayers())
         {
             current.GetComponent<PlayerStats>().AddMoney(1200);
         }

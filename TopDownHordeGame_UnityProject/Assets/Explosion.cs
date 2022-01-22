@@ -6,6 +6,7 @@ public class Explosion : MonoBehaviour
 {
     private HitBoxController hitBox;
     private GameObject owner;
+    private string ownerTag;
     private List<string> damageTags;
     private List<string> knockbackTags;
     private int damage;
@@ -13,6 +14,7 @@ public class Explosion : MonoBehaviour
 
     public void Init(GameObject nOwner, List<string> nDamageTags, List<string> nKnockbackTags, int nDamage, float nKnockbackStrength) {
         owner = nOwner;
+        ownerTag = nOwner.tag;
         damageTags = nDamageTags;
         knockbackTags = nKnockbackTags;
         damage = nDamage;
@@ -44,11 +46,11 @@ public class Explosion : MonoBehaviour
         }
         if(actor.tag == "Zombie") {
             actor.GetComponent<ZombieHealth>().Damage(damage);
-            if(owner.tag == "Player") {
+            if(ownerTag == "Player") {
                 owner.GetComponent<PlayerStats>().PayForHit(); // Give the player money for the explosion hitting someone 
+                if (actor.GetComponent<ZombieHealth>().isDead())
+                    owner.GetComponent<PlayerStats>().AddKill();
             }
-            if (actor.GetComponent<ZombieHealth>().isDead())
-                owner.GetComponent<PlayerStats>().AddKill();
         }
         else {
             return;

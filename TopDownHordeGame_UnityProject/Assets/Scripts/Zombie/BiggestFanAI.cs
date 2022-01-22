@@ -32,6 +32,7 @@ public class BiggestFanAI : ZombieAI
     private void Explode() {
         List<string> damageTags = new List<string>();
         damageTags.Add("Player");
+        damageTags.Add("Zombie");
         List<string> knockbackTags = new List<string>();
         knockbackTags.Add("Zombie");
         knockbackTags.Add("Player");
