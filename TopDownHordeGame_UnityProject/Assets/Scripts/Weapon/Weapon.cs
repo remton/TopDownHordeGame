@@ -119,14 +119,14 @@ public class Weapon : MonoBehaviour
                     break;
                 }
             }
-            else if (hitObj.CompareTag("Wall") || hitObj.CompareTag("Door"))
+            else if (hitObj.CompareTag("BulletCollision") || hitObj.CompareTag("Door"))
             {
                 Vector2 hitPoint = hitInfos[i].point;
                 effectController.CreateTrail(startPos, hitPoint);
                 break;
             }
             else {
-                Vector2 trailEnd = direction * effectController.maxDistance;
+                Vector2 trailEnd = startPos + (direction.normalized * effectController.maxDistance);
                 effectController.CreateTrail(startPos, trailEnd);
             }
         }
