@@ -63,7 +63,7 @@ public class RoundController : MonoBehaviour
         display.RoundChange(round);
         spawnDelay = GetSpawnDeley();
         //Debug.Log("Round: " + round.ToString());
-        Debug.Log(numPlayers + " players");
+        //Debug.Log(numPlayers + " players");
         isWaitingForNextRound = true;
         timeUntilRoundStart = pauseBeforeGameStart;
         ActivateSpawns(startRoomWindows);
@@ -135,14 +135,14 @@ public class RoundController : MonoBehaviour
         spawnDelay = GetSpawnDeley();
         zombiesSpawnedThisRound = 0;
         PlayerManager.instance.RespawnDeadPlayers();
-        Debug.Log("Round: " + round.ToString());
+        //Debug.Log("Round: " + round.ToString());
     }
 
     private int GetMaxZombies() {
         if (round > 15)
             return Mathf.FloorToInt(5 + 8 * 15 * Mathf.Log10(6 + Mathf.Pow(numPlayers, 3) / 2));
         else {
-            Debug.Log((numPlayers + " players in GetMaxZombies"));
+            //Debug.Log((numPlayers + " players in GetMaxZombies"));
             return Mathf.FloorToInt(5 + 8 * round * Mathf.Log10(6 + Mathf.Pow(numPlayers, 3) / 2));
         }
     }
