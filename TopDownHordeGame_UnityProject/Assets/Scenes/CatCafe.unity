@@ -817,7 +817,7 @@ GameObject:
   - component: {fileID: 249849165}
   m_Layer: 11
   m_Name: Wall-BulletCollision
-  m_TagString: Wall
+  m_TagString: BulletCollision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9765,7 +9765,7 @@ PrefabInstance:
     - target: {fileID: 6025319416998648061, guid: 446f747992bcc224eb7f198f719f8e94, type: 3}
       propertyPath: weaponPrefab
       value: 
-      objectReference: {fileID: 2093619312353819989, guid: fdf774ac936edeb448f010811a3c19dc, type: 3}
+      objectReference: {fileID: 4997718862678949635, guid: e329ee2c27c925b4796c98eddd85417b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 446f747992bcc224eb7f198f719f8e94, type: 3}
 --- !u!4 &423211868 stripped
