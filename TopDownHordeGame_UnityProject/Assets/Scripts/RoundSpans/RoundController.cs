@@ -103,10 +103,24 @@ public class RoundController : MonoBehaviour
         }
     }
 
+<<<<<<< Updated upstream
     public GameObject CreateZombie() {
         GameObject zombieObj = Instantiate(zombiePrefab);
         ZombieAI zombie = zombieObj.GetComponent<ZombieAI>();
         zombie.SetValues(GetHealth(),GetSpeed(),GetDamage());
+=======
+    public GameObject CreateZombie()
+    {
+        //spawn special zombie
+        if ((Random.Range(0, 20) == 0) && zombieList.Count > 0){
+            zombieI = Random.Range(0,zombieList.Count);
+        }
+        else{ //spawn normal zombie
+            zombieI = 0;
+        }
+        GameObject zombieObj = Instantiate(zombieList[zombieI]);
+        zombieObj.GetComponent<ZombieAI>().SetValues(GetHealth(), GetSpeed(), GetDamage());
+>>>>>>> Stashed changes
         return zombieObj;
     }
 
