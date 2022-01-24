@@ -3,7 +3,10 @@ guid: 9bcebf4d8d779b64092ec670dcd54df5
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - reloadSound: {instanceID: 0}
+  - swapSound: {instanceID: 0}
+  - effectController: {fileID: 2769296667775464315, guid: 7d9940cc4635be54da99373e2c0dfb27, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

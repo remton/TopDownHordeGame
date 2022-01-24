@@ -14,14 +14,18 @@ using UnityEngine;
 [System.Serializable]
 public class RandomChoice
 {
-    /// <summary> The chance for this item to be selected </summary>
+    /// <summary>
+    /// The chance for this item to be selected
+    /// </summary>
     public float weight;
-    /// <summary> The object to be chosen </summary>
+    /// <summary>
+    /// The object to be chosen
+    /// </summary>
     public GameObject obj;
 
     /// <summary> Chooses a random gameobj from a list (all objects must have the choosable script)</summary>
     public static GameObject ChooseRandom(List<RandomChoice> choices) {
-        //An Empty list should not be passed to this method
+        //An Empty list should not be passed to this funcit
         if (!(choices.Count > 0)) {
             Debug.LogError("ChooseRandom was passed an empty or broken list!");
             Debug.Break();

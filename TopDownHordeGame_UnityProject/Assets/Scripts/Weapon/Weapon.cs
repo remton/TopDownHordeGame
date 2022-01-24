@@ -15,10 +15,9 @@ public class Weapon : MonoBehaviour
     [SerializeField] protected int reloadAmount;    // amount of bullets to put in mag on reload (used in weapons like the RemTon870)
     [SerializeField] protected int magSize;         // size of this weapons magazine
     [SerializeField] protected int reserveSize;     // max ammo that can be held with this weapon
-    [SerializeField] public AudioClip fireSound;    //sound of gunshot for this weapon
     [SerializeField] public AudioClip reloadSound;  //sound played on reload
     [SerializeField] public AudioClip swapSound;    //sound played when swapping to this weapon
-    [SerializeField] protected FireEffectController effectController;
+    [SerializeField] protected FireEffectController effectController; //Controller for bullet trail and fire sound
 
     protected int damage;       // damage per bullet
     protected int inMag = 0;    // bullets in magazine
@@ -99,7 +98,6 @@ public class Weapon : MonoBehaviour
     // This is NOT called by playerWeaponControl and is just a utility for overriding Fire() in derived Weapon classes
     /// <summary> Fires a shot in the given direction </summary>
     protected void FireShot(GameObject player, Vector2 direction) {
-        //PlayGunshotSound();
 
         // Raycast in direction and get all collisions with mask
         string[] mask = { "BulletCollider", "Zombie", "Door"};
