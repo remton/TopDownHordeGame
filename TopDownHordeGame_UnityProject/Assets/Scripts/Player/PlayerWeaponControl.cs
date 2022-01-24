@@ -11,6 +11,7 @@ using UnityEngine.Events;
 public class PlayerWeaponControl : MonoBehaviour
 {
     private PlayerMovement playerMovement;
+    private Timer timer;
 
     public float reloadSpeedMult;
     public float fireDelayMult;
@@ -18,13 +19,49 @@ public class PlayerWeaponControl : MonoBehaviour
     public float reserveMult;
     public GameObject starterWeaponPrefab;
 
+    private int equippedIndex;
+    public List<Weapon> weapons;
+    [SerializeField] private int maxWeapons;
+
+    // Electric perk vars
     public float electricRadius;
     public int electricDamage;
     public GameObject electricPrefab;
 
+    //Internal booleans
+    private bool isSwapping;
+    private bool isReloading;
+    private bool shootButtonDown;
+    private bool isWaitingToShoot;
 
-    [SerializeField] private int maxWeapons;
-    [SerializeField] public List<Weapon> weapons;
+
+    //---------------- EVENTS ----------------
+    public delegate void ReloadCalled(float reloadTimeSec);
+    public event ReloadCalled EventReloadCalled;
+    public delegate void AmmoChanged(int mag, int reserve);
+    public event AmmoChanged EventAmmoChanged;
+    public delegate void WeaponChanged(string weaponName);
+    public event WeaponChanged EventWeaponChanged;
+    //Whenever ammo is changed add this code:
+    //if (EventAmmoChanged != null) EventAmmoChanged.Invoke(weapons[equippedIndex].GetInMag(), weapons[equippedIndex].GetInReserve());
+
+
+    private void Awake() {
+        playerMovement = GetComponent<PlayerMovement>();
+        timer = GetComponent<Timer>();
+    }
+    private void Start() {
+        foreach (Weapon weapon in weapons) {
+            weapon.AddReserveAmmo(Mathf.RoundToInt(weapon.GetReserveSize() * reserveMult));
+            weapon.Reload();
+        }
+        EventAmmoChanged.Invoke(Mathf.RoundToInt(weapons[equippedIndex].GetInMag()), weapons[equippedIndex].GetInReserve());
+        EventWeaponChanged.Invoke(weapons[equippedIndex].GetWeaponName());
+        playerMovement.runSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
+        playerMovement.walkSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
+    }
+
+    //Used to Change Weapon count for perks or whatever else in the future
     public void SetWeaponCount(int newCount) {
         for (int i = 0; i < maxWeapons - newCount; i++) {
             if (weapons[i] != null) {
@@ -35,37 +72,6 @@ public class PlayerWeaponControl : MonoBehaviour
         maxWeapons = newCount;
     }
 
-    private void Awake() {
-        playerMovement = GetComponent<PlayerMovement>();
-    }
-
-    private void Start() {
-//        Debug.Log("Start has been called");
-        foreach (Weapon weapon in weapons) {
-//            Debug.Log("Weapon loop is working");
-//            Debug.Log("ADDING AMMO TO: " + weapon.name);
-            weapon.AddReserveAmmo(Mathf.RoundToInt(weapon.GetReserveSize() * reserveMult));
-//            Debug.Log("Reserve ammo added");
-            weapon.Reload();
-//            Debug.Log("Reloaded");
-        }
-        EventAmmoChanged.Invoke(Mathf.RoundToInt(weapons[equippedIndex].GetInMag()), weapons[equippedIndex].GetInReserve());
-        EventWeaponChanged.Invoke(weapons[equippedIndex].GetWeaponName());
-        playerMovement.runSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
-        playerMovement.walkSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
-    }
-
-    private int equippedIndex;
-
-    private bool isSwapping;
-    private float timeUntilSwap;
-
-    private bool isReloading;
-    private float timeUntilReload;
-    private bool shootButtonDown;
-    private bool isWaitingToShoot;
-    private float timeUntilShoot;
-
     private int NextWeaponIndex() {
         int next = equippedIndex + 1;
         if (next >= weapons.Count)
@@ -73,16 +79,7 @@ public class PlayerWeaponControl : MonoBehaviour
         return next;
     }
 
-
-    public delegate void ReloadCalled(float reloadTimeSec);
-    public event ReloadCalled EventReloadCalled;
-    public delegate void AmmoChanged(int mag, int reserve);
-    public event AmmoChanged EventAmmoChanged;
-    public delegate void WeaponChanged(string weaponName);
-    public event WeaponChanged EventWeaponChanged;
-    //Whenever ammo is changed add this code:
-    //if (EventAmmoChanged != null) EventAmmoChanged.Invoke(weapons[equippedIndex].GetInMag(), weapons[equippedIndex].GetInReserve());
-
+    // ------------ SWAPPING ------------
 
     // Swap Weapon control
     /// <summary> called when swap weapon button is pressed</summary>
@@ -96,18 +93,14 @@ public class PlayerWeaponControl : MonoBehaviour
             return;
         if (isReloading)
             CancelReload();
+        CancelShoot();
         Debug.Log("Swapping . . .");
         isSwapping = true;
-        timeUntilSwap = weapons[NextWeaponIndex()].GetSwapTime();
-    }
-    private void SwapUpdate() {
-        if (timeUntilSwap <= 0) {
-            isSwapping = false;
-            Swap();
-        }
-        timeUntilSwap -= Time.deltaTime;
+        timer.CreateTimer(weapons[NextWeaponIndex()].GetSwapTime(), Swap);
     }
     private void Swap() {
+        isSwapping = false;
+        weapons[equippedIndex].PlaySwapSound();
         Debug.Log("Swapped!");
         playerMovement.runSpeedMultipliers.Remove(weapons[equippedIndex].GetMoveMult());
         playerMovement.walkSpeedMultipliers.Remove(weapons[equippedIndex].GetMoveMult());
@@ -120,6 +113,7 @@ public class PlayerWeaponControl : MonoBehaviour
         isSwapping = false;
     }
 
+    // ----------- RELOADING --------------
     bool repeatingReload = true;
     // Reload weapon control
     /// <summary> called when reload button is pressed </summary>
@@ -139,16 +133,10 @@ public class PlayerWeaponControl : MonoBehaviour
             return;
         }
 
-//        Debug.Log("Reloading . . .");
         isReloading = true;
-        timeUntilReload = weapons[equippedIndex].GetReloadTime() * reloadSpeedMult;
+        float timeUntilReload = weapons[equippedIndex].GetReloadTime();
+        timer.CreateTimer(timeUntilReload, Reload);
         if (EventReloadCalled != null) EventReloadCalled.Invoke(timeUntilReload);
-    }
-    private void ReloadUpdate() {
-        if(timeUntilReload <= 0) {
-            Reload();
-        }
-        timeUntilReload -= Time.deltaTime;
     }
     private void Reload() {
         int magSize = Mathf.RoundToInt(weapons[equippedIndex].GetMagSize() * magMult);
@@ -170,6 +158,7 @@ public class PlayerWeaponControl : MonoBehaviour
         isReloading = false;
     }
 
+    //--------------------- SHOOTING ---------------------
 
     // Shoot weapon control
     /// <summary> Called when shoot button state changes </summary>
@@ -187,34 +176,39 @@ public class PlayerWeaponControl : MonoBehaviour
         }
         else if (shootButtonDown) {
             Shoot();
-            timeUntilShoot = weapons[equippedIndex].GetFireDeley() * fireDelayMult;
+            if (weapons[equippedIndex].IsAutomatic())
+                timer.CreateTimer(weapons[equippedIndex].GetFireDeley(), AutomaticShoot);
+            else
+                timer.CreateTimer(weapons[equippedIndex].GetFireDeley(), EndShooting);
             isWaitingToShoot = true;
         }
     }
-    private void ShootUpdate() {
-        if (isWaitingToShoot) {
-            if(timeUntilShoot <= 0) {
-                if (shootButtonDown) {
-                    Shoot();   
-                    timeUntilShoot = weapons[equippedIndex].GetFireDeley();
-                }
-                else {
-                    isWaitingToShoot = false;
-                }
-            }
-            timeUntilShoot -= Time.deltaTime;
+    private void EndShooting() {
+        isWaitingToShoot = false;
+    }
+    //Method for automatic weapons
+    private void AutomaticShoot() {
+        if (shootButtonDown) {
+            //We need to shoot and start a new timer
+            Shoot();
+            timer.CreateTimer(weapons[equippedIndex].GetFireDeley(), AutomaticShoot);
+        }
+        else {
+            EndShooting();
         }
     }
+    //Shoot Once
     private void Shoot() {
+        if (!weapons[equippedIndex].IsAutomatic())
+            weapons[equippedIndex].PlayGunshotSound();
         if (weapons[equippedIndex].MagEmpty()) {
             repeatingReload = true;
-            //TODO: show player a reload message or auto reload
-            if (!isReloading)
-            {
+            if (!isReloading){
                 StartReload();
-                if (GetComponent<PlayerPerkHolder>().HavePerk(electricPrefab))  // Check if the player has the Electric reload perk. 
-                {
-                    GetComponent<PlayerPerkHolder>().CallElectricDamage(electricPrefab);  // To do: Fix this to make it call the Electric perk's damage function. 
+                if (GetComponent<PlayerPerkHolder>().HavePerk(electricPrefab)){
+                    // Check if the player has the Electric reload perk. 
+                    // To do: Fix this to make it call the Electric perk's damage function. 
+                    GetComponent<PlayerPerkHolder>().CallElectricDamage(electricPrefab);  
                 }
             }
             return;
@@ -223,8 +217,12 @@ public class PlayerWeaponControl : MonoBehaviour
         UpdateVisuals();
     }
     private void CancelShoot() {
+        //if (weapons[equippedIndex].IsAutomatic() && !isReloading && !isSwapping)
+        //    weapons[equippedIndex].StopSound();
         shootButtonDown = false;
     }
+
+    // ------ Other Misc Methods ------
 
     public void UpdateVisuals() {
         if (EventAmmoChanged != null) EventAmmoChanged.Invoke(Mathf.RoundToInt(weapons[equippedIndex].GetInMag()), Mathf.RoundToInt(weapons[equippedIndex].GetInReserve()));
@@ -259,17 +257,6 @@ public class PlayerWeaponControl : MonoBehaviour
         playerMovement.walkSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
     }
 
-    private void Update() {
-        if (isWaitingToShoot) {
-            ShootUpdate();
-        }
-        if (isSwapping) {
-            SwapUpdate();
-        }
-        if (isReloading) {
-            ReloadUpdate();
-        }
-    }
     public void RefillWeaponReserve()
     {
         foreach(Weapon current in weapons)
