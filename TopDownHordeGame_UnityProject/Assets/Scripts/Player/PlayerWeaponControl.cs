@@ -139,6 +139,7 @@ public class PlayerWeaponControl : MonoBehaviour
         if (EventReloadCalled != null) EventReloadCalled.Invoke(timeUntilReload);
     }
     private void Reload() {
+        weapons[equippedIndex].PlayReloadSound();
         int magSize = Mathf.RoundToInt(weapons[equippedIndex].GetMagSize() * magMult);
         weapons[equippedIndex].Reload(magSize);
         UpdateVisuals();

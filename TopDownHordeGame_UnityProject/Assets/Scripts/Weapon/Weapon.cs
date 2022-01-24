@@ -28,12 +28,12 @@ public class Weapon : MonoBehaviour
     
     private void Start() {
         damage = baseDamage;
-        //if (gameObject.HasComponent<AudioSource>()) { 
-        //    audioSource = GetComponent<AudioSource>();
-        //}
-        //else {
-        //    Debug.LogError("Weapon: " + name + " is missing its audioSource component!");
-        //}
+        if (gameObject.HasComponent<AudioSource>()) {
+            audioSource = GetComponent<AudioSource>();
+        }
+        else {
+            Debug.LogError("Weapon: " + name + " is missing its audioSource component!");
+        }
     }
     // ---- Getters and Setters ----
     public bool IsAutomatic() { return isAutomatic; }
