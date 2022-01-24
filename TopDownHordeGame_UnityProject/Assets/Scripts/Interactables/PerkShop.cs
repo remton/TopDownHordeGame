@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class PerkShop : MonoBehaviour
 {
-
+    public AudioClip purchaseSound;
+    public AudioClip FailedPurchaseSound;
     public GameObject perkPrefab;
     public GameObject popupCanvas;
     private int cost;
@@ -18,18 +19,15 @@ public class PerkShop : MonoBehaviour
         alreadyHave = player.GetComponent<PlayerPerkHolder>().HavePerk(perkPrefab);
         if (playerStats.GetBank() >= cost && !alreadyHave)
         {
-
+            AudioClipPlayer.Play(purchaseSound,transform.position);
             playerStats.SpendMoney(cost);
             player.GetComponent<PlayerPerkHolder>().AddPerk(perkPrefab);
-
-
-            Debug.Log("Your money should have been taken.");
         }
         else if (playerStats.GetBank() < cost){
-            Debug.Log("You want product, I want money.");
+            AudioClipPlayer.Play(FailedPurchaseSound, transform.position);
+            Debug.Log("U broke lol");
         }
-        else
-        {
+        else{
             Debug.Log("You should already have this perk.");
         }
     }

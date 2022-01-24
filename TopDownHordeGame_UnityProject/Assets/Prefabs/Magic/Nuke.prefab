@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 573dbbffef005f548840cbe17a4d6ab2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickupSound: {fileID: 8300000, guid: 92603e07f4d5bf54ea4d51f1eb34ba12, type: 3}
   time: 0
   type: 3
   zombiePrefab: {fileID: 0}

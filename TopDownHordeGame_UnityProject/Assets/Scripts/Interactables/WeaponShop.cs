@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class WeaponShop : MonoBehaviour
 {
+    public AudioClip purchaseSound;
+    public AudioClip failPurchaseSound;
+
     public GameObject weaponPrefab;
     public GameObject popupCanvas;
     protected int cost;
@@ -16,8 +19,10 @@ public class WeaponShop : MonoBehaviour
         if (playerStats.GetBank() >= cost) {
             playerStats.SpendMoney(cost);
             weaponControl.PickUpWeapon(weaponPrefab);
+            AudioClipPlayer.Play(purchaseSound, transform.position);
         }
         else {
+            AudioClipPlayer.Play(failPurchaseSound, transform.position);
             Debug.Log("u broke lol");
         }
     }
@@ -38,8 +43,7 @@ public class WeaponShop : MonoBehaviour
         popupCanvas.SetActive(true);
         popupCanvas.GetComponentInChildren<Text>().text = weaponPrefab.name + "\n$" + cost;
     }
-    public void OnPlayerExit(GameObject player) 
-    {
+    public void OnPlayerExit(GameObject player) {
         player.GetComponent<PlayerActivate>().EventPlayerActivate -= TryBuyWeapon;
         popupCanvas.SetActive(false);
     }

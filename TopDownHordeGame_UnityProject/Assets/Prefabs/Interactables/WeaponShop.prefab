@@ -312,9 +312,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14114a6e435b09c46b3dfda1c15f8929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  purchaseSound: {fileID: 8300000, guid: f6e87a164e2f7794eb10ea1f1ecbc7f3, type: 3}
+  failPurchaseSound: {fileID: 8300000, guid: 821fc227c75397546aefd6d72ed79605, type: 3}
   weaponPrefab: {fileID: 6429082733309257629, guid: 5b052c79d1303c04396797d03783426e, type: 3}
   popupCanvas: {fileID: 799711295727344579}
-  cost: 500
+  baseCost: 0
 --- !u!1 &8105823526401981195
 GameObject:
   m_ObjectHideFlags: 0

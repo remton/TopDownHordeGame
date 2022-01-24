@@ -9,18 +9,20 @@ public class Doors : MonoBehaviour
     public int cost;
     public GameObject doorHolder;
     public GameObject popupCanvas;
-    public List<ZombieSpawn> roomSpawns; 
+    public List<ZombieSpawn> roomSpawns;
+    [SerializeField] private AudioClip openSound;
+    [SerializeField] private AudioClip failedBuySound;
 
     public void TryBuyDoor(GameObject player)
     {
         PlayerStats playerStats = player.GetComponent<PlayerStats>();
-        if (playerStats.GetBank() >= cost)
-        {
+        if (playerStats.GetBank() >= cost){
             playerStats.SpendMoney(cost);
             openDoor();
+            AudioClipPlayer.Play(openSound, transform.position);
         }
-        else
-        {
+        else {
+            AudioClipPlayer.Play(failedBuySound, transform.position);
             Debug.Log("Get a job.");
         }
     }

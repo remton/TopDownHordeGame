@@ -178,6 +178,8 @@ MonoBehaviour:
   doorHolder: {fileID: 72847967375984667}
   popupCanvas: {fileID: 5377004052288633354}
   roomSpawns: []
+  openSound: {fileID: 8300000, guid: 5060fa01999db2f49a32d254c8e30beb, type: 3}
+  failedBuySound: {fileID: 8300000, guid: 821fc227c75397546aefd6d72ed79605, type: 3}
 --- !u!61 &72847968915284563
 BoxCollider2D:
   m_ObjectHideFlags: 0

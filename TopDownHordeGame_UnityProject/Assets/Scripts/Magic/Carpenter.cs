@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Carpenter : MonoBehaviour
 {
+    public AudioClip pickupSound;
     public MagicType type;
     private void Awake(){
         GetComponent<HitBoxController>().EventObjEnter += Touch;
@@ -24,6 +25,7 @@ public class Carpenter : MonoBehaviour
         {
             current.GetComponent<PlayerStats>().AddMoney(1200);
         }
+        AudioClipPlayer.Play(pickupSound, transform.position);
         Stop();
     }
 

@@ -159,6 +159,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e20029f53d889334ca1fc953803a8e29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  purchaseSound: {fileID: 8300000, guid: f6e87a164e2f7794eb10ea1f1ecbc7f3, type: 3}
+  FailedPurchaseSound: {fileID: 8300000, guid: 821fc227c75397546aefd6d72ed79605, type: 3}
   perkPrefab: {fileID: 0}
   popupCanvas: {fileID: 6384169342850317514}
 --- !u!1 &6384169342850317514

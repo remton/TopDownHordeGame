@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class Ammo : MonoBehaviour
 {
+    public AudioClip pickupSound;
+
     public int time;
     public MagicType type;
     private List<GameObject> players;
@@ -26,6 +28,7 @@ public class Ammo : MonoBehaviour
         {
             current.GetComponent<PlayerWeaponControl>().RefillWeaponReserve();
         }
+        AudioClipPlayer.Play(pickupSound, transform.position);
         Stop();
     }
 

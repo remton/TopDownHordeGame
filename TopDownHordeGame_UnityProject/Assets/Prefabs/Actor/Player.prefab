@@ -465,7 +465,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c93edc630b131bb408cb338fac3eaefc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1000
+  maxHealth: 10
   bleedOutTime: 8
   hitEffectObj: {fileID: 2408408245422526199, guid: 89d497461da91eb42910b9e873abe67f, type: 3}
 --- !u!114 &1620798982028091914
@@ -485,12 +485,12 @@ MonoBehaviour:
   magMult: 1
   reserveMult: 1
   starterWeaponPrefab: {fileID: 2093619312353819989, guid: fdf774ac936edeb448f010811a3c19dc, type: 3}
+  weapons:
+  - {fileID: 4665321404495983258}
+  maxWeapons: 2
   electricRadius: 10
   electricDamage: 10
   electricPrefab: {fileID: 7920108413950733430, guid: 63bc2d6571b51ed4fbef6330636d64a8, type: 3}
-  maxWeapons: 2
-  weapons:
-  - {fileID: 4665321404495983258}
 --- !u!114 &1620798982028091925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -517,7 +517,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   payPerHit: 2
   payPerKill: 50
-  bank: 100000
+  bank: 0
 --- !u!114 &6541580502185974050
 MonoBehaviour:
   m_ObjectHideFlags: 0

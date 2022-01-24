@@ -44,11 +44,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  breakDelay: 1
+  canSpawn: 0
+  breakSound: {fileID: 8300000, guid: 87409c0831f126446a39405384a0b26f, type: 3}
   health: 5
   maxHealth: 5
   isOpen: 0
-  canSpawn: 0
+  breakDelay: 1
   topTile: {x: -15, y: 3, z: 0}
   midTile: {x: -15, y: 2, z: 0}
   bottomTile: {x: -15, y: 1, z: 0}

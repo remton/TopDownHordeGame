@@ -5,6 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class Window : ZombieSpawn
 {
+    [SerializeField] private AudioClip breakSound;
     [SerializeField] private int health; // health of the boards on this window
     [SerializeField] private int maxHealth;
 
@@ -61,6 +62,7 @@ public class Window : ZombieSpawn
                 //damage the window for each zombie in the queue
                 for (int i = 0; i < numInQueue; i++){
                     if (health <= 0){
+                        AudioClipPlayer.Play(breakSound, transform.position);
                         SetWindowOpen();
                     }
                     else{

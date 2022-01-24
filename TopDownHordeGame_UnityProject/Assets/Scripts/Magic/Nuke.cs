@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class Nuke : MonoBehaviour
 {
+    public AudioClip pickupSound;
     public int time;
     public MagicType type;
     public GameObject zombiePrefab;
@@ -34,6 +35,7 @@ public class Nuke : MonoBehaviour
             current.GetComponent<PlayerStats>().AddMoney(500);
         }
         Stop();
+        AudioClipPlayer.Play(pickupSound, transform.position);
     }
 
     //This is where the perk deactivates. Maybe it changes a stat value, maybe it unsibscribes from an event.
