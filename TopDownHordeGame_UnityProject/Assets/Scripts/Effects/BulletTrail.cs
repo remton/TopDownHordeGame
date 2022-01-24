@@ -34,6 +34,6 @@ public class BulletTrail : MonoBehaviour
     }
     private void OnTimeUp() {
         isFinished = true;
-        line.enabled = false;
+        Destroy(gameObject);
     }
 }

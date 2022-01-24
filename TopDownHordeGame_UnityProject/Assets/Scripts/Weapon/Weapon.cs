@@ -19,7 +19,6 @@ public class Weapon : MonoBehaviour
     [SerializeField] public AudioClip reloadSound;  //sound played on reload
     [SerializeField] public AudioClip swapSound;    //sound played when swapping to this weapon
     [SerializeField] protected FireEffectController effectController;
-    private AudioSource audioSource; //What will play our sounds
 
     protected int damage;       // damage per bullet
     protected int inMag = 0;    // bullets in magazine
@@ -28,12 +27,6 @@ public class Weapon : MonoBehaviour
     
     private void Start() {
         damage = baseDamage;
-        if (gameObject.HasComponent<AudioSource>()) {
-            audioSource = GetComponent<AudioSource>();
-        }
-        else {
-            Debug.LogError("Weapon: " + name + " is missing its audioSource component!");
-        }
     }
     // ---- Getters and Setters ----
     public bool IsAutomatic() { return isAutomatic; }
@@ -55,17 +48,11 @@ public class Weapon : MonoBehaviour
     public bool ReserveEmpty() {return inReserve <= 0;}
 
     // ---- Play sounds ----
-    //public void PlayGunshotSound() {
-    //    audioSource.clip = fireSound;
-    //    audioSource.Play();
-    //}
     public void PlayReloadSound() {
-        audioSource.clip = reloadSound;
-        audioSource.Play();
+        AudioClipPlayer.Play(reloadSound, transform.position);
     }
     public void PlaySwapSound() {
-        audioSource.clip = swapSound;
-        audioSource.Play();
+        AudioClipPlayer.Play(swapSound, transform.position);
     }
 
     // ---- Internal Weapon Mechanics ----

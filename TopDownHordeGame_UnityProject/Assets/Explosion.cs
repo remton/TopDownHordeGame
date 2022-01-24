@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
-    private AudioSource audioSource;
     private Timer timer;
     public float timeActive;
     [SerializeField] private AudioClip explosionSound;
@@ -17,13 +16,11 @@ public class Explosion : MonoBehaviour
     private float knockbackStrength;
 
     private void Awake() {
-        audioSource = GetComponent<AudioSource>();
         timer = GetComponent<Timer>();
     }
 
     private void Start() {
-        audioSource.clip = explosionSound;
-        audioSource.Play();
+        AudioClipPlayer.Play(explosionSound, transform.position);
     }
 
     public void Init(GameObject nOwner, List<string> nDamageTags, List<string> nKnockbackTags, int nDamage, float nKnockbackStrength) {

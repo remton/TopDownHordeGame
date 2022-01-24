@@ -241,6 +241,7 @@ public class PlayerWeaponControl : MonoBehaviour
             CancelShoot();
         Debug.Log("Picked up: " + weaponPrefab.name);
         GameObject weaponObj = Instantiate(weaponPrefab, transform);
+        weaponObj.transform.position = Vector3.zero;
         Weapon weapon = weaponObj.GetComponent<Weapon>();
         weapon.AddReserveAmmo(Mathf.RoundToInt(weapon.GetReserveSize() * reserveMult));
         if(maxWeapons > weapons.Count) {
