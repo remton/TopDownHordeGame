@@ -29,7 +29,7 @@ public class MusicManager : MonoBehaviour {
     //TODO: make clips choose based on whats happening in the game
     private AudioClip GetMusicClip() {
         int rand = Random.Range(0, musicClips.Count);
-        return musicClips[0];
+        return musicClips[rand];
     }
     private void StopLoop() {
         source.loop = false;
