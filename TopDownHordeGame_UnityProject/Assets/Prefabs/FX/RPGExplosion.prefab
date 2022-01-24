@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 490822777680765558}
   - component: {fileID: 8714759531808602771}
   - component: {fileID: 2633459523075420702}
+  - component: {fileID: 7898940617336547096}
   m_Layer: 14
   m_Name: RPGExplosion
   m_TagString: Untagged
@@ -134,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e20581f1662b184f95a1d9858d4bc02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyTime: 1
+  destroyTime: 2
 --- !u!114 &490822777680765558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,3 +263,15 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7898940617336547096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7885101383054547307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2481c070c49a4dd4cb8ace2ff92559b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

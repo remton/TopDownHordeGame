@@ -16,8 +16,12 @@ public class Explosion : MonoBehaviour
     private int damage;
     private float knockbackStrength;
 
-    private void Start() {
+    private void Awake() {
         audioSource = GetComponent<AudioSource>();
+        timer = GetComponent<Timer>();
+    }
+
+    private void Start() {
         audioSource.clip = explosionSound;
         audioSource.Play();
     }
