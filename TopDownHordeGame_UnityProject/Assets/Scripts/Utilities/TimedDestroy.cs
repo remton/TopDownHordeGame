@@ -6,7 +6,8 @@ public class TimedDestroy : MonoBehaviour
 {
     public float destroyTime;
     // Start is called before the first frame update
-    void Start(){
+    /*public virtual */protected void Start(){
+        Debug.Log("Object is being destroyed in TimedDestroy Start() method.");
         Destroy(gameObject, destroyTime);
     }
 }

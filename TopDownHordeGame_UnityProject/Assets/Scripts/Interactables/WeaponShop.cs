@@ -7,8 +7,8 @@ public class WeaponShop : MonoBehaviour
 {
     public GameObject weaponPrefab;
     public GameObject popupCanvas;
-    public int cost;
-    private int backupCost;
+    protected int cost;
+    [SerializeField] protected int baseCost;
 
     public void TryBuyWeapon(GameObject player) {
         PlayerStats playerStats = player.GetComponent<PlayerStats>();
@@ -23,9 +23,10 @@ public class WeaponShop : MonoBehaviour
     }
 
     // Hitbox and player activation set
-    private HitBoxController hitbox;
+    protected HitBoxController hitbox;
 
     private void Awake() {
+        cost = baseCost;
         hitbox = GetComponent<HitBoxController>();
         hitbox.EventObjEnter += OnPlayerEnter;
         hitbox.EventObjExit += OnPlayerExit;
@@ -44,14 +45,13 @@ public class WeaponShop : MonoBehaviour
     }
     public void SaleStart(float price)
     {
-        backupCost = cost;
         Debug.Log("Price before: " + cost);
-        cost = Mathf.FloorToInt(cost * price);
-        Debug.Log("Price now: " + cost);
+        cost = Mathf.FloorToInt(baseCost * price);
+        Debug.Log("Price now: " + cost + "\n");
     }
     public void SaleEnd()
     {
-        cost = backupCost;
+        cost = baseCost;
         Debug.Log("Price after end: " + cost);
     }
 

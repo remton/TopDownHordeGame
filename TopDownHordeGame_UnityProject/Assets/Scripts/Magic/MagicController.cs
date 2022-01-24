@@ -75,7 +75,6 @@ public class MagicController : MonoBehaviour
             else if (chance >= 0 && !selling)
             {
                 Debug.Log("Sale Drop");
-                selling = true;
                 saleObj = Instantiate(salePrefab, transform);
                 saleObj.transform.position = zombieLocation;
             }

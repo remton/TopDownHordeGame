@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SurpriseMechanic : MonoBehaviour
+public class SurpriseMechanic : WeaponShop
 {
     //public GameObject[] weaponPrefabList;
     public List<RandomChoice> weaponChoices;
-    public GameObject popupCanvas;
-    public int cost;
-    private int backupCost;
+    //private int cost;
+    //public int baseCost;
 
-    public void TryBuyWeapon(GameObject player)
+    new public void TryBuyWeapon(GameObject player)
     {
         PlayerStats playerStats = player.GetComponent<PlayerStats>();
         PlayerWeaponControl weaponControl = player.GetComponent<PlayerWeaponControl>();
@@ -26,39 +25,19 @@ public class SurpriseMechanic : MonoBehaviour
         }
     }
 
-    // Hitbox and player activation set
-    private HitBoxController hitbox;
-
     private void Awake()
     {
         hitbox = GetComponent<HitBoxController>();
         hitbox.EventObjEnter += OnPlayerEnter;
         hitbox.EventObjExit += OnPlayerExit;
         popupCanvas.SetActive(false);
+        cost = baseCost;
     }
 
-    public void OnPlayerEnter(GameObject player)
+    new public void OnPlayerEnter(GameObject player)
     {
         player.GetComponent<PlayerActivate>().EventPlayerActivate += TryBuyWeapon;
         popupCanvas.SetActive(true);
         popupCanvas.GetComponentInChildren<Text>().text = "Surprise Mechanic" + "\n$" + cost; // "Myster Box"
     }
-    public void OnPlayerExit(GameObject player)
-    {
-        player.GetComponent<PlayerActivate>().EventPlayerActivate -= TryBuyWeapon;
-        popupCanvas.SetActive(false);
-    }
-    public void SaleStart(float price)
-    {
-        backupCost = cost;
-        Debug.Log("Price before: " + cost);
-        cost = Mathf.FloorToInt(cost * price);
-        Debug.Log("Price now: " + cost);
-    }
-    public void SaleEnd()
-    {
-        cost = backupCost;
-        Debug.Log("Price after end: " + cost);
-    }
-
 }

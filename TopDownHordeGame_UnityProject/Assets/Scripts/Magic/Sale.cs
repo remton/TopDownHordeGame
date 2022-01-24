@@ -39,7 +39,7 @@ public class Sale : MonoBehaviour
         weapons = GameObject.FindGameObjectsWithTag("WeaponShop");
         foreach (GameObject current in weapons)
         {
-            Debug.Log("In perk loop");
+            Debug.Log("In weapon loop");
             current.GetComponent<WeaponShop>().SaleStart(balanceCost);
         }
         Debug.Log("Moving");
@@ -88,6 +88,7 @@ public class Sale : MonoBehaviour
         }
         Debug.Log("Power Up: " + name + " lost");
         MagicController.instance.selling = false;
+        Debug.Log("Sale being destroyed in the Stop() method.");
         Destroy(gameObject);
     }
 }
