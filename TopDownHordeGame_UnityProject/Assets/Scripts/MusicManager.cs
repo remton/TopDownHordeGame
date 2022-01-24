@@ -33,7 +33,8 @@ public class MusicManager : MonoBehaviour {
     }
     private void StopLoop() {
         source.loop = false;
-        timer.CreateTimer(waitBetweenSongs, StartPlaying);
+        float timeLeftInSong = source.clip.length - source.time;
+        timer.CreateTimer(waitBetweenSongs+timeLeftInSong, StartPlaying);
     }
     private void StartPlaying() {
         source.loop = true;
