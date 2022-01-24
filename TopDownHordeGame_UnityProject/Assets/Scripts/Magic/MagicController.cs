@@ -50,7 +50,7 @@ public class MagicController : MonoBehaviour
                 // SpawnAmmo
                 Debug.Log("Ammo Drop");
                 ammoObj = Instantiate(ammoPrefab, transform);
-                ammoObj.transform.position = zombieLocation;
+                ammoObj.transform.position  = zombieLocation;
             }
             else if (chance >= 600)
             {
@@ -68,12 +68,14 @@ public class MagicController : MonoBehaviour
             }
             else if (chance >= 200)
             {
+                // SpawnNuke
                 Debug.Log("Nuke Drop");
                 nukeObj = Instantiate(nukePrefab, transform);
                 nukeObj.transform.position = zombieLocation;
             }
             else if (chance >= 0 && !selling)
             {
+                // SpawnSale
                 Debug.Log("Sale Drop");
                 saleObj = Instantiate(salePrefab, transform);
                 saleObj.transform.position = zombieLocation;

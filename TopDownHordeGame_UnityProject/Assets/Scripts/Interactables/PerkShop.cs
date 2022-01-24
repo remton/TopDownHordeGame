@@ -9,7 +9,7 @@ public class PerkShop : MonoBehaviour
     public GameObject perkPrefab;
     public GameObject popupCanvas;
     private int cost;
-    [SerializeField] protected int baseCost;
+    private int baseCost;
     private bool alreadyHave = false;
     public void TryBuyPerk(GameObject player)
     {
@@ -39,9 +39,9 @@ public class PerkShop : MonoBehaviour
 
     private void Awake()
     {
+        baseCost = perkPrefab.GetComponent<Perk>().cost;
         cost = baseCost;
         hitbox = GetComponent<HitBoxController>();
-        cost = perkPrefab.GetComponent<Perk>().cost;
         hitbox.EventObjEnter += OnPlayerEnter;
         hitbox.EventObjExit += OnPlayerExit;
         popupCanvas.SetActive(false);
