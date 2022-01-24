@@ -13,7 +13,7 @@ public class FireEffectController : MonoBehaviour
     public void CreateTrail(Vector2 pos1, Vector2 pos2) {
         GameObject trailObj = Instantiate(trailObjPrefab);
         AudioSource audio = trailObj.GetComponent<AudioSource>();
-        AudioClipPlayer.Play(fireSound, transform.position);
+        SoundPlayer.Play(fireSound, transform.position);
         trailObj.GetComponent<BulletTrail>().Init(pos1, pos2, duration);
     }
     public void CreateTrailDir(Vector2 pos1, Vector2 direction) {

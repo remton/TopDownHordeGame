@@ -20,7 +20,7 @@ public class Explosion : MonoBehaviour
     }
 
     private void Start() {
-        AudioClipPlayer.Play(explosionSound, transform.position);
+        SoundPlayer.Play(explosionSound, transform.position);
     }
 
     public void Init(GameObject nOwner, List<string> nDamageTags, List<string> nKnockbackTags, int nDamage, float nKnockbackStrength) {

@@ -16,13 +16,13 @@ public class SurpriseMechanic : WeaponShop
         PlayerWeaponControl weaponControl = player.GetComponent<PlayerWeaponControl>();
         if (playerStats.GetBank() >= cost)
         {
-            AudioClipPlayer.Play(purchaseSound, transform.position);
+            SoundPlayer.Play(purchaseSound, transform.position);
             playerStats.SpendMoney(cost);
             weaponControl.PickUpWeapon(RandomChoice.ChooseRandom(weaponChoices));
         }
         else
         {
-            AudioClipPlayer.Play(failPurchaseSound, transform.position);
+            SoundPlayer.Play(failPurchaseSound, transform.position);
             Debug.Log("Need something. Money, perhaps.");
         }
     }

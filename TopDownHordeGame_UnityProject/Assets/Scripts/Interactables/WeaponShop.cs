@@ -19,10 +19,10 @@ public class WeaponShop : MonoBehaviour
         if (playerStats.GetBank() >= cost) {
             playerStats.SpendMoney(cost);
             weaponControl.PickUpWeapon(weaponPrefab);
-            AudioClipPlayer.Play(purchaseSound, transform.position);
+            SoundPlayer.Play(purchaseSound, transform.position);
         }
         else {
-            AudioClipPlayer.Play(failPurchaseSound, transform.position);
+            SoundPlayer.Play(failPurchaseSound, transform.position);
             Debug.Log("u broke lol");
         }
     }

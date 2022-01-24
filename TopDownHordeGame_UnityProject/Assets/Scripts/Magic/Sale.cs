@@ -43,7 +43,7 @@ public class Sale : MonoBehaviour
             Debug.Log("In weapon loop");
             current.GetComponent<WeaponShop>().SaleStart(balanceCost);
         }
-        AudioClipPlayer.Play(pickupSound, transform.position);
+        SoundPlayer.Play(pickupSound, transform.position);
         Debug.Log("Moving");
         transform.position = holdingRoom;
         Debug.Log("Moved \n Calling Stall");
