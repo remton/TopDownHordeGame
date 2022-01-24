@@ -104,7 +104,6 @@ public class Weapon : MonoBehaviour
     /// <summary> Fires weapon instantly called by PlayerWeaponControl 
     /// (fireDeley is handled in PlayerWeaponControl script) </summary>
     public virtual void Fire(GameObject player, Vector2 direction) {
-        PlayGunshotSound();
         inMag--;
     }
 
@@ -113,6 +112,7 @@ public class Weapon : MonoBehaviour
     // This is NOT called by playerWeaponControl and is just a utility for overriding Fire() in derived Weapon classes
     /// <summary> Fires a shot in the given direction </summary>
     protected void FireShot(GameObject player, Vector2 direction) {
+        PlayGunshotSound();
 
         // Raycast in direction and get all collisions with mask
         string[] mask = { "BulletCollider", "Zombie", "Door"};

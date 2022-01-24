@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
+    private AudioSource audioSource;
+    private Timer timer;
+    public float timeActive;
+    [SerializeField] private AudioClip explosionSound;
     private HitBoxController hitBox;
     private GameObject owner;
     private string ownerTag;
@@ -11,6 +15,12 @@ public class Explosion : MonoBehaviour
     private List<string> knockbackTags;
     private int damage;
     private float knockbackStrength;
+
+    private void Start() {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = explosionSound;
+        audioSource.Play();
+    }
 
     public void Init(GameObject nOwner, List<string> nDamageTags, List<string> nKnockbackTags, int nDamage, float nKnockbackStrength) {
         owner = nOwner;
@@ -29,6 +39,11 @@ public class Explosion : MonoBehaviour
         }
         hitBox.SetActive(true);
         hitBox.EventObjEnter += ActorEnter;
+        timer.CreateTimer(timeActive, StopHitDetection);
+    }
+
+    public void StopHitDetection() {
+        hitBox.EventObjEnter -= ActorEnter;
     }
 
     public void ActorEnter(GameObject actor) {

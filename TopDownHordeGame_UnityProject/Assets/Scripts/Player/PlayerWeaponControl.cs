@@ -199,8 +199,6 @@ public class PlayerWeaponControl : MonoBehaviour
     }
     //Shoot Once
     private void Shoot() {
-        if (!weapons[equippedIndex].IsAutomatic())
-            weapons[equippedIndex].PlayGunshotSound();
         if (weapons[equippedIndex].MagEmpty()) {
             repeatingReload = true;
             if (!isReloading){
@@ -213,7 +211,9 @@ public class PlayerWeaponControl : MonoBehaviour
             }
             return;
         }
-        weapons[equippedIndex].Fire(gameObject, playerMovement.GetCurrentLookDir());
+        else {
+            weapons[equippedIndex].Fire(gameObject, playerMovement.GetCurrentLookDir());
+        }
         UpdateVisuals();
     }
     private void CancelShoot() {
