@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FireEffectController : MonoBehaviour
 {
+    public AudioClip fireSound;
     public float duration; // How long in seconds until the trail fades 
     public float maxDistance;
 
@@ -11,6 +12,9 @@ public class FireEffectController : MonoBehaviour
 
     public void CreateTrail(Vector2 pos1, Vector2 pos2) {
         GameObject trailObj = Instantiate(trailObjPrefab);
+        AudioSource audio = trailObj.GetComponent<AudioSource>();
+        audio.clip = fireSound;
+        audio.Play();
         trailObj.GetComponent<BulletTrail>().Init(pos1, pos2, duration);
     }
     public void CreateTrailDir(Vector2 pos1, Vector2 direction) {

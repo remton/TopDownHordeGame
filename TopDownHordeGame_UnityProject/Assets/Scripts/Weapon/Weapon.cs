@@ -28,12 +28,12 @@ public class Weapon : MonoBehaviour
     
     private void Start() {
         damage = baseDamage;
-        if (gameObject.HasComponent<AudioSource>()) { 
-            audioSource = GetComponent<AudioSource>();
-        }
-        else {
-            Debug.LogError("Weapon: " + name + " is missing its audioSource component!");
-        }
+        //if (gameObject.HasComponent<AudioSource>()) { 
+        //    audioSource = GetComponent<AudioSource>();
+        //}
+        //else {
+        //    Debug.LogError("Weapon: " + name + " is missing its audioSource component!");
+        //}
     }
     // ---- Getters and Setters ----
     public bool IsAutomatic() { return isAutomatic; }
@@ -55,10 +55,10 @@ public class Weapon : MonoBehaviour
     public bool ReserveEmpty() {return inReserve <= 0;}
 
     // ---- Play sounds ----
-    public void PlayGunshotSound() {
-        audioSource.clip = fireSound;
-        audioSource.Play();
-    }
+    //public void PlayGunshotSound() {
+    //    audioSource.clip = fireSound;
+    //    audioSource.Play();
+    //}
     public void PlayReloadSound() {
         audioSource.clip = reloadSound;
         audioSource.Play();
@@ -83,7 +83,7 @@ public class Weapon : MonoBehaviour
     }
     public void Reload(int magSize) {
         //PlaySound
-        PlayReloadSound();
+        //PlayReloadSound();
 
         int newReloadAmount = (reloadAmount==0)?magSize:reloadAmount;
         int bulletsToReload = ((magSize-inMag) < newReloadAmount) ?(magSize-inMag): newReloadAmount;
@@ -112,7 +112,7 @@ public class Weapon : MonoBehaviour
     // This is NOT called by playerWeaponControl and is just a utility for overriding Fire() in derived Weapon classes
     /// <summary> Fires a shot in the given direction </summary>
     protected void FireShot(GameObject player, Vector2 direction) {
-        PlayGunshotSound();
+        //PlayGunshotSound();
 
         // Raycast in direction and get all collisions with mask
         string[] mask = { "BulletCollider", "Zombie", "Door"};
