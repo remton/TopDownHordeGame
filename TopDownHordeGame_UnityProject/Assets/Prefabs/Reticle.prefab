@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reloadAnim: {fileID: 7400000, guid: fd8bd7d04a807ce4fbbcd2160462b018, type: 2}
+  swapAnim: {fileID: 7400000, guid: fd8bd7d04a807ce4fbbcd2160462b018, type: 2}
   player: {fileID: 0}
 --- !u!95 &1390630536893055009
 Animator:

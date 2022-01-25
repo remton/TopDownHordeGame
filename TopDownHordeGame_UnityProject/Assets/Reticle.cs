@@ -7,10 +7,12 @@ public class Reticle : MonoBehaviour
     private Animator animator;
     /// <summary> reload animation of the reticle (used only to get the length of the anim) </summary>
     [SerializeField] private AnimationClip reloadAnim;
+    [SerializeField] private AnimationClip swapAnim;
     public GameObject player;
     private void Start() {
         animator = GetComponent<Animator>();
         player.GetComponent<PlayerWeaponControl>().EventReloadCalled += PlayReloadAnim;
+        player.GetComponent<PlayerWeaponControl>().EventSwapCalled += PlayReloadAnim;
     }
 
     //plays the reload animation over so many seconds
@@ -21,7 +23,9 @@ public class Reticle : MonoBehaviour
     }
 
     private void OnDestroy() {
-        if(player)
+        if (player) {
             player.GetComponent<PlayerWeaponControl>().EventReloadCalled -= PlayReloadAnim;
+            player.GetComponent<PlayerWeaponControl>().EventSwapCalled -= PlayReloadAnim;
+        }
     }
 }

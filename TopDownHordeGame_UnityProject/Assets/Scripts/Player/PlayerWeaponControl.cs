@@ -42,6 +42,8 @@ public class PlayerWeaponControl : MonoBehaviour
     public event AmmoChanged EventAmmoChanged;
     public delegate void WeaponChanged(string weaponName);
     public event WeaponChanged EventWeaponChanged;
+    public delegate void SwapWeaponCalled(float swapTimeSec);
+    public event SwapWeaponCalled EventSwapCalled;
     //Whenever ammo is changed add this code:
     //if (EventAmmoChanged != null) EventAmmoChanged.Invoke(weapons[equippedIndex].GetInMag(), weapons[equippedIndex].GetInReserve());
 
@@ -96,7 +98,9 @@ public class PlayerWeaponControl : MonoBehaviour
         CancelShoot();
         Debug.Log("Swapping . . .");
         isSwapping = true;
-        timer.CreateTimer(weapons[NextWeaponIndex()].GetSwapTime(), Swap);
+        float timeUntilSwap = weapons[NextWeaponIndex()].GetSwapTime();
+        timer.CreateTimer(timeUntilSwap, Swap);
+        if (EventSwapCalled != null)EventSwapCalled.Invoke(timeUntilSwap);
     }
     private void Swap() {
         isSwapping = false;
