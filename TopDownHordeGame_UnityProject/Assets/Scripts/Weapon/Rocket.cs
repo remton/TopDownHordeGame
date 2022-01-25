@@ -14,7 +14,7 @@ public class Rocket : MonoBehaviour
 
     private GameObject owner;
 
-    public void Init(GameObject newOwner, Vector2 movementDir, int damage, float radius, float speed, float knockback)
+    public void Init(GameObject newOwner, Vector2 movementDir, int damage, float speed, float knockback)
     {
         owner = newOwner; 
         transform.position = newOwner.transform.position;

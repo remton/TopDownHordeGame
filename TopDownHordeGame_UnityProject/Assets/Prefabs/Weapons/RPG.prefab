@@ -55,11 +55,12 @@ MonoBehaviour:
   reloadAmount: 0
   magSize: 1
   reserveSize: 10
-  fireSound: {fileID: 8300000, guid: 4e532ac5050c1714c9e413ac522abca7, type: 3}
   reloadSound: {fileID: 8300000, guid: 38ab4dbe0b1f1f44eab3ea84e6818b41, type: 3}
   swapSound: {fileID: 8300000, guid: e53c5f6b8d30c5f4c9ef0c7d7f40ab90, type: 3}
   effectController: {fileID: 2769296667775464315, guid: 7d9940cc4635be54da99373e2c0dfb27, type: 3}
-  balanceRadius: 5
+  fireKnockback: 200
+  knockback: 600
+  flySpeed: 30
   rocketObjPrefab: {fileID: 6396399298110489017, guid: 8cdeb959bda28654e8e2935ee6e478a3, type: 3}
   player: {fileID: 0}
 --- !u!82 &-4901118659480325546
