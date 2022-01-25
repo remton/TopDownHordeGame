@@ -105,8 +105,12 @@ public class Weapon : MonoBehaviour
         
         int hitZombies = 0; //Used to count how many zombies we collided with and not hit more than weapon's penetration
         
-        //Loop through all collisions
         Vector2 startPos = new Vector3(player.transform.position.x, player.transform.position.y, 0);
+        if(hitInfos.Length == 0) {
+            Vector2 trailEnd = startPos + (direction.normalized * effectController.maxDistance);
+            effectController.CreateTrail(startPos, trailEnd);
+        }
+        //Loop through all collisions
         for (int i = 0; i < hitInfos.Length; i++)
         {
             GameObject hitObj = hitInfos[i].transform.gameObject;
