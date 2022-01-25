@@ -26,8 +26,6 @@ public class Colt : Weapon{
                 finalhitIndex = i;
                 hitObj = hitInfos[i].transform.gameObject;
                 hitPoint = hitInfos[i].point;
-                //if (hitObj == LastHit)
-                //    continue;
                 if (hitObj.tag != "Zombie")
                     break;
 
@@ -43,7 +41,6 @@ public class Colt : Weapon{
                     break;
             }
         }
-        //LastHit = hitObj;
         effectController.CreateTrail(startPos, hitPoint);
         Vector2 reflection = Vector2.Reflect(hitPoint - startPos, hitInfos[finalhitIndex].normal);
         if (bounceNum > 0) {
