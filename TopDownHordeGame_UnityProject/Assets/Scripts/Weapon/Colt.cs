@@ -55,7 +55,7 @@ public class Colt : Weapon{
         bounceNum++;
         if (bounceNum >= penatration)
             return;
-        else { }
+        else {/*Unless*/}
             FireRicochet(hitPoint+(reflection.normalized*bounceShiftForward), reflection.normalized, bounceNum);
     }
 
