@@ -6,11 +6,11 @@ using UnityEngine;
 public class Colt : Weapon{
     private GameObject player;
     [SerializeField] private float spreadAngleOnRicochet;
-
+    const float bounceShiftForward = 0.1f;
     private void FireRicochet(Vector2 startPos, Vector2 direction, int bounceNum) {
         // Raycast in direction and get first collsion with mask
         string[] mask = { "BulletCollider", "Zombie", "Door" };
-        RaycastHit2D[] hitInfos = Physics2D.RaycastAll(player.transform.position, direction, Mathf.Infinity, LayerMask.GetMask(mask));
+        RaycastHit2D[] hitInfos = Physics2D.RaycastAll(startPos, direction, Mathf.Infinity, LayerMask.GetMask(mask));
         // We hit nothing
         if (hitInfos.Length == 0) {
             Vector2 trailEnd = startPos + (direction.normalized * effectController.maxDistance);
@@ -55,8 +55,8 @@ public class Colt : Weapon{
         bounceNum++;
         if (bounceNum >= penatration)
             return;
-        else
-            FireRicochet(hitPoint, reflection.normalized, bounceNum);
+        else { }
+            FireRicochet(hitPoint+(reflection.normalized*bounceShiftForward), reflection.normalized, bounceNum);
     }
 
     public override void Fire(GameObject player, Vector2 direction) {
