@@ -42,7 +42,7 @@ public class StickyGrenade : MonoBehaviour
     private void FixedUpdate()
     {
         Move(moveDir);
-        if (stuck && !stuckToScenery)
+        if (stuck && !stuckToScenery && stuckOn != null)
         {
             //if () 
             //{

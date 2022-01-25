@@ -13,7 +13,7 @@ public class WeaponShop : MonoBehaviour
     protected int cost;
     [SerializeField] protected int baseCost;
 
-    public void TryBuyWeapon(GameObject player) {
+    virtual public void TryBuyWeapon(GameObject player) {
         PlayerStats playerStats = player.GetComponent<PlayerStats>();
         PlayerWeaponControl weaponControl = player.GetComponent<PlayerWeaponControl>();
         if (playerStats.GetBank() >= cost) {
@@ -38,7 +38,7 @@ public class WeaponShop : MonoBehaviour
         popupCanvas.SetActive(false);
     }
 
-    public void OnPlayerEnter(GameObject player) {
+    virtual public void OnPlayerEnter(GameObject player) {
         player.GetComponent<PlayerActivate>().EventPlayerActivate += TryBuyWeapon;
         popupCanvas.SetActive(true);
         popupCanvas.GetComponentInChildren<Text>().text = weaponPrefab.name + "\n$" + cost;
