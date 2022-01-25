@@ -3,6 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour {
+    private Timer timer; 
+    private void Awake() {
+        timer = GetComponent<Timer>();
+    }
+    [SerializeField] private float reviveTime;
+    [SerializeField] private HitBoxController reviveTrigger;
+    private int reviveTimerID = -1;
+    private void OnPlayerEnterReviveTrigger(GameObject otherPlayer) {
+        otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivate += OnReviveActivateDown;
+        otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivateRelease += OnReviveActivateRelease;
+    }
+    private void OnPlayerExitReviveTrigger(GameObject otherPlayer) {
+        otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivate -= OnReviveActivateDown;
+        otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivateRelease -= OnReviveActivateRelease;
+        if (reviveTimerID != -1)
+            timer.KillTimer(reviveTimerID);
+    }
+    private void OnReviveActivateDown(GameObject otherPlayer) {
+        if (isBleedingOut && !otherPlayer.GetComponent<PlayerHealth>().isBleedingOut) {
+            Debug.Log("Player start revive");
+            if (reviveTimerID != -1) {
+                timer.KillTimer(reviveTimerID);
+                reviveTimerID = -1;
+            }
+            reviveTimerID = timer.CreateTimer(reviveTime, Revive);
+        }
+    }
+    private void OnReviveActivateRelease(GameObject otherPlayer) {
+        if(isBleedingOut && !otherPlayer.GetComponent<PlayerHealth>().isBleedingOut && reviveTimerID != -1) {
+            Debug.Log("player end revive");
+            timer.KillTimer(reviveTimerID);
+            reviveTimerID = -1;
+        }
+    }
+
     [SerializeField] private int maxHealth;
     public float bleedOutTime;
     private int health;
@@ -36,8 +71,7 @@ public class PlayerHealth : MonoBehaviour {
         RegenUpdate();
     }
     public int GetMaxHealth() { return maxHealth; }
-    public void ChangeMaxHealth(float balance)
-    {
+    public void ChangeMaxHealth(float balance){
         maxHealth = Mathf.RoundToInt(balance * maxHealth);
         if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
     }
@@ -95,6 +129,8 @@ public class PlayerHealth : MonoBehaviour {
     }
 
     public void Revive() {
+        reviveTrigger.EventObjEnter -= OnPlayerEnterReviveTrigger;
+        reviveTrigger.EventObjExit -= OnPlayerExitReviveTrigger;
         isBleedingOut = false;
         health = maxHealth;
         GetComponent<PlayerMovement>().EnableMovement();
@@ -103,6 +139,9 @@ public class PlayerHealth : MonoBehaviour {
     }
 
     private void GoDown() {
+        reviveTrigger.EventObjEnter += OnPlayerEnterReviveTrigger;
+        reviveTrigger.EventObjExit += OnPlayerExitReviveTrigger;
+        reviveTrigger.ForceEntry();
         timeUntilDeath = bleedOutTime;
         isBleedingOut = true;
         GetComponent<PlayerMovement>().DisableMovement();
@@ -110,6 +149,8 @@ public class PlayerHealth : MonoBehaviour {
     }
 
     private void Die() {
+        reviveTrigger.EventObjEnter -= OnPlayerEnterReviveTrigger;
+        reviveTrigger.EventObjExit -= OnPlayerExitReviveTrigger;
         isBleedingOut = false;
         isDead = true;
         PlayerManager.instance.OnPlayerDie(gameObject);
@@ -129,5 +170,4 @@ public class PlayerHealth : MonoBehaviour {
     public float GetBleedOutTimeRatio() {
         return timeUntilDeath/bleedOutTime;
     }
-
 }

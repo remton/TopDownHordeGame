@@ -1,5 +1,77 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1087116441021263448
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3338482677293958796}
+  - component: {fileID: 6283316398781776072}
+  - component: {fileID: 3654527221107561917}
+  m_Layer: 6
+  m_Name: ReviveTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3338482677293958796
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087116441021263448}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1620798982028091918}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &6283316398781776072
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087116441021263448}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.5, y: 1.5}
+  m_EdgeRadius: 0
+--- !u!114 &3654527221107561917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087116441021263448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 613adb43c86583f4093d871f5bbb9c85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerTags:
+  - Player
 --- !u!1 &1618433618472831380
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,6 +230,7 @@ Transform:
   - {fileID: 5432195969057811258}
   - {fileID: 6139679337246550211}
   - {fileID: 5646090461719423308}
+  - {fileID: 3338482677293958796}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -466,6 +539,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c93edc630b131bb408cb338fac3eaefc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reviveTime: 1
+  reviveTrigger: {fileID: 3654527221107561917}
   maxHealth: 10
   bleedOutTime: 8
   hitEffectObj: {fileID: 2408408245422526199, guid: 89d497461da91eb42910b9e873abe67f, type: 3}
@@ -682,15 +757,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1317619421317616089, guid: fdf774ac936edeb448f010811a3c19dc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -31.328485
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1317619421317616089, guid: fdf774ac936edeb448f010811a3c19dc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.098434
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1317619421317616089, guid: fdf774ac936edeb448f010811a3c19dc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.210987
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1317619421317616089, guid: fdf774ac936edeb448f010811a3c19dc, type: 3}
       propertyPath: m_LocalRotation.w
