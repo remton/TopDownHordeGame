@@ -11,8 +11,21 @@ using UnityEngine.InputSystem;
 // Tutorial video on the input system https://www.youtube.com/watch?v=g_s0y5yFxYg&t=135s
 
 
-public class PlayerMovement : MonoBehaviour
-{
+public class PlayerMovement : MonoBehaviour {
+    private bool knockBackActive;
+    private bool forceknockbackActive;
+    [SerializeField] private float minSpeedForEndKnockback;
+    public void KnockBack(float strength, Vector2 dir) {
+        knockBackActive = true;
+        forceknockbackActive = true;
+        rb.AddForce(dir.normalized * strength);
+        timer.CreateTimer(Time.fixedDeltaTime*2, EndKnockbackTimer);
+    }
+    private void EndKnockbackTimer() {
+        forceknockbackActive = false;
+    }
+    private Timer timer;
+
     [SerializeField] private float walkSpeed = 2;
     [SerializeField] private float runSpeed = 4;
     [SerializeField] private float staminaRegenRateWalking = .01375F;
@@ -91,6 +104,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+        timer = GetComponent<Timer>();
         mainCamera = Camera.main;
     }
 
@@ -122,8 +136,12 @@ public class PlayerMovement : MonoBehaviour
     //called after every frame
     private void FixedUpdate()
     {
-        if (doMovement)
+        if (doMovement && !knockBackActive && !forceknockbackActive)
             Move(moveDir);
+
+        if (knockBackActive && !forceknockbackActive && rb.velocity.magnitude <= minSpeedForEndKnockback) {
+            knockBackActive = false;
+        }
     }
 
     public void DisableMovement()

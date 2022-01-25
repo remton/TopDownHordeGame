@@ -77,6 +77,10 @@ public class Explosion : MonoBehaviour
             return;
         Vector2 throwDirection = actor.transform.position - transform.position;
         throwDirection.Normalize();
+        if (actor.tag == "Player") {
+            actor.GetComponent<PlayerMovement>().KnockBack(knockbackStrength, throwDirection);
+            return;
+        }
         Vector2 throwAmount = throwDirection * knockbackStrength;
         actor.GetComponent<Rigidbody2D>().AddForce(throwAmount);
     }
