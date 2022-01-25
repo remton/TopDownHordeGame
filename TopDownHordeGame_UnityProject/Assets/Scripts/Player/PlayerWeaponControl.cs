@@ -123,7 +123,7 @@ public class PlayerWeaponControl : MonoBehaviour
     /// <summary> called when reload button is pressed </summary>
     public void OnReload(InputAction.CallbackContext context) {
         // Make sure this input is pressing down, not pulling off
-        if ((context.action.triggered == true) && (weapons[equippedIndex].GetInMag() < weapons[equippedIndex].GetMagSize() * magMult))
+        if ((context.action.triggered == true) && (weapons[equippedIndex].GetInMag() < Mathf.RoundToInt(weapons[equippedIndex].GetMagSize() * magMult)))
             StartReload();
     }
     public void StartReload() {

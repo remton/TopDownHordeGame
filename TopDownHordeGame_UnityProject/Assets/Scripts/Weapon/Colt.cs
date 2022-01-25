@@ -5,6 +5,7 @@ using UnityEngine;
 //Remi named this
 public class Colt : Weapon{
     private GameObject player;
+    [SerializeField] private float spreadAngleOnRicochet;
 
     private void FireRicochet(Vector2 startPos, Vector2 direction, int bounceNum) {
         // Raycast in direction and get first collsion with mask
@@ -25,19 +26,32 @@ public class Colt : Weapon{
                 finalhitIndex = i;
                 hitObj = hitInfos[i].transform.gameObject;
                 hitPoint = hitInfos[i].point;
-                if (hitObj.tag != "Zombie" || Random.Range(0,2)==0)
+                //if (hitObj == LastHit)
+                //    continue;
+                if (hitObj.tag != "Zombie")
                     break;
+
                 if (i>0)//Double damage for every zombie penetrated!
                     hitObj.GetComponent<ZombieHealth>().Damage(damage*2*i);
+                //do normal damage
                 hitObj.GetComponent<ZombieHealth>().Damage(damage);
                 player.GetComponent<PlayerStats>().PayForHit();
                 if (hitObj.GetComponent<ZombieHealth>().isDead()) {
                     player.GetComponent<PlayerStats>().AddKill();
                 }
+                if (Random.Range(0, 2) == 0)
+                    break;
             }
         }
+        //LastHit = hitObj;
         effectController.CreateTrail(startPos, hitPoint);
         Vector2 reflection = Vector2.Reflect(hitPoint - startPos, hitInfos[finalhitIndex].normal);
+        if (bounceNum > 0) {
+            float spread = spreadAngleOnRicochet * bounceNum;
+            float baseAngle = Mathf.Atan2(reflection.y, reflection.x); //Get the angle (in radians) of the direction vector
+            float angleDiff = Random.Range(-(spread / 2), (spread / 2)); //Get a random float to modify the direction angle
+            reflection = new Vector2(Mathf.Cos(baseAngle + angleDiff * Mathf.Deg2Rad), Mathf.Sin(baseAngle + angleDiff * Mathf.Deg2Rad));
+        }
         bounceNum++;
         if (bounceNum >= penatration)
             return;
