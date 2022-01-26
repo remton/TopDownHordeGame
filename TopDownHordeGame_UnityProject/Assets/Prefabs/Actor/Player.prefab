@@ -539,10 +539,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c93edc630b131bb408cb338fac3eaefc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reviveTime: 1
+  isBeingRevived: 0
+  reviveSound: {fileID: 8300000, guid: f6e87a164e2f7794eb10ea1f1ecbc7f3, type: 3}
+  reviveTime: 3
   reviveTrigger: {fileID: 3654527221107561917}
   maxHealth: 10
-  bleedOutTime: 8
+  bleedOutTime: 20
   hitEffectObj: {fileID: 2408408245422526199, guid: 89d497461da91eb42910b9e873abe67f, type: 3}
 --- !u!114 &1620798982028091914
 MonoBehaviour:
@@ -593,7 +595,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   payPerHit: 2
   payPerKill: 50
-  bank: 5000000
+  bank: 0
 --- !u!114 &6541580502185974050
 MonoBehaviour:
   m_ObjectHideFlags: 0

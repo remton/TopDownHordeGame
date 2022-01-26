@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour {
-    private Timer timer; 
+    private Timer timer;
+    public bool isBeingRevived;
+    [SerializeField] private AudioClip reviveSound;
     private void Awake() {
         timer = GetComponent<Timer>();
     }
@@ -17,8 +19,10 @@ public class PlayerHealth : MonoBehaviour {
     private void OnPlayerExitReviveTrigger(GameObject otherPlayer) {
         otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivate -= OnReviveActivateDown;
         otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivateRelease -= OnReviveActivateRelease;
-        if (reviveTimerID != -1)
+        if (reviveTimerID != -1) {
             timer.KillTimer(reviveTimerID);
+            isBeingRevived = false;
+        }
     }
     private void OnReviveActivateDown(GameObject otherPlayer) {
         if (isBleedingOut && !otherPlayer.GetComponent<PlayerHealth>().isBleedingOut) {
@@ -28,12 +32,14 @@ public class PlayerHealth : MonoBehaviour {
                 reviveTimerID = -1;
             }
             reviveTimerID = timer.CreateTimer(reviveTime, Revive);
+            isBeingRevived = true;
         }
     }
     private void OnReviveActivateRelease(GameObject otherPlayer) {
         if(isBleedingOut && !otherPlayer.GetComponent<PlayerHealth>().isBleedingOut && reviveTimerID != -1) {
             Debug.Log("player end revive");
             timer.KillTimer(reviveTimerID);
+            isBeingRevived = false;
             reviveTimerID = -1;
         }
     }
@@ -64,7 +70,8 @@ public class PlayerHealth : MonoBehaviour {
     private void Update() {
         //Is bleeding out timer
         if (isBleedingOut) {
-            timeUntilDeath -= Time.deltaTime;
+            if(!isBeingRevived)
+                timeUntilDeath -= Time.deltaTime;
             if (timeUntilDeath <= 0)
                 Die();
         }
@@ -129,6 +136,7 @@ public class PlayerHealth : MonoBehaviour {
     }
 
     public void Revive() {
+        SoundPlayer.Play(reviveSound, transform.position);
         reviveTrigger.EventObjEnter -= OnPlayerEnterReviveTrigger;
         reviveTrigger.EventObjExit -= OnPlayerExitReviveTrigger;
         isBleedingOut = false;
