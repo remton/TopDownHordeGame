@@ -45,12 +45,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAutomatic: 0
-  reloadTime: 0.15
+  reloadTime: 0.2
   fireDeley: 0.05
-  swapTime: 0.9
+  swapTime: 0.1
   movePenalty: 1.15
   weaponName: Colt
-  penatration: 5
+  penatration: 4
   baseDamage: 5
   reloadAmount: 1
   magSize: 6

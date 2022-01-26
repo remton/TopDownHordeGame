@@ -43,12 +43,10 @@ public class Colt : Weapon{
         }
         effectController.CreateTrail(startPos, hitPoint);
         Vector2 reflection = Vector2.Reflect(hitPoint - startPos, hitInfos[finalhitIndex].normal);
-        if (bounceNum > 0) {
-            float spread = spreadAngleOnRicochet * bounceNum;
-            float baseAngle = Mathf.Atan2(reflection.y, reflection.x); //Get the angle (in radians) of the direction vector
-            float angleDiff = Random.Range(-(spread / 2), (spread / 2)); //Get a random float to modify the direction angle
-            reflection = new Vector2(Mathf.Cos(baseAngle + angleDiff * Mathf.Deg2Rad), Mathf.Sin(baseAngle + angleDiff * Mathf.Deg2Rad));
-        }
+        float spread = spreadAngleOnRicochet * bounceNum;
+        float baseAngle = Mathf.Atan2(reflection.y, reflection.x); //Get the angle (in radians) of the direction vector
+        float angleDiff = Random.Range(-(spread / 2), (spread / 2)); //Get a random float to modify the direction angle
+        reflection = new Vector2(Mathf.Cos(baseAngle + angleDiff * Mathf.Deg2Rad), Mathf.Sin(baseAngle + angleDiff * Mathf.Deg2Rad));
         bounceNum++;
         if (bounceNum >= penatration)
             return;
