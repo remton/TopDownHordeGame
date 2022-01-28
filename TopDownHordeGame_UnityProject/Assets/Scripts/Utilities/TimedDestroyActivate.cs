@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class TimedDestroyActivate : TimedDestroy
 {
-    public bool waitingToDestroy;
-    public bool isActivated;
+    [HideInInspector] public bool waitingToDestroy;
+    [HideInInspector] public bool isActivated;
     // Start is called before the first frame update
     /*public override*/ new void Start()
     {

@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class Doors : MonoBehaviour
 {
-    private bool isOpen = false;
     public int cost;
     public GameObject doorHolder;
     public GameObject popupCanvas;
@@ -18,7 +17,7 @@ public class Doors : MonoBehaviour
         PlayerStats playerStats = player.GetComponent<PlayerStats>();
         if (playerStats.GetBank() >= cost){
             playerStats.SpendMoney(cost);
-            openDoor();
+            OpenDoor();
             SoundPlayer.Play(openSound, transform.position);
         }
         else {
@@ -42,24 +41,18 @@ public class Doors : MonoBehaviour
     public void OnPlayerEnter(GameObject player)
     {
         player.GetComponent<PlayerActivate>().EventPlayerActivate += TryBuyDoor;
-        if (!isOpen) {
-            popupCanvas.GetComponentInChildren<Text>().text = "$" + cost;
-            popupCanvas.SetActive(true);
-        }
+        popupCanvas.GetComponentInChildren<Text>().text = "$" + cost;
+        popupCanvas.SetActive(true);
     }
     public void OnPlayerExit(GameObject player)
     {
         player.GetComponent<PlayerActivate>().EventPlayerActivate -= TryBuyDoor;
-        if (!isOpen) {
-            popupCanvas.SetActive(false);
-        }
-    }
-    private void openDoor()
-    {
-        isOpen = true;
-        doorHolder.SetActive(false);
         popupCanvas.SetActive(false);
-        RoundController.instance.ActivateSpawns(roomSpawns); 
+    }
+    private void OpenDoor()
+    {
+        RoundController.instance.ActivateSpawns(roomSpawns);
+        Destroy(gameObject);
     }
 
 }
