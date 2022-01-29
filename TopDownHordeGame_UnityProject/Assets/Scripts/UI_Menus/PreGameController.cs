@@ -36,4 +36,8 @@ public class PreGameController : MonoBehaviour
         GameSettings.instance.numPlayers = numPlayers;
         SceneManager.LoadScene(sceneToLoad);
     }
+        public void HelpMenu() {
+        GameSettings.instance.numPlayers = numPlayers;
+        SceneManager.LoadScene("HelpMenu");
+    }
 }
