@@ -45,6 +45,7 @@ public class PlayerManager : MonoBehaviour
             GameObject playerObj = input.gameObject;
             playerObj.transform.position = spawnPoint.transform.position;
             playerObj.GetComponent<PlayerInput>().camera = Camera.main;
+            playerObj.GetComponent<PlayerStats>().playerName = (i+1).ToString();
             players.Add(playerObj);
             sidebarManager.AddSidebar(playerObj);
         }

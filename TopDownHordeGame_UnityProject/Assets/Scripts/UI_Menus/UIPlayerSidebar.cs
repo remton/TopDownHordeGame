@@ -5,18 +5,16 @@ using UnityEngine.UI;
 
 public class UIPlayerSidebar : MonoBehaviour
 {
-    // {var} is replaced with the variables in each update method 
-    public Text HealthTxt;
-    private static readonly string healthTxtDefault = "Health: {health} / {max}";
+    public Text playerNameTxt;
 
+    // {var} is replaced with the variables in each update method 
+    public Text healthTxt;
+    private static readonly string healthTxtDefault = "{health} / {max}";
     public Text ammoTxt;
-    private static readonly string ammoTxtDefault = "Ammo: {mag} / {reserve}";
+    private static readonly string ammoTxtDefault = "{mag} / {reserve}";
 
     public Text bankTxt;
-    private static readonly string bankTxtDefault = "Bank: ${bank}";
-
     public Text weaponTxt;
-    private static readonly string weaponTxtDefault = "Weapon: {weapon}";
 
     public Image weaponImg;
     public List<Image> perkImgs;
@@ -33,6 +31,7 @@ public class UIPlayerSidebar : MonoBehaviour
     public void AttachToPlayer(GameObject newPlayer) {
         DetachCurrentPlayer();
         player = newPlayer;
+        ChangePlayerName(player.GetComponent<PlayerStats>().playerName);
         player.GetComponent<PlayerWeaponControl>().EventAmmoChanged += UpdateAmmoTxt;
         player.GetComponent<PlayerHealth>().EventHealthChanged += UpdateHealthTxt;
         player.GetComponent<PlayerStats>().EventBankChange += UpdateBankTxt;
@@ -47,11 +46,16 @@ public class UIPlayerSidebar : MonoBehaviour
             player.GetComponent<PlayerWeaponControl>().EventWeaponChanged -= UpdateWeaponTxt;
         }
     }
+    public void ChangePlayerName(string newName) {
+        playerNameTxt.text = newName;
+        playerNameTxt.resizeTextForBestFit = true;
+    }
 
     public void UpdateBankTxt(int newBank) {
-        string newTxt = bankTxtDefault;
-        newTxt = newTxt.Replace("{bank}", newBank.ToString());
-        bankTxt.text = newTxt;
+        //string newTxt = bankTxtDefault;
+        //newTxt = newTxt.Replace("{bank}", newBank.ToString());
+        bankTxt.text = newBank.ToString();
+        bankTxt.resizeTextForBestFit = true;
     }
 
     public void UpdateAmmoTxt(int mag, int reserve) {
@@ -59,20 +63,20 @@ public class UIPlayerSidebar : MonoBehaviour
         newTxt = newTxt.Replace("{mag}", mag.ToString());
         newTxt = newTxt.Replace("{reserve}", reserve.ToString());
         ammoTxt.text = newTxt;
+        ammoTxt.resizeTextForBestFit = true;
     }
 
     public void UpdateHealthTxt(int health, int max) {
         string newTxt = healthTxtDefault;
         newTxt = newTxt.Replace("{health}", health.ToString());
         newTxt = newTxt.Replace("{max}", max.ToString());
-        HealthTxt.text = newTxt;
+        healthTxt.text = newTxt;
+        healthTxt.resizeTextForBestFit = true;
     }
 
     public void UpdateWeaponTxt(string weaponName)
     {
-        string newTxt = weaponTxtDefault;
-        newTxt = newTxt.Replace("{weapon}", weaponName);
-        weaponTxt.text = newTxt;
+        weaponTxt.text = weaponName;
         weaponTxt.resizeTextForBestFit = true;
     }
 

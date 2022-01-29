@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
+    public string playerName = "NULL";
+
     [SerializeField] private int payPerHit;
     [SerializeField] private int payPerKill;
 
