@@ -20,7 +20,7 @@ public class PreGameController : MonoBehaviour
     }
 
     public void IncreaseNumPlayers() {
-        if(numPlayers <= maxPlayers) {
+        if(numPlayers < maxPlayers) {
             numPlayers++;
             numPlayerTxt.text = numPlayers.ToString();
         }
@@ -36,7 +36,8 @@ public class PreGameController : MonoBehaviour
         GameSettings.instance.numPlayers = numPlayers;
         SceneManager.LoadScene(sceneToLoad);
     }
-        public void HelpMenu() {
+    public void HelpMenu() {
+        return;
         GameSettings.instance.numPlayers = numPlayers;
         SceneManager.LoadScene("HelpMenu");
     }
