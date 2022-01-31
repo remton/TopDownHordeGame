@@ -501,7 +501,7 @@ GameObject:
   - component: {fileID: 540874792}
   - component: {fileID: 540874791}
   m_Layer: 5
-  m_Name: Ready (1)
+  m_Name: HelpMenuButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1544,7 +1544,6 @@ MonoBehaviour:
   maxPlayers: 4
   numPlayers: 1
   numPlayerTxt: {fileID: 1410057633}
-  sceneToLoad: CatCafe
 --- !u!4 &1849094993
 Transform:
   m_ObjectHideFlags: 0
