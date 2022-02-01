@@ -499,7 +499,7 @@ MonoBehaviour:
     m_ActionId: d2e345ff-4b5b-4885-9ba6-3f82ab36996e
     m_ActionName: Player/Activate[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 1
-  m_DefaultControlScheme: Keyboard
+  m_DefaultControlScheme: Eric keyboard
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -593,6 +593,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fc464b89c184c7489b5702ccdb3a546, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerName: NULL
   payPerHit: 2
   payPerKill: 50
   bank: 0
