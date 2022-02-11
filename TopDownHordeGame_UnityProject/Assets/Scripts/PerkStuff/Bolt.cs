@@ -1,7 +1,13 @@
+/*
+ * Increases sprinting speed of the player
+ * TODO: Increase max stamina
+ * 
+ */
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 
 public class Bolt : Perk
 {

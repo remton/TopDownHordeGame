@@ -14,6 +14,7 @@ public class Perk : MonoBehaviour
     public GameObject player;
     public int cost;
     public PerkType type;
+    public Sprite icon;
 
     //This is where the perk activates. Maybe it changes a stat value, maybe it subsribes to an event.
     public virtual void OnPerkGained(GameObject player) {
