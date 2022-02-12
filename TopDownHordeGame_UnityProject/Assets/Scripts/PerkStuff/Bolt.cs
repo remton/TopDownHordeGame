@@ -1,6 +1,6 @@
 /*
  * Increases sprinting speed of the player
- * TODO: Increase max stamina
+ * Increases max stamina
  * 
  */
 
@@ -12,7 +12,7 @@ using UnityEngine;
 public class Bolt : Perk
 {
     private float balanceSpeed = 1.1F; // Percent increase of speed 
-    private float balanceStamina = 1.7F
+    private float balanceStamina = 1.7F;
     //This is where the perk activates. This changes the regen values of the player.
     public override void OnPerkGained(GameObject player)
     {
