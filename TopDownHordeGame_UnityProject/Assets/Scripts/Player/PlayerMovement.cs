@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour {
     private float staminaRemaining = 10F;
 
     private bool wentBelowThreshold = false;
-    private float staminaThreshold = 2;
+    private float staminaThreshold = 0F;
     private bool stillRunning = true;
 
     /// <summary> returns the ratio of current stamina to max stamina  </summary>
@@ -106,6 +106,7 @@ public class PlayerMovement : MonoBehaviour {
     {
         timer = GetComponent<Timer>();
         mainCamera = Camera.main;
+        staminaThreshold = staminaMaximum * 0.2F;
     }
 
     public void OnDeviceChange(InputDevice device, InputDeviceChange deviceChange)
@@ -252,6 +253,11 @@ public class PlayerMovement : MonoBehaviour {
             rb.MovePosition(newPos);
         }
         RegenStamina(movementDir);
+    }
+    public void ChangeMaximumStamina(float maximumStaminaMultiplier)
+    {
+        staminaMaximum = staminaMaximum * maximumStaminaMultiplier;
+        staminaThreshold = staminaThreshold * staminaMaximum;
     }
 }
 
