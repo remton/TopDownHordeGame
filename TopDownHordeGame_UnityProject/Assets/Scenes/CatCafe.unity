@@ -403,7 +403,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6025319416998648033, guid: 446f747992bcc224eb7f198f719f8e94, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6025319416998648033, guid: 446f747992bcc224eb7f198f719f8e94, type: 3}
       propertyPath: m_LocalPosition.x
@@ -24345,7 +24345,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5151985104168371425, guid: 6ad4e4a95c89a41408a795b70eac10eb, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5151985104168371425, guid: 6ad4e4a95c89a41408a795b70eac10eb, type: 3}
       propertyPath: m_AnchorMax.x
@@ -24765,9 +24765,9 @@ Transform:
   m_LocalPosition: {x: -42.71733, y: 1.9753942, z: -1.5544063}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1036827988}
   - {fileID: 1820201433}
   - {fileID: 104258907}
-  - {fileID: 1036827988}
   - {fileID: 1086953096}
   - {fileID: 1623093921}
   - {fileID: 423211868}
@@ -85270,7 +85270,7 @@ PrefabInstance:
     - target: {fileID: 2826289129498633817, guid: 2dded438d53ac93438635b5ba757bdf8, type: 3}
       propertyPath: perkPrefab
       value: 
-      objectReference: {fileID: 6021124657106591408, guid: 467097ef952e124458025fe36be20f75, type: 3}
+      objectReference: {fileID: 8191925068635794245, guid: 3c3eca85c4856994ca83e6bf6ca160d7, type: 3}
     - target: {fileID: 2826289129498633818, guid: 2dded438d53ac93438635b5ba757bdf8, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -85583,7 +85583,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6025319416998648033, guid: 446f747992bcc224eb7f198f719f8e94, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6025319416998648033, guid: 446f747992bcc224eb7f198f719f8e94, type: 3}
       propertyPath: m_LocalPosition.x
