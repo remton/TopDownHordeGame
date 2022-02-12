@@ -25,7 +25,7 @@ public class RandomChoice
 
     /// <summary> Chooses a random gameobj from a list (all objects must have the choosable script)</summary>
     public static GameObject ChooseRandom(List<RandomChoice> choices) {
-        //An Empty list should not be passed to this funcit
+        //An Empty list should not be passed to this funct
         if (!(choices.Count > 0)) {
             Debug.LogError("ChooseRandom was passed an empty or broken list!");
             Debug.Break();

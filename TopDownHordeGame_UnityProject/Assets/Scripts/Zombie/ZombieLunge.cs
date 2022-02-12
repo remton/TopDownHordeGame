@@ -27,7 +27,7 @@ public class ZombieLunge : MonoBehaviour
     private void Awake() {
         AI = GetComponent<BasicZombieAI>();
         rb = GetComponent<Rigidbody2D>();
-        timer = GetComponent<Timer>();
+        timer = GetComponent<Timer>(); 
         hitBox.SetActive(false);
         hitBox.EventObjEnter += Damage;
     }
