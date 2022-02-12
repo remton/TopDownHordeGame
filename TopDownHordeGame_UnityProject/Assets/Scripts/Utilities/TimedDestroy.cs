@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine;
 public class TimedDestroy : MonoBehaviour
 {
     private Timer timer;
-    private int timerID = -1;
+    private Guid timerID = Guid.Empty;
     public float destroyTime;
     private void Awake() {
         timer = GetComponent<Timer>();
@@ -17,7 +18,7 @@ public class TimedDestroy : MonoBehaviour
         timerID = timer.CreateTimer(destroyTime, DestroyObj);
     }
     public void Cancel() {
-        if(timerID != -1)
+        if(timerID != Guid.Empty)
             timer.KillTimer(timerID);
     }
     private void DestroyObj() {

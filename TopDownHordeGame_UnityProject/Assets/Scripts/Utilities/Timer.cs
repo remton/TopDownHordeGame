@@ -5,6 +5,7 @@
  * Just add the Timer script to the object requiring some wait time, the with a reference to it ie. Timer timer
  * call timer.CreateTimer(float time, Action methodOnTimerEnd);
  * The method for the timer's end must have no arguments and return void
+ * if you need to control the timer include "using system" and use Guid return from CreateTimer as the parameter to the control methods
  */
 
 using System;
@@ -15,30 +16,30 @@ using UnityEngine;
 // Add a timer component to your script and make as many timers as you want :D
 public class Timer : MonoBehaviour
 {
-    public int CreateTimer(float time, Action onEnd) {
+    public Guid CreateTimer(float time, Action onEnd) {
         SingleTimer newTimer = new SingleTimer();
-        newTimer.ID = newTimer.GetHashCode();
+        newTimer.ID = Guid.NewGuid();
         newTimer.onEnd = onEnd;
         newTimer.timeLeft = time;
         newTimer.isTimerRunning = true;
         timers.Add(newTimer);
         return newTimer.ID;
     }
-    public void PauseTimer(int timerID) {
+    public void PauseTimer(Guid timerID) {
         foreach (SingleTimer timer in timers) {
             if(timer.ID == timerID) {
                 timer.isTimerRunning = false;
             }
         }
     }
-    public void UnPauseTimer(int timerID) {
+    public void UnPauseTimer(Guid timerID) {
         foreach (SingleTimer timer in timers) {
             if (timer.ID == timerID) {
                 timer.isTimerRunning = false;
             }
         }
     }
-    public void KillTimer(int timerID) {
+    public void KillTimer(Guid timerID) {
         for (int i = 0; i < timers.Count; i++) {
             if (timers[i].ID == timerID) {
                 RemoveTimer(i);
@@ -47,7 +48,7 @@ public class Timer : MonoBehaviour
     }
 
     private class SingleTimer {
-        public int ID;
+        public Guid ID;
         public Action onEnd;
         public float timeLeft;
         public bool isTimerRunning;

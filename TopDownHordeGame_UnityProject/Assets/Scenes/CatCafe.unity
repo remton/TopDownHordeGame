@@ -9773,7 +9773,7 @@ PrefabInstance:
     - target: {fileID: 6025319416998648061, guid: 446f747992bcc224eb7f198f719f8e94, type: 3}
       propertyPath: weaponPrefab
       value: 
-      objectReference: {fileID: 6068070935636465678, guid: 03c84c68c27efe54884213fe71c5f910, type: 3}
+      objectReference: {fileID: 2093619312353819989, guid: 9edbdeec5cf78b147838230c566fbedf, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 446f747992bcc224eb7f198f719f8e94, type: 3}
 --- !u!4 &423211868 stripped
@@ -25147,7 +25147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dd69226e91097147a3b5e33ad6ff3c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numPlayers: 2
+  numPlayers: 1
 --- !u!4 &1191772241
 Transform:
   m_ObjectHideFlags: 0
