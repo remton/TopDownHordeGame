@@ -17,6 +17,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] protected int reserveSize;     // max ammo that can be held with this weapon
     [SerializeField] public AudioClip reloadSound;  //sound played on reload
     [SerializeField] public AudioClip swapSound;    //sound played when swapping to this weapon
+    [SerializeField] public AudioClip shootSound;   //sound of gunshot
     [SerializeField] protected FireEffectController effectController; //Controller for bullet trail and fire sound
 
     protected int damage;       // damage per bullet
@@ -108,7 +109,7 @@ public class Weapon : MonoBehaviour
         Vector2 startPos = new Vector3(player.transform.position.x, player.transform.position.y, 0);
         if(hitInfos.Length == 0) {
             Vector2 trailEnd = startPos + (direction.normalized * effectController.maxDistance);
-            effectController.CreateTrail(startPos, trailEnd);
+            effectController.CreateTrail(startPos, trailEnd, shootSound);
         }
         //Loop through all collisions
         for (int i = 0; i < hitInfos.Length; i++)
@@ -126,19 +127,19 @@ public class Weapon : MonoBehaviour
                 //We have hit our max number of zombies in one shot so we create the trail and break;
                 if (hitZombies == penatration){
                     Vector2 hitPoint = hitInfos[i].point;
-                    effectController.CreateTrail(startPos, hitPoint);
+                    effectController.CreateTrail(startPos, hitPoint, shootSound);
                     break;
                 }
             }
             else if (hitObj.CompareTag("BulletCollision") || hitObj.CompareTag("Door"))
             {
                 Vector2 hitPoint = hitInfos[i].point;
-                effectController.CreateTrail(startPos, hitPoint);
+                effectController.CreateTrail(startPos, hitPoint, shootSound);
                 break;
             }
             else {
                 Vector2 trailEnd = startPos + (direction.normalized * effectController.maxDistance);
-                effectController.CreateTrail(startPos, trailEnd);
+                effectController.CreateTrail(startPos, trailEnd, shootSound);
             }
         }
     }
