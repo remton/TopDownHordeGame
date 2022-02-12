@@ -24468,12 +24468,68 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4997718862678949635, guid: e329ee2c27c925b4796c98eddd85417b, type: 3}
     - target: {fileID: 5178467419987776371, guid: 6ad4e4a95c89a41408a795b70eac10eb, type: 3}
-      propertyPath: weaponChoices.Array.data[10].obj
+      propertyPath: weaponChoices.Array.data[2].obj
       value: 
       objectReference: {fileID: 2093619312353819989, guid: 9edbdeec5cf78b147838230c566fbedf, type: 3}
     - target: {fileID: 5178467419987776371, guid: 6ad4e4a95c89a41408a795b70eac10eb, type: 3}
-      propertyPath: weaponChoices.Array.data[10].weight
+      propertyPath: weaponChoices.Array.data[3].obj
+      value: 
+      objectReference: {fileID: 6429082733309257629, guid: 5b052c79d1303c04396797d03783426e, type: 3}
+    - target: {fileID: 5178467419987776371, guid: 6ad4e4a95c89a41408a795b70eac10eb, type: 3}
+      propertyPath: weaponChoices.Array.data[4].obj
+      value: 
+      objectReference: {fileID: 2093619312353819989, guid: 7a2b0a0d22b1f454c995250637c003c5, type: 3}
+    - target: {fileID: 5178467419987776371, guid: 6ad4e4a95c89a41408a795b70eac10eb, type: 3}
+      propertyPath: weaponChoices.Array.data[5].obj
+      value: 
+      objectReference: {fileID: 2093619312353819989, guid: fdf774ac936edeb448f010811a3c19dc, type: 3}
+    - target: {fileID: 5178467419987776371, guid: 6ad4e4a95c89a41408a795b70eac10eb, type: 3}
+      propertyPath: weaponChoices.Array.data[6].obj
+      value: 
+      objectReference: {fileID: 6068070935636465678, guid: 03c84c68c27efe54884213fe71c5f910, type: 3}
+    - target: {fileID: 5178467419987776371, guid: 6ad4e4a95c89a41408a795b70eac10eb, type: 3}
+      propertyPath: weaponChoices.Array.data[7].obj
+      value: 
+      objectReference: {fileID: 280554671962952436, guid: b623ab2bb0daa0944951ca52c3be8b67, type: 3}
+    - target: {fileID: 5178467419987776371, guid: 6ad4e4a95c89a41408a795b70eac10eb, type: 3}
+      propertyPath: weaponChoices.Array.data[8].obj
+      value: 
+      objectReference: {fileID: 6091863861613352169, guid: 7c89dc4549e7e77438ef074080d9bdd1, type: 3}
+    - target: {fileID: 5178467419987776371, guid: 6ad4e4a95c89a41408a795b70eac10eb, type: 3}
+      propertyPath: weaponChoices.Array.data[9].obj
+      value: 
+      objectReference: {fileID: 4997718862678949635, guid: e329ee2c27c925b4796c98eddd85417b, type: 3}
+    - target: {fileID: 5178467419987776371, guid: 6ad4e4a95c89a41408a795b70eac10eb, type: 3}
+      propertyPath: weaponChoices.Array.data[10].obj
+      value: 
+      objectReference: {fileID: 4997718862678949635, guid: bb349abc39436884ab62222ec3a0551a, type: 3}
+    - target: {fileID: 5178467419987776371, guid: 6ad4e4a95c89a41408a795b70eac10eb, type: 3}
+      propertyPath: weaponChoices.Array.data[2].weight
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5178467419987776371, guid: 6ad4e4a95c89a41408a795b70eac10eb, type: 3}
+      propertyPath: weaponChoices.Array.data[3].weight
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5178467419987776371, guid: 6ad4e4a95c89a41408a795b70eac10eb, type: 3}
+      propertyPath: weaponChoices.Array.data[4].weight
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5178467419987776371, guid: 6ad4e4a95c89a41408a795b70eac10eb, type: 3}
+      propertyPath: weaponChoices.Array.data[5].weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5178467419987776371, guid: 6ad4e4a95c89a41408a795b70eac10eb, type: 3}
+      propertyPath: weaponChoices.Array.data[7].weight
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5178467419987776371, guid: 6ad4e4a95c89a41408a795b70eac10eb, type: 3}
+      propertyPath: weaponChoices.Array.data[9].weight
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5178467419987776371, guid: 6ad4e4a95c89a41408a795b70eac10eb, type: 3}
+      propertyPath: weaponChoices.Array.data[10].weight
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7165810820432673532, guid: 6ad4e4a95c89a41408a795b70eac10eb, type: 3}
       propertyPath: m_Size.x

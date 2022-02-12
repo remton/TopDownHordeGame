@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour {
     private float staminaRemaining = 10F;
 
     private bool wentBelowThreshold = false;
-    private float staminaThreshold = 2;
+    private float staminaThreshold = staminaMaximum * .2F;
     private bool stillRunning = true;
 
     /// <summary> returns the ratio of current stamina to max stamina  </summary>
@@ -252,6 +252,11 @@ public class PlayerMovement : MonoBehaviour {
             rb.MovePosition(newPos);
         }
         RegenStamina(movementDir);
+    }
+    private void ChangeMaximumStamina(maximumStaminaMultiplier)
+    {
+        staminaMaximum = staminaMaximum * maximumStaminaMultiplier
+        staminaThreshold = staminaThreshold * staminaMaximum
     }
 }
 
