@@ -595,7 +595,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   payPerHit: 2
   payPerKill: 50
-  bank: 0
+  bank: 2147483647
 --- !u!114 &6541580502185974050
 MonoBehaviour:
   m_ObjectHideFlags: 0

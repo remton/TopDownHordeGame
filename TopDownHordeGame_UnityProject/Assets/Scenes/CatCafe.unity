@@ -157,8 +157,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -196.73, y: -74.938}
-  m_SizeDelta: {x: 393.46, y: 149.88}
+  m_AnchoredPosition: {x: -230.36523, y: -540}
+  m_SizeDelta: {x: 460.7306, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &29389820
 MonoBehaviour:
@@ -191,13 +191,13 @@ MonoBehaviour:
     m_Top: 10
     m_Bottom: 10
   m_ChildAlignment: 2
-  m_Spacing: 10
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
+  m_Spacing: 123.2
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
+  m_ChildScaleWidth: 1
+  m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
 --- !u!1001 &50705095
 PrefabInstance:
@@ -25091,7 +25091,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dd69226e91097147a3b5e33ad6ff3c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numPlayers: 1
+  numPlayers: 2
 --- !u!4 &1191772241
 Transform:
   m_ObjectHideFlags: 0
