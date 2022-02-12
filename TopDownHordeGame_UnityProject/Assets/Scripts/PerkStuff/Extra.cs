@@ -1,7 +1,10 @@
+/*
+ * More reserve ammo
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 
 public class Extra : Perk
 {

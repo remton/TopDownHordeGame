@@ -291,9 +291,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitBox: {fileID: 4164462514332702161}
   waitTime: 0.4
-  lungeTime: 0.2
+  lungeTime: 0.4
   damage: 0
-  lungeForce: 3
+  lungeForce: 500
 --- !u!114 &1164026406751873685
 MonoBehaviour:
   m_ObjectHideFlags: 0

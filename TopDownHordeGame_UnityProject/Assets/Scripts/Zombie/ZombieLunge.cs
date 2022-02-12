@@ -40,11 +40,9 @@ public class ZombieLunge : MonoBehaviour
     }
 
     public void Lunge(Vector2 d) {
-
         if (EventLungeEnd == null) {
             Debug.LogWarning("ZombieLunge.lunge called without setting a callback!");
         }
-
         if (isWaitingToLunge || isLunging)
             return;
         dir = d;
@@ -62,6 +60,7 @@ public class ZombieLunge : MonoBehaviour
     }
 
     private void StartLunge() {
+        Debug.Log("START OF LUNGE");
         isLunging = true;
         rb.AddForce(dir * lungeForce);
         hitBox.SetActive(true);
@@ -70,6 +69,7 @@ public class ZombieLunge : MonoBehaviour
     }
 
     private void EndLunge() {
+        Debug.Log("END OF LUNGE");
         isLunging = false;
         hitBox.SetActive(false);
         if (EventLungeEnd != null) {

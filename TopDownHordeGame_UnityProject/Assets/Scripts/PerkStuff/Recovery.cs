@@ -1,8 +1,10 @@
+/*
+ * Player reagians health faster
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
 public class Recovery : Perk
 {
     private float balance = .8f;

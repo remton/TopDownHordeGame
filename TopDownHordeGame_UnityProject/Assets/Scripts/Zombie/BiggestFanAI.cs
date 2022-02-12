@@ -11,13 +11,13 @@ public class BiggestFanAI : ZombieAI
 
     protected override void Awake() {
         base.Awake();
-        zombieLunge = GetComponent<ZombieLunge>();
+        zombieLunge = GetComponent<ZombieLunge>(); 
+        zombieLunge.EventLungeEnd += zombieHealth.Kill;
+        zombieHealth.EventOnDeath += Explode;
     }
 
     public override void SetValues(int newHealth, float newSpeed, int newDamage) {
         base.SetValues(Mathf.CeilToInt(newHealth/2.0f), newSpeed * 1.2f, newDamage);
-        zombieLunge.EventLungeEnd += zombieHealth.Kill;
-        zombieHealth.EventOnDeath += Explode;
     }
 
     protected override void Update() {
@@ -26,6 +26,7 @@ public class BiggestFanAI : ZombieAI
             StopPathing();
             Vector2 dir = target.transform.position - transform.position;
             zombieLunge.Lunge(dir);
+            Debug.Log("Lunging in " + dir.ToString());
         }
     }
 

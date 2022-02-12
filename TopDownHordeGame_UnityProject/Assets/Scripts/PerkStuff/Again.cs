@@ -1,7 +1,13 @@
+/*
+ * Again Perk:
+ * Reduces reload time
+ * 
+ */
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 
 public class Again : Perk
 {

@@ -8,8 +8,8 @@ public class ZombieAI : MonoBehaviour
     private ZombiePathfind zombiePath;
     protected ZombieHealth zombieHealth;
 
-    protected float speed;
-    protected int damage;
+    protected float speed = 1;
+    protected int damage = 1;
 
     [SerializeField] private float timeBetweenTargetChecks;
     private float timeUntilCheckTarget;
