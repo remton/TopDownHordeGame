@@ -12,6 +12,7 @@ public class ZombieHealth : MonoBehaviour
     public event onDeath EventOnDeath;
 
     private int chance;
+    private bool killed = false;
     public void SetMaxHealth(int newMax)
     {
         maxHealth = newMax;
@@ -34,6 +35,8 @@ public class ZombieHealth : MonoBehaviour
 
     public void Damage(int amount)
     {
+        if (killed)
+            return;
         health -= amount;
         if (health <= 0)
             Kill();
@@ -52,6 +55,7 @@ public class ZombieHealth : MonoBehaviour
 
     public void Kill()
     {
+        killed = true;
         Debug.Log(name + ": \"*dies\"");
         if (gameObject.HasComponent<BiggestFanDeath>())
             GetComponent<BiggestFanDeath>().Explode();

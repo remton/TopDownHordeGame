@@ -17,9 +17,9 @@ public class UIPlayerSidebar : MonoBehaviour
     public Text weaponTxt;
 
     public Image weaponImg;
-    public List<Image> perkImgs;
 
     [SerializeField] private GameObject player;
+    [SerializeField] private List<GameObject> perkIconObjects;
 
     private void Awake() {
         if (player != null)
@@ -36,6 +36,7 @@ public class UIPlayerSidebar : MonoBehaviour
         player.GetComponent<PlayerHealth>().EventHealthChanged += UpdateHealthTxt;
         player.GetComponent<PlayerStats>().EventBankChange += UpdateBankTxt;
         player.GetComponent<PlayerWeaponControl>().EventWeaponChanged += UpdateWeaponTxt;
+        player.GetComponent<PlayerPerkHolder>().EventPerkChanged += UpdatePerkImages;
     }
     //Removes this objects methods from the events linked to its player
     public void DetachCurrentPlayer() {
@@ -44,11 +45,24 @@ public class UIPlayerSidebar : MonoBehaviour
             player.GetComponent<PlayerHealth>().EventHealthChanged -= UpdateHealthTxt;
             player.GetComponent<PlayerStats>().EventBankChange -= UpdateBankTxt;
             player.GetComponent<PlayerWeaponControl>().EventWeaponChanged -= UpdateWeaponTxt;
+            player.GetComponent<PlayerPerkHolder>().EventPerkChanged -= UpdatePerkImages;
         }
     }
     public void ChangePlayerName(string newName) {
         playerNameTxt.text = newName;
         playerNameTxt.resizeTextForBestFit = true;
+    }
+
+    public void UpdatePerkImages(List<Perk> perks) {
+        for (int i = 0; i < perkIconObjects.Count; i++) {
+            if (i < perks.Count) {
+                perkIconObjects[i].SetActive(true);
+                perkIconObjects[i].GetComponent<Image>().sprite = perks[i].icon;
+            }
+            else {
+                perkIconObjects[i].SetActive(false);
+            }
+        }
     }
 
     public void UpdateBankTxt(int newBank) {
@@ -83,10 +97,5 @@ public class UIPlayerSidebar : MonoBehaviour
     public void UpdateWeaponImg(Sprite img) {
         //TODO: Implement weapon images
         Debug.Log("Weapon image updated . . .");
-    }
-
-    public void UpdatePerkImages(List<Sprite> imgs) {
-        //TODO: Implement perk images
-        Debug.Log("Perk images updated . . .");
     }
 }

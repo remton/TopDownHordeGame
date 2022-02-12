@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,7 @@ public class PlayerHealth : MonoBehaviour {
     }
     [SerializeField] private float reviveTime;
     [SerializeField] private HitBoxController reviveTrigger;
-    private int reviveTimerID = -1;
+    private Guid reviveTimerID = Guid.Empty;
     private void OnPlayerEnterReviveTrigger(GameObject otherPlayer) {
         otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivate += OnReviveActivateDown;
         otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivateRelease += OnReviveActivateRelease;
@@ -19,7 +20,7 @@ public class PlayerHealth : MonoBehaviour {
     private void OnPlayerExitReviveTrigger(GameObject otherPlayer) {
         otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivate -= OnReviveActivateDown;
         otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivateRelease -= OnReviveActivateRelease;
-        if (reviveTimerID != -1) {
+        if (reviveTimerID != Guid.Empty) {
             timer.KillTimer(reviveTimerID);
             isBeingRevived = false;
         }
@@ -27,20 +28,20 @@ public class PlayerHealth : MonoBehaviour {
     private void OnReviveActivateDown(GameObject otherPlayer) {
         if (isBleedingOut && !otherPlayer.GetComponent<PlayerHealth>().isBleedingOut) {
             Debug.Log("Player start revive");
-            if (reviveTimerID != -1) {
+            if (reviveTimerID != Guid.Empty) {
                 timer.KillTimer(reviveTimerID);
-                reviveTimerID = -1;
+                reviveTimerID = Guid.Empty;
             }
             reviveTimerID = timer.CreateTimer(reviveTime, Revive);
             isBeingRevived = true;
         }
     }
     private void OnReviveActivateRelease(GameObject otherPlayer) {
-        if(isBleedingOut && !otherPlayer.GetComponent<PlayerHealth>().isBleedingOut && reviveTimerID != -1) {
+        if(isBleedingOut && !otherPlayer.GetComponent<PlayerHealth>().isBleedingOut && reviveTimerID != Guid.Empty) {
             Debug.Log("player end revive");
             timer.KillTimer(reviveTimerID);
             isBeingRevived = false;
-            reviveTimerID = -1;
+            reviveTimerID = Guid.Empty;
         }
     }
 

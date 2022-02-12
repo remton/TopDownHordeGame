@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class PlayerPerkHolder : MonoBehaviour
 {
-    private List<Perk> perks = new List<Perk>();
+    public delegate void PerkChanged(List<Perk> perks);
+    public event PerkChanged EventPerkChanged;
 
+    private List<Perk> perks = new List<Perk>();
     public void AddPerk(GameObject perkPrefab) {
         perkPrefab.GetComponent<Perk>().OnPerkGained(this.gameObject);
         GameObject perkObj = Instantiate(perkPrefab, transform);
         perks.Add(perkObj.GetComponent<Perk>());
+        if (EventPerkChanged != null) { EventPerkChanged.Invoke(perks); }
     }
     public void RemoveAllPerks()
     {
@@ -19,6 +22,7 @@ public class PlayerPerkHolder : MonoBehaviour
             Destroy(perks[i].gameObject);
         }
         perks.Clear();
+        if (EventPerkChanged != null) { EventPerkChanged.Invoke(perks); }
     }
     public bool HavePerk(GameObject testPerk)
     {
