@@ -14,7 +14,7 @@ public class Colt : Weapon{
         // We hit nothing
         if (hitInfos.Length == 0) {
             Vector2 trailEnd = startPos + (direction.normalized * effectController.maxDistance);
-            effectController.CreateTrail(startPos, trailEnd);
+            effectController.CreateTrail(startPos, trailEnd, shootSound);
             return;
         }
         GameObject hitObj = hitInfos[0].transform.gameObject;
@@ -41,7 +41,7 @@ public class Colt : Weapon{
                     break;
             }
         }
-        effectController.CreateTrail(startPos, hitPoint);
+        effectController.CreateTrail(startPos, hitPoint, shootSound);
         Vector2 reflection = Vector2.Reflect(hitPoint - startPos, hitInfos[finalhitIndex].normal);
         float spread = spreadAngleOnRicochet * bounceNum;
         float baseAngle = Mathf.Atan2(reflection.y, reflection.x); //Get the angle (in radians) of the direction vector
