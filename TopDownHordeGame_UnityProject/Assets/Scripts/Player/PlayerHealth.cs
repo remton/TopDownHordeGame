@@ -12,12 +12,15 @@ public class PlayerHealth : MonoBehaviour {
     }
     [SerializeField] private float reviveTime;
     [SerializeField] private HitBoxController reviveTrigger;
+    public RevivePrompt revivePrompt;
     private Guid reviveTimerID = Guid.Empty;
     private void OnPlayerEnterReviveTrigger(GameObject otherPlayer) {
+        revivePrompt.Activate();
         otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivate += OnReviveActivateDown;
         otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivateRelease += OnReviveActivateRelease;
     }
     private void OnPlayerExitReviveTrigger(GameObject otherPlayer) {
+        revivePrompt.Deactivate();
         otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivate -= OnReviveActivateDown;
         otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivateRelease -= OnReviveActivateRelease;
         if (reviveTimerID != Guid.Empty) {
@@ -137,6 +140,7 @@ public class PlayerHealth : MonoBehaviour {
     }
 
     public void Revive() {
+        revivePrompt.Deactivate();
         SoundPlayer.Play(reviveSound, transform.position);
         reviveTrigger.EventObjEnter -= OnPlayerEnterReviveTrigger;
         reviveTrigger.EventObjExit -= OnPlayerExitReviveTrigger;
