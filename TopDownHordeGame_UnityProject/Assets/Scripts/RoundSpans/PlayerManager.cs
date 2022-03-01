@@ -94,6 +94,7 @@ public class PlayerManager : MonoBehaviour
                 return;
             }
         }
+        GameOverData.instance.SetData(players);
         SceneManager.LoadScene(GameOverScene);
     }
 }

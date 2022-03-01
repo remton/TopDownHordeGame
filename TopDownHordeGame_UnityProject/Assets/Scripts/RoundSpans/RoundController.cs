@@ -6,6 +6,7 @@ public class RoundController : MonoBehaviour
 {
     [SerializeField] private GameObject zombiePrefab;
     [SerializeField] private int round;
+    public int GetRound() { return round; }
 
     [SerializeField] private RoundDisplay display;
 
@@ -36,6 +37,7 @@ public class RoundController : MonoBehaviour
     public List<RandomChoice> zombieList;
 
     public static RoundController instance;
+
 
     public void ZombieDies() {
         instance.numberActiveZombies--;

@@ -8,8 +8,9 @@ public class PlayerStats : MonoBehaviour
 
     [SerializeField] private int payPerHit;
     [SerializeField] private int payPerKill;
-
     [SerializeField] private int bank;
+    private int score;
+
     private int totalMoneyEarned;
     private int totalKills;
 
@@ -20,6 +21,10 @@ public class PlayerStats : MonoBehaviour
 
     private void Start() {
         if (EventBankChange != null) { EventBankChange.Invoke(bank); }
+    }
+
+    public void AddScore(int addScore) { 
+        score += addScore; 
     }
 
     public void AddMoney(int amount) {
@@ -46,5 +51,14 @@ public class PlayerStats : MonoBehaviour
         AddMoney(payPerKill);
     }
 
+    public int GetTotalScore() {
+        return score + totalKills + totalMoneyEarned / 20 + (RoundController.instance.GetRound()-1) * 50;
+    }
+    public int GetTotalKills() {
+        return totalKills;
+    }
+    public int GetTotalMoneyEarned() {
+        return totalMoneyEarned;
+    }
 
 }
