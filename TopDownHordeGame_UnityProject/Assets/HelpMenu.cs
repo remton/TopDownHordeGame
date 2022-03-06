@@ -13,8 +13,8 @@ public class HelpMenu : MonoBehaviour
     public void DisableOverlay() {
         currOverlay.SetActive(false);
     }
-    public void BackToPregame() {
-        //Pregame scene should be index 0
-        SceneManager.LoadScene(0);
+    public void LoadMainMenu() {
+        //MainMenu scene should be index 0
+        SceneManager.LoadScene(4);
     }
 }

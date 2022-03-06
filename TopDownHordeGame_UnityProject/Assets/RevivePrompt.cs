@@ -20,4 +20,8 @@ public class RevivePrompt : MonoBehaviour
     public void Deactivate() {
         popupCanvas.SetActive(false);
     }
+
+    private void Update() {
+        transform.position = player.transform.position + offset;
+    }
 }
