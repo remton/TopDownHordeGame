@@ -149,12 +149,10 @@ public class RoundController : MonoBehaviour
     }
 
     private float GetSpeed() {
+        int calcRound = round;
         if (round > 10)
-            return 1.2f + 3f / 10f * 10 + Random.Range(-.4F, .8F); // Gives zombies a random speed
-        else
-        {
-            return 1.2f + 3f / 10f * round + Random.Range(-.04F * round, .08F * round); // Gives zombies a random speed
-        }
+            calcRound = 10;
+        return 1.3f + 3f / 10f * calcRound + Random.Range(-.04F * calcRound, .08F * calcRound); // Gives zombies a random speed
     }
     private int GetHealth() {
         return round+1;

@@ -60,6 +60,9 @@ public class PlayerHealth : MonoBehaviour {
     private float timeSinceHit;
     private float timeSinceRegen;
     public GameObject hitEffectObj;
+    private bool inIFrames = false;
+    [SerializeField] private float iFrameTime;
+
     public bool GetIsDead() { return isDead; }
 
     public delegate void HealthChanged(int health, int max);
@@ -121,8 +124,9 @@ public class PlayerHealth : MonoBehaviour {
     }
 
     public void Damage(int damageAmount) {
-        if (isBleedingOut || isDead)
+        if (inIFrames || isBleedingOut || isDead)
             return;
+        StartIFrames();
 
         int newHealth = health - damageAmount;
         if (newHealth < 1) {
@@ -137,6 +141,15 @@ public class PlayerHealth : MonoBehaviour {
 
         // timeSinceHit resets health regeneration in RegenUpdate function
         if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); timeSinceHit = 0; } 
+    }
+
+    private void StartIFrames() {
+        timer.CreateTimer(iFrameTime, EndIFrames);
+        inIFrames = true;
+    }
+
+    private void EndIFrames() {
+        inIFrames = false;
     }
 
     public void Revive() {
