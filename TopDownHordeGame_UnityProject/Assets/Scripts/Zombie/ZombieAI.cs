@@ -13,6 +13,23 @@ public class ZombieAI : MonoBehaviour
 
     [SerializeField] private float timeBetweenTargetChecks;
     private float timeUntilCheckTarget;
+    private bool isPathing = true;
+
+    protected bool isGamePaused;
+    protected bool wasPathingBeforePause = false;
+    protected virtual void OnPauseStateChange(bool isPaused) {
+        if (isPaused) {
+            isGamePaused = true;
+            wasPathingBeforePause = isPathing;
+            StopPathing();
+        }
+        else {
+            isGamePaused = false;
+            FindTarget(PlayerManager.instance.GetActivePlayers());
+            if (wasPathingBeforePause)
+                StartPathing();
+        }
+    }
 
     public virtual void SetValues(int newHealth, float newSpeed, int newDamage) {
         zombieHealth.SetMaxHealth(newHealth);
@@ -37,9 +54,11 @@ public class ZombieAI : MonoBehaviour
     }
 
     protected void StartPathing() {
+        isPathing = true;
         zombiePath.SetActive(true);
     }
     protected void StopPathing() {
+        isPathing = false;
         zombiePath.SetActive(false);
     }
 
@@ -52,10 +71,14 @@ public class ZombieAI : MonoBehaviour
     protected virtual void Start() {
         zombiePath.Activate(2 * Time.deltaTime);
         PlayerManager.instance.EventActivePlayersChange += FindTarget;
+        PauseManager.instance.EventPauseStateChange += OnPauseStateChange;
         FindTarget(PlayerManager.instance.GetActivePlayers());
     }
 
     protected virtual void Update() {
+        if (isGamePaused)
+            return;
+
         //Update target coundown
         if (timeUntilCheckTarget <= 0) {
             timeUntilCheckTarget = timeBetweenTargetChecks;
@@ -65,5 +88,6 @@ public class ZombieAI : MonoBehaviour
 
     private void OnDestroy() {
         PlayerManager.instance.EventActivePlayersChange -= FindTarget;
+        PauseManager.instance.EventPauseStateChange -= OnPauseStateChange;
     }
 }

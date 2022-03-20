@@ -19,6 +19,8 @@ public class HockEyeEye : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (PauseManager.instance.IsPaused())
+            return;
         Move(moveDir);
     }
     public void Impact(GameObject player)

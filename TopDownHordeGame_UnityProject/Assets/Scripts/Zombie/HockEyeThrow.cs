@@ -47,6 +47,9 @@ public class HockEyeThrow : MonoBehaviour
     }
     void FixedUpdate()
     {
+        if (PauseManager.instance.IsPaused())
+            return;
+
         if (isWaitingToThrow)
         {
             timeUntilWaitOver -= Time.fixedDeltaTime;

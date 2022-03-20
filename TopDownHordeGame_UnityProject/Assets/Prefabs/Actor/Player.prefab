@@ -578,6 +578,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d2e345ff-4b5b-4885-9ba6-3f82ab36996e
     m_ActionName: Player/Activate[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6541580502185974050}
+        m_TargetAssemblyTypeName: PlayerActivate, Assembly-CSharp
+        m_MethodName: OnPauseButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 060e6cf8-8388-4a32-93c4-a903e6248d15
+    m_ActionName: Player/Pause[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: Player
