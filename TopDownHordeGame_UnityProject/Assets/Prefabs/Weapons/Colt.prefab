@@ -48,9 +48,9 @@ MonoBehaviour:
   reloadTime: 0.2
   fireDeley: 0.05
   swapTime: 0.1
-  movePenalty: 1.15
+  movePenalty: 15
   weaponName: Colt
-  penatration: 4
+  penatration: 2147483647
   baseDamage: 5
   reloadAmount: 1
   magSize: 6

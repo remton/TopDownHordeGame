@@ -44,17 +44,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 097b5aee64b35e242ae47d9cdda70ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isAutomatic: 0
+  isAutomatic: 1
   reloadTime: 0.1
-  fireDeley: 0.3
+  fireDeley: 0
   swapTime: 1
   movePenalty: 1
   weaponName: PGL
   penatration: 0
   baseDamage: 20
-  reloadAmount: 1
-  magSize: 10
-  reserveSize: 100
+  reloadAmount: 0
+  magSize: 100000000
+  reserveSize: 100000000
   reloadSound: {fileID: 8300000, guid: 38ab4dbe0b1f1f44eab3ea84e6818b41, type: 3}
   swapSound: {fileID: 8300000, guid: e53c5f6b8d30c5f4c9ef0c7d7f40ab90, type: 3}
   shootSound: {fileID: 8300000, guid: 4e532ac5050c1714c9e413ac522abca7, type: 3}
