@@ -24,6 +24,9 @@ public class HockEyeAI : ZombieAI
 
     protected override void Update()
     {
+        if (isGamePaused)
+            return;
+
         //Throw eyes then pathfind.
         if (target != null && Vector2.Distance(target.transform.position, transform.position) <= playerDistForThrow)
         {

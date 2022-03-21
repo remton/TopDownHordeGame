@@ -19,4 +19,8 @@ public class PlayerActivate : MonoBehaviour
             EventPlayerActivateRelease.Invoke(gameObject);
         }
     }
+
+    public void OnPauseButton() {
+        PauseManager.instance.Pause();
+    }
 }

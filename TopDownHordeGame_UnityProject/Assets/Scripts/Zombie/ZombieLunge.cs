@@ -32,6 +32,16 @@ public class ZombieLunge : MonoBehaviour
         hitBox.EventObjEnter += Damage;
     }
 
+    public void OnPauseChange(bool isPaused) {
+        if (isPaused) {
+            timer.SavePauseState();
+            timer.PauseAll();
+        }
+        else {
+            timer.LoadPauseState();
+        }
+    }
+
     private void Damage(GameObject player) {
         player.GetComponent<PlayerHealth>().Damage(damage);
     }

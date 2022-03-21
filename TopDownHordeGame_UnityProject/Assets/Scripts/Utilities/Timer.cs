@@ -16,6 +16,9 @@ using UnityEngine;
 // Add a timer component to your script and make as many timers as you want :D
 public class Timer : MonoBehaviour
 {
+    private List<SingleTimer> timers = new List<SingleTimer>();
+    private List<bool> pauseState = new List<bool>();
+
     public Guid CreateTimer(float time, Action onEnd) {
         SingleTimer newTimer = new SingleTimer();
         newTimer.ID = Guid.NewGuid();
@@ -23,6 +26,7 @@ public class Timer : MonoBehaviour
         newTimer.timeLeft = time;
         newTimer.isTimerRunning = true;
         timers.Add(newTimer);
+        pauseState.Add(true);
         return newTimer.ID;
     }
     public void PauseTimer(Guid timerID) {
@@ -32,6 +36,31 @@ public class Timer : MonoBehaviour
             }
         }
     }
+
+    /// <summary> Saves which timers are running in th current moment into a local pause state </summary>
+    public void SavePauseState() {
+        pauseState.Clear();
+        foreach (SingleTimer timer in timers) {
+            pauseState.Add(timer.isTimerRunning);
+        }
+    }
+    public void LoadPauseState() {
+        for (int i = 0; i < timers.Count; i++) {
+            timers[i].isTimerRunning = pauseState[i];
+        }
+    }
+
+    public void PauseAll() {
+        foreach (SingleTimer timer in timers) {
+            timer.isTimerRunning = false;
+        }
+    }
+    public void UnPauseAll() {
+        foreach (SingleTimer timer in timers) {
+            timer.isTimerRunning = true;
+        }
+    }
+
     public void UnPauseTimer(Guid timerID) {
         foreach (SingleTimer timer in timers) {
             if (timer.ID == timerID) {
@@ -53,9 +82,9 @@ public class Timer : MonoBehaviour
         public float timeLeft;
         public bool isTimerRunning;
     }
-    private List<SingleTimer> timers = new List<SingleTimer>();
     private void RemoveTimer(int index) {
         timers.RemoveAt(index);
+        pauseState.RemoveAt(index);
     }
     private void Update(){
         for (int i = 0; i < timers.Count; i++) {

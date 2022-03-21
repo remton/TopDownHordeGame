@@ -21,8 +21,11 @@ public class BiggestFanAI : ZombieAI
     }
 
     protected override void Update() {
+        if (isGamePaused)
+            return;
+
         //Lunge then explode!
-        if(target != null && Vector2.Distance(target.transform.position, transform.position) <= playerDistForLunge) {
+        if (target != null && Vector2.Distance(target.transform.position, transform.position) <= playerDistForLunge) {
             StopPathing();
             Vector2 dir = target.transform.position - transform.position;
             zombieLunge.Lunge(dir);
