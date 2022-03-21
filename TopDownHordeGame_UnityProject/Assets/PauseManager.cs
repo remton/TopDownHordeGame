@@ -24,6 +24,13 @@ public class PauseManager : MonoBehaviour
     private bool isPaused = false;
     public bool IsPaused() { return isPaused; }
 
+    public void PauseButtonPress() {
+        if (isPaused)
+            UnPause();
+        else
+            Pause();
+    }
+
     public void Pause() {
         menu.SetActive(true);
         if (isPaused) {
