@@ -12,6 +12,8 @@ using UnityEngine.InputSystem;
 
 
 public class PlayerMovement : MonoBehaviour {
+    public bool isDisabled = false;
+
     private bool knockBackActive;
     private bool forceknockbackActive;
     [SerializeField] private float minSpeedForEndKnockback;
@@ -130,13 +132,18 @@ public class PlayerMovement : MonoBehaviour {
 
     private void Update()
     {
+        if (isDisabled)
+            return;
+
         if (useMouseToLook)
             LookAtMouse();
     }
 
     //called after every frame
-    private void FixedUpdate()
-    {
+    private void FixedUpdate() {
+        if (isDisabled)
+            return;
+
         if (doMovement && !knockBackActive && !forceknockbackActive)
             Move(moveDir);
 
@@ -194,6 +201,9 @@ public class PlayerMovement : MonoBehaviour {
     // Faces the player towards the given direction vector
     private void LookInDir(Vector2 lookDir2D)
     {
+        if (isDisabled)
+            return;
+
         Vector3 lookDir3D = new Vector3(lookDir2D.x, lookDir2D.y, transform.position.z);
         transform.right = lookDir3D;
         currentLookDir = lookDir2D;
@@ -202,6 +212,9 @@ public class PlayerMovement : MonoBehaviour {
     // Faces player towards the mousePos vector
     private void LookAtMouse()
     {
+        if (isDisabled)
+            return;
+
         Vector2 myPos = transform.position;
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
         Vector2 dir = mousePos - myPos;

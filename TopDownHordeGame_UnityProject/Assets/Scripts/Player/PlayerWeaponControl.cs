@@ -10,6 +10,8 @@ using UnityEngine.Events;
 
 public class PlayerWeaponControl : MonoBehaviour
 {
+    public bool isDisabled = false;
+
     private PlayerMovement playerMovement;
     private Timer timer;
 
@@ -86,6 +88,8 @@ public class PlayerWeaponControl : MonoBehaviour
     // Swap Weapon control
     /// <summary> called when swap weapon button is pressed</summary>
     public void OnSwapWeapon(InputAction.CallbackContext context) {
+        if (isDisabled)
+            return;
         // Make sure this input is pressing down, not pulling off
         if (context.action.triggered == true)
             StartSwapWeapon();
@@ -122,6 +126,8 @@ public class PlayerWeaponControl : MonoBehaviour
     // Reload weapon control
     /// <summary> called when reload button is pressed </summary>
     public void OnReload(InputAction.CallbackContext context) {
+        if (isDisabled)
+            return;
         // Make sure this input is pressing down, not pulling off
         if ((context.action.triggered == true) && (weapons[equippedIndex].GetInMag() < Mathf.RoundToInt(weapons[equippedIndex].GetMagSize() * magMult)))
             StartReload();
@@ -168,6 +174,8 @@ public class PlayerWeaponControl : MonoBehaviour
     // Shoot weapon control
     /// <summary> Called when shoot button state changes </summary>
     public void OnShoot(InputAction.CallbackContext context) {
+        if (isDisabled)
+            return;
         shootButtonDown = context.action.triggered;
         if (shootButtonDown && repeatingReload && !weapons[equippedIndex].MagEmpty())
             repeatingReload = false;

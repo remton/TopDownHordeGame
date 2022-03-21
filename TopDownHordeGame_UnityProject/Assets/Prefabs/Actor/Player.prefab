@@ -281,12 +281,13 @@ GameObject:
   - component: {fileID: 1620798982028091912}
   - component: {fileID: 1620798982028091913}
   - component: {fileID: 1620798982028091916}
+  - component: {fileID: 6541580502185974050}
+  - component: {fileID: 5910904114054130865}
   - component: {fileID: 1620798982028091917}
   - component: {fileID: 1620798982028091915}
   - component: {fileID: 1620798982028091914}
   - component: {fileID: 1620798982028091925}
   - component: {fileID: 1620798982028091924}
-  - component: {fileID: 6541580502185974050}
   - component: {fileID: 5840632062943679827}
   m_Layer: 6
   m_Name: Player
@@ -580,8 +581,8 @@ MonoBehaviour:
     m_ActionName: Player/Activate[/Keyboard/e]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6541580502185974050}
-        m_TargetAssemblyTypeName: PlayerActivate, Assembly-CSharp
+      - m_Target: {fileID: 5910904114054130865}
+        m_TargetAssemblyTypeName: PlayerPauseControl, Assembly-CSharp
         m_MethodName: OnPauseButton
         m_Mode: 1
         m_Arguments:
@@ -599,6 +600,30 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &6541580502185974050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1620798982028091906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89176a09922727146924a8aa46ab745c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5910904114054130865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1620798982028091906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24a0fec3394dbbf44bb22460dded9280, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1620798982028091917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -695,18 +720,6 @@ MonoBehaviour:
   payPerHit: 2
   payPerKill: 50
   bank: 0
---- !u!114 &6541580502185974050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1620798982028091906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89176a09922727146924a8aa46ab745c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5840632062943679827
 MonoBehaviour:
   m_ObjectHideFlags: 0
