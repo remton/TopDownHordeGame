@@ -15,6 +15,6 @@ public class HelpMenu : MonoBehaviour
     }
     public void LoadMainMenu() {
         //MainMenu scene should be index 0
-        SceneManager.LoadScene(4);
+        SceneManager.LoadScene("MainMenu");
     }
 }

@@ -394,8 +394,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -313, y: -4}
-  m_SizeDelta: {x: -226.77869, y: -39.130005}
+  m_AnchoredPosition: {x: -313, y: -7.9781}
+  m_SizeDelta: {x: -226.7787, y: -32.765}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &123998374
 MonoBehaviour:
@@ -430,7 +430,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Player Number\tHealth \nWeapon\t\t\t\tMoney\n\t \t\t\t\t\t\tAmmo"
+  m_Text: "Player Number\tHealth \nWeapon\t\t\t\tMoney\n\t \t\t\t\t\t\tAmmo\nPerks"
 --- !u!222 &123998375
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -611,7 +611,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Explode
 
-    When you run out of bullets, keep shooting'
+    When you run out of bullets, keep shooting and explode'
 --- !u!222 &178366677
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -692,7 +692,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Recovery
 
-    Helps you recover after being hurt faster'
+    Helps you recover faster after being hurt'
 --- !u!222 &180023429
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -773,7 +773,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Hock Eye
 
-    Throws eyes at you from a distance. '
+    Throws eyes at you from a distance '
 --- !u!222 &185662292
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -799,7 +799,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &218889983
 RectTransform:
   m_ObjectHideFlags: 0
@@ -812,10 +812,10 @@ RectTransform:
   m_LocalScale: {x: 2.4, y: 2.4, z: 2.4}
   m_Children:
   - {fileID: 1165906964}
+  - {fileID: 651933680}
+  - {fileID: 1673220009}
   - {fileID: 1805310565}
   - {fileID: 774629860}
-  - {fileID: 1673220009}
-  - {fileID: 651933680}
   m_Father: {fileID: 1928907444}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1828,6 +1828,85 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 457911539}
   m_CullTransparentMesh: 1
+--- !u!1 &465957128
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 465957129}
+  - component: {fileID: 465957131}
+  - component: {fileID: 465957130}
+  m_Layer: 5
+  m_Name: Basic Information
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &465957129
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 465957128}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1575440734}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -160, y: 0}
+  m_SizeDelta: {x: 160, y: 60}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &465957130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 465957128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "Lungs \nLunges at players, runs until within distance "
+--- !u!222 &465957131
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 465957128}
+  m_CullTransparentMesh: 1
 --- !u!1 &472277116
 GameObject:
   m_ObjectHideFlags: 0
@@ -1975,6 +2054,8 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'Fired Up
+
+    Shoot faster
 
     Ghost Bullets!'
 --- !u!222 &479090477
@@ -2451,7 +2532,7 @@ RectTransform:
   m_Children:
   - {fileID: 123998373}
   m_Father: {fileID: 218889983}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3033,7 +3114,7 @@ RectTransform:
   m_Children:
   - {fileID: 899850192}
   m_Father: {fileID: 218889983}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3503,7 +3584,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Stamina \nMake sure to be in a safe place when this runs out"
+  m_Text: "Stamina \nCan only start sprinting while above 20% stamina "
 --- !u!222 &899850194
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3682,7 +3763,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: Back
 --- !u!222 &959114957
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4497,7 +4578,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Resistance
 
-    If you are not dead, get back in there. '
+    Take more damage before dying'
 --- !u!222 &1128029546
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4578,7 +4659,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Packrat
 
-    Collect more things'
+    Carry an extra gun'
 --- !u!222 &1132208907
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5037,6 +5118,7 @@ RectTransform:
   - {fileID: 533412292}
   - {fileID: 1150847797}
   - {fileID: 1226212395}
+  - {fileID: 1575440734}
   m_Father: {fileID: 1928907444}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6105,7 +6187,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: Back
 --- !u!222 &1398193818
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6343,7 +6425,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Basic Zombie \nRuns at players, lunges when close enough. "
+  m_Text: "Basic Zombie \nRuns at players, lunges when close enough "
 --- !u!222 &1456485165
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6497,7 +6579,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: Back
 --- !u!222 &1490516109
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6576,7 +6658,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: Back
 --- !u!222 &1499709543
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6659,6 +6741,82 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1538744084}
+  m_CullTransparentMesh: 1
+--- !u!1 &1575440733
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1575440734}
+  - component: {fileID: 1575440736}
+  - component: {fileID: 1575440735}
+  m_Layer: 5
+  m_Name: Lungs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1575440734
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1575440733}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 465957129}
+  m_Father: {fileID: 1188867046}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 224, y: 140}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1575440735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1575440733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.8509804, g: 0.60784316, b: 0.23137255, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 1ec4c413b983ce54ba71d5c433bf83e4, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1575440736
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1575440733}
   m_CullTransparentMesh: 1
 --- !u!1 &1610238707
 GameObject:
@@ -6768,7 +6926,7 @@ RectTransform:
   m_Children:
   - {fileID: 2005115376}
   m_Father: {fileID: 218889983}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7118,7 +7276,7 @@ RectTransform:
   m_Children:
   - {fileID: 854979883}
   m_Father: {fileID: 218889983}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7233,7 +7391,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: 'Back
+
+'
 --- !u!222 &1831174052
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7988,7 +8148,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Hoarder
 
-    When you just want more bullets'
+    Carry more bullets'
 --- !u!222 &2056739687
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8148,7 +8308,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Turkey
 
-    Time to stuff'
+    Stuff more bullets into each magazine'
 --- !u!222 &2108120074
 CanvasRenderer:
   m_ObjectHideFlags: 0

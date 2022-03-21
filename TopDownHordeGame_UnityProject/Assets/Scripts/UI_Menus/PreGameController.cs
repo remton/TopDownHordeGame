@@ -37,11 +37,11 @@ public class PreGameController : MonoBehaviour
 
     public void StartGame() {
         //Loads cat cafe index 2
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene("CatCafe");
     }
     public void LoadMainMenu() {
         GameSettings.instance.numPlayers = numPlayers;
-        //MainMenuIndex 4
-        SceneManager.LoadScene(4);
+        //MainMenuIndex 0
+        SceneManager.LoadScene("MainMenu");
     }
 }

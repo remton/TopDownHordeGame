@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 public class MainMenuController : MonoBehaviour
 {
     public void LoadPreGame() {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
     public void LoadHelpMenu() {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
     public void ExitGame() {
         Debug.Log("There is no escape");
