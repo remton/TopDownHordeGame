@@ -185,6 +185,8 @@ public class PlayerHealth : MonoBehaviour {
     {
         health = maxHealth;
         isDead = false;
+        isBeingRevived = false;
+        reviveTimerID = Guid.Empty;
         GetComponent<PlayerMovement>().EnableMovement();
 //        GetComponent<PlayerWeaponControl>().ResetWeapons();
         Debug.Log("Revived!");
