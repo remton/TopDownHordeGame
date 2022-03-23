@@ -47,12 +47,11 @@ public class PlayerStats : MonoBehaviour
 
     public void AddKill() {
         totalKills++;
-//        Debug.Log("                                                                 Player kill count: " + totalKills);
         AddMoney(payPerKill);
     }
 
     public int GetTotalScore() {
-        return score + totalKills + totalMoneyEarned / 20 + (RoundController.instance.GetRound()-1) * 50;
+        return score + totalKills / 5 + totalMoneyEarned / 10 + (RoundController.instance.GetRound()-1) * 50;
     }
     public int GetTotalKills() {
         return totalKills;
