@@ -81,7 +81,6 @@ public class ReticleController : MonoBehaviour
                 Cursor.visible = false;
             }
         }
-        
     }
 
     

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class ImageAnimation : MonoBehaviour {
 
 	public Sprite[] sprites;
-	public int spritePerFrame = 6;
+	public int framesPerSprite = 6;
 	public bool loop = true;
 	public bool destroyOnEnd = false;
 	public bool reverse = false;
@@ -30,7 +30,7 @@ public class ImageAnimation : MonoBehaviour {
 		if (CheckAnimationEnded()) { return; }
 
 		frame++;    // Increment frame count
-		if (frame < spritePerFrame) return; // Wait for enough frames to pass
+		if (frame < framesPerSprite) return; // Wait for enough frames to pass
 		frame = 0;  // Reset frame count
 
 		image.sprite = sprites[Mathf.Clamp(index, 0, sprites.Length - 1)];  // Apply current sprite
