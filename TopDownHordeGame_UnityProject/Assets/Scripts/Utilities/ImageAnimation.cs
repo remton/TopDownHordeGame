@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class ImageAnimation : MonoBehaviour {
 
 	public Sprite[] sprites;
-	public int framesPerSprite = 6;
+	public float framesPerSec = 10;
 	public bool loop = true;
 	public bool destroyOnEnd = false;
 	public bool reverse = false;
@@ -19,19 +19,27 @@ public class ImageAnimation : MonoBehaviour {
 
 	void Awake() {
 		image = GetComponent<Image>();
+		frameTime = 1f/framesPerSec;
+		timeUntilNextFrame = frameTime;
 	}
+
+	private float timeUntilNextFrame;
+	private float frameTime;
 
 	/// Updates the animation
 	void Update() {
-		Debug.Log("SPRITES " + sprites.Length);
-
-
+		
 		// Prevents run if not looping at end
 		if (CheckAnimationEnded()) { return; }
+		
+		//Wait for more time to pass
+		if (!(timeUntilNextFrame <= 0)) {
+			timeUntilNextFrame -= Time.deltaTime;
+			return;
+		}
 
-		frame++;    // Increment frame count
-		if (frame < framesPerSprite) return; // Wait for enough frames to pass
-		frame = 0;  // Reset frame count
+		timeUntilNextFrame = frameTime; //Set time until next frame
+
 
 		image.sprite = sprites[Mathf.Clamp(index, 0, sprites.Length - 1)];  // Apply current sprite
 

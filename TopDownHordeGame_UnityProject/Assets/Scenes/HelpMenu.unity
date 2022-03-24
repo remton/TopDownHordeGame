@@ -575,7 +575,7 @@ MonoBehaviour:
   - {fileID: 2043308220438974197, guid: efbb94eb350e7f546aaad11c2fae2f38, type: 3}
   - {fileID: 1478287485077518786, guid: efbb94eb350e7f546aaad11c2fae2f38, type: 3}
   - {fileID: -2501827470826830831, guid: efbb94eb350e7f546aaad11c2fae2f38, type: 3}
-  framesPerSprite: 15
+  framesPerSec: 12
   loop: 1
   destroyOnEnd: 0
   reverse: 0
@@ -1960,7 +1960,7 @@ MonoBehaviour:
   - {fileID: -7409828884889508126, guid: 3ce761f6122dee84480d7db75cb469b4, type: 3}
   - {fileID: -927875897333392766, guid: 3ce761f6122dee84480d7db75cb469b4, type: 3}
   - {fileID: 1081459692800829642, guid: 3ce761f6122dee84480d7db75cb469b4, type: 3}
-  framesPerSprite: 15
+  framesPerSec: 12
   loop: 1
   destroyOnEnd: 0
   reverse: 0
@@ -3712,7 +3712,7 @@ MonoBehaviour:
   - {fileID: -4755850941108268289, guid: a4e574273851b1a4ea14c8f5d597a2b9, type: 3}
   - {fileID: -6351331515982655033, guid: a4e574273851b1a4ea14c8f5d597a2b9, type: 3}
   - {fileID: -4671638690073155271, guid: a4e574273851b1a4ea14c8f5d597a2b9, type: 3}
-  framesPerSprite: 6
+  framesPerSec: 5
   loop: 1
   destroyOnEnd: 0
   reverse: 1
@@ -4414,7 +4414,7 @@ MonoBehaviour:
   - {fileID: 1985473040002665785, guid: b6f35570a2c090842b5ad55439900e7b, type: 3}
   - {fileID: -3861820436332820454, guid: b6f35570a2c090842b5ad55439900e7b, type: 3}
   - {fileID: -8560499709595991612, guid: b6f35570a2c090842b5ad55439900e7b, type: 3}
-  framesPerSprite: 15
+  framesPerSec: 12
   loop: 1
   destroyOnEnd: 0
   reverse: 0
@@ -4794,7 +4794,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 200, y: 60}
+  m_AnchoredPosition: {x: 199, y: -19}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1065226136
@@ -4818,7 +4818,7 @@ MonoBehaviour:
   - {fileID: -4146898326187171918, guid: 1c0caa81dd5b41947bbc6da47dd2a342, type: 3}
   - {fileID: 2407514398137123677, guid: 1c0caa81dd5b41947bbc6da47dd2a342, type: 3}
   - {fileID: -8445809897889673386, guid: 1c0caa81dd5b41947bbc6da47dd2a342, type: 3}
-  framesPerSprite: 15
+  framesPerSec: 12
   loop: 1
   destroyOnEnd: 0
   reverse: 0
@@ -5078,7 +5078,7 @@ MonoBehaviour:
   - {fileID: 1767154094425948300, guid: a4e574273851b1a4ea14c8f5d597a2b9, type: 3}
   - {fileID: -4299622003081801200, guid: a4e574273851b1a4ea14c8f5d597a2b9, type: 3}
   - {fileID: -5220883952034781144, guid: a4e574273851b1a4ea14c8f5d597a2b9, type: 3}
-  framesPerSprite: 6
+  framesPerSec: 10
   loop: 1
   destroyOnEnd: 1
   reverse: 0
@@ -6956,7 +6956,7 @@ MonoBehaviour:
   - {fileID: 5350311513231917695, guid: f9e2c26d3d4de4c42b7b1e5c158badc5, type: 3}
   - {fileID: -6164190078227375181, guid: f9e2c26d3d4de4c42b7b1e5c158badc5, type: 3}
   - {fileID: 1214687634553350315, guid: f9e2c26d3d4de4c42b7b1e5c158badc5, type: 3}
-  framesPerSprite: 15
+  framesPerSec: 12
   loop: 1
   destroyOnEnd: 0
   reverse: 0
@@ -8156,7 +8156,7 @@ MonoBehaviour:
   - {fileID: 5456039509717997172, guid: 160d50994e977264fac0258e7825678e, type: 3}
   - {fileID: 2639001784144517150, guid: 160d50994e977264fac0258e7825678e, type: 3}
   - {fileID: 1980120223260764855, guid: 160d50994e977264fac0258e7825678e, type: 3}
-  framesPerSprite: 6
+  framesPerSec: 3
   loop: 1
   destroyOnEnd: 0
   reverse: 0
