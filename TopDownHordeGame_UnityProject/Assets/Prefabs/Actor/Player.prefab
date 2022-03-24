@@ -596,7 +596,7 @@ MonoBehaviour:
     m_ActionId: 060e6cf8-8388-4a32-93c4-a903e6248d15
     m_ActionName: Player/Pause[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 1
-  m_DefaultControlScheme: Keyboard
+  m_DefaultControlScheme: Eric keyboard
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -612,6 +612,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89176a09922727146924a8aa46ab745c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDisabled: 0
 --- !u!114 &5910904114054130865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -636,6 +637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3514d31fcd34ec4e94393a70c03507b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDisabled: 0
   minSpeedForEndKnockback: 1.1
   walkSpeed: 1.85
   runSpeed: 3.65
@@ -681,6 +683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fad3b091521bf914f89be7df7dc5797d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDisabled: 0
   reloadSpeedMult: 1
   fireDelayMult: 1
   magMult: 1

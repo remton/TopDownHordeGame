@@ -36,12 +36,13 @@ public class PlayerHealth : MonoBehaviour {
                 reviveTimerID = Guid.Empty;
             }
             reviveTimerID = timer.CreateTimer(reviveTime, Revive);
+            reviver = otherPlayer;
             isBeingRevived = true;
         }
     }
     private void OnReviveActivateRelease(GameObject otherPlayer) {
         if(isBleedingOut && !otherPlayer.GetComponent<PlayerHealth>().isBleedingOut && reviveTimerID != Guid.Empty) {
-            Debug.Log("player end revive");
+            Debug.Log("Player end revive");
             timer.KillTimer(reviveTimerID);
             isBeingRevived = false;
             reviveTimerID = Guid.Empty;
@@ -64,6 +65,7 @@ public class PlayerHealth : MonoBehaviour {
     [SerializeField] private float iFrameTime;
 
     public bool GetIsDead() { return isDead; }
+    public bool GetIsBleedingOut() { return isBleedingOut; }
 
     public delegate void HealthChanged(int health, int max);
     public event HealthChanged EventHealthChanged;
@@ -152,16 +154,31 @@ public class PlayerHealth : MonoBehaviour {
         inIFrames = false;
     }
 
-    public void Revive() {
+public void Revive() {
         revivePrompt.Deactivate();
         SoundPlayer.Play(reviveSound, transform.position);
         reviveTrigger.EventObjEnter -= OnPlayerEnterReviveTrigger;
         reviveTrigger.EventObjExit -= OnPlayerExitReviveTrigger;
         isBleedingOut = false;
+        isBeingRevived = false;
         health = maxHealth;
         GetComponent<PlayerMovement>().EnableMovement();
         Debug.Log("Revived!");
         if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
+    }
+    public void Revive(GameObject reviver) {
+        if (!reviver.GetComponent<PlayerHealth>().GetIsBleedingOut()) {
+            revivePrompt.Deactivate();
+            SoundPlayer.Play(reviveSound, transform.position);
+            reviveTrigger.EventObjEnter -= OnPlayerEnterReviveTrigger;
+            reviveTrigger.EventObjExit -= OnPlayerExitReviveTrigger;
+            isBleedingOut = false;
+            isBeingRevived = false;
+            health = maxHealth;
+            GetComponent<PlayerMovement>().EnableMovement();
+            Debug.Log("Revived!");
+            if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
+        }
     }
 
     private void GoDown() {
@@ -171,6 +188,12 @@ public class PlayerHealth : MonoBehaviour {
         timeUntilDeath = bleedOutTime;
         isBleedingOut = true;
         GetComponent<PlayerMovement>().DisableMovement();
+        foreach (GameObject revivee in reviveTrigger.Hits())
+            {
+                revivee.GetComponent<PlayerHealth>().OnReviveActivateRelease(gameObject);
+                OnReviveActivateRelease(revivee);
+                Debug.Log("HUIFRERLAH");
+            }
         Debug.Log("Bleeding out!");
     }
 

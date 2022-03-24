@@ -230,8 +230,7 @@ public class PlayerMovement : MonoBehaviour {
             }
             else
                 staminaRemaining += staminaRegenRateStanding;
-            if (staminaRemaining > staminaThreshold)
-            {
+            if (staminaRemaining > staminaThreshold) {
                 wentBelowThreshold = false;
                 stillRunning = true;
             }
@@ -258,9 +257,8 @@ public class PlayerMovement : MonoBehaviour {
             else
             {
                 newPos += walkSpeedMult() * walkSpeed * movementDir * Time.fixedDeltaTime;
-                if (wentBelowThreshold)
-                {
-                    stillRunning = false;
+                if (wentBelowThreshold) {
+                    stillRunning = false; 
                 }
             }
             rb.MovePosition(newPos);
@@ -270,7 +268,7 @@ public class PlayerMovement : MonoBehaviour {
     public void ChangeMaximumStamina(float maximumStaminaMultiplier)
     {
         staminaMaximum = staminaMaximum * maximumStaminaMultiplier;
-        staminaThreshold = staminaThreshold * staminaMaximum;
+        staminaThreshold = staminaThreshold * maximumStaminaMultiplier;
     }
 }
 

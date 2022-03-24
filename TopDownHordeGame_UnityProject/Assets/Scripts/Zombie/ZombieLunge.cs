@@ -70,7 +70,7 @@ public class ZombieLunge : MonoBehaviour
     }
 
     private void StartLunge() {
-        Debug.Log("START OF LUNGE");
+        //Debug.Log("START OF LUNGE");
         isLunging = true;
         rb.AddForce(dir * lungeForce);
         hitBox.SetActive(true);
@@ -79,7 +79,7 @@ public class ZombieLunge : MonoBehaviour
     }
 
     private void EndLunge() {
-        Debug.Log("END OF LUNGE");
+        //Debug.Log("END OF LUNGE");
         isLunging = false;
         hitBox.SetActive(false);
         if (EventLungeEnd != null) {
