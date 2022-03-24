@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour {
     private Timer timer;
     public bool isBeingRevived;
+    private GameObject reviver;
     [SerializeField] private AudioClip reviveSound;
     private void Awake() {
         timer = GetComponent<Timer>();
@@ -41,7 +42,7 @@ public class PlayerHealth : MonoBehaviour {
         }
     }
     private void OnReviveActivateRelease(GameObject otherPlayer) {
-        if(isBleedingOut && !otherPlayer.GetComponent<PlayerHealth>().isBleedingOut && reviveTimerID != Guid.Empty) {
+        if(isBleedingOut && reviveTimerID != Guid.Empty) {
             Debug.Log("Player end revive");
             timer.KillTimer(reviveTimerID);
             isBeingRevived = false;
@@ -153,21 +154,8 @@ public class PlayerHealth : MonoBehaviour {
     private void EndIFrames() {
         inIFrames = false;
     }
-
-public void Revive() {
-        revivePrompt.Deactivate();
-        SoundPlayer.Play(reviveSound, transform.position);
-        reviveTrigger.EventObjEnter -= OnPlayerEnterReviveTrigger;
-        reviveTrigger.EventObjExit -= OnPlayerExitReviveTrigger;
-        isBleedingOut = false;
-        isBeingRevived = false;
-        health = maxHealth;
-        GetComponent<PlayerMovement>().EnableMovement();
-        Debug.Log("Revived!");
-        if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
-    }
-    public void Revive(GameObject reviver) {
-        if (!reviver.GetComponent<PlayerHealth>().GetIsBleedingOut()) {
+    public void Revive() {
+        if (reviver == null || !reviver.GetComponent<PlayerHealth>().GetIsBleedingOut()) {
             revivePrompt.Deactivate();
             SoundPlayer.Play(reviveSound, transform.position);
             reviveTrigger.EventObjEnter -= OnPlayerEnterReviveTrigger;
@@ -179,6 +167,9 @@ public void Revive() {
             Debug.Log("Revived!");
             if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
         }
+//    reviver.GetComponent<PlayerHealth>().OnReviveActivateRelease(gameObject);
+    OnReviveActivateRelease(reviver);
+    reviver = null;
     }
 
     private void GoDown() {
@@ -193,7 +184,7 @@ public void Revive() {
                 revivee.GetComponent<PlayerHealth>().OnReviveActivateRelease(gameObject);
                 OnReviveActivateRelease(revivee);
                 Debug.Log("HUIFRERLAH");
-            }
+            }        
         Debug.Log("Bleeding out!");
     }
 
