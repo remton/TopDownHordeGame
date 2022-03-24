@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 
 public class ReticleController : MonoBehaviour
 {
-    private bool useGamePad;
     private GameObject playerWithMouse;
     private GameObject mouseReticle;
     private List<GameObject> gamepadPlayers = new List<GameObject>();
@@ -14,6 +13,46 @@ public class ReticleController : MonoBehaviour
 
     //used with gamepad for how far to display the reticle
     public float radius;
+
+    private void Start() {
+        PlayerManager.instance.EventActivePlayersChange += OnPlayersChanged;
+        PauseManager.instance.EventPauseStateChange += OnPauseChange;
+        OnPlayersChanged(PlayerManager.instance.GetActivePlayers());
+    }
+    private void OnDestroy() {
+        PlayerManager.instance.EventActivePlayersChange -= OnPlayersChanged;
+        PauseManager.instance.EventPauseStateChange -= OnPauseChange;
+        Cursor.visible = true;
+    }
+
+    public void OnPauseChange(bool isPaused) {
+        if (isPaused) {
+            HideReticles();
+            Cursor.visible = true;
+        }
+        else {
+            UnHideReticles();
+            Cursor.visible = false;
+        }
+    }
+
+    private void HideReticles() {
+        if (mouseReticle != null) {
+            mouseReticle.SetActive(false);
+        }
+        foreach (GameObject reticle in gamepadReticles) {
+            reticle.SetActive(false);
+        }
+    }
+
+    private void UnHideReticles() {
+        if (mouseReticle != null) {
+            mouseReticle.SetActive(true);
+        }
+        foreach (GameObject reticle in gamepadReticles) {
+            reticle.SetActive(true);
+        }
+    }
 
     void OnPlayersChanged(List<GameObject> newPlayers) {
         Destroy(mouseReticle);
@@ -45,10 +84,7 @@ public class ReticleController : MonoBehaviour
         
     }
 
-    private void Start() {
-        PlayerManager.instance.EventActivePlayersChange += OnPlayersChanged;
-        OnPlayersChanged(PlayerManager.instance.GetActivePlayers());
-    }
+    
 
     private void Update() {
         int i = 0;
@@ -67,7 +103,5 @@ public class ReticleController : MonoBehaviour
         }
     }
 
-    private void OnDestroy() {
-        PlayerManager.instance.EventActivePlayersChange -= OnPlayersChanged;
-    }
+ 
 }
