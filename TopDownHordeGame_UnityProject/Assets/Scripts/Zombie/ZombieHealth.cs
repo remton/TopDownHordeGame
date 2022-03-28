@@ -10,7 +10,8 @@ public class ZombieHealth : MonoBehaviour
 
     public delegate void onDeath();
     public event onDeath EventOnDeath;
-
+///        SoundPlayer.Play(fireSound, transform.position);
+    [SerializeField] private AudioClip[] hurtsounds;
     private int chance;
     private bool killed = false;
     public void SetMaxHealth(int newMax)
@@ -42,6 +43,8 @@ public class ZombieHealth : MonoBehaviour
             Kill();
         GameObject obj = Instantiate(hitEffectObj);
         obj.transform.position = transform.position;
+        chance = Random.Range(0,hurtsounds.Length);
+        SoundPlayer.Play(hurtsounds[chance], transform.position);
         //if (EventHealthChange != null) { EventHealthChange.Invoke(health); }
     }
 

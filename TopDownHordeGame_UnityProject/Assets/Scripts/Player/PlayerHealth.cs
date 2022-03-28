@@ -8,6 +8,9 @@ public class PlayerHealth : MonoBehaviour {
     public bool isBeingRevived;
     private GameObject reviver;
     [SerializeField] private AudioClip reviveSound;
+    [SerializeField] private AudioClip[] hurtsounds;
+    private float volume = 3;
+    private int chance;
     private void Awake() {
         timer = GetComponent<Timer>();
     }
@@ -144,6 +147,8 @@ public class PlayerHealth : MonoBehaviour {
 
         // timeSinceHit resets health regeneration in RegenUpdate function
         if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); timeSinceHit = 0; } 
+        chance = UnityEngine.Random.Range(0,hurtsounds.Length);
+        SoundPlayer.Play(hurtsounds[chance], transform.position, volume * 1);
     }
 
     private void StartIFrames() {

@@ -14,7 +14,15 @@ public class SoundPlayer : MonoBehaviour
         td.destroyTime = clip.length;
         sp.PlayClip(clip);
     }
-
+    public static void Play(AudioClip clip, Vector3 location, float volume) {
+        GameObject obj = new GameObject("AudioClipObj");
+        obj.transform.position = location;
+        obj.AddComponent<AudioSource>();
+        SoundPlayer sp = obj.AddComponent<SoundPlayer>();
+        TimedDestroy td = obj.AddComponent<TimedDestroy>();
+        td.destroyTime = clip.length;
+        sp.PlayClip(clip, volume);
+    }
     private AudioSource audioSource;
     private void Awake() {
         audioSource = GetComponent<AudioSource>();
