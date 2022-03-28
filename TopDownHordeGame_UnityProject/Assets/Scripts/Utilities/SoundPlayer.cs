@@ -24,5 +24,11 @@ public class SoundPlayer : MonoBehaviour
         audioSource.Play();
         Destroy(gameObject, newClip.length);
     }
+    private void PlayClip(AudioClip newClip, float volumeMultiplier) {
+        audioSource.clip = newClip;
+        audioSource.volume = 1 * volumeMultiplier;
+        audioSource.Play();
+        Destroy(gameObject, newClip.length);
+    }
 
 }
