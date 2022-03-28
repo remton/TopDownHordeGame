@@ -19,6 +19,9 @@ public class ZombieHealth : MonoBehaviour
         maxHealth = newMax;
         health = maxHealth;
     }
+    public int GetMaxHealth() {
+        return maxHealth;
+    }
 
     private int maxHealth = 1;
     private int health;
@@ -62,7 +65,8 @@ public class ZombieHealth : MonoBehaviour
         Debug.Log(name + ": \"*dies\"");
         if (gameObject.HasComponent<BiggestFanDeath>())
             GetComponent<BiggestFanDeath>().Explode();
-        RoundController.instance.ZombieDies();
+        if (!gameObject.HasComponent<DoNotCount>())
+            RoundController.instance.ZombieDies();
         Vector3 myLocation = transform.position;
         MagicController.instance.MagicDrop(myLocation);
         GameObject obj = Instantiate(deathEffectObj);

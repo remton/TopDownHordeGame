@@ -119,8 +119,12 @@ public class Weapon : MonoBehaviour
             {
                 hitZombies++;
                 hitObj.GetComponent<ZombieHealth>().Damage(damage);
-                player.GetComponent<PlayerStats>().PayForHit();
-                if (hitObj.GetComponent<ZombieHealth>().isDead()){
+                if (!hitObj.HasComponent<DoNotCount>())
+                    player.GetComponent<PlayerStats>().PayForHit();
+                if (hitObj.GetComponent<ZombieHealth>().isDead() & hitObj.GetComponent<DoNotCount>()){
+                    player.GetComponent<PlayerStats>().AddKill(false);
+                }
+                if (hitObj.GetComponent<ZombieHealth>().isDead() & !hitObj.GetComponent<DoNotCount>()) {
                     player.GetComponent<PlayerStats>().AddKill();
                 }
 

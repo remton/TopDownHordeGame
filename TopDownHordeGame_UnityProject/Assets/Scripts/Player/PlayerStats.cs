@@ -44,12 +44,20 @@ public class PlayerStats : MonoBehaviour
     public void PayForHit() {
         AddMoney(payPerHit);
     }
-
-    public void AddKill() {
+        public void AddKill() {
         totalKills++;
-        AddMoney(payPerKill);
+        AddKillMoney();
     }
 
+    public void AddKill(bool pay) {
+        totalKills++;
+        if(pay){
+        AddKillMoney();
+        }
+    }
+    public void AddKillMoney(){
+        AddMoney(payPerKill);
+    }
     public int GetTotalScore() {
         return score + totalKills / 5 + totalMoneyEarned / 10 + (RoundController.instance.GetRound()-1) * 50;
     }
