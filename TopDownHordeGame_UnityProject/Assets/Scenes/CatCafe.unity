@@ -534,7 +534,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6025319416998648061, guid: 446f747992bcc224eb7f198f719f8e94, type: 3}
       propertyPath: baseCost
-      value: 900
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 6025319416998648061, guid: 446f747992bcc224eb7f198f719f8e94, type: 3}
       propertyPath: weaponPrefab
@@ -9745,7 +9745,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: cost
-      value: 1500
+      value: 1350
       objectReference: {fileID: 0}
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: roomSpawns.Array.size
@@ -24669,7 +24669,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: cost
-      value: 1250
+      value: 1125
       objectReference: {fileID: 0}
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: roomSpawns.Array.size
@@ -24953,7 +24953,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5178467419987776371, guid: 6ad4e4a95c89a41408a795b70eac10eb, type: 3}
       propertyPath: baseCost
-      value: 1200
+      value: 1350
       objectReference: {fileID: 0}
     - target: {fileID: 5178467419987776371, guid: 6ad4e4a95c89a41408a795b70eac10eb, type: 3}
       propertyPath: weaponChoices.Array.size
@@ -25167,7 +25167,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: cost
-      value: 750
+      value: 675
       objectReference: {fileID: 0}
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: roomSpawns.Array.size
@@ -25411,7 +25411,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6025319416998648061, guid: 446f747992bcc224eb7f198f719f8e94, type: 3}
       propertyPath: baseCost
-      value: 3500
+      value: 3150
       objectReference: {fileID: 0}
     - target: {fileID: 6025319416998648061, guid: 446f747992bcc224eb7f198f719f8e94, type: 3}
       propertyPath: weaponPrefab
@@ -25935,7 +25935,7 @@ MonoBehaviour:
     obj: {fileID: 6956723953377203767, guid: 03a51a5cebba33041a60507cb32a8683, type: 3}
   - weight: 5
     obj: {fileID: 6956723953377203767, guid: cd6b31b8766f4284a96fb1eeec301937, type: 3}
-  - weight: 5
+  - weight: 15
     obj: {fileID: 6956723953377203767, guid: b1966b46c14620843bd15551d22f6fe7, type: 3}
 --- !u!4 &1235508277
 Transform:
@@ -26176,7 +26176,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: cost
-      value: 750
+      value: 675
       objectReference: {fileID: 0}
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: roomSpawns.Array.size
@@ -26365,7 +26365,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1306460550}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.03, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1094848942}
@@ -59676,7 +59676,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: cost
-      value: 2000
+      value: 1800
       objectReference: {fileID: 0}
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: roomSpawns.Array.size
@@ -59919,7 +59919,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6025319416998648061, guid: 446f747992bcc224eb7f198f719f8e94, type: 3}
       propertyPath: baseCost
-      value: 1250
+      value: 1125
       objectReference: {fileID: 0}
     - target: {fileID: 6025319416998648061, guid: 446f747992bcc224eb7f198f719f8e94, type: 3}
       propertyPath: weaponPrefab
@@ -60415,7 +60415,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6025319416998648061, guid: 446f747992bcc224eb7f198f719f8e94, type: 3}
       propertyPath: baseCost
-      value: 1200
+      value: 1080
       objectReference: {fileID: 0}
     - target: {fileID: 6025319416998648061, guid: 446f747992bcc224eb7f198f719f8e94, type: 3}
       propertyPath: weaponPrefab
@@ -60513,7 +60513,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: cost
-      value: 1250
+      value: 1125
       objectReference: {fileID: 0}
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: roomSpawns.Array.size
@@ -62209,7 +62209,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: cost
-      value: 500
+      value: 450
       objectReference: {fileID: 0}
     - target: {fileID: 72847968915284566, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
       propertyPath: roomSpawns.Array.size

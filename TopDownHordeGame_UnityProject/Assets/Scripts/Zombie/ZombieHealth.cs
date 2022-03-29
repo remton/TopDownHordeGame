@@ -7,6 +7,7 @@ public class ZombieHealth : MonoBehaviour
     //public ParticleSystem particle;
     public GameObject hitEffectObj;
     public GameObject deathEffectObj;
+    public bool givesMoney;
 
     public delegate void onDeath();
     public event onDeath EventOnDeath;

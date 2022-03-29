@@ -9,7 +9,7 @@ public class Kill : MonoBehaviour
     public AudioClip pickupSound;
     public int time;
     public MagicType type;
-    private float balanceTime = 5.0F;
+    private float balanceTime = 20.0F;
     private float currentTime = 0F;
     private bool touched; 
     private GameObject[] players;

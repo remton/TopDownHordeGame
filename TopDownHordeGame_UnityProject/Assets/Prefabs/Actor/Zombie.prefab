@@ -225,6 +225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   timeBetweenTargetChecks: 0.1
+  givesMoney: 0
   playerDistForLunge: 1.7
   lungeCooldown: 2
 --- !u!114 &6956723953377203761
@@ -258,6 +259,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitEffectObj: {fileID: 2408408245422526199, guid: c31e083c275cdd54ea8ce6b4c5ed8a86, type: 3}
   deathEffectObj: {fileID: 5231476787973101095, guid: 04ebf637f2fbb3c42a8a56547cf955ac, type: 3}
+  givesMoney: 1
   hurtsounds:
   - {fileID: 8300000, guid: b761a501e764b6b45b01a7978c23a920, type: 3}
   - {fileID: 8300000, guid: 71fce7fa3f0597e4984a9a9b38f12e62, type: 3}

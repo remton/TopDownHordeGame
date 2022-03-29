@@ -139,7 +139,7 @@ public class RoundController : MonoBehaviour
             return Mathf.FloorToInt(5 + 8 * 15 * Mathf.Log10(6 + Mathf.Pow(numPlayers, 3) / 2));
         else {
             //Debug.Log((numPlayers + " players in GetMaxZombies"));
-            return Mathf.FloorToInt(5 + 8 * round * Mathf.Log10(6 + Mathf.Pow(numPlayers, 3) / 2));
+            return Mathf.FloorToInt(0 + 8 * round * Mathf.Log10(6 + Mathf.Pow(numPlayers, 3) / 2));
         }
     }
     //Returns how many zombies per second to spawn
