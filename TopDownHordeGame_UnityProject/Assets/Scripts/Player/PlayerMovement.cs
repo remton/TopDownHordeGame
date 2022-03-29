@@ -174,7 +174,7 @@ public class PlayerMovement : MonoBehaviour {
     {
         if (Camera.main == null)
         {
-            Debug.Log("Camera gone?! \\o_0/");
+            //Debug.Log("Camera gone?! \\o_0/");
             return;
         }
 
