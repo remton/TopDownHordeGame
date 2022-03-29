@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class PreGameController : MonoBehaviour
+public class PreGameController : Menu
 {
     public int maxPlayers;
     public int numPlayers;
@@ -43,5 +43,10 @@ public class PreGameController : MonoBehaviour
         GameSettings.instance.numPlayers = numPlayers;
         //MainMenuIndex 0
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public override void OnCancel() {
+        base.OnCancel();
+        LoadMainMenu();
     }
 }
