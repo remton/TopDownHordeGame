@@ -41,7 +41,7 @@ public class PlayerManager : MonoBehaviour
     public void CreatePlayers() {
         numPlayers = GameSettings.instance.numPlayers;
         for (int i = 0; i < numPlayers; i++) {
-            PlayerInput input = PlayerInputManager.instance.JoinPlayer(i, i);
+            PlayerInput input = PlayerInputManager.instance.JoinPlayer(i, i, null, GameSettings.instance.devices[i]);
             GameObject playerObj = input.gameObject;
             playerObj.transform.position = spawnPoint.transform.position;
             playerObj.GetComponent<PlayerInput>().camera = Camera.main;

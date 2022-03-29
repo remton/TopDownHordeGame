@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ZombieAI : MonoBehaviour
 {
+    public bool givesMoney;
+
     public GameObject target;
     private ZombiePathfind zombiePath;
     protected ZombieHealth zombieHealth;

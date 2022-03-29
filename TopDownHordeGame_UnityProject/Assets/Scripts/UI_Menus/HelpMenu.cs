@@ -40,7 +40,6 @@ public class HelpMenu : Menu
         SceneManager.LoadScene("MainMenu");
     }
 
-
     
     protected override void OnUseGamepad() {
         if(currOverlay == null && EventSystem.current.currentSelectedGameObject == null) {
