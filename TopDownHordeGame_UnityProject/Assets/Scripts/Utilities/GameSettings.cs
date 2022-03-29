@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class GameSettings : MonoBehaviour
 {
     public int numPlayers;
+    public List<InputDevice> devices;
     public static GameSettings instance;
     private void Awake() {
         if(instance == null) {

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PauseManager : MonoBehaviour
+public class PauseManager : Menu
 {
     [SerializeField] private string SceneLoadOnQuitGame;
-    public GameObject menu;
+    public GameObject menuObj;
 
     public static PauseManager instance;
     private void Awake() {
@@ -32,7 +32,7 @@ public class PauseManager : MonoBehaviour
     }
 
     public void Pause() {
-        menu.SetActive(true);
+        menuObj.SetActive(true);
         if (isPaused) {
             Debug.Log("Can't pause. Already paused");
             return;
@@ -43,7 +43,7 @@ public class PauseManager : MonoBehaviour
     }
 
     public void UnPause() {
-        menu.SetActive(false);
+        menuObj.SetActive(false);
         if (!isPaused) {
             Debug.Log("Can't unpause. Already unpaused");
             return;
@@ -56,5 +56,11 @@ public class PauseManager : MonoBehaviour
     public void QuitToMainMenu() {
         UnPause();
         SceneManager.LoadScene(SceneLoadOnQuitGame);
+    }
+
+    public override void OnCancel() {
+        base.OnCancel();
+        if(isPaused)
+            UnPause();
     }
 }

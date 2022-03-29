@@ -25817,8 +25817,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc56fe83bbfae5545977d2d68aa4cd8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultSelectedObject: {fileID: 1294272858}
   SceneLoadOnQuitGame: MainMenu
-  menu: {fileID: 501155146}
+  menuObj: {fileID: 501155146}
 --- !u!1001 &1232124704
 PrefabInstance:
   m_ObjectHideFlags: 0
