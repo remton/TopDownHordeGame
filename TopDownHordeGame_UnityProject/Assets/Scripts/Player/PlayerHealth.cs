@@ -14,6 +14,11 @@ public class PlayerHealth : MonoBehaviour {
     private void Awake() {
         timer = GetComponent<Timer>();
     }
+
+    public float GetHealthRatio() {
+        return (float)health / maxHealth;
+    }
+
     [SerializeField] private float reviveTime;
     [SerializeField] private HitBoxController reviveTrigger;
     public RevivePrompt revivePrompt;
@@ -184,12 +189,17 @@ public class PlayerHealth : MonoBehaviour {
         timeUntilDeath = bleedOutTime;
         isBleedingOut = true;
         GetComponent<PlayerMovement>().DisableMovement();
+        foreach (GameObject obj in reviveTrigger.Hits()) {
+            Debug.Log("OBJ tag: " + obj.tag);
+
+        }
+
         foreach (GameObject revivee in reviveTrigger.Hits())
-            {
-                revivee.GetComponent<PlayerHealth>().OnReviveActivateRelease(gameObject);
-                OnReviveActivateRelease(revivee);
-                Debug.Log("HUIFRERLAH");
-            }        
+        {
+            revivee.GetComponent<PlayerHealth>().OnReviveActivateRelease(gameObject);
+            OnReviveActivateRelease(revivee);
+            Debug.Log("HUIFRERLAH");
+        }        
         Debug.Log("Bleeding out!");
     }
 

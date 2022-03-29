@@ -36,9 +36,16 @@ public class HitBoxController : MonoBehaviour {
             }
         }
     }
-    /// <summary> Returns all current objects in the hitbox </summary>
+    /// <summary> Returns all current objects in the hitbox with tags </summary>
     public List<GameObject> Hits() {
-        return objsInBox;
+        List<GameObject> returnList = new List<GameObject>();
+        foreach (GameObject obj in objsInBox) {
+            foreach (string tag in triggerTags) {
+                if (obj.tag == tag)
+                    returnList.Add(obj);
+            }
+        }
+        return returnList;
     }
 
     // ----- Private -----
