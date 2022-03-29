@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BasicZombieAI : ZombieAI
+public class MinionZombieAI : ZombieAI
 {
     private ZombieLunge zombieLunge;
     public float playerDistForLunge;

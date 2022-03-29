@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -5693027249912304448}
   - component: {fileID: 539208003773151762}
   - component: {fileID: 2500147705680359666}
+  - component: {fileID: 7072946903041619369}
   m_Layer: 0
   m_Name: Kill
   m_TagString: Untagged
@@ -49,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupSound: {fileID: 8300000, guid: f6e87a164e2f7794eb10ea1f1ecbc7f3, type: 3}
-  time: 0
+  time: 30
   type: 2
 --- !u!212 &-6136780048622310910
 SpriteRenderer:
@@ -167,3 +168,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7072946903041619369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19701994243007283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2481c070c49a4dd4cb8ace2ff92559b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

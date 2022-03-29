@@ -7,7 +7,8 @@ public class ZombieAI : MonoBehaviour
     public GameObject target;
     private ZombiePathfind zombiePath;
     protected ZombieHealth zombieHealth;
-
+    //public bool givesMoney; 
+    
     protected float speed = 1;
     protected int damage = 1;
 
@@ -84,6 +85,7 @@ public class ZombieAI : MonoBehaviour
             timeUntilCheckTarget = timeBetweenTargetChecks;
             FindTarget(PlayerManager.instance.GetActivePlayers());
         }
+        timeUntilCheckTarget -= Time.deltaTime;
     }
 
     private void OnDestroy() {
