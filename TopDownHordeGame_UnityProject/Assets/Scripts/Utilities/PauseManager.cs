@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class PauseManager : Menu
 {
     [SerializeField] private string SceneLoadOnQuitGame;
     public GameObject menuObj;
+    public Timer timer;
 
     public static PauseManager instance;
     private void Awake() {
@@ -16,6 +18,8 @@ public class PauseManager : Menu
         else {
             Destroy(gameObject);
         }
+
+        timer = GetComponent<Timer>();
     }
 
     public delegate void PauseStateChange(bool isPaused);
@@ -25,13 +29,12 @@ public class PauseManager : Menu
     public bool IsPaused() { return isPaused; }
 
     public void PauseButtonPress() {
-        if (isPaused)
-            UnPause();
-        else
+        if (!isPaused)
             Pause();
     }
 
     public void Pause() {
+        Debug.Log("PAUSE");
         menuObj.SetActive(true);
         if (isPaused) {
             Debug.Log("Can't pause. Already paused");
@@ -39,10 +42,12 @@ public class PauseManager : Menu
         }
         Time.timeScale = 0;
         isPaused = true;
+        EventSystem.current.SetSelectedGameObject(defaultSelectedObject);
         if (EventPauseStateChange != null) { EventPauseStateChange.Invoke(isPaused); }
     }
 
     public void UnPause() {
+        Debug.Log("UNPAUSE");
         menuObj.SetActive(false);
         if (!isPaused) {
             Debug.Log("Can't unpause. Already unpaused");
@@ -60,7 +65,11 @@ public class PauseManager : Menu
 
     public override void OnCancel() {
         base.OnCancel();
-        if(isPaused)
+        timer.CreateTimer(2 * Time.deltaTime, UnpauseWithCheck);
+    }
+    public void UnpauseWithCheck() {
+        if (isPaused)
             UnPause();
     }
+
 }

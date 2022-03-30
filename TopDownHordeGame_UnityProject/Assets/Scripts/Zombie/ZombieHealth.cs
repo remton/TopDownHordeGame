@@ -30,6 +30,10 @@ public class ZombieHealth : MonoBehaviour
     //public delegate void OnHealthChange(int newHealth);
     //public event OnHealthChange EventHealthChange;
 
+    public float GetHealthRatio() {
+        return (float)health / maxHealth;
+    }
+
     public bool isDead(){
         return health <= 0;
     }

@@ -25,36 +25,7 @@ public class PreGameController : Menu
         numPlayerTxt.text = numPlayers.ToString();
         numPlayers = 0;
         numPlayerTxt.text = numPlayers.ToString();
-        //InputSystem.onDeviceChange += OnDeviceChange;
     }
-    private void OnDestroy() {
-        //InputSystem.onDeviceChange -= OnDeviceChange;
-    }
-
-    //public void OnDeviceChange(InputDevice device, InputDeviceChange change) {
-    //    switch (change) {
-    //        case InputDeviceChange.Added:
-    //            break;
-    //        case InputDeviceChange.Removed:
-    //            break;
-    //        case InputDeviceChange.Disconnected:
-    //            break;
-    //        case InputDeviceChange.Reconnected:
-    //            break;
-    //        case InputDeviceChange.Enabled:
-    //            break;
-    //        case InputDeviceChange.Disabled:
-    //            break;
-    //        case InputDeviceChange.UsageChanged:
-    //            break;
-    //        case InputDeviceChange.ConfigurationChanged:
-    //            break;
-    //        case InputDeviceChange.Destroyed:
-    //            break;
-    //        default:
-    //            break;
-    //    }
-    //}
 
     protected override void Update() {
         base.Update();
@@ -106,7 +77,8 @@ public class PreGameController : Menu
     }
 
     public void StartGame() {
-        SceneManager.LoadScene("CatCafe");
+        if(numPlayers>0)
+            SceneManager.LoadScene("CatCafe");
     }
     public void LoadMainMenu() {
         GameSettings.instance.numPlayers = numPlayers;

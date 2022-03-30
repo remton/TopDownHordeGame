@@ -710,7 +710,7 @@ MonoBehaviour:
       - m_Target: {fileID: 5910904114054130865}
         m_TargetAssemblyTypeName: PlayerPauseControl, Assembly-CSharp
         m_MethodName: OnPauseButton
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -722,7 +722,7 @@ MonoBehaviour:
     m_ActionId: 060e6cf8-8388-4a32-93c4-a903e6248d15
     m_ActionName: Player/Pause[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 1
-  m_DefaultControlScheme: Eric keyboard
+  m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}

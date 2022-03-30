@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerPauseControl : MonoBehaviour
 {
@@ -31,8 +32,10 @@ public class PlayerPauseControl : MonoBehaviour
         }
     }
 
-    public void OnPauseButton() {
-        PauseManager.instance.PauseButtonPress();
+    public void OnPauseButton(InputAction.CallbackContext context) {
+        if (context.action.triggered == true) {
+            PauseManager.instance.PauseButtonPress();
+        }
     }
     private void PausePlayer() {
         movement.isDisabled = true;
