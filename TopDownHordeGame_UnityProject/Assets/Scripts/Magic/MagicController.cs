@@ -31,7 +31,7 @@ public class MagicController : MonoBehaviour
     private void Awake()
     {
         //Initial round values
-        Debug.Log("Magic controller is awake.");
+        //Debug.Log("Magic controller is awake.");
 
         if (instance == null)
             instance = this;

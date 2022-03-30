@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAutomatic: 0
-  reloadTime: 0.1
+  reloadTime: 1.4
   fireDeley: 0
   swapTime: 2
   movePenalty: 1.7
@@ -59,7 +59,7 @@ MonoBehaviour:
   swapSound: {fileID: 8300000, guid: e53c5f6b8d30c5f4c9ef0c7d7f40ab90, type: 3}
   shootSound: {fileID: 8300000, guid: 4e532ac5050c1714c9e413ac522abca7, type: 3}
   effectController: {fileID: 2769296667775464315, guid: 7d9940cc4635be54da99373e2c0dfb27, type: 3}
-  fireKnockback: 200
+  fireKnockback: 180
   knockback: 600
   flySpeed: 3
   rocketObjPrefab: {fileID: 6396399298110489017, guid: 8cdeb959bda28654e8e2935ee6e478a3, type: 3}
