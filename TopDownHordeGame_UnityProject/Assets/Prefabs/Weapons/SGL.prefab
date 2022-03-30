@@ -46,13 +46,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAutomatic: 1
   reloadTime: 0.4
-  fireDeley: 0
+  fireDeley: 0.8
   swapTime: 1
   movePenalty: 1
   weaponName: SGL
   penatration: 0
   baseDamage: 10
-  reloadAmount: 0
+  reloadAmount: 1
   magSize: 6
   reserveSize: 60
   reloadSound: {fileID: 8300000, guid: 38ab4dbe0b1f1f44eab3ea84e6818b41, type: 3}
