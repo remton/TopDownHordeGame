@@ -10,10 +10,16 @@ public class PlayerHealthBar : MonoBehaviour
     public GameObject sliderObj;
     public Slider slider;
     Vector3 offset;
+    Quaternion rotation;
+
+    private void Awake() {
+        rotation = transform.rotation;
+    }
 
     private void Start() {
         offset = transform.position - player.transform.position;
         transform.parent = null;
+        transform.rotation = rotation;
     }
 
     private void Update() {

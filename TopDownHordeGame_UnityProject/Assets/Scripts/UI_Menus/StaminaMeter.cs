@@ -10,9 +10,15 @@ public class StaminaMeter : MonoBehaviour
     public List<Sprite> sprites;
     Vector3 offset;
 
+    Quaternion rotation;
+    private void Awake() {
+        rotation = transform.rotation;
+    }
+
     private void Start() {
         offset = transform.position - player.transform.position;
         transform.parent = null;
+        transform.rotation = rotation;
     }
 
     private void Update() {

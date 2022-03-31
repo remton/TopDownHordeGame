@@ -10,10 +10,15 @@ public class ZombieHealthBar : MonoBehaviour
     public GameObject sliderObj;
     public Slider slider;
     Vector3 offset;
+    Quaternion rotation;
+    private void Awake() {
+        rotation = transform.rotation;
+    }
 
     private void Start() {
         offset = transform.position - zombie.transform.position;
         transform.parent = null;
+        transform.rotation = rotation;
         health.EventOnDeath += ZombieIsDead;
     }
     private void OnDestroy() {
