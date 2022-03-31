@@ -16,8 +16,6 @@ public class HelpMenu : Menu
     GameObject currOverlay;
     GameObject currButton;
 
-    public GameObject defaultSelectedObject;
-
     public void SetOverlay(GameObject overlay) {
         int index = 0;
         for (int i = 0; i < overlays.Count; i++) {
