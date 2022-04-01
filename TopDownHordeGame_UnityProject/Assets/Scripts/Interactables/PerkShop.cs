@@ -25,10 +25,10 @@ public class PerkShop : MonoBehaviour
         }
         else if (playerStats.GetBank() < cost){
             SoundPlayer.Play(FailedPurchaseSound, transform.position);
-            Debug.Log("U broke lol");
+        //    Debug.Log("U broke lol");
         }
         else{
-            Debug.Log("You should already have this perk.");
+        //    Debug.Log("You should already have this perk.");
         }
     }
 
