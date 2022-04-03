@@ -4758,7 +4758,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Advanced Techology          |                    \/
+  m_Text: Advanced Technology          |                    \/
 --- !u!222 &964774785
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8778,9 +8778,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Move: Left Stick
+  m_Text: 'Move: Left stick
 
-    Sprint: Left Trigger
+    Sprint: Left trigger
 
     Aim: Right stick
 
@@ -8789,10 +8789,10 @@ MonoBehaviour:
 
     Swap Weapon: Top button
 
-    Reload: Left button
+    Reload: Right shoulder
 
     Activate:
-    Left button
+    Left shoulder
 
     Pause: Start button
 
@@ -9556,7 +9556,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Bleed Out Timer
 
-    Make sure to get revived before this runs out. '
+    If this runs out, you die. Get revived before then.'
 --- !u!222 &2005115378
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -385,7 +385,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   givesMoney: 0
   target: {fileID: 0}
-  timeBetweenTargetChecks: 0.1
+  timeBetweenTargetChecks: 0.5
   playerDistForLunge: 1.7
   lungeCooldown: 2
 --- !u!114 &6956723953377203761

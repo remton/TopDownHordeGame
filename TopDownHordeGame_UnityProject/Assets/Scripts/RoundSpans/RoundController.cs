@@ -158,7 +158,7 @@ public class RoundController : MonoBehaviour
         return round+1;
     }
     private int GetDamage() {
-        return Mathf.FloorToInt(Mathf.Sqrt(2f * round));
+        return Mathf.FloorToInt(Mathf.Sqrt(2f * round) * .75f);
     }
 
     public void ActivateSpawns(List<ZombieSpawn> spawns) {
