@@ -1,10 +1,27 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    public static CameraController instance;
+    private void Awake() {
+        timer = GetComponent<Timer>();
+        if (instance != null)
+            Destroy(gameObject);
+        else {
+            instance = this;
+        }
+    }
+
     [SerializeField] private Camera cam;
+    private float recenterSpeed = 1f;
+
+    private Vector3 nextMovementPos;
+    bool isShaking = false;
+    private Timer timer;
+    private System.Guid shakeTimerID;
 
     [Tooltip("units between screen edge and players when scaling the camera size")][SerializeField] 
     float edgeBufferSize; 
@@ -18,13 +35,48 @@ public class CameraController : MonoBehaviour
     private List<GameObject> players;
 
     private void Update() {
-        MoveToMidpointOfPlayers();
+        MoveToNextPos();
         ChangeSize();
     }
 
-    public void MoveToMidpointOfPlayers() {
+
+    public void MoveUpdate(Vector3 location, float speed) {
+        
+        if(isShaking) {
+            // We are shaking
+            Vector2 dir = new Vector3(location.x - transform.position.x, location.y - transform.position.y, 0);
+            Vector3 newPos = transform.position + new Vector3(dir.x * speed*Time.deltaTime, dir.y * speed*Time.deltaTime, 0);
+            transform.position = newPos;
+        }
+        else{
+            // We arent shaking
+            transform.position = location;
+        }
+        
+    }
+
+    public void Shake(float intensity) {
+        isShaking = true;
+        Vector2 offset = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+        offset.Normalize();
+        offset *= intensity;
+        Vector3 midpoint = FindMidpointOfPlayers();
+        Vector3 newpos = midpoint + new Vector3(offset.x, offset.y, 0);
+
+        float shakeTime = Vector3.Distance(midpoint, newpos)/recenterSpeed;
+        transform.position = newpos;
+
+        timer.KillTimer(shakeTimerID);
+        shakeTimerID = timer.CreateTimer(shakeTime, StopShake);
+    }
+
+    private void StopShake() {
+        isShaking = false;
+    }
+
+    private Vector3 FindMidpointOfPlayers() {
         if (players.Count == 0)
-            return;
+            return transform.position;
 
         //get midpoint of all players
         float sumX = 0;
@@ -33,10 +85,14 @@ public class CameraController : MonoBehaviour
             sumX += players[i].transform.position.x;
             sumY += players[i].transform.position.y;
         }
-        float avrX = sumX/players.Count;
-        float avrY = sumY/players.Count;
-        Vector3 midpoint = new Vector3(avrX,avrY, transform.position.z);
-        transform.position = midpoint;
+        float avrX = sumX / players.Count;
+        float avrY = sumY / players.Count;
+        return new Vector3(avrX, avrY, transform.position.z);
+    }
+    public void MoveToNextPos() {
+        if (players.Count == 0)
+            return;
+        MoveUpdate(FindMidpointOfPlayers(), recenterSpeed);
     }
 
     private void ChangeSize() {
@@ -75,6 +131,7 @@ public class CameraController : MonoBehaviour
     private void Start() {
         players = PlayerManager.instance.GetActivePlayers();
         PlayerManager.instance.EventActivePlayersChange += OnPlayersChanged;
+        MoveToNextPos();
     }
     
     public void OnPlayersChanged(List<GameObject> newPlayers) {

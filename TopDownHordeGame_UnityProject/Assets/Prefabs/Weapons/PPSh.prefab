@@ -59,6 +59,7 @@ MonoBehaviour:
   swapSound: {fileID: 8300000, guid: e53c5f6b8d30c5f4c9ef0c7d7f40ab90, type: 3}
   shootSound: {fileID: 8300000, guid: 91e5707cac1adba418266eb43225e71f, type: 3}
   effectController: {fileID: 2769296667775464315, guid: 7d9940cc4635be54da99373e2c0dfb27, type: 3}
+  shakeIntensity: 1
   pelletCount: 1
   spreadAngle: 16
 --- !u!82 &3127585394012047881

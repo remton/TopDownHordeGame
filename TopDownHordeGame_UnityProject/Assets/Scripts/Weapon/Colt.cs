@@ -56,7 +56,8 @@ public class Colt : Weapon{
 
     public override void Fire(GameObject player, Vector2 direction) {
         this.player = player;
-        base.Fire(player, direction); 
+        base.Fire(player, direction);
+        CameraController.instance.Shake(shakeIntensity / 35);
         Vector2 startPos = new Vector3(player.transform.position.x, player.transform.position.y, 0);
         FireRicochet(startPos, direction, 0);
     }

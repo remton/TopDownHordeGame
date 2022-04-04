@@ -19,6 +19,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] public AudioClip swapSound;    //sound played when swapping to this weapon
     [SerializeField] public AudioClip shootSound;   //sound of gunshot
     [SerializeField] protected FireEffectController effectController; //Controller for bullet trail and fire sound
+    [SerializeField] protected float shakeIntensity; //Intensity of screen shake
 
     protected int damage;       // damage per bullet
     protected int inMag = 0;    // bullets in magazine
@@ -146,6 +147,7 @@ public class Weapon : MonoBehaviour
                 effectController.CreateTrail(startPos, trailEnd, shootSound);
             }
         }
+        CameraController.instance.Shake(shakeIntensity/35);
     }
     /// <summary> Fires a shot within the spreadAngle in the given direction </summary>
     protected void FireShot(GameObject player, Vector2 direction, float spreadAngle) {
