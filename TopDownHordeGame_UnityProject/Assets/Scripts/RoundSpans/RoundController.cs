@@ -129,6 +129,7 @@ public class RoundController : MonoBehaviour
         spawnDelay = GetSpawnDeley();
         zombiesSpawnedThisRound = 0;
         PlayerManager.instance.RespawnDeadPlayers();
+        timeUntilNextSpawn = 0;
         //Debug.Log("Round: " + round.ToString());
     }
 
@@ -143,7 +144,7 @@ public class RoundController : MonoBehaviour
     //Returns how many zombies per second to spawn
     private float GetSpawnDeley() {
         //e^(-0.25*(x-7.2)) + 0.3
-        return (Mathf.Exp(-0.25f * (round-7.2f))) + 0.3f;
+        return ((Mathf.Exp(-0.25f * (round-7.2F)) + 0.3f) / numPlayers);
     }
 
     private float GetSpeed() {
