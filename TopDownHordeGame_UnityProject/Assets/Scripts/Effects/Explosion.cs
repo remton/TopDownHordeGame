@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
+    private float aftershockTime = 0.075f;
+
     private Timer timer;
     public float timeActive;
     [SerializeField] private AudioClip explosionSound;
+    [SerializeField] private float screenShakeIntensity;
     private HitBoxController hitBox;
     private GameObject owner;
     private string ownerTag;
@@ -21,6 +24,8 @@ public class Explosion : MonoBehaviour
 
     private void Start() {
         SoundPlayer.Play(explosionSound, transform.position);
+        CameraController.instance.Shake(screenShakeIntensity);
+        timer.CreateTimer(aftershockTime, AftershockShake);
     }
 
     public void Init(GameObject nOwner, List<string> nDamageTags, List<string> nKnockbackTags, int nDamage, float nKnockbackStrength) {
@@ -83,5 +88,9 @@ public class Explosion : MonoBehaviour
         }
         Vector2 throwAmount = throwDirection * knockbackStrength;
         actor.GetComponent<Rigidbody2D>().AddForce(throwAmount);
+    }
+
+    public void AftershockShake() {
+        CameraController.instance.Shake(screenShakeIntensity*0.8f);
     }
 }

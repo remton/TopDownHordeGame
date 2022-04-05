@@ -56,6 +56,7 @@ public class CameraController : MonoBehaviour
     }
 
     public void Shake(float intensity) {
+        intensity = intensity / 35;
         isShaking = true;
         Vector2 offset = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
         offset.Normalize();

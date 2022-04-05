@@ -147,7 +147,7 @@ public class Weapon : MonoBehaviour
                 effectController.CreateTrail(startPos, trailEnd, shootSound);
             }
         }
-        CameraController.instance.Shake(shakeIntensity/35);
+        CameraController.instance.Shake(shakeIntensity);
     }
     /// <summary> Fires a shot within the spreadAngle in the given direction </summary>
     protected void FireShot(GameObject player, Vector2 direction, float spreadAngle) {

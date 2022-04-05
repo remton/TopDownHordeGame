@@ -62,7 +62,7 @@ MonoBehaviour:
   shakeIntensity: 1
   fireKnockback: 180
   knockback: 600
-  flySpeed: 3
+  flySpeed: 7
   rocketObjPrefab: {fileID: 6396399298110489017, guid: 8cdeb959bda28654e8e2935ee6e478a3, type: 3}
   player: {fileID: 0}
 --- !u!82 &-4901118659480325546

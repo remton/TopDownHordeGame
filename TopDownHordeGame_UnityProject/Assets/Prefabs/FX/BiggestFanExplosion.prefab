@@ -153,6 +153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeActive: 0.2
   explosionSound: {fileID: 8300000, guid: 92603e07f4d5bf54ea4d51f1eb34ba12, type: 3}
+  screenShakeIntensity: 6
 --- !u!114 &-6101657685581757543
 MonoBehaviour:
   m_ObjectHideFlags: 0
