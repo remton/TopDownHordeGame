@@ -129,6 +129,7 @@ public class RoundController : MonoBehaviour
         spawnDelay = GetSpawnDeley();
         zombiesSpawnedThisRound = 0;
         PlayerManager.instance.RespawnDeadPlayers();
+
         //Debug.Log("Round: " + round.ToString());
     }
 

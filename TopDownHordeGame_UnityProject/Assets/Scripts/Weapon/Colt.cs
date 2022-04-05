@@ -51,7 +51,7 @@ public class Colt : Weapon{
         if (bounceNum >= penatration)
             return;
         else {/*Unless*/}
-            FireRicochet(hitPoint+(reflection.normalized*bounceShiftForward), reflection.normalized, bounceNum);
+        FireRicochet(hitPoint+(reflection.normalized*bounceShiftForward), reflection.normalized, bounceNum);
     }
 
     public override void Fire(GameObject player, Vector2 direction) {
