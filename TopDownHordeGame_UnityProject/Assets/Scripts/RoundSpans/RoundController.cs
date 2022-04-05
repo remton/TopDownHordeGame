@@ -37,8 +37,6 @@ public class RoundController : MonoBehaviour
     public List<RandomChoice> zombieList;
 
     public static RoundController instance;
-
-
     public void ZombieDies() {
         instance.numberActiveZombies--;
         if (instance.numberActiveZombies < 0)
@@ -144,8 +142,8 @@ public class RoundController : MonoBehaviour
     }
     //Returns how many zombies per second to spawn
     private float GetSpawnDeley() {
-        //e^(-0.25*(x-4)) + 0.3
-        return (Mathf.Exp(-0.25f * (round-4))) + 0.3f;
+        //e^(-0.25*(x-7.2)) + 0.3
+        return (Mathf.Exp(-0.25f * (round-7.2f))) + 0.3f;
     }
 
     private float GetSpeed() {
@@ -155,7 +153,13 @@ public class RoundController : MonoBehaviour
         return 1.3f + 3f / 10f * calcRound + Random.Range(-.04F * calcRound, .08F * calcRound); // Gives zombies a random speed
     }
     private int GetHealth() {
-        return round+1;
+        //0.10(0.7round+0.8)^2 + 4 until round 6
+        //round+1 after round 6
+        if(round < 6 )
+            return Mathf.FloorToInt(0.10f * (0.7f * round + 0.8f) * (0.7f * round + 0.8f) + 4);
+        else {
+            return round + 1;
+        }
     }
     private int GetDamage() {
         return Mathf.FloorToInt(Mathf.Sqrt(2f * round) * .75f);
