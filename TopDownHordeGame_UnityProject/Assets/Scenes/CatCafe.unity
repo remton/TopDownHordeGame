@@ -10106,7 +10106,7 @@ MonoBehaviour:
   cam: {fileID: 519420031}
   edgeBufferSize: 8
   minSize: 6
-  maxSize: 18
+  maxSize: 25
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0

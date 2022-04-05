@@ -183,7 +183,7 @@ public class PlayerMovement : MonoBehaviour {
         useMouseToLook = false;
         if (context.ReadValue<Vector2>() == Vector2.zero)
             return;
-        RotateTowards(context.ReadValue<Vector2>());
+        SetLookDir(context.ReadValue<Vector2>());
     }
 
     // called whenever run input event is called
