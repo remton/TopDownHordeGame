@@ -52,8 +52,7 @@ public class RoundController : MonoBehaviour
             Debug.LogWarning("Two instances of round controller active! One is being destroyed!");
         }
     }
-    private void Start()
-    {
+    private void Start() {
         //Initial round values
         numPlayers = GameSettings.instance.numPlayers;
         zombiesToSpawn = GetMaxZombies();
@@ -111,8 +110,7 @@ public class RoundController : MonoBehaviour
         }
     }
 
-    public GameObject CreateZombie()
-    {
+    public GameObject CreateZombie() {
         //spawn special zombie
         GameObject zombieObj = Instantiate(RandomChoice.ChooseRandom(zombieList));
         zombieObj.GetComponent<ZombieAI>().SetValues(GetHealth(), GetSpeed(), GetDamage());
@@ -144,7 +142,7 @@ public class RoundController : MonoBehaviour
     //Returns how many zombies per second to spawn
     private float GetSpawnDeley() {
         //e^(-0.25*(x-7.2)) + 0.3
-        return ((Mathf.Exp(-0.25f * (round-7.2F)) + 0.3f) / numPlayers);
+        return (((Mathf.Exp(-0.25f * (round-7.2F)) + 0.3f) * 1.35F) / Mathf.Pow(1.35F, numPlayers));
     }
 
     private float GetSpeed() {
@@ -177,8 +175,7 @@ public class RoundController : MonoBehaviour
             }
         }
     }
-    public List<Window> GetActiveWindows()
-    {
+    public List<Window> GetActiveWindows() {
         List<Window> windows = new List<Window>();
         foreach (var spawn in activeSpawns) {
             if(spawn is Window) {
