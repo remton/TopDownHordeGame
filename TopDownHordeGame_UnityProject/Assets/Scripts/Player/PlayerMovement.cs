@@ -12,7 +12,11 @@ using UnityEngine.InputSystem;
 
 
 public class PlayerMovement : MonoBehaviour {
+    private Animator animator;
+
     public bool isDisabled = false;
+    private bool isMoving = false;
+    private bool isRunning = false;
 
     private bool knockBackActive;
     private bool forceknockbackActive;
@@ -40,76 +44,38 @@ public class PlayerMovement : MonoBehaviour {
     private float staminaThreshold = 0F;
     private bool stillRunning = true;
 
-    /// <summary> returns the ratio of current stamina to max stamina  </summary>
-    public float GetStaminaRatio()
-    {
-        return staminaRemaining / staminaMaximum;
-    }
-
     public List<float> walkSpeedMultipliers = new List<float>();
     public List<float> runSpeedMultipliers = new List<float>();
-    private float walkSpeedMult()
-    {
-        float multSumFast = 0;
-        float multSumSlow = 0;
-        foreach (float num in walkSpeedMultipliers)
-        {
-            if (num < 1)
-                multSumSlow += 1 / num;
-            else
-                multSumFast += num;
-        }
-        if (multSumFast == 0)
-            multSumFast = 1;
-        if (multSumSlow == 0)
-            multSumSlow = 1;
-        return multSumFast * (1 / (multSumSlow));
-    }
-    private float runSpeedMult()
-    { // Fixed: Bolt perk combined with M1911 weapon speed no longer allows the player to sprint through zombies and take 0 damage. Changed calculation for the multiplier to fix this.  
-        float multSumFast = 0;
-        float multSumSlow = 0;
-        foreach (float num in runSpeedMultipliers)
-        {
-            if (num < 1)
-                multSumSlow += 1 / num;
-            else
-                multSumFast += num - 1; // If the -1 is not here, the player speed quickly spirals out of control when stacking positive buffs. 
-        }
-        multSumFast++; // This makes the player fast multiplier be at least one 
-                       //        if (multSumFast == 0)
-                       //            multSumFast = 1;
-        if (multSumSlow == 0)
-            multSumSlow = 1;
-        return multSumFast * (1 / (multSumSlow));
-    }
-
 
     [SerializeField] private Rigidbody2D rb;
     private Camera mainCamera;
 
     private bool doMovement = true;
-
-    private bool isRunning = false;
     private Vector2 moveDir;
-    private Vector2 lookDir; // This is not being used 
     public Vector2 mouseScreenPos;
+    
+    public float movementMult = 1;
 
     // If mouse input was detected this is true if gamepad this is false
     private bool useMouseToLook;
 
-    // THis is used by other scripts to access what direction the player is looking
+    // This is used by other scripts to access what direction the player is looking
     private Vector2 currentLookDir;
+    
     public Vector2 GetCurrentLookDir() { return currentLookDir; }
-
-    public float movementMult = 1;
+    
+    /// <summary> returns the ratio of current stamina to max stamina  </summary>
+    public float GetStaminaRatio() { return staminaRemaining / staminaMaximum; }
+    
 
     private void Awake()
     {
+        animator = GetComponent<Animator>();
         timer = GetComponent<Timer>();
         mainCamera = Camera.main;
         staminaThreshold = staminaMaximum * 0.2F;
     }
+
 
     public void OnDeviceChange(InputDevice device, InputDeviceChange deviceChange)
     {
@@ -135,8 +101,10 @@ public class PlayerMovement : MonoBehaviour {
         if (isDisabled)
             return;
 
-        if (useMouseToLook)
+        if (useMouseToLook) {
             LookAtMouse();
+        }
+        UpdateAnimation();
     }
 
     //called after every frame
@@ -169,6 +137,32 @@ public class PlayerMovement : MonoBehaviour {
         moveDir = moveInput.normalized;
     }
 
+    private void SetLookDir(Vector2 dir) {
+        currentLookDir = dir;
+        float xScale = transform.localScale.x;
+        //if the sign of the direction isn't the same as the sign of x scale 
+        if ((dir.x < 0) != (xScale < 0))
+            transform.localScale = new Vector3(-1* transform.localScale.x, transform.localScale.y, transform.localScale.z);
+    }
+    private void LookAtMouse() {
+        if (isDisabled)
+            return;
+
+        Vector2 myPos = transform.position;
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
+        Vector2 dir = mousePos - myPos;
+        SetLookDir(dir);
+    }
+    private void LookTowards(Vector2 lookDir2D) {
+        if (isDisabled)
+            return;
+        SetLookDir(lookDir2D);
+    }
+    private void UpdateAnimation() {
+        animator.SetBool("isMoving", isMoving);
+        animator.SetBool("isRunning", isRunning);
+    }
+
     // called whenever mouse position input event is called (Keyboard inputs only)
     public void OnMousePos(InputAction.CallbackContext context)
     {
@@ -189,7 +183,7 @@ public class PlayerMovement : MonoBehaviour {
         useMouseToLook = false;
         if (context.ReadValue<Vector2>() == Vector2.zero)
             return;
-        LookInDir(context.ReadValue<Vector2>());
+        RotateTowards(context.ReadValue<Vector2>());
     }
 
     // called whenever run input event is called
@@ -198,28 +192,7 @@ public class PlayerMovement : MonoBehaviour {
         isRunning = context.action.triggered;
     }
 
-    // Faces the player towards the given direction vector
-    private void LookInDir(Vector2 lookDir2D)
-    {
-        if (isDisabled)
-            return;
 
-        Vector3 lookDir3D = new Vector3(lookDir2D.x, lookDir2D.y, transform.position.z);
-        transform.right = lookDir3D;
-        currentLookDir = lookDir2D;
-    }
-
-    // Faces player towards the mousePos vector
-    private void LookAtMouse()
-    {
-        if (isDisabled)
-            return;
-
-        Vector2 myPos = transform.position;
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
-        Vector2 dir = mousePos - myPos;
-        LookInDir(dir);
-    }
     private void RegenStamina(Vector2 movementDir)
     {
         if ((!isRunning || !stillRunning) && staminaRemaining < staminaMaximum)
@@ -245,6 +218,7 @@ public class PlayerMovement : MonoBehaviour {
 
         if (movementDir.x != 0 || movementDir.y != 0)
         {
+            isMoving = true;
             if (isRunning && staminaRemaining > 0 && stillRunning)
             {
                 newPos += runSpeedMult() * runSpeed * movementDir * Time.fixedDeltaTime;
@@ -263,12 +237,70 @@ public class PlayerMovement : MonoBehaviour {
             }
             rb.MovePosition(newPos);
         }
+        else {
+            isMoving = false;
+        }
         RegenStamina(movementDir);
     }
     public void ChangeMaximumStamina(float maximumStaminaMultiplier)
     {
         staminaMaximum = staminaMaximum * maximumStaminaMultiplier;
         staminaThreshold = staminaThreshold * maximumStaminaMultiplier;
+    }
+
+    private float walkSpeedMult() {
+        float multSumFast = 0;
+        float multSumSlow = 0;
+        foreach (float num in walkSpeedMultipliers) {
+            if (num < 1)
+                multSumSlow += 1 / num;
+            else
+                multSumFast += num;
+        }
+        if (multSumFast == 0)
+            multSumFast = 1;
+        if (multSumSlow == 0)
+            multSumSlow = 1;
+        return multSumFast * (1 / (multSumSlow));
+    }
+    private float runSpeedMult() { // Fixed: Bolt perk combined with M1911 weapon speed no longer allows the player to sprint through zombies and take 0 damage. Changed calculation for the multiplier to fix this.  
+        float multSumFast = 0;
+        float multSumSlow = 0;
+        foreach (float num in runSpeedMultipliers) {
+            if (num < 1)
+                multSumSlow += 1 / num;
+            else
+                multSumFast += num - 1; // If the -1 is not here, the player speed quickly spirals out of control when stacking positive buffs. 
+        }
+        multSumFast++; // This makes the player fast multiplier be at least one 
+                       //        if (multSumFast == 0)
+                       //            multSumFast = 1;
+        if (multSumSlow == 0)
+            multSumSlow = 1;
+        return multSumFast * (1 / (multSumSlow));
+    }
+
+    // Rotates the player towards the given direction vector (Legacy not used with currnent sprites)
+    [System.ObsoleteAttribute]
+    private void RotateTowards(Vector2 lookDir2D) {
+        if (isDisabled)
+            return;
+
+        Vector3 lookDir3D = new Vector3(lookDir2D.x, lookDir2D.y, transform.position.z);
+        transform.right = lookDir3D;
+        currentLookDir = lookDir2D;
+    }
+
+    // rotates player towards the mousePos vector (Legacy not used with current sprites)
+    [System.ObsoleteAttribute]
+    private void RotateTowardsMouse() {
+        if (isDisabled)
+            return;
+
+        Vector2 myPos = transform.position;
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
+        Vector2 dir = mousePos - myPos;
+        RotateTowards(dir);
     }
 }
 
