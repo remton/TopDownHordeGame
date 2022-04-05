@@ -20,6 +20,7 @@ public class ZombieAI : MonoBehaviour
 
     protected bool isGamePaused;
     protected bool wasPathingBeforePause = false;
+
     protected virtual void OnPauseStateChange(bool isPaused) {
         if (isPaused) {
             isGamePaused = true;
@@ -38,6 +39,16 @@ public class ZombieAI : MonoBehaviour
         zombieHealth.SetMaxHealth(newHealth);
         speed = newSpeed;
         damage = newDamage;
+    }
+
+    public void OnBecomeLost() {
+        if (gameObject.HasComponent<ZombieHealth>()) {
+            zombieHealth.Kill();
+        }
+        else {
+            Debug.LogWarning("Zombie: " + name + "was destroyed without being killed");
+            Destroy(gameObject);
+        }
     }
 
     //Sets the target to the closeset player
@@ -75,6 +86,7 @@ public class ZombieAI : MonoBehaviour
         zombiePath.Activate(2 * Time.deltaTime);
         PlayerManager.instance.EventActivePlayersChange += FindTarget;
         PauseManager.instance.EventPauseStateChange += OnPauseStateChange;
+        zombiePath.EventLostNavMesh += OnBecomeLost;
         FindTarget(PlayerManager.instance.GetActivePlayers());
     }
 
@@ -91,6 +103,7 @@ public class ZombieAI : MonoBehaviour
     }
 
     private void OnDestroy() {
+        zombiePath.EventLostNavMesh -= OnBecomeLost;
         PlayerManager.instance.EventActivePlayersChange -= FindTarget;
         PauseManager.instance.EventPauseStateChange -= OnPauseStateChange;
     }

@@ -9,6 +9,9 @@ public class ZombiePathfind : MonoBehaviour {
     private Rigidbody2D rb;
     private NavMeshAgent agent;
 
+    public delegate void OnLoseNavMesh();
+    public event OnLoseNavMesh EventLostNavMesh;
+
     public void SetActive(bool b) {
         agent.enabled = b;
         UpdatePath();
@@ -57,8 +60,13 @@ public class ZombiePathfind : MonoBehaviour {
     private void UpdatePath() {
         if (target != null && agent.enabled) {
             Vector3 pos = new Vector3(target.transform.position.x, target.transform.position.y, transform.position.z);
-            agent.SetDestination(pos);
-  //          Debug.Log("path updated");
+            if (agent.isOnNavMesh) {
+                agent.SetDestination(pos);
+            }
+            else {
+                if(EventLostNavMesh != null) { EventLostNavMesh.Invoke(); }
+            }
+            //Debug.Log("path updated");
         }
     }
 }
