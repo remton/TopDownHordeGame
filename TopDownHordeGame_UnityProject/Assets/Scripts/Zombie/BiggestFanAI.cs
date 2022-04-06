@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BiggestFanAI : ZombieAI
 {
+    private Animator animator;
     private ZombieLunge zombieLunge;
     [SerializeField] private GameObject explosionObj;
     [SerializeField] private float knockbackStrength;
@@ -11,8 +12,10 @@ public class BiggestFanAI : ZombieAI
 
     protected override void Awake() {
         base.Awake();
+        animator = GetComponent<Animator>();
         zombieLunge = GetComponent<ZombieLunge>(); 
         zombieLunge.EventLungeEnd += zombieHealth.Kill;
+        zombieLunge.EventPrelungeEnd += OnPrelungeEnd;
         zombieHealth.EventOnDeath += Explode;
     }
 
@@ -28,9 +31,15 @@ public class BiggestFanAI : ZombieAI
         if (target != null && Vector2.Distance(target.transform.position, transform.position) <= playerDistForLunge) {
             StopPathing();
             Vector2 dir = target.transform.position - transform.position;
-            zombieLunge.Lunge(dir);
+            if (zombieLunge.StartPrelunge(dir)) {
+                animator.SetBool("isInPrelunge", true);
+            }
+            
             Debug.Log("Lunging in " + dir.ToString());
         }
+    }
+    private void OnPrelungeEnd() {
+        animator.SetBool("isInPrelunge", false);
     }
 
     private void Explode() {

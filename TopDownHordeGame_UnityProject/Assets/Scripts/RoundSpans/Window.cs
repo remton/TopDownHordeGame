@@ -94,6 +94,6 @@ public class Window : ZombieSpawn
 
     private void SpawnZombie() {
         GameObject zombie = RoundController.instance.CreateZombie();
-        zombie.transform.position = new Vector3(transform.position.x, transform.position.y, zombie.transform.position.z);
+        zombie.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
     }
 }

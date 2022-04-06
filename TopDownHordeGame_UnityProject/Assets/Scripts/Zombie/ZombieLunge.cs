@@ -24,6 +24,9 @@ public class ZombieLunge : MonoBehaviour
     public delegate void LungeEnd();
     public event LungeEnd EventLungeEnd;
 
+    public delegate void PrelungeEnd();
+    public event PrelungeEnd EventPrelungeEnd;
+
     private void Awake() {
         AI = GetComponent<BasicZombieAI>();
         rb = GetComponent<Rigidbody2D>();
@@ -42,21 +45,23 @@ public class ZombieLunge : MonoBehaviour
         }
     }
 
-    private void Damage(GameObject player) {
+    private void Damage(GameObject playerHitbox) {
+        GameObject player = playerHitbox.GetComponent<DamageHitbox>().owner;
         player.GetComponent<PlayerHealth>().Damage(damage);
     }
     public void SetDamage(int newDamage){
         damage = newDamage;
     }
 
-    public void Lunge(Vector2 d) {
+    public bool StartPrelunge(Vector2 d) {
         if (EventLungeEnd == null) {
             Debug.LogWarning("ZombieLunge.lunge called without setting a callback!");
         }
         if (isWaitingToLunge || isLunging)
-            return;
+            return false;
         dir = d;
         StartWait();
+        return true;
     }
 
     private void StartWait() {
@@ -76,17 +81,18 @@ public class ZombieLunge : MonoBehaviour
         hitBox.SetActive(true);
         hitBox.ForceEntry();
         timer.CreateTimer(lungeTime, EndLunge);
+        if(EventPrelungeEnd != null) { EventPrelungeEnd.Invoke(); }
     }
 
     private void EndLunge() {
         //Debug.Log("END OF LUNGE");
         isLunging = false;
         hitBox.SetActive(false);
-        if (EventLungeEnd != null) {
+        if (EventLungeEnd != null && EventPrelungeEnd !=null) {
             EventLungeEnd.Invoke();
         }
         else {
-            Debug.LogWarning("ZombieLunge.EndLunge is not returning a callback!");
+            Debug.LogWarning("ZombieLunge.EndLunge is not returning any callbacks!");
         }
     }
 

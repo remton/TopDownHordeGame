@@ -94,6 +94,12 @@ public class ZombieAI : MonoBehaviour
         if (isGamePaused)
             return;
 
+        //Handle updating sprite direction
+        Vector2 dir = target.transform.position - transform.position;
+        float xScale = transform.localScale.x;
+        if ((dir.x < 0) != (xScale < 0))
+            transform.localScale = new Vector3(-1 * transform.localScale.x, transform.localScale.y, transform.localScale.z);
+
         //Update target coundown
         if (timeUntilCheckTarget <= 0) {
             timeUntilCheckTarget = timeBetweenTargetChecks;

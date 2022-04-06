@@ -11,6 +11,8 @@ TagManager:
   - PerkShop
   - Door
   - BulletCollision
+  - ZombieDamageHitbox
+  - PlayerDamageHitbox
   layers:
   - Default
   - TransparentFX
@@ -27,8 +29,8 @@ TagManager:
   - ZombieAttack
   - Door
   - ActorCollider
-  - 
-  - 
+  - ZombieHitbox
+  - PlayerHitbox
   - 
   - 
   - 

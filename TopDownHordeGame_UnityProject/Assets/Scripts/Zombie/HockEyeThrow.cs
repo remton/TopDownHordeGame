@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Events;
 public class HockEyeThrow : MonoBehaviour
 {
-    [SerializeField] private HitBoxController hitBox;
     [SerializeField] private float timeBetweenThrows;
     [SerializeField] private int damage;
     [SerializeField] private float throwForce;
@@ -29,21 +28,22 @@ public class HockEyeThrow : MonoBehaviour
     {
         damage = newDamage;
     }
-    public void Throw(Vector2 d)
+    public bool Throw(Vector2 d)
     {
         if (AI == null)
         {
             Debug.LogError("Cannot call Throw before setting the zombie AI");
-            return;
+            return false;
         }
         if (isWaitingToThrow || isThrowing)
-            return;
+            return false;
         dir = d;
         Vector3 hockerPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         GameObject obj = Instantiate(eyePrefab, hockerPos, Quaternion.identity);
         obj.GetComponent<HockEyeEye>().Init(dir, damage, throwForce);
         //Debug.Log("Tried throwing an eye.");
         StartWait();
+        return true;
     }
     void FixedUpdate()
     {

@@ -9,7 +9,7 @@ public class Colt : Weapon{
     const float bounceShiftForward = 0.1f;
     private void FireRicochet(Vector2 startPos, Vector2 direction, int bounceNum) {
         // Raycast in direction and get first collsion with mask
-        string[] mask = { "BulletCollider", "Zombie", "Door" };
+        string[] mask = { "BulletCollider", "ZombieHitbox", "Door" };
         RaycastHit2D[] hitInfos = Physics2D.RaycastAll(startPos, direction, Mathf.Infinity, LayerMask.GetMask(mask));
         // We hit nothing
         if (hitInfos.Length == 0) {
@@ -20,14 +20,15 @@ public class Colt : Weapon{
         GameObject hitObj = hitInfos[0].transform.gameObject;
         Vector2 hitPoint = hitInfos[0].point;
         int finalhitIndex = 0;
-        if (hitObj.CompareTag("Zombie")) {
+        if (hitObj.CompareTag("ZombieDamageHitbox")) {
             //Loop until we dont hit a zombie -_-
             for (int i = 0; i < hitInfos.Length; i++) {
                 finalhitIndex = i;
                 hitObj = hitInfos[i].transform.gameObject;
                 hitPoint = hitInfos[i].point;
-                if (hitObj.tag != "Zombie")
+                if (hitObj.tag != "ZombieDamageHitbox")
                     break;
+                hitObj = hitObj.GetComponent<DamageHitbox>().owner;
 
                 if (i>0)//Double damage for every zombie penetrated!
                     hitObj.GetComponent<ZombieHealth>().Damage(damage*2*i);

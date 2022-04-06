@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//NOTE: THIS IS MEANT TO BE USED ALONGSIDE BASIC ZOMBIE AI
 public class ZathrakAI : MonoBehaviour
 {
+    private Animator animator;
     public GameObject target;
     private ZombiePathfind zombiePath;
     protected ZombieHealth zombieHealth;
@@ -65,6 +67,7 @@ public class ZathrakAI : MonoBehaviour
     }
 
     protected virtual void Awake() {
+        animator = GetComponent<Animator>();
         zombiePath = GetComponent<ZombiePathfind>();
         zombieHealth = GetComponent<ZombieHealth>();
         timeUntilCheckTarget = timeBetweenTargetChecks;
@@ -87,6 +90,7 @@ public class ZathrakAI : MonoBehaviour
             timeUntilCheckTarget = timeBetweenTargetChecks;
             FindTarget(PlayerManager.instance.GetActivePlayers());
         }
+        //Minion summoning
         if (timeUntilSpawn <= 0) {
             timeUntilSpawn = timeBetweenSpawns;
             CreateMinion();
@@ -100,6 +104,7 @@ public class ZathrakAI : MonoBehaviour
         PauseManager.instance.EventPauseStateChange -= OnPauseStateChange;
     }
     private GameObject CreateMinion() {
+        animator.SetTrigger("summon");
         //spawn special zombie
         GameObject zombieObj = Instantiate(spawn);
         zombieObj.transform.position = new Vector3(transform.position.x, transform.position.y, zombieObj.transform.position.z);

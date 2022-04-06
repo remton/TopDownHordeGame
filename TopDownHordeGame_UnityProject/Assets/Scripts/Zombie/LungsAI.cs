@@ -29,7 +29,7 @@ public class LungsAI : ZombieAI
         if (target!=null && !lungeOnCooldown && Vector2.Distance(target.transform.position, transform.position) <= playerDistForLunge) {
             StopPathing();
             Vector2 dir = target.transform.position - transform.position;
-            zombieLunge.Lunge(dir);
+            zombieLunge.StartPrelunge(dir);
         }
         //Lunge cooldown management
         if (lungeOnCooldown) {

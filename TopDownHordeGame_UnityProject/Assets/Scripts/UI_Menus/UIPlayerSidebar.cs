@@ -73,9 +73,16 @@ public class UIPlayerSidebar : MonoBehaviour
     }
 
     public void UpdateAmmoTxt(int mag, int reserve) {
+        string magStr = mag.ToString();
+        string reserveStr = reserve.ToString();
+        if (mag < 0)
+            magStr = "inf";
+        if (reserve < 0)
+            reserveStr = "inf";
+
         string newTxt = ammoTxtDefault;
-        newTxt = newTxt.Replace("{mag}", mag.ToString());
-        newTxt = newTxt.Replace("{reserve}", reserve.ToString());
+        newTxt = newTxt.Replace("{mag}", magStr);
+        newTxt = newTxt.Replace("{reserve}", reserveStr);
         ammoTxt.text = newTxt;
         ammoTxt.resizeTextForBestFit = true;
     }

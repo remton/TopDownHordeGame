@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    [SerializeField] protected bool infiniteReserve;// Does this weapon get infinite reserve
     [SerializeField] protected bool isAutomatic;    // True if this weapon is automatic
     [SerializeField] private float reloadTime;      // time in seconds that this weapon takes to reload
     [SerializeField] protected float fireDeley;     // time between shots (handled in playerWeaponControl)
@@ -28,6 +29,8 @@ public class Weapon : MonoBehaviour
     
     private void Start() {
         damage = baseDamage;
+        if (infiniteReserve)
+            reserveSize = int.MaxValue;
     }
     // ---- Getters and Setters ----
     public bool IsAutomatic() { return isAutomatic; }
@@ -35,7 +38,11 @@ public class Weapon : MonoBehaviour
     public int GetReserveSize() { return reserveSize; }
     public int GetMagSize() { return magSize; }
     public int GetInMag() { return inMag; }
-    public int GetInReserve() { return inReserve; }
+    public int GetInReserve() {
+        if (infiniteReserve)
+            return -1;
+        return inReserve; 
+    }
     public void SetReloadTime(float newTime) { reloadTime = newTime; }
     public int GetDamage() { return damage; }
     public void ResetDamage() { damage = baseDamage;} 
@@ -46,7 +53,9 @@ public class Weapon : MonoBehaviour
     public float GetMoveMult() { return movePenalty; }
     public string GetWeaponName() { return weaponName; }
     public bool MagEmpty() { return inMag <= 0;}
-    public bool ReserveEmpty() {return inReserve <= 0;}
+    public bool ReserveEmpty() {
+        return !infiniteReserve && inReserve <= 0;
+    }
 
     // ---- Play sounds ----
     public void PlayReloadSound() {
@@ -58,7 +67,7 @@ public class Weapon : MonoBehaviour
 
     // ---- Internal Weapon Mechanics ----
     /// <summary> Reloads weapon instantly (reloadTime is handled in PlayerWeaponControl script) </summary>
-    public void Reload() {
+    public virtual void Reload() {
         // Check to make sure total of current mag and reserve is more than a full mag 
         if (inReserve + inMag >= magSize) {
             inReserve -= magSize - inMag;
@@ -70,8 +79,10 @@ public class Weapon : MonoBehaviour
         }
     }
     public void Reload(int magSize) {
-        //PlaySound
-        //PlayReloadSound();
+        if (infiniteReserve) {
+            inMag = magSize;
+            return;
+        }
 
         int newReloadAmount = (reloadAmount==0)?magSize:reloadAmount;
         int bulletsToReload = ((magSize-inMag) < newReloadAmount) ?(magSize-inMag): newReloadAmount;
@@ -83,9 +94,15 @@ public class Weapon : MonoBehaviour
             inMag = inReserve + inMag;
             inReserve = 0;
         }
+        if (infiniteReserve)
+            inReserve = -1;
     }
-    /// <summary> adds the given amount of bullets to the reserve ammo up to reserveSize </summary>
+    /// <summary> adds the given amount of bullets to the reserve</summary>
     public void AddReserveAmmo(int amount) {
+        if (infiniteReserve) {
+            inReserve = int.MaxValue;
+            return;
+        }
         inReserve += amount;
     }
 
@@ -100,9 +117,10 @@ public class Weapon : MonoBehaviour
     // This is NOT called by playerWeaponControl and is just a utility for overriding Fire() in derived Weapon classes
     /// <summary> Fires a shot in the given direction </summary>
     protected void FireShot(GameObject player, Vector2 direction) {
+        bool hasCreatedTrail = false;
 
         // Raycast in direction and get all collisions with mask
-        string[] mask = { "BulletCollider", "Zombie", "Door"};
+        string[] mask = { "BulletCollider", "ZombieHitbox", "Door"};
         RaycastHit2D[] hitInfos = Physics2D.RaycastAll(player.transform.position, direction, Mathf.Infinity, LayerMask.GetMask(mask));
         
         int hitZombies = 0; //Used to count how many zombies we collided with and not hit more than weapon's penetration
@@ -111,13 +129,16 @@ public class Weapon : MonoBehaviour
         if(hitInfos.Length == 0) {
             Vector2 trailEnd = startPos + (direction.normalized * effectController.maxDistance);
             effectController.CreateTrail(startPos, trailEnd, shootSound);
+            hasCreatedTrail = true;
         }
         //Loop through all collisions
         for (int i = 0; i < hitInfos.Length; i++)
         {
             GameObject hitObj = hitInfos[i].transform.gameObject;
-            if (hitObj.CompareTag("Zombie")) // We hit a zombie
+            
+            if (hitObj.CompareTag("ZombieDamageHitbox")) // We hit a zombie's hitbox
             {
+                hitObj = hitObj.GetComponent<DamageHitbox>().owner;
                 hitZombies++;
                 hitObj.GetComponent<ZombieHealth>().Damage(damage);
                 if (hitObj.GetComponent<ZombieHealth>().givesMoney)
@@ -131,7 +152,8 @@ public class Weapon : MonoBehaviour
 
                 //We have hit our max number of zombies in one shot so we create the trail and break;
                 if (hitZombies == penatration){
-                    Vector2 hitPoint = hitInfos[i].point;
+                    Vector2 hitPoint = hitInfos[i].point; 
+                    hasCreatedTrail = true;
                     effectController.CreateTrail(startPos, hitPoint, shootSound);
                     break;
                 }
@@ -139,13 +161,19 @@ public class Weapon : MonoBehaviour
             else if (hitObj.CompareTag("BulletCollision") || hitObj.CompareTag("Door"))
             {
                 Vector2 hitPoint = hitInfos[i].point;
+                hasCreatedTrail = true;
                 effectController.CreateTrail(startPos, hitPoint, shootSound);
                 break;
             }
             else {
                 Vector2 trailEnd = startPos + (direction.normalized * effectController.maxDistance);
+                hasCreatedTrail = true;
                 effectController.CreateTrail(startPos, trailEnd, shootSound);
             }
+        }
+        if (!hasCreatedTrail) {
+            Vector2 trailEnd = startPos + (direction.normalized * effectController.maxDistance);
+            effectController.CreateTrail(startPos, trailEnd, shootSound);
         }
         CameraController.instance.Shake(shakeIntensity);
     }

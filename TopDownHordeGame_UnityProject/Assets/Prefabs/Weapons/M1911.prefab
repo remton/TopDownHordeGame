@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8d8d952117d7a54cae64dd13e1b5acc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  infiniteReserve: 1
   isAutomatic: 0
   reloadTime: 0.9
   fireDeley: 0.6
@@ -54,7 +55,7 @@ MonoBehaviour:
   baseDamage: 1
   reloadAmount: 0
   magSize: 8
-  reserveSize: 96
+  reserveSize: 0
   reloadSound: {fileID: 8300000, guid: 38ab4dbe0b1f1f44eab3ea84e6818b41, type: 3}
   swapSound: {fileID: 8300000, guid: e53c5f6b8d30c5f4c9ef0c7d7f40ab90, type: 3}
   shootSound: {fileID: 8300000, guid: e7ef617406060cb4eb1040f9f9883b96, type: 3}

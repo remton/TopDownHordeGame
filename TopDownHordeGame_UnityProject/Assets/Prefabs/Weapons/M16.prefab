@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cedc796b9c51c504cbec023981f22b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  infiniteReserve: 0
   isAutomatic: 0
   reloadTime: 0.3
   fireDeley: 0.4

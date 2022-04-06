@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class BasicZombieAI : ZombieAI
 {
+    private Animator animator;
     private ZombieLunge zombieLunge;
     public float playerDistForLunge;
     [SerializeField] private float lungeCooldown;
@@ -13,8 +14,10 @@ public class BasicZombieAI : ZombieAI
 
     protected override void Awake() {
         base.Awake();
+        animator = GetComponent<Animator>();
         zombieLunge = GetComponent<ZombieLunge>();
         zombieLunge.EventLungeEnd += OnLungeEnd;
+        zombieLunge.EventPrelungeEnd += OnPrelungeEnd;
     }
 
     public override void SetValues(int newHealth, float newSpeed, int newDamage) {
@@ -28,7 +31,8 @@ public class BasicZombieAI : ZombieAI
         if (target!=null && !lungeOnCooldown && Vector2.Distance(target.transform.position, transform.position) <= playerDistForLunge) {
             StopPathing();
             Vector2 dir = target.transform.position - transform.position;
-            zombieLunge.Lunge(dir);
+            if(zombieLunge.StartPrelunge(dir))
+                animator.SetBool("isInPrelunge", true);
         }
         //Lunge cooldown management
         if (lungeOnCooldown) {
@@ -36,6 +40,9 @@ public class BasicZombieAI : ZombieAI
             if(timeUntilLungeCooldown <= 0)
                 lungeOnCooldown = false;
         }
+    }
+    public void OnPrelungeEnd() {
+        animator.SetBool("isInPrelunge", false);
     }
 
     public void OnLungeEnd() {

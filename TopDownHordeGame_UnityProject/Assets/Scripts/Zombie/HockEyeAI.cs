@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HockEyeAI : ZombieAI
 {
+    Animator animator;
     private HockEyeThrow hockEyeThrow;
     public float playerDistForThrow;
     private bool canMove = true;
@@ -13,6 +14,7 @@ public class HockEyeAI : ZombieAI
     protected override void Awake()
     {
         base.Awake();
+        animator = GetComponent<Animator>();
         hockEyeThrow = GetComponent<HockEyeThrow>();
     }
 
@@ -32,14 +34,18 @@ public class HockEyeAI : ZombieAI
         {
             StopPathing();
             Vector2 dir = target.transform.position - transform.position;
-            hockEyeThrow.Throw(dir);
-            timeToMove = timeCountdown;
-            canMove = false;
+            if (hockEyeThrow.Throw(dir)) {
+                animator.SetTrigger("throw");
+                animator.SetBool("isIdle", true);
+                timeToMove = timeCountdown;
+                canMove = false;
+            }
         }
         else if (!canMove && timeToMove > 0)
             timeToMove -= Time.deltaTime;
         else if (timeToMove <= 0)
         {
+            animator.SetBool("isIdle", false);
             canMove = true;
             StartPathing();
         }
