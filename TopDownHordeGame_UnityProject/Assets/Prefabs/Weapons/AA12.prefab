@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponName: AA12
-  baseDamage: 2
+  baseDamage: 1
   penatration: 1
   fireDeley: 0.2
   magSize: 14
@@ -63,6 +63,7 @@ MonoBehaviour:
   shootSound: {fileID: 8300000, guid: 5af9215d970b0694f89126f9e447dd50, type: 3}
   effectController: {fileID: 2769296667775464315, guid: 7d9940cc4635be54da99373e2c0dfb27, type: 3}
   shakeIntensity: 3
+  spriteControl: {fileID: 0}
   pelletCount: 12
   spreadAngle: 25
 --- !u!82 &4058102515737213373
