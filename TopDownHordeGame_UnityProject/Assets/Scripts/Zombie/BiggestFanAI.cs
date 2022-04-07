@@ -45,10 +45,10 @@ public class BiggestFanAI : ZombieAI
     private void Explode() {
         List<string> damageTags = new List<string>();
         damageTags.Add("Player");
-        damageTags.Add("Zombie");
+        damageTags.Add("ZombieDamageHitbox");
         List<string> knockbackTags = new List<string>();
-        knockbackTags.Add("Zombie");
         knockbackTags.Add("Player");
+        knockbackTags.Add("ZombieDamageHitbox");
 
         GameObject obj = Instantiate(explosionObj, transform.position, Quaternion.identity);
         obj.GetComponent<Explosion>().Init(gameObject, damageTags, knockbackTags, damage, knockbackStrength);
