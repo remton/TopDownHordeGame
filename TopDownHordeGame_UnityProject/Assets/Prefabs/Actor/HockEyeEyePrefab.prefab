@@ -136,6 +136,7 @@ MonoBehaviour:
   triggerTags:
   - Player
   - BulletCollision
+  - Wall
 --- !u!58 &3310816954732143919
 CircleCollider2D:
   m_ObjectHideFlags: 0

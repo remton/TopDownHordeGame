@@ -37,7 +37,7 @@ public class HockEyeThrow : MonoBehaviour
         }
         if (isWaitingToThrow || isThrowing)
             return false;
-        dir = d;
+        dir = d.normalized;
         Vector3 hockerPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         GameObject obj = Instantiate(eyePrefab, hockerPos, Quaternion.identity);
         obj.GetComponent<HockEyeEye>().Init(dir, damage, throwForce);

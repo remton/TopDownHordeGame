@@ -682,7 +682,7 @@ MonoBehaviour:
   givesMoney: 0
   target: {fileID: 0}
   timeBetweenTargetChecks: 0
-  playerDistForThrow: 3
+  playerDistForThrow: 5
   timeCountdown: 1
 --- !u!114 &-5401963966837659357
 MonoBehaviour:
@@ -698,7 +698,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeBetweenThrows: 2.7
   damage: 0
-  throwForce: 2.7
+  throwForce: 10
   eyePrefab: {fileID: 8087499198492442456, guid: 112a6939347ff754eac966a681930a17, type: 3}
 --- !u!95 &5205460181893472463
 Animator:
