@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    [SerializeField] protected bool infiniteReserve;// Does this weapon get infinite reserve
-    [SerializeField] protected bool isAutomatic;    // True if this weapon is automatic
-    [SerializeField] private float reloadTime;      // time in seconds that this weapon takes to reload
-    [SerializeField] protected float fireDeley;     // time between shots (handled in playerWeaponControl)
-    [SerializeField] private float swapTime;        // time to switch to this weapon (handled in playerWeaponControl)
-    [SerializeField] private float movePenalty;     // subtractive penalty to movespeed when equipped (handled in playerWeaponControl)
     [SerializeField] private string weaponName;     // Weapon name for display
+    [SerializeField] private int baseDamage;        // Used to reset damage for the magic that makes players intantly kill zombies
     [SerializeField] protected int penatration;     // number of zombies able to be hit by one bullet. (Should be at least 1)
-    [SerializeField] private float baseDamage;        // Used to reset damage for the magic that makes players intantly kill zombies
-    [SerializeField] protected int reloadAmount;    // amount of bullets to put in mag on reload (used in weapons like the RemTon870)
+    [SerializeField] protected float fireDeley;     // time between shots (handled in playerWeaponControl)
     [SerializeField] protected int magSize;         // size of this weapons magazine
     [SerializeField] protected int reserveSize;     // max ammo that can be held with this weapon
+    [SerializeField] private float reloadTime;      // time in seconds that this weapon takes to reload
+    [SerializeField] protected int reloadAmount;    // amount of bullets to put in mag on reload (used in weapons like the RemTon870)
+    [SerializeField] private float swapTime;        // time to switch to this weapon (handled in playerWeaponControl)
+    [SerializeField] private float movePenalty;     // subtractive penalty to movespeed when equipped (handled in playerWeaponControl)
+    [SerializeField] protected bool isAutomatic;    // True if this weapon is automatic
+    [SerializeField] protected bool infiniteReserve;// Does this weapon get infinite reserve
     [SerializeField] public AudioClip reloadSound;  //sound played on reload
     [SerializeField] public AudioClip swapSound;    //sound played when swapping to this weapon
     [SerializeField] public AudioClip shootSound;   //sound of gunshot
