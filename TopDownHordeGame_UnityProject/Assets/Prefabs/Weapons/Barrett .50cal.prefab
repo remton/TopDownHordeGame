@@ -63,6 +63,7 @@ MonoBehaviour:
   shootSound: {fileID: 8300000, guid: a238402409dcddb448f7a684c43427ef, type: 3}
   effectController: {fileID: 2769296667775464315, guid: 429618851dc338546ad8ba0c14d3528d, type: 3}
   shakeIntensity: 5
+  spriteControl: {fileID: 7321150282014981082}
   fireKnockback: 120
 --- !u!82 &-549045695109720335
 AudioSource:
