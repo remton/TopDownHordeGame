@@ -21,14 +21,14 @@ public class Weapon : MonoBehaviour
     [SerializeField] public AudioClip shootSound;   //sound of gunshot
     [SerializeField] protected FireEffectController effectController; //Controller for bullet trail and fire sound
     [SerializeField] protected float shakeIntensity; //Intensity of screen shake
-    public WeaponSpriteController spriteControl; //Controls the sprite for the weapon
+    [HideInInspector]public WeaponSpriteController spriteControl; //Controls the sprite for the weapon
 
     protected float damage;       // damage per bullet
     protected int inMag = 0;    // bullets in magazine
     protected int inReserve = 0;// bullets in reserve
 
     private void Awake() {
-        spriteControl = GetComponentInChildren<WeaponSpriteController>();
+        spriteControl = GetComponent<WeaponSpriteController>();
     }
 
     private void Start() {
