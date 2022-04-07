@@ -82,9 +82,9 @@ MonoBehaviour:
   fireDeley: 0.4
   magSize: 30
   reserveSize: 300
-  reloadTime: 0.3
+  reloadTime: 0.4
   reloadAmount: 0
-  swapTime: 0.2
+  swapTime: 1
   movePenalty: 1.1
   isAutomatic: 0
   infiniteReserve: 0
@@ -92,7 +92,8 @@ MonoBehaviour:
   swapSound: {fileID: 8300000, guid: e53c5f6b8d30c5f4c9ef0c7d7f40ab90, type: 3}
   shootSound: {fileID: 8300000, guid: c484a7bc68f7e054f901ea8447bc9bee, type: 3}
   effectController: {fileID: 2769296667775464315, guid: 429618851dc338546ad8ba0c14d3528d, type: 3}
-  shakeIntensity: 1.2
+  shakeIntensity: 1.1
+  spriteControl: {fileID: 2463911640964357872}
   spreadAngle: 4
   burstTime: 0.25
   burstCount: 3

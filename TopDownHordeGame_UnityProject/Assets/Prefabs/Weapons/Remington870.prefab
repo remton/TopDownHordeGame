@@ -63,6 +63,7 @@ MonoBehaviour:
   shootSound: {fileID: 8300000, guid: 86c63c303618beb49b6d7f80525459ed, type: 3}
   effectController: {fileID: 2769296667775464315, guid: 7d9940cc4635be54da99373e2c0dfb27, type: 3}
   shakeIntensity: 3
+  spriteControl: {fileID: 165125178573960015}
   pelletCount: 9
   spreadAngle: 20
 --- !u!82 &7853944436744635101
