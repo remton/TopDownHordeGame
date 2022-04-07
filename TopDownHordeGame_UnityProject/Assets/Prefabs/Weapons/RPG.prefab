@@ -44,14 +44,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4588a50c1645a074f986cc9525b47a91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  infiniteReserve: 0
   isAutomatic: 0
   reloadTime: 1.4
   fireDeley: 0
   swapTime: 2
-  movePenalty: 1.7
+  movePenalty: 0.7
   weaponName: RPG
   penatration: 1
-  baseDamage: 18
+  baseDamage: 0
   reloadAmount: 0
   magSize: 1
   reserveSize: 10

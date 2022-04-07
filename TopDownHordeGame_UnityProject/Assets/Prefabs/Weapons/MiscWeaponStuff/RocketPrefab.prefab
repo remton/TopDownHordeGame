@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerTags:
-  - Zombie
+  - ZombieDamageHitbox
   - BulletCollision
 --- !u!114 &-512873134856680351
 MonoBehaviour:

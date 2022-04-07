@@ -43,9 +43,9 @@ public class Rocket : MonoBehaviour
         explosionObj = Instantiate(explosionPrefab, location, Quaternion.identity);
 
         List<string> damageTags = new List<string>();
-        damageTags.Add("Zombie");
+        damageTags.Add("ZombieDamageHitbox");
         List<string> knockbackTags = new List<string>();
-        knockbackTags.Add("Zombie");
+        knockbackTags.Add("ZombieDamageHitbox");
         knockbackTags.Add("Player");
 
         explosionObj.GetComponent<Explosion>().Init(owner, damageTags, knockbackTags, balanceDamage, throwStrength);
