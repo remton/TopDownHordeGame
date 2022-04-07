@@ -5,7 +5,7 @@ using UnityEngine.Events;
 public class HockEyeThrow : MonoBehaviour
 {
     [SerializeField] private float timeBetweenThrows;
-    [SerializeField] private int damage;
+    [SerializeField] private float damage;
     [SerializeField] private float throwForce;
     [SerializeField] GameObject eyePrefab;
     private bool isThrowing = false;
@@ -24,7 +24,7 @@ public class HockEyeThrow : MonoBehaviour
     {
         player.GetComponent<PlayerHealth>().Damage(damage);
     }
-    public void SetDamage(int newDamage)
+    public void SetDamage(float newDamage)
     {
         damage = newDamage;
     }

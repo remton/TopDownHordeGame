@@ -15,7 +15,7 @@ public class Explosion : MonoBehaviour
     private string ownerTag;
     private List<string> damageTags;
     private List<string> knockbackTags;
-    private int damage;
+    private float damage;
     private float knockbackStrength;
 
     private void Awake() {
@@ -28,7 +28,7 @@ public class Explosion : MonoBehaviour
         timer.CreateTimer(aftershockTime, AftershockShake);
     }
 
-    public void Init(GameObject nOwner, List<string> nDamageTags, List<string> nKnockbackTags, int nDamage, float nKnockbackStrength) {
+    public void Init(GameObject nOwner, List<string> nDamageTags, List<string> nKnockbackTags, float nDamage, float nKnockbackStrength) {
         owner = nOwner;
         ownerTag = nOwner.tag;
         damageTags = nDamageTags;

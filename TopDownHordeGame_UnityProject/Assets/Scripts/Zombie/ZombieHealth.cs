@@ -15,19 +15,19 @@ public class ZombieHealth : MonoBehaviour
     [SerializeField] private AudioClip[] hurtsounds;
     private int chance;
     private bool killed = false;
-    public void SetMaxHealth(int newMax)
+    public void SetMaxHealth(float newMax)
     {
         maxHealth = newMax;
         health = maxHealth;
     }
-    public int GetMaxHealth() {
+    public float GetMaxHealth() {
         return maxHealth;
     }
 
-    private int maxHealth = 1;
-    private int health;
+    private float maxHealth = 1;
+    private float health;
 
-    //public delegate void OnHealthChange(int newHealth);
+    //public delegate void OnHealthChange(float newHealth);
     //public event OnHealthChange EventHealthChange;
 
     public float GetHealthRatio() {
@@ -42,7 +42,7 @@ public class ZombieHealth : MonoBehaviour
         health = maxHealth;
     }
 
-    public void Damage(int amount)
+    public void Damage(float amount)
     {
         if (killed)
             return;
@@ -56,7 +56,7 @@ public class ZombieHealth : MonoBehaviour
         //if (EventHealthChange != null) { EventHealthChange.Invoke(health); }
     }
 
-    public void Heal(int amount)
+    public void Heal(float amount)
     {
         health += amount;
         if (health > maxHealth)

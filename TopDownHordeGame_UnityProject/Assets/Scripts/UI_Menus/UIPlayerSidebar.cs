@@ -8,8 +8,9 @@ public class UIPlayerSidebar : MonoBehaviour
     public Text playerNameTxt;
 
     // {var} is replaced with the variables in each update method 
+    /*
     public Text healthTxt;
-    private static readonly string healthTxtDefault = "{health} / {max}";
+    private static readonly string healthTxtDefault = "{health} / {max}"; */
     public Text ammoTxt;
     private static readonly string ammoTxtDefault = "{mag} / {reserve}";
 
@@ -33,7 +34,7 @@ public class UIPlayerSidebar : MonoBehaviour
         player = newPlayer;
         ChangePlayerName(player.GetComponent<PlayerStats>().playerName);
         player.GetComponent<PlayerWeaponControl>().EventAmmoChanged += UpdateAmmoTxt;
-        player.GetComponent<PlayerHealth>().EventHealthChanged += UpdateHealthTxt;
+        //player.GetComponent<PlayerHealth>().EventHealthChanged += UpdateHealthTxt;
         player.GetComponent<PlayerStats>().EventBankChange += UpdateBankTxt;
         player.GetComponent<PlayerWeaponControl>().EventWeaponChanged += UpdateWeaponTxt;
         player.GetComponent<PlayerPerkHolder>().EventPerkChanged += UpdatePerkImages;
@@ -42,7 +43,7 @@ public class UIPlayerSidebar : MonoBehaviour
     public void DetachCurrentPlayer() {
         if(player != null) {
             player.GetComponent<PlayerWeaponControl>().EventAmmoChanged -= UpdateAmmoTxt;
-            player.GetComponent<PlayerHealth>().EventHealthChanged -= UpdateHealthTxt;
+            //player.GetComponent<PlayerHealth>().EventHealthChanged -= UpdateHealthTxt;
             player.GetComponent<PlayerStats>().EventBankChange -= UpdateBankTxt;
             player.GetComponent<PlayerWeaponControl>().EventWeaponChanged -= UpdateWeaponTxt;
             player.GetComponent<PlayerPerkHolder>().EventPerkChanged -= UpdatePerkImages;
@@ -87,13 +88,13 @@ public class UIPlayerSidebar : MonoBehaviour
         ammoTxt.resizeTextForBestFit = true;
     }
 
-    public void UpdateHealthTxt(int health, int max) {
+/*    public void UpdateHealthTxt(int health, int max) {
         string newTxt = healthTxtDefault;
         newTxt = newTxt.Replace("{health}", health.ToString());
         newTxt = newTxt.Replace("{max}", max.ToString());
         healthTxt.text = newTxt;
         healthTxt.resizeTextForBestFit = true;
-    }
+    } */
 
     public void UpdateWeaponTxt(string weaponName)
     {

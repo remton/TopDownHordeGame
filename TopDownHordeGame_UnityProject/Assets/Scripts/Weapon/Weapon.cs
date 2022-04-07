@@ -22,7 +22,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] protected FireEffectController effectController; //Controller for bullet trail and fire sound
     [SerializeField] protected float shakeIntensity; //Intensity of screen shake
 
-    protected int damage;       // damage per bullet
+    protected float damage;       // damage per bullet
     protected int inMag = 0;    // bullets in magazine
     protected int inReserve = 0;// bullets in reserve
 
@@ -44,9 +44,9 @@ public class Weapon : MonoBehaviour
         return inReserve; 
     }
     public void SetReloadTime(float newTime) { reloadTime = newTime; }
-    public int GetDamage() { return damage; }
+    public float GetDamage() { return damage; }
     public void ResetDamage() { damage = baseDamage;} 
-    public void SetKillDamage(int killDamage) { damage = killDamage; }
+    public void SetKillDamage(float killDamage) { damage = killDamage; }
     public float GetReloadTime() { return reloadTime; }
     public float GetFireDeley() { return fireDeley; }
     public float GetSwapTime() { return swapTime; }

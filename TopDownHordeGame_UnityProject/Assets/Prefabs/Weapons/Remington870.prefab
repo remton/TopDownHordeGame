@@ -64,7 +64,7 @@ MonoBehaviour:
   effectController: {fileID: 2769296667775464315, guid: 7d9940cc4635be54da99373e2c0dfb27, type: 3}
   shakeIntensity: 3
   pelletCount: 9
-  spreadAngle: 22
+  spreadAngle: 20
 --- !u!82 &7853944436744635101
 AudioSource:
   m_ObjectHideFlags: 0

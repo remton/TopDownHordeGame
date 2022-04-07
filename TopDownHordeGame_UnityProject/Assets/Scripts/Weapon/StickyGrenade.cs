@@ -6,7 +6,7 @@ public class StickyGrenade : MonoBehaviour
 {
     public GameObject explosionPrefab;
     private GameObject explosionObj;
-    private int balanceDamage;
+    private float balanceDamage;
     private float throwStrength;
     private float flySpeed;
     private Vector3 rotationTemp;
@@ -20,7 +20,7 @@ public class StickyGrenade : MonoBehaviour
 
     private GameObject owner;
 
-    public void Init(GameObject newOwner, Vector2 movementDir, int damage, float radius, float speed, float knockback, float explodeTime)
+    public void Init(GameObject newOwner, Vector2 movementDir, float damage, float radius, float speed, float knockback, float explodeTime)
     {
         owner = newOwner; 
         transform.position = newOwner.transform.position;

@@ -6,7 +6,7 @@ public class Rocket : MonoBehaviour
 {
     public GameObject explosionPrefab;
     private GameObject explosionObj;
-    private int balanceDamage;
+    private float balanceDamage;
     private float throwStrength;
     private float flySpeed;
     private Vector3 rotationTemp;
@@ -14,7 +14,7 @@ public class Rocket : MonoBehaviour
 
     private GameObject owner;
 
-    public void Init(GameObject newOwner, Vector2 movementDir, int damage, float speed, float knockback)
+    public void Init(GameObject newOwner, Vector2 movementDir, float damage, float speed, float knockback)
     {
         owner = newOwner; 
         transform.position = newOwner.transform.position;

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 public class HockEyeEye : MonoBehaviour
 {
-    private int balanceDamage;
+    private float balanceDamage;
     private float flySpeed;
     private Vector3 rotationTemp;
     private Vector2 moveDir;
     private GameObject owner;
-    public void Init(Vector2 movementDir, int damage, float speed)
+    public void Init(Vector2 movementDir, float damage, float speed)
     {
         rotationTemp.z += Random.Range(0, 360);
         transform.rotation = Quaternion.Euler(rotationTemp);

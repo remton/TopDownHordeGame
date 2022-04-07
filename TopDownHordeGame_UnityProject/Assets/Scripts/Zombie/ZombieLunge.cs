@@ -8,7 +8,7 @@ public class ZombieLunge : MonoBehaviour
     [SerializeField] private HitBoxController hitBox;
     [SerializeField] private float waitTime;
     [SerializeField] private float lungeTime;
-    [SerializeField] private int damage;
+    [SerializeField] private float damage;
     [SerializeField] private float lungeForce;
 
     private bool isLunging = false;
@@ -49,7 +49,7 @@ public class ZombieLunge : MonoBehaviour
         GameObject player = playerHitbox.GetComponent<DamageHitbox>().owner;
         player.GetComponent<PlayerHealth>().Damage(damage);
     }
-    public void SetDamage(int newDamage){
+    public void SetDamage(float newDamage){
         damage = newDamage;
     }
 

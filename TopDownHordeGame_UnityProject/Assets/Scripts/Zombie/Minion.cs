@@ -17,7 +17,7 @@ public class MinionZombieAI : ZombieAI
         zombieLunge.EventLungeEnd += OnLungeEnd;
     }
 
-    public override void SetValues(int newHealth, float newSpeed, int newDamage) {
+    public override void SetValues(float newHealth, float newSpeed, float newDamage) {
         base.SetValues(newHealth, newSpeed, newDamage);
         zombieLunge.SetDamage(newDamage);
     }
