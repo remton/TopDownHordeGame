@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4434337978146247457}
   - component: {fileID: 8586738530391387875}
   - component: {fileID: 3310816954732143919}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: HockEyeEyePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,7 +136,6 @@ MonoBehaviour:
   triggerTags:
   - Player
   - BulletCollision
-  - Wall
 --- !u!58 &3310816954732143919
 CircleCollider2D:
   m_ObjectHideFlags: 0

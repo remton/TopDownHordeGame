@@ -60,9 +60,9 @@ public class StickyGrenade : MonoBehaviour
         explosionObj = Instantiate(explosionPrefab, location, Quaternion.identity);
 
         List<string> damageTags = new List<string>();
-        damageTags.Add("Zombie");
+        damageTags.Add("ZombieDamageHitbox");
         List<string> knockbackTags = new List<string>();
-        knockbackTags.Add("Zombie");
+        knockbackTags.Add("ZombieDamageHitbox");
         knockbackTags.Add("Player");
 
         explosionObj.GetComponent<Explosion>().Init(owner, damageTags, knockbackTags, balanceDamage, throwStrength);
@@ -73,7 +73,7 @@ public class StickyGrenade : MonoBehaviour
     {
         flySpeed = 0;
         stuck = true;
-        if (!(objectHit.CompareTag("Player") || objectHit.CompareTag("Zombie"))) {
+        if (!(objectHit.CompareTag("Player") || objectHit.CompareTag("ZombieDamageHitbox"))) {
             stuckToScenery = true;
         }
         else
