@@ -5,7 +5,6 @@ using UnityEngine;
 public class Explosion : MonoBehaviour
 {
     private float aftershockTime = 0.075f;
-
     private Timer timer;
     public float timeActive;
     [SerializeField] private AudioClip explosionSound;
@@ -79,6 +78,9 @@ public class Explosion : MonoBehaviour
         }
     }
     public void KnockbackActor(GameObject actor) {
+        if (actor.HasComponent<DamageHitbox>()){
+            actor = actor.GetComponent<DamageHitbox>().owner;
+        }
         if (!actor.HasComponent<Rigidbody2D>())
             return;
         Vector2 throwDirection = actor.transform.position - transform.position;
