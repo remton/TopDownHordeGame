@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4019427121363547509}
-  - component: {fileID: 1835777980330009731}
+  - component: {fileID: 875538432231886400}
   m_Layer: 7
   m_Name: WalkCollision
   m_TagString: Untagged
@@ -31,8 +31,8 @@ Transform:
   m_Father: {fileID: 6956723953377203764}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &1835777980330009731
-BoxCollider2D:
+--- !u!70 &875538432231886400
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -44,19 +44,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.000000059604645, y: -0.24087492}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.32386005, y: 0.41682917}
-  m_EdgeRadius: 0
+  m_Offset: {x: -0.008694889, y: -0.23656808}
+  m_Size: {x: 0.2565773, y: 0.40513548}
+  m_Direction: 0
 --- !u!1 &1647346527310213874
 GameObject:
   m_ObjectHideFlags: 0
@@ -511,7 +501,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   spawn: {fileID: 6956723953377203767, guid: a2582f7dcacbddb47aaf213031c075ae, type: 3}
-  timeBetweenSpawns: 2.5
+  timeBetweenSpawns: 3.5
   timeBetweenTargetChecks: 0.1
 --- !u!114 &6956723953377203761
 MonoBehaviour:

@@ -108,7 +108,7 @@ public class ZathrakAI : MonoBehaviour
         //spawn special zombie
         GameObject zombieObj = Instantiate(spawn);
         zombieObj.transform.position = new Vector3(transform.position.x, transform.position.y, zombieObj.transform.position.z);
-        zombieObj.GetComponent<ZombieAI>().SetValues(Mathf.RoundToInt(zombieHealth.GetMaxHealth() * .3f), speed * Random.Range(1.1f, 1.2F), Mathf.Max(Mathf.RoundToInt(damage * .3F), 1));
+        zombieObj.GetComponent<ZombieAI>().SetValues(Mathf.RoundToInt(zombieHealth.GetMaxHealth() * .3f), speed * Random.Range(1.3f, 1.7F), Mathf.Max(Mathf.RoundToInt(damage * .3F), 1));
         return zombieObj;
     }
 }

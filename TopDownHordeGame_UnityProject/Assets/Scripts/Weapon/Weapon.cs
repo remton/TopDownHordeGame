@@ -5,7 +5,7 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     [SerializeField] private string weaponName;     // Weapon name for display
-    [SerializeField] private int baseDamage;        // Used to reset damage for the magic that makes players intantly kill zombies
+    [SerializeField] private float baseDamage;        // Used to reset damage for the magic that makes players intantly kill zombies
     [SerializeField] protected int penatration;     // number of zombies able to be hit by one bullet. (Should be at least 1)
     [SerializeField] protected float fireDeley;     // time between shots (handled in playerWeaponControl)
     [SerializeField] protected int magSize;         // size of this weapons magazine
