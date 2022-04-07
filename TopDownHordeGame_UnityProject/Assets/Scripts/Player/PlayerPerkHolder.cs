@@ -11,6 +11,7 @@ public class PlayerPerkHolder : MonoBehaviour
     public void AddPerk(GameObject perkPrefab) {
         perkPrefab.GetComponent<Perk>().OnPerkGained(this.gameObject);
         GameObject perkObj = Instantiate(perkPrefab, transform);
+        perkObj.transform.position = gameObject.transform.position;
         perks.Add(perkObj.GetComponent<Perk>());
         if (EventPerkChanged != null) { EventPerkChanged.Invoke(perks); }
     }

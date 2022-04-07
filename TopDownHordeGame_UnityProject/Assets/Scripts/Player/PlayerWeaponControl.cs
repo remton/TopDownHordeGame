@@ -64,6 +64,9 @@ public class PlayerWeaponControl : MonoBehaviour
         playerMovement.runSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
         playerMovement.walkSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
     }
+    private void Update() {
+        weapons[equippedIndex].spriteControl.UpdateDirection(playerMovement.GetCurrentLookDir());
+    }
 
     //Used to Change Weapon count for perks or whatever else in the future
     public void SetWeaponCount(int newCount) {
@@ -112,7 +115,9 @@ public class PlayerWeaponControl : MonoBehaviour
         Debug.Log("Swapped!");
         playerMovement.runSpeedMultipliers.Remove(weapons[equippedIndex].GetMoveMult());
         playerMovement.walkSpeedMultipliers.Remove(weapons[equippedIndex].GetMoveMult());
+        weapons[equippedIndex].spriteControl.DeactivateSprite();
         equippedIndex = NextWeaponIndex();
+        weapons[equippedIndex].spriteControl.ActivateSprite();
         playerMovement.runSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
         playerMovement.walkSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
         UpdateVisuals();
@@ -239,7 +244,7 @@ public class PlayerWeaponControl : MonoBehaviour
 
     public void UpdateVisuals() {
         if (EventAmmoChanged != null) EventAmmoChanged.Invoke(Mathf.RoundToInt(weapons[equippedIndex].GetInMag()), Mathf.RoundToInt(weapons[equippedIndex].GetInReserve()));
-        if (EventWeaponChanged != null) EventWeaponChanged.Invoke(weapons[equippedIndex].GetWeaponName()); 
+        if (EventWeaponChanged != null) EventWeaponChanged.Invoke(weapons[equippedIndex].GetWeaponName());
     }
 
     public void PickUpWeapon(GameObject weaponPrefab) {
@@ -253,12 +258,14 @@ public class PlayerWeaponControl : MonoBehaviour
             CancelShoot();
         Debug.Log("Picked up: " + weaponPrefab.name);
         GameObject weaponObj = Instantiate(weaponPrefab, transform);
-        weaponObj.transform.position = Vector3.zero;
+        weaponObj.transform.position = gameObject.transform.position;
         Weapon weapon = weaponObj.GetComponent<Weapon>();
         weapon.AddReserveAmmo(Mathf.RoundToInt(weapon.GetReserveSize() * reserveMult));
         if(maxWeapons > weapons.Count) {
             weapons.Add(weapon);
+            weapons[equippedIndex].spriteControl.DeactivateSprite();
             equippedIndex = weapons.Count - 1;
+            weapons[equippedIndex].spriteControl.ActivateSprite();
         }
         else {
             if (weapons[equippedIndex] != null) {
