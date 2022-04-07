@@ -16,11 +16,8 @@ public class Rocket : MonoBehaviour
 
     public void Init(GameObject newOwner, Vector2 movementDir, float damage, float speed, float knockback)
     {
-        owner = newOwner; 
+        owner = newOwner;
         transform.position = newOwner.transform.position;
-        rotationTemp = newOwner.transform.rotation.eulerAngles;
-        rotationTemp.z += 90;
-        transform.rotation = Quaternion.Euler(rotationTemp);
         moveDir = movementDir;
         balanceDamage = damage;
         throwStrength = knockback;

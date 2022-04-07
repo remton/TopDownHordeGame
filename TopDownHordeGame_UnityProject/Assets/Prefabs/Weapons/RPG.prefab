@@ -108,7 +108,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4695835037377020971}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.319, y: 0.314, z: 0}
+  m_LocalPosition: {x: 0.52, y: 0.52, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4059347306758133275}
@@ -177,9 +177,10 @@ MonoBehaviour:
   shootSound: {fileID: 8300000, guid: 4e532ac5050c1714c9e413ac522abca7, type: 3}
   effectController: {fileID: 2769296667775464315, guid: 7d9940cc4635be54da99373e2c0dfb27, type: 3}
   shakeIntensity: 1
+  spriteControl: {fileID: 0}
   fireKnockback: 180
   knockback: 600
-  flySpeed: 8
+  flySpeed: 30
   rocketObjPrefab: {fileID: 6396399298110489017, guid: 8cdeb959bda28654e8e2935ee6e478a3, type: 3}
   player: {fileID: 0}
 --- !u!82 &-4901118659480325546
