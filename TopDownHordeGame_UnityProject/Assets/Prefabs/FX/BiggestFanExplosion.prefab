@@ -119,7 +119,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerTags:
-  - 
+  - Player
+  - ZombieDamageHitbox
 --- !u!95 &3583398055574667255
 Animator:
   serializedVersion: 3

@@ -151,7 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggerTags:
   - Player
-  - Zombie
+  - ZombieDamageHitbox
 --- !u!58 &8714759531808602771
 CircleCollider2D:
   m_ObjectHideFlags: 0

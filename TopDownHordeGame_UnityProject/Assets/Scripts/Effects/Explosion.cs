@@ -61,15 +61,16 @@ public class Explosion : MonoBehaviour
         }
     }
 
-    public void DamageActor(GameObject actor) {
-        if(actor.tag == "Player") {
-            actor.GetComponent<PlayerHealth>().Damage(damage);
+    public void DamageActor(GameObject actorHitbox) {
+        if(actorHitbox.tag == "Player") {
+            actorHitbox.GetComponent<PlayerHealth>().Damage(damage);
         }
-        if(actor.tag == "Zombie") {
-            actor.GetComponent<ZombieHealth>().Damage(damage);
+        if(actorHitbox.tag == "ZombieDamageHitbox") {
+            GameObject zombie = actorHitbox.GetComponent<DamageHitbox>().owner;
+            zombie.GetComponent<ZombieHealth>().Damage(damage);
             if(ownerTag == "Player") {
                 owner.GetComponent<PlayerStats>().PayForHit(); // Give the player money for the explosion hitting someone 
-                if (actor.GetComponent<ZombieHealth>().isDead())
+                if (zombie.GetComponent<ZombieHealth>().isDead())
                     owner.GetComponent<PlayerStats>().AddKill();
             }
         }
