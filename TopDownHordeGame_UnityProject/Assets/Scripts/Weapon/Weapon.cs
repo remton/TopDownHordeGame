@@ -21,12 +21,16 @@ public class Weapon : MonoBehaviour
     [SerializeField] public AudioClip shootSound;   //sound of gunshot
     [SerializeField] protected FireEffectController effectController; //Controller for bullet trail and fire sound
     [SerializeField] protected float shakeIntensity; //Intensity of screen shake
+    public WeaponSpriteController spriteControl; //Controls the sprite for the weapon
 
     protected float damage;       // damage per bullet
     protected int inMag = 0;    // bullets in magazine
     protected int inReserve = 0;// bullets in reserve
 
-    
+    private void Awake() {
+        spriteControl = GetComponentInChildren<WeaponSpriteController>();
+    }
+
     private void Start() {
         damage = baseDamage;
         if (infiniteReserve)
@@ -124,8 +128,8 @@ public class Weapon : MonoBehaviour
         RaycastHit2D[] hitInfos = Physics2D.RaycastAll(player.transform.position, direction, Mathf.Infinity, LayerMask.GetMask(mask));
         
         int hitZombies = 0; //Used to count how many zombies we collided with and not hit more than weapon's penetration
-        
-        Vector2 startPos = new Vector3(player.transform.position.x, player.transform.position.y, 0);
+
+        Vector2 startPos = spriteControl.BarrelEndPosition();
         if(hitInfos.Length == 0) {
             Vector2 trailEnd = startPos + (direction.normalized * effectController.maxDistance);
             effectController.CreateTrail(startPos, trailEnd, shootSound);
