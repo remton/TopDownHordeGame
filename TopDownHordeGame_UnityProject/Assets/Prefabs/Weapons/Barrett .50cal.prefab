@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2855130827376799539}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -28.97052, y: 0.17293593, z: 0.16694069}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1132704092893723159}
@@ -46,16 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d22b13991ff904e4692a56755bbe8dd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  infiniteReserve: 0
-  isAutomatic: 0
-  reloadTime: 2.5
-  fireDeley: 0.75
-  swapTime: 1
-  movePenalty: 0.8
   weaponName: .50 Cal
-  penatration: 5
   baseDamage: 24
-  reloadAmount: 0
+  penatration: 5
+  fireDeley: 0.75
   magSize: 5
   reserveSize: 35
   reloadTime: 2.2
