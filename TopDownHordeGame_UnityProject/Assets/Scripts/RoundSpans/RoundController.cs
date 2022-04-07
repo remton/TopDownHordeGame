@@ -30,8 +30,8 @@ public class RoundController : MonoBehaviour
     int zombiesToSpawn;
     public int maxActiveZombies;
     float speed;
-    int health;
-    int damage;
+    float health;
+    float damage;
 
     private int zombieI;
     public List<RandomChoice> zombieList;
@@ -151,7 +151,7 @@ public class RoundController : MonoBehaviour
             calcRound = 10;
         return 1.3f + 3f / 10f * calcRound + Random.Range(-.04F * calcRound, .08F * calcRound); // Gives zombies a random speed
     }
-    private int GetHealth() {
+    private float GetHealth() {
         //0.10(0.7round+0.8)^2 + 4 until round 6
         //round+1 after round 6
         if(round < 6 )
@@ -160,8 +160,8 @@ public class RoundController : MonoBehaviour
             return round + 1;
         }
     }
-    private int GetDamage() {
-        return Mathf.FloorToInt(Mathf.Sqrt(2f * round) * .75f);
+    private float GetDamage() {
+        return Mathf.Sqrt(2f * round) * .75f - .5f;
     }
 
     public void ActivateSpawns(List<ZombieSpawn> spawns) {

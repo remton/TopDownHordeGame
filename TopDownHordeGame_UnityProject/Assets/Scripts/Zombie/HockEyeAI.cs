@@ -18,7 +18,7 @@ public class HockEyeAI : ZombieAI
         hockEyeThrow = GetComponent<HockEyeThrow>();
     }
 
-    public override void SetValues(int newHealth, float newSpeed, int newDamage)
+    public override void SetValues(float newHealth, float newSpeed, float newDamage)
     {
         base.SetValues(Mathf.CeilToInt(newHealth / 2.0f), newSpeed * 1.5f, Mathf.CeilToInt(newDamage * 0.8f));
         hockEyeThrow.SetDamage(damage);

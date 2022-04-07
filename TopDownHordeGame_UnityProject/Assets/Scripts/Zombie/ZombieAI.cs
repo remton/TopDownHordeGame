@@ -12,7 +12,7 @@ public class ZombieAI : MonoBehaviour
     //public bool givesMoney; 
     
     protected float speed = 1;
-    protected int damage = 1;
+    protected float damage = 1;
 
     [SerializeField] private float timeBetweenTargetChecks;
     private float timeUntilCheckTarget;
@@ -35,7 +35,7 @@ public class ZombieAI : MonoBehaviour
         }
     }
 
-    public virtual void SetValues(int newHealth, float newSpeed, int newDamage) {
+    public virtual void SetValues(float newHealth, float newSpeed, float newDamage) {
         zombieHealth.SetMaxHealth(newHealth);
         speed = newSpeed;
         damage = newDamage;

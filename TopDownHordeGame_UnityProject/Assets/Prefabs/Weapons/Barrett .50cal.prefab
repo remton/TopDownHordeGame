@@ -44,14 +44,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d22b13991ff904e4692a56755bbe8dd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  infiniteReserve: 0
   isAutomatic: 0
   reloadTime: 2.5
   fireDeley: 0.75
   swapTime: 1
   movePenalty: 0.8
   weaponName: .50 Cal
-  penatration: 25
-  baseDamage: 35
+  penatration: 5
+  baseDamage: 24
   reloadAmount: 0
   magSize: 5
   reserveSize: 35

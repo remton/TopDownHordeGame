@@ -58,13 +58,13 @@ public class PlayerHealth : MonoBehaviour {
         }
     }
 
-    [SerializeField] private int maxHealth;
+    [SerializeField] private float maxHealth;
     public float bleedOutTime;
-    private int health;
+    private float health;
     private float timeUntilDeath;
     private bool isBleedingOut;
     private bool isDead = false;
-    private int regenAmount = 1;
+    private float regenAmount = 1;
     private float regenHitDelay = 10; 
     private float regenInterval = 4;
     private float timeSinceHit;
@@ -76,7 +76,7 @@ public class PlayerHealth : MonoBehaviour {
     public bool GetIsDead() { return isDead; }
     public bool GetIsBleedingOut() { return isBleedingOut; }
 
-    public delegate void HealthChanged(int health, int max);
+    public delegate void HealthChanged(float health, float max);
     public event HealthChanged EventHealthChanged;
     //if(EventHealthChanged != null){EventHealthChanged.Invoke(health, maxHealth); }
 
@@ -95,15 +95,15 @@ public class PlayerHealth : MonoBehaviour {
         }
         RegenUpdate();
     }
-    public int GetMaxHealth() { return maxHealth; }
+    public float GetMaxHealth() { return maxHealth; }
     public void ChangeMaxHealth(float balance){
         maxHealth = Mathf.RoundToInt(balance * maxHealth);
         if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
     }
 
     //Heals by healAmount up to maxHealth
-    public void Heal(int healAmount) {
-        int newHealth = health + healAmount;
+    public void Heal(float healAmount) {
+        float newHealth = health + healAmount;
         if (newHealth > maxHealth)
             newHealth = maxHealth;
         health = newHealth;
@@ -134,15 +134,14 @@ public class PlayerHealth : MonoBehaviour {
         regenInterval *= balance;
     }
 
-    public void Damage(int damageAmount) {
+    public void Damage(float damageAmount) {
         if (inIFrames || isBleedingOut || isDead)
             return;
         StartIFrames();
 
-        int newHealth = health - damageAmount;
-        if (newHealth < 1) {
+        float newHealth = health - damageAmount;
+        if (newHealth <= 0) {
             GoDown();
-            newHealth = 0;
         }
         health = newHealth;
 
@@ -151,7 +150,8 @@ public class PlayerHealth : MonoBehaviour {
         obj.transform.position = transform.position;
 
         // timeSinceHit resets health regeneration in RegenUpdate function
-        if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); timeSinceHit = 0; } 
+        if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth);}
+        timeSinceHit = 0; 
         chance = UnityEngine.Random.Range(0,hurtsounds.Length);
         SoundPlayer.Play(hurtsounds[chance], transform.position, volume * 1);
     }

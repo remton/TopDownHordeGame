@@ -12,7 +12,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private float movePenalty;     // subtractive penalty to movespeed when equipped (handled in playerWeaponControl)
     [SerializeField] private string weaponName;     // Weapon name for display
     [SerializeField] protected int penatration;     // number of zombies able to be hit by one bullet. (Should be at least 1)
-    [SerializeField] private int baseDamage;        // Used to reset damage for the magic that makes players intantly kill zombies
+    [SerializeField] private float baseDamage;        // Used to reset damage for the magic that makes players intantly kill zombies
     [SerializeField] protected int reloadAmount;    // amount of bullets to put in mag on reload (used in weapons like the RemTon870)
     [SerializeField] protected int magSize;         // size of this weapons magazine
     [SerializeField] protected int reserveSize;     // max ammo that can be held with this weapon
@@ -22,7 +22,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] protected FireEffectController effectController; //Controller for bullet trail and fire sound
     [SerializeField] protected float shakeIntensity; //Intensity of screen shake
 
-    protected int damage;       // damage per bullet
+    protected float damage;       // damage per bullet
     protected int inMag = 0;    // bullets in magazine
     protected int inReserve = 0;// bullets in reserve
 
@@ -44,9 +44,9 @@ public class Weapon : MonoBehaviour
         return inReserve; 
     }
     public void SetReloadTime(float newTime) { reloadTime = newTime; }
-    public int GetDamage() { return damage; }
+    public float GetDamage() { return damage; }
     public void ResetDamage() { damage = baseDamage;} 
-    public void SetKillDamage(int killDamage) { damage = killDamage; }
+    public void SetKillDamage(float killDamage) { damage = killDamage; }
     public float GetReloadTime() { return reloadTime; }
     public float GetFireDeley() { return fireDeley; }
     public float GetSwapTime() { return swapTime; }
