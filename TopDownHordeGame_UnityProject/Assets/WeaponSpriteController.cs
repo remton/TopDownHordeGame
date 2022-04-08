@@ -7,16 +7,15 @@ public class WeaponSpriteController : MonoBehaviour
     [SerializeField] private GameObject barralEndObj;
     [SerializeField] private GameObject spriteObj;
     public void UpdateDirection(Vector2 dir) {
+        Debug.DrawLine(BarrelEndPosition(), BarrelEndPosition() + new Vector3(dir.x, dir.y, transform.position.z).normalized * 100, Color.red, 0, false);
         if (dir.x < 0)
             dir.y *= -1;
         Vector2 lookAtDir = new Vector3(Mathf.Abs(dir.x), dir.y, transform.position.z);
         gameObject.transform.right = lookAtDir;
     }
-
     public Vector3 BarrelEndPosition() {
         return barralEndObj.transform.position;
     }
-
     public void ActivateSprite() {
         spriteObj.SetActive(true);
     }
