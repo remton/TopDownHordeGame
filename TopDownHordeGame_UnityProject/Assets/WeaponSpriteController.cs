@@ -24,13 +24,20 @@ public class WeaponSpriteController : MonoBehaviour
         spriteObj.SetActive(true);
         AttachLaserSight();
     }
+    public void SetLaser(bool power) {
+        if (myLaser == null)
+            AttachLaserSight();
+        if(power)
+            myLaser.GetComponent<LaserSight>().TurnOn();
+        else
+            myLaser.GetComponent<LaserSight>().TurnOff();
+    }
+
     public void DeactivateSprite() {
+        RemoveLaserSight();
         spriteObj.SetActive(false);
     }
     public void AttachLaserSight() {
-        if(myLaser != null) {
-            Destroy(myLaser);
-        }
         myLaser = Instantiate(laserSightPrefab, barralEndObj.transform);
         myLaser.transform.position = BarrelEndPosition();
     }
