@@ -20,7 +20,7 @@ public class BiggestFanAI : ZombieAI
     }
 
     public override void SetValues(float newHealth, float newSpeed, float newDamage) {
-        base.SetValues(Mathf.CeilToInt(newHealth/2.0f), newSpeed * 1.2f, newDamage);
+        base.SetValues(Mathf.CeilToInt(newHealth*3.0f), newSpeed * .9f, newDamage * 2);
     }
 
     protected override void Update() {

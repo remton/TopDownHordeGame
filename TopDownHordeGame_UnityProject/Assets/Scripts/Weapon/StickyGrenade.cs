@@ -80,6 +80,7 @@ public class StickyGrenade : MonoBehaviour
         {
             stuckOn = objectHit;
         }
+        gameObject.GetComponent<HitBoxController>().EventObjEnter -= Stick;
     }
 
     [SerializeField] private Rigidbody2D rb;
