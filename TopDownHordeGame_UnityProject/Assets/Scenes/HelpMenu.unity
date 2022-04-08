@@ -941,7 +941,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Recovery
 
-    Helps you recover faster after being hurt'
+    Recover health and stamina faster'
 --- !u!222 &180023429
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9338,7 +9338,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1964749291
 RectTransform:
   m_ObjectHideFlags: 0

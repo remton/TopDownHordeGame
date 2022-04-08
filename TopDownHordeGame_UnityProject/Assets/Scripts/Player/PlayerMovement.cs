@@ -302,5 +302,9 @@ public class PlayerMovement : MonoBehaviour {
         Vector2 dir = mousePos - myPos;
         RotateTowards(dir);
     }
+    public void ChangeRegenValues(float balanceMult) {
+        staminaRegenRateStanding = staminaRegenRateStanding * balanceMult;
+        staminaRegenRateWalking = staminaRegenRateWalking * balanceMult;
+    }
 }
 
