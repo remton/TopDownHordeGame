@@ -3,7 +3,10 @@ guid: 9f1c28a8ebc941f42bc0bbd9b83f0d72
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - laserSightPrefab: {fileID: 8700526546067339596, guid: 719f14220d5a57a47bffb39184ebba60, type: 3}
+  - barralEndObj: {instanceID: 0}
+  - spriteObj: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -55,9 +55,10 @@ public class PlayerWeaponControl : MonoBehaviour
         timer = GetComponent<Timer>();
     }
     private void Start() {
-        foreach (Weapon weapon in weapons) {
-            weapon.AddReserveAmmo(Mathf.RoundToInt(weapon.GetReserveSize() * reserveMult));
-            weapon.Reload();
+        for (int i = 0; i < weapons.Count; i++) {
+            weapons[i].AddReserveAmmo(Mathf.RoundToInt(weapons[i].GetReserveSize() * reserveMult));
+            weapons[i].Reload();
+            weapons[equippedIndex].spriteControl.ActivateSprite();
         }
         EventAmmoChanged.Invoke(Mathf.RoundToInt(weapons[equippedIndex].GetInMag()), weapons[equippedIndex].GetInReserve());
         EventWeaponChanged.Invoke(weapons[equippedIndex].GetWeaponName());
@@ -272,6 +273,7 @@ public class PlayerWeaponControl : MonoBehaviour
                 Destroy(weapons[equippedIndex].gameObject);
             }
             weapons[equippedIndex] = weapon;
+            weapons[equippedIndex].spriteControl.ActivateSprite();
         }
         UpdateVisuals();
         playerMovement.runSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
