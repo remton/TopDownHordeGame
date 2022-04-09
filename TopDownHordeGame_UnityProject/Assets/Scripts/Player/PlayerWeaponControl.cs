@@ -12,7 +12,7 @@ public class PlayerWeaponControl : MonoBehaviour
 {
     public bool isDisabled = false;
 
-    private bool laserSightEnabled;
+    public bool laserSightEnabled;
 
     private PlayerMovement playerMovement;
     private Timer timer;

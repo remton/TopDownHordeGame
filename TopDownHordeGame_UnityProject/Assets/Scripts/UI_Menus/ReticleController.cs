@@ -56,7 +56,7 @@ public class ReticleController : MonoBehaviour
 
     void OnPlayersChanged(List<GameObject> newPlayers) {
         Destroy(mouseReticle);
-//        Debug.Log("Reticle OnPlayersChanged was called.");
+        // Debug.Log("Reticle OnPlayersChanged was called.");
         mouseReticle = null;
         playerWithMouse = null;
         foreach (GameObject reticle in gamepadReticles) {
@@ -83,11 +83,11 @@ public class ReticleController : MonoBehaviour
         }
     }
 
-    
 
     private void Update() {
         int i = 0;
         foreach (GameObject player in gamepadPlayers) {
+            gamepadReticles[i].SetActive(!player.GetComponent<PlayerWeaponControl>().laserSightEnabled);
             Vector3 newReticlePosInWorld = player.GetComponent<PlayerMovement>().GetCurrentLookDir().normalized * radius;
             newReticlePosInWorld += player.transform.position;
             gamepadReticles[i].transform.position = newReticlePosInWorld;
@@ -102,5 +102,4 @@ public class ReticleController : MonoBehaviour
         }
     }
 
- 
 }
