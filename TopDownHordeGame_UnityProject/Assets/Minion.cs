@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Minion : BasicZombieAI
 {
-    public GameObject owner;
+    [HideInInspector] public GameObject owner;
     private bool setEvent = false;
 
     protected override void Start() {
