@@ -730,7 +730,7 @@ MonoBehaviour:
     m_ActionId: dbf71417-2a81-4264-8eb2-f312728d8def
     m_ActionName: Player/ToggleLaser[/Keyboard/f,/Keyboard/leftShift]
   m_NeverAutoSwitchControlSchemes: 1
-  m_DefaultControlScheme: Eric keyboard
+  m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -822,6 +822,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDisabled: 0
+  laserSightEnabled: 0
   reloadSpeedMult: 1
   fireDelayMult: 1
   magMult: 1
@@ -858,8 +859,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: NULL
-  payPerHit: 2
-  payPerKill: 50
   bank: 0
 --- !u!114 &5840632062943679827
 MonoBehaviour:
