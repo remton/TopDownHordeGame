@@ -68,13 +68,13 @@ public class Explosion : MonoBehaviour
             GameObject zombie = actorHitbox.GetComponent<DamageHitbox>().owner;
             zombie.GetComponent<ZombieHealth>().Damage(damage);
             if(ownerTag == "Player") {
-                owner.GetComponent<PlayerStats>().PayForHit(); // Give the player money for the explosion hitting someone 
-                if (zombie.GetComponent<ZombieHealth>().isDead())
+                //Update player stats
+                owner.GetComponent<PlayerStats>().AddMoney(zombie.GetComponent<ZombieAI>().payForHit);
+                if (zombie.GetComponent<ZombieHealth>().isDead()) {
+                    owner.GetComponent<PlayerStats>().AddMoney(zombie.GetComponent<ZombieAI>().payForKill);
                     owner.GetComponent<PlayerStats>().AddKill();
+                }
             }
-        }
-        else {
-            return;
         }
     }
     public void KnockbackActor(GameObject actor) {

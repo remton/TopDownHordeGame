@@ -669,7 +669,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b30dd84ef56cc5e4ba0daa9d2873459e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  givesMoney: 0
+  payForHit: 2
+  payForKill: 50
+  spwanFramesInSeconds: 0.5
   target: {fileID: 0}
   timeBetweenTargetChecks: 0
   playerDistForThrow: 5

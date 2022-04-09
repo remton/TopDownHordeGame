@@ -12,6 +12,9 @@ public class ZombiePathfind : MonoBehaviour {
     public delegate void OnLoseNavMesh();
     public event OnLoseNavMesh EventLostNavMesh;
 
+    public bool IsActive() {
+        return agent.enabled;
+    }
     public void SetActive(bool b) {
         agent.enabled = b;
         UpdatePath();

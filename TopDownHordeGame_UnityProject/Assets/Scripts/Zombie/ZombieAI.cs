@@ -2,14 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Timer))]
 public class ZombieAI : MonoBehaviour
 {
-    public bool givesMoney;
+    public int payForHit;
+    public int payForKill;
+
+    public float spwanFramesInSeconds;
+    private bool isInSpawnFrames = true;
+    private bool wasPathingBeforeFreeze;
+    private bool isFrozen;
 
     public GameObject target;
     private ZombiePathfind zombiePath;
     protected ZombieHealth zombieHealth;
-    //public bool givesMoney; 
+    protected Timer timer;
     
     protected float speed = 1;
     protected float damage = 1;
@@ -52,7 +59,7 @@ public class ZombieAI : MonoBehaviour
     }
 
     //Sets the target to the closeset player
-    private void FindTarget(List<GameObject> players) {
+    protected void FindTarget(List<GameObject> players) {
         if (players.Count <= 0)
             return;
         GameObject closest = players[0];
@@ -79,19 +86,36 @@ public class ZombieAI : MonoBehaviour
     protected virtual void Awake() {
         zombiePath = GetComponent<ZombiePathfind>();
         zombieHealth = GetComponent<ZombieHealth>();
+        timer = GetComponent<Timer>();
         timeUntilCheckTarget = timeBetweenTargetChecks;
     }
 
     protected virtual void Start() {
-        zombiePath.Activate(2 * Time.deltaTime);
+        timer.CreateTimer(spwanFramesInSeconds, StartAI);
+        isInSpawnFrames = true;
         PlayerManager.instance.EventActivePlayersChange += FindTarget;
         PauseManager.instance.EventPauseStateChange += OnPauseStateChange;
         zombiePath.EventLostNavMesh += OnBecomeLost;
+    }
+    protected void StartAI() {
+        isInSpawnFrames = false;
         FindTarget(PlayerManager.instance.GetActivePlayers());
+        zombiePath.Activate(2 * Time.deltaTime);
+    }
+
+    public void Freeze(float time) {
+        wasPathingBeforeFreeze = zombiePath.IsActive();
+        zombiePath.SetActive(false);
+        isFrozen = true;
+        timer.CreateTimer(time, EndFreeze);
+    }
+    private void EndFreeze() {
+        zombiePath.SetActive(wasPathingBeforeFreeze);
+        isFrozen = false;
     }
 
     protected virtual void Update() {
-        if (isGamePaused)
+        if (isGamePaused || isInSpawnFrames || isFrozen)
             return;
 
         //Handle updating sprite direction
@@ -108,7 +132,7 @@ public class ZombieAI : MonoBehaviour
         timeUntilCheckTarget -= Time.deltaTime;
     }
 
-    private void OnDestroy() {
+    protected virtual void OnDestroy() {
         zombiePath.EventLostNavMesh -= OnBecomeLost;
         PlayerManager.instance.EventActivePlayersChange -= FindTarget;
         PauseManager.instance.EventPauseStateChange -= OnPauseStateChange;

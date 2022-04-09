@@ -534,6 +534,7 @@ GameObject:
   - component: {fileID: 915062198132948704}
   - component: {fileID: 7290016252366155134}
   - component: {fileID: 6960533144537042957}
+  - component: {fileID: -380756305375863602}
   m_Layer: 7
   m_Name: Minion
   m_TagString: Zombie
@@ -644,7 +645,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3837f33a8845f0844b33dafa38e88121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  givesMoney: 0
+  payForHit: 0
+  payForKill: 0
+  spwanFramesInSeconds: 0
   target: {fileID: 0}
   timeBetweenTargetChecks: 0.1
   playerDistForLunge: 1.7
@@ -764,6 +767,26 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-380756305375863602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6956723953377203767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06ca1f4ebaf64f7488a1eb6457634f41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  payForHit: 0
+  payForKill: 0
+  spwanFramesInSeconds: 0
+  target: {fileID: 0}
+  timeBetweenTargetChecks: 0
+  playerDistForLunge: 0
+  lungeCooldown: 0
+  owner: {fileID: 0}
 --- !u!1 &7510183044028830196
 GameObject:
   m_ObjectHideFlags: 0

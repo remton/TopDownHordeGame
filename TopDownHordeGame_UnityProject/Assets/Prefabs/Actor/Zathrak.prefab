@@ -364,7 +364,6 @@ GameObject:
   - component: {fileID: 6956723953377203764}
   - component: {fileID: 6956723953377203765}
   - component: {fileID: 6956723953377203762}
-  - component: {fileID: 6956723953377203766}
   - component: {fileID: 3657449998167326291}
   - component: {fileID: 6956723953377203761}
   - component: {fileID: -2455652057355692573}
@@ -470,23 +469,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &6956723953377203766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6956723953377203767}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3837f33a8845f0844b33dafa38e88121, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  givesMoney: 0
-  target: {fileID: 0}
-  timeBetweenTargetChecks: 0.1
-  playerDistForLunge: 1.7
-  lungeCooldown: 2
 --- !u!114 &3657449998167326291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -499,10 +481,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d897b83a5f82cbb4b9e7f322a673d8f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  payForHit: 2
+  payForKill: 110
+  spwanFramesInSeconds: 0.75
   target: {fileID: 0}
-  spawn: {fileID: 6956723953377203767, guid: a2582f7dcacbddb47aaf213031c075ae, type: 3}
-  timeBetweenSpawns: 3.5
   timeBetweenTargetChecks: 0.1
+  spawn: {fileID: 6956723953377203767, guid: a2582f7dcacbddb47aaf213031c075ae, type: 3}
+  playerDistForLunge: 1.7
+  freezeTime: 0.1
+  lungeCooldown: 2
+  timeBetweenSpawns: 4
 --- !u!114 &6956723953377203761
 MonoBehaviour:
   m_ObjectHideFlags: 0

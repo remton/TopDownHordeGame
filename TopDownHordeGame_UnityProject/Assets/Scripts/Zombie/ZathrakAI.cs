@@ -2,113 +2,76 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//NOTE: THIS IS MEANT TO BE USED ALONGSIDE BASIC ZOMBIE AI
-public class ZathrakAI : MonoBehaviour
+
+[RequireComponent(typeof(ZombieLunge))]
+public class ZathrakAI : ZombieAI
 {
     private Animator animator;
-    public GameObject target;
-    private ZombiePathfind zombiePath;
-    protected ZombieHealth zombieHealth;
+    private ZombieLunge zombieLunge;
+
     [SerializeField] private GameObject spawn; 
-    protected float speed = 1;
-    protected int damage = 1;
     private float timeUntilSpawn;
-    [SerializeField] private float timeBetweenSpawns;
+    public float playerDistForLunge;
 
-    [SerializeField] private float timeBetweenTargetChecks;
-    private float timeUntilCheckTarget;
-    private bool isPathing = true;
+    [SerializeField] private float freezeTime;
+    [SerializeField] private float lungeCooldown;
+    private bool lungeOnCooldown;
+    private float timeUntilLungeCooldown;
+    [SerializeField] private float timeBetweenSpawns; 
+    
 
-    protected bool isGamePaused;
-    protected bool wasPathingBeforePause = false;
-    protected virtual void OnPauseStateChange(bool isPaused) {
-        if (isPaused) {
-            isGamePaused = true;
-            wasPathingBeforePause = isPathing;
-            StopPathing();
-        }
-        else {
-            isGamePaused = false;
-            FindTarget(PlayerManager.instance.GetActivePlayers());
-            if (wasPathingBeforePause)
-                StartPathing();
-        }
-    }
-
-    public virtual void SetValues(int newHealth, float newSpeed, int newDamage) {
+    public override void SetValues(float newHealth, float newSpeed, float newDamage) {
         zombieHealth.SetMaxHealth(newHealth);
         speed = newSpeed;
         damage = newDamage;
     }
 
-    //Sets the target to the closeset player
-    private void FindTarget(List<GameObject> players) {
-        if (players.Count <= 0)
-            return;
-        GameObject closest = players[0];
-        float closestDist = Vector2.Distance(players[0].transform.position, transform.position);
-        for (int i = 0; i < players.Count; i++) {
-            if (Vector2.Distance(players[i].transform.position, transform.position) < closestDist) {
-                closest = players[i];
-                closestDist = Vector2.Distance(players[i].transform.position, transform.position);
-            }
-        }
-        target = closest;
-        zombiePath.target = closest;
-    }
-
-    protected void StartPathing() {
-        isPathing = true;
-        zombiePath.SetActive(true);
-    }
-    protected void StopPathing() {
-        isPathing = false;
-        zombiePath.SetActive(false);
-    }
-
-    protected virtual void Awake() {
+    protected override void Awake() {
+        base.Awake();
+        zombieLunge = GetComponent<ZombieLunge>();
+        zombieLunge.EventPrelungeEnd += OnPrelungeEnd;
+        zombieLunge.EventLungeEnd += OnLungeEnd;
         animator = GetComponent<Animator>();
-        zombiePath = GetComponent<ZombiePathfind>();
-        zombieHealth = GetComponent<ZombieHealth>();
-        timeUntilCheckTarget = timeBetweenTargetChecks;
         timeUntilSpawn = timeBetweenSpawns;
     }
 
-    protected virtual void Start() {
-        zombiePath.Activate(2 * Time.deltaTime);
-        PlayerManager.instance.EventActivePlayersChange += FindTarget;
-        PauseManager.instance.EventPauseStateChange += OnPauseStateChange;
-        FindTarget(PlayerManager.instance.GetActivePlayers());
-    }
-
-    protected virtual void Update() {
-        if (isGamePaused)
-            return;
-
-        //Update target coundown
-        if (timeUntilCheckTarget <= 0) {
-            timeUntilCheckTarget = timeBetweenTargetChecks;
-            FindTarget(PlayerManager.instance.GetActivePlayers());
+    protected override void Update() {
+        base.Update();
+        //zombie lunges
+        if (target != null && !lungeOnCooldown && Vector2.Distance(target.transform.position, transform.position) <= playerDistForLunge) {
+            StopPathing();
+            Vector2 dir = target.transform.position - transform.position;
+            if (zombieLunge.StartPrelunge(dir))
+                animator.SetBool("isInPrelunge", true);
         }
         //Minion summoning
         if (timeUntilSpawn <= 0) {
             timeUntilSpawn = timeBetweenSpawns;
             CreateMinion();
         }
-        timeUntilCheckTarget -= Time.deltaTime;
         timeUntilSpawn -= Time.deltaTime;
     }
+    public void OnPrelungeEnd() {
+        animator.SetBool("isInPrelunge", false);
+    }
 
-    private void OnDestroy() {
-        PlayerManager.instance.EventActivePlayersChange -= FindTarget;
-        PauseManager.instance.EventPauseStateChange -= OnPauseStateChange;
+    public void OnLungeEnd() {
+        lungeOnCooldown = true;
+        timeUntilLungeCooldown = lungeCooldown;
+        StartPathing();
     }
     private GameObject CreateMinion() {
+        Freeze(freezeTime);
         animator.SetTrigger("summon");
-        //spawn special zombie
-        GameObject zombieObj = Instantiate(spawn);
-        zombieObj.transform.position = new Vector3(transform.position.x, transform.position.y, zombieObj.transform.position.z);
-        zombieObj.GetComponent<ZombieAI>().SetValues(Mathf.RoundToInt(zombieHealth.GetMaxHealth() * .3f), speed * Random.Range(1.3f, 1.7F), Mathf.Max(Mathf.RoundToInt(damage * .3F), 1));
-        return zombieObj;
+        //spawn special minion zombie
+        GameObject minion = Instantiate(spawn);
+        minion.GetComponent<Minion>().owner = this.gameObject;
+        minion.transform.position = new Vector3(transform.position.x, transform.position.y, minion.transform.position.z);
+        minion.GetComponent<ZombieAI>().SetValues(
+            zombieHealth.GetMaxHealth() * .2f,                      //health
+            speed * Random.Range(1.6f, 1.8F),                       //speed
+            damage * .3F);                                          //damage
+        return minion;
     }
+
 }
