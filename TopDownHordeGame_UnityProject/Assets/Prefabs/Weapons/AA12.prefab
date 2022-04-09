@@ -174,6 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f1c28a8ebc941f42bc0bbd9b83f0d72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  laserSightPrefab: {fileID: 8700526546067339596, guid: 719f14220d5a57a47bffb39184ebba60, type: 3}
   barralEndObj: {fileID: 7523652050125980134}
   spriteObj: {fileID: 5607564663723538282}
 --- !u!1 &5607564663723538282

@@ -12,6 +12,8 @@ public class PlayerWeaponControl : MonoBehaviour
 {
     public bool isDisabled = false;
 
+    private bool laserSightEnabled;
+
     private PlayerMovement playerMovement;
     private Timer timer;
 
@@ -55,9 +57,12 @@ public class PlayerWeaponControl : MonoBehaviour
         timer = GetComponent<Timer>();
     }
     private void Start() {
-        foreach (Weapon weapon in weapons) {
-            weapon.AddReserveAmmo(Mathf.RoundToInt(weapon.GetReserveSize() * reserveMult));
-            weapon.Reload();
+        for (int i = 0; i < weapons.Count; i++) {
+            weapons[i].AddReserveAmmo(Mathf.RoundToInt(weapons[i].GetReserveSize() * reserveMult));
+            weapons[i].Reload();
+            weapons[equippedIndex].spriteControl.ActivateSprite();
+            laserSightEnabled = true;
+            weapons[equippedIndex].spriteControl.SetLaser(laserSightEnabled);
         }
         EventAmmoChanged.Invoke(Mathf.RoundToInt(weapons[equippedIndex].GetInMag()), weapons[equippedIndex].GetInReserve());
         EventWeaponChanged.Invoke(weapons[equippedIndex].GetWeaponName());
@@ -84,6 +89,14 @@ public class PlayerWeaponControl : MonoBehaviour
         if (next >= weapons.Count)
             next = 0;
         return next;
+    }
+
+    // ------------- LASER CONTROL -------------
+    public void OnLaserButton(InputAction.CallbackContext context) {
+        if(context.action.triggered == true) {
+            laserSightEnabled = !laserSightEnabled;
+            weapons[equippedIndex].spriteControl.SetLaser(laserSightEnabled);
+        }
     }
 
     // ------------ SWAPPING ------------
@@ -118,6 +131,8 @@ public class PlayerWeaponControl : MonoBehaviour
         weapons[equippedIndex].spriteControl.DeactivateSprite();
         equippedIndex = NextWeaponIndex();
         weapons[equippedIndex].spriteControl.ActivateSprite();
+        weapons[equippedIndex].spriteControl.SetLaser(laserSightEnabled);
+        weapons[equippedIndex].spriteControl.SetLaser(laserSightEnabled);
         playerMovement.runSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
         playerMovement.walkSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
         UpdateVisuals();
@@ -266,12 +281,16 @@ public class PlayerWeaponControl : MonoBehaviour
             weapons[equippedIndex].spriteControl.DeactivateSprite();
             equippedIndex = weapons.Count - 1;
             weapons[equippedIndex].spriteControl.ActivateSprite();
+            weapons[equippedIndex].spriteControl.SetLaser(laserSightEnabled);
         }
         else {
             if (weapons[equippedIndex] != null) {
                 Destroy(weapons[equippedIndex].gameObject);
             }
             weapons[equippedIndex] = weapon;
+            weapons[equippedIndex].spriteControl.ActivateSprite();
+            weapons[equippedIndex].spriteControl.SetLaser(laserSightEnabled);
+            laserSightEnabled = !laserSightEnabled;
         }
         UpdateVisuals();
         playerMovement.runSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
