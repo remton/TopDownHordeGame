@@ -10119,6 +10119,19 @@ MonoBehaviour:
   killPrefab: {fileID: 19701994243007283, guid: 07c9492da6f586e4eb7b63ff73f9b787, type: 3}
   nukePrefab: {fileID: 7609820944762314030, guid: 79b5ba03f56338c408ab4555c56e8c35, type: 3}
   salePrefab: {fileID: 5454472768016782365, guid: 06f2c5833a8041340bd3b4e3118ff664, type: 3}
+  dropList:
+  - weight: 2898
+    obj: {fileID: 8646388717053604558, guid: 81f897747ef5a5d43bc1b5f47206b69b, type: 3}
+  - weight: 10
+    obj: {fileID: 177272599253269483, guid: dad35b44912a3a941a1947d28e0771e1, type: 3}
+  - weight: 8
+    obj: {fileID: 6069895156401686289, guid: 56470756366baca4c8fa7d7ea329918d, type: 3}
+  - weight: 8
+    obj: {fileID: 19701994243007283, guid: 07c9492da6f586e4eb7b63ff73f9b787, type: 3}
+  - weight: 8
+    obj: {fileID: 7609820944762314030, guid: 79b5ba03f56338c408ab4555c56e8c35, type: 3}
+  - weight: 8
+    obj: {fileID: 5454472768016782365, guid: 06f2c5833a8041340bd3b4e3118ff664, type: 3}
   selling: 0
   startRoomWindows: []
   players: []

@@ -822,6 +822,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDisabled: 0
+  laserSightEnabled: 0
   reloadSpeedMult: 1
   fireDelayMult: 1
   magMult: 1
@@ -858,8 +859,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: NULL
-  payPerHit: 2
-  payPerKill: 50
   bank: 0
 --- !u!114 &5840632062943679827
 MonoBehaviour:
