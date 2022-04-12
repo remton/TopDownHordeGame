@@ -19,12 +19,14 @@ public class PerkShop : MonoBehaviour
         alreadyHave = player.GetComponent<PlayerPerkHolder>().HavePerk(perkPrefab);
         if (playerStats.GetBank() >= cost && !alreadyHave)
         {
-            SoundPlayer.Play(purchaseSound,transform.position);
+            //SoundPlayer.Play(purchaseSound,transform.position);
+            AudioManager.instance.PlaySound(purchaseSound, transform.position);
             playerStats.SpendMoney(cost);
             player.GetComponent<PlayerPerkHolder>().AddPerk(perkPrefab);
         }
         else if (playerStats.GetBank() < cost){
-            SoundPlayer.Play(FailedPurchaseSound, transform.position);
+            //SoundPlayer.Play(FailedPurchaseSound, transform.position);
+            AudioManager.instance.PlaySound(FailedPurchaseSound, transform.position);
         //    Debug.Log("U broke lol");
         }
         else{

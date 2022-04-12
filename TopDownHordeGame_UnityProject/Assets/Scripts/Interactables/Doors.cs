@@ -18,10 +18,12 @@ public class Doors : MonoBehaviour
         if (playerStats.GetBank() >= cost){
             playerStats.SpendMoney(cost);
             OpenDoor();
-            SoundPlayer.Play(openSound, transform.position);
+            //SoundPlayer.Play(openSound, transform.position);
+            AudioManager.instance.PlaySound(openSound, transform.position);
         }
         else {
-            SoundPlayer.Play(failedBuySound, transform.position);
+            //SoundPlayer.Play(failedBuySound, transform.position);
+            AudioManager.instance.PlaySound(failedBuySound, transform.position);
             Debug.Log("Get a job.");
         }
     }

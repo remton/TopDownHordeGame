@@ -42,7 +42,7 @@ public class PlayerPerkHolder : MonoBehaviour
         {
             if (perks[i].type == testPerk.GetComponent<Perk>().type)
             {
-                perks[i].GetComponent<Electric>().ElectricReloadDamage(this.gameObject); 
+                perks[i].GetComponent<Electric>().Explode(this.gameObject); 
             }
         }
     }
