@@ -5,7 +5,7 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour {
     float masterVolumePercent = 1;
     float sfxVolumePercent = 1;
-    float musicVolumePercent = 1;
+    float musicVolumePercent = .3f;
     AudioSource[] musicSources;
     int activeMusicSourceIndex;
     public static AudioManager instance;
