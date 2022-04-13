@@ -7,6 +7,8 @@ public class PlayerHealth : MonoBehaviour {
     private Timer timer;
     public bool isBeingRevived;
     private GameObject reviver;
+    [SerializeField] private ParticleSystem hitParticles;
+    [SerializeField] private ParticleSystem deathParticles;
     [SerializeField] private AudioClip reviveSound;
     [SerializeField] private AudioClip[] hurtsounds;
     private float volume = 3;
@@ -228,5 +230,12 @@ public class PlayerHealth : MonoBehaviour {
     }
     public float GetBleedOutTimeRatio() {
         return timeUntilDeath/bleedOutTime;
+    }
+
+    public void PlayHitEffect() {
+        hitParticles.Play();
+    }
+    public void playDeathEffect() {
+        deathParticles.Play();
     }
 }

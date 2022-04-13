@@ -5,13 +5,14 @@ using UnityEngine;
 public class ZombieHealth : MonoBehaviour
 {
     //public ParticleSystem particle;
-    public GameObject hitEffectObj;
+    //public GameObject hitEffectObj;
     public GameObject deathEffectObj;
+    [SerializeField] private ParticleSystem hitParticles;
+    [SerializeField] private ParticleSystem dieParticles;
     public bool givesMoney;
 
     public delegate void onDeath();
     public event onDeath EventOnDeath;
-///        SoundPlayer.Play(fireSound, transform.position);
     [SerializeField] private AudioClip[] hurtsounds;
     private int chance;
     private bool killed = false;
@@ -49,8 +50,7 @@ public class ZombieHealth : MonoBehaviour
         health -= amount;
         if (health <= 0)
             Kill();
-        GameObject obj = Instantiate(hitEffectObj);
-        obj.transform.position = transform.position;
+        hitParticles.Play();
         chance = Random.Range(0,hurtsounds.Length);
         //SoundPlayer.Play(hurtsounds[chance], transform.position);
         AudioManager.instance.PlaySound(hurtsounds[chance], transform.position);
@@ -67,6 +67,10 @@ public class ZombieHealth : MonoBehaviour
 
     public void Kill()
     {
+        dieParticles.gameObject.transform.parent = null;
+        Destroy(dieParticles.gameObject, 1);
+        dieParticles.Play();
+
         killed = true;
         Debug.Log(name + ": \"*dies\"");
         if (gameObject.HasComponent<BiggestFanDeath>())
@@ -75,8 +79,6 @@ public class ZombieHealth : MonoBehaviour
             RoundController.instance.ZombieDies();
         Vector3 myLocation = transform.position;
         MagicController.instance.MagicDrop(myLocation);
-        GameObject obj = Instantiate(deathEffectObj);
-        obj.transform.position = transform.position;
         if (EventOnDeath != null) EventOnDeath.Invoke();
         Destroy(gameObject);
     }

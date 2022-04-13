@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78ad77ca6a1ef6c4d883fc3e18f58991, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  masterVolume: 1
+  masterVolume: 0.4
   sfxVolume: 2
   musicVolume: 0.2
   sfxSource: {fileID: 6269237795999379795}
