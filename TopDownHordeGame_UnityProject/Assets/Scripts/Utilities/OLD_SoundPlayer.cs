@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundPlayer : MonoBehaviour
+
+public class OLD_SoundPlayer : MonoBehaviour
 {
     //Create a temperary gameobject to play our clip and play it
     public static void Play(AudioClip clip, Vector3 location) {
         GameObject obj = new GameObject("AudioClipObj");
         obj.transform.position = location;
         obj.AddComponent<AudioSource>();
-        SoundPlayer sp = obj.AddComponent<SoundPlayer>();
+        OLD_SoundPlayer sp = obj.AddComponent<OLD_SoundPlayer>();
         TimedDestroy td = obj.AddComponent<TimedDestroy>();
         td.destroyTime = clip.length;
         sp.PlayClip(clip);
@@ -18,7 +19,7 @@ public class SoundPlayer : MonoBehaviour
         GameObject obj = new GameObject("AudioClipObj");
         obj.transform.position = location;
         obj.AddComponent<AudioSource>();
-        SoundPlayer sp = obj.AddComponent<SoundPlayer>();
+        OLD_SoundPlayer sp = obj.AddComponent<OLD_SoundPlayer>();
         TimedDestroy td = obj.AddComponent<TimedDestroy>();
         td.destroyTime = clip.length;
         sp.PlayClip(clip, volume);

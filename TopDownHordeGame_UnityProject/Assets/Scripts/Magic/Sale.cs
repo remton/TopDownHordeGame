@@ -38,7 +38,7 @@ public class Sale : MonoBehaviour
         {
             current.GetComponent<WeaponShop>().SaleStart(balanceCost);
         }
-        SoundPlayer.Play(pickupSound, transform.position);
+        OLD_SoundPlayer.Play(pickupSound, transform.position);
         transform.position = holdingRoom;
         timer.CreateTimer(balanceTime, Stop);
     }

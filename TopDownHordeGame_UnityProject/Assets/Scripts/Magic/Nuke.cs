@@ -35,7 +35,7 @@ public class Nuke : MonoBehaviour
             current.GetComponent<PlayerStats>().AddMoney(500);
         }
         Stop();
-        SoundPlayer.Play(pickupSound, transform.position);
+        OLD_SoundPlayer.Play(pickupSound, transform.position);
     }
 
     //This is where the perk deactivates. Maybe it changes a stat value, maybe it unsibscribes from an event.

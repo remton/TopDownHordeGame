@@ -34,7 +34,7 @@ public class Kill : MonoBehaviour
             Debug.Log("In player loop");
             current.GetComponent<PlayerWeaponControl>().KillDamage(5000);
         }
-        SoundPlayer.Play(pickupSound, transform.position);
+        OLD_SoundPlayer.Play(pickupSound, transform.position);
         Debug.Log("Moving");
         transform.position = holdingRoom;
         Debug.Log("Moved \n Calling Stall");
