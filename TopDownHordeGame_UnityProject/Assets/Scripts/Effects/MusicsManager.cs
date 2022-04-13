@@ -9,11 +9,7 @@ public class MusicsManager : MonoBehaviour {
     void Start(){
         AudioManager.instance.PlayMusic(mainTheme, 2); 
     }
-    void Update() {
-        //if (Input.GetKeyDown (KeyCode.Space)) {
-        //}
-    }
     public void MusicsChange(){ 
-            AudioManager.instance.PlayMusic(battleTheme, 2);
+        AudioManager.instance.PlayMusic(battleTheme, 2);
     }
 }

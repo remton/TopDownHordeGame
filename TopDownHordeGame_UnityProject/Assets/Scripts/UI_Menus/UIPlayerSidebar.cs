@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class UIPlayerSidebar : MonoBehaviour
 {
+    public GameObject sidebarObj;
+
     public Text playerNameTxt;
 
     // {var} is replaced with the variables in each update method 
@@ -49,6 +51,11 @@ public class UIPlayerSidebar : MonoBehaviour
             player.GetComponent<PlayerPerkHolder>().EventPerkChanged -= UpdatePerkImages;
         }
     }
+
+    public void Activate(bool isActive) {
+        sidebarObj.SetActive(isActive);
+    }
+
     public void ChangePlayerName(string newName) {
         playerNameTxt.text = newName;
         playerNameTxt.resizeTextForBestFit = true;

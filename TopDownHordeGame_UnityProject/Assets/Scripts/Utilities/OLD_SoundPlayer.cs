@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+//OLD AND SHOULD BE UNUSED
 public class OLD_SoundPlayer : MonoBehaviour
 {
     //Create a temperary gameobject to play our clip and play it
@@ -26,6 +26,7 @@ public class OLD_SoundPlayer : MonoBehaviour
     }
     private AudioSource audioSource;
     private void Awake() {
+        Debug.LogWarning("WARNING: OLD SOUND PLAYER STILL USED");
         audioSource = GetComponent<AudioSource>();
     }
     private void PlayClip(AudioClip newClip) {

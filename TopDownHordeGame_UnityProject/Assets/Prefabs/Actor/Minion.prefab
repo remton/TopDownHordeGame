@@ -526,7 +526,6 @@ GameObject:
   - component: {fileID: 6956723953377203764}
   - component: {fileID: 6956723953377203765}
   - component: {fileID: 6956723953377203762}
-  - component: {fileID: 6956723953377203766}
   - component: {fileID: 6956723953377203761}
   - component: {fileID: -2455652057355692573}
   - component: {fileID: 8163446417953433952}
@@ -633,25 +632,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &6956723953377203766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6956723953377203767}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3837f33a8845f0844b33dafa38e88121, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  payForHit: 0
-  payForKill: 0
-  spwanFramesInSeconds: 0
-  target: {fileID: 0}
-  timeBetweenTargetChecks: 0.1
-  playerDistForLunge: 1.7
-  lungeCooldown: 2
 --- !u!114 &6956723953377203761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -783,9 +763,9 @@ MonoBehaviour:
   payForKill: 0
   spwanFramesInSeconds: 0
   target: {fileID: 0}
-  timeBetweenTargetChecks: 0
-  playerDistForLunge: 0
-  lungeCooldown: 0
+  timeBetweenTargetChecks: 0.1
+  playerDistForLunge: 1.7
+  lungeCooldown: 2
   owner: {fileID: 0}
 --- !u!1 &7510183044028830196
 GameObject:
