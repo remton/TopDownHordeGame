@@ -9,11 +9,15 @@ using UnityEngine;
 
 public class Electric : Perk
 {
-    private int balanceDamage = 4; // Damage for reload 
-    private float balanceRadius = 2.6F; // Radius for reload 
+    [SerializeField] private int balanceDamage; // Damage for reload 
+    [SerializeField] private float balanceRadius; // Radius for reload 
     public GameObject circleObjPrefab;
     public GameObject electricReloadPrefab;
     private GameObject electricReloadObj;
+    [SerializeField] private float throwStrength;
+    private GameObject owner;
+
+    
     //This is where the perk activates. 
     public override void OnPerkGained(GameObject player)
     {
@@ -71,6 +75,22 @@ public class Electric : Perk
     {
         electricReloadObj.GetComponent<HitBoxController>().EventObjEnter -= DamageZombies;
         Destroy(electricReloadObj);
+    }
+        public void Explode(GameObject player)
+    {
+        Debug.Log("Creating explosion object.");
+        //Stop this from exploding multiple times
+        //GetComponent<HitBoxController>().EventObjEnter -= Explode;
+        Vector3 location = transform.position;
+        electricReloadObj = Instantiate(electricReloadPrefab, location, Quaternion.identity);
+
+        List<string> damageTags = new List<string>();
+        damageTags.Add("ZombieDamageHitbox");
+        List<string> knockbackTags = new List<string>();
+        knockbackTags.Add("ZombieDamageHitbox");
+
+        electricReloadObj.GetComponent<Explosion>().Init(player, damageTags, knockbackTags, balanceDamage, throwStrength);
+        //Destroy(gameObject);
     }
 
 }

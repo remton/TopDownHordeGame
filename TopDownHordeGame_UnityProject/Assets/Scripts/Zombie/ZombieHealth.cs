@@ -52,7 +52,8 @@ public class ZombieHealth : MonoBehaviour
         GameObject obj = Instantiate(hitEffectObj);
         obj.transform.position = transform.position;
         chance = Random.Range(0,hurtsounds.Length);
-        SoundPlayer.Play(hurtsounds[chance], transform.position);
+        //SoundPlayer.Play(hurtsounds[chance], transform.position);
+        AudioManager.instance.PlaySound(hurtsounds[chance], transform.position);
         //if (EventHealthChange != null) { EventHealthChange.Invoke(health); }
     }
 

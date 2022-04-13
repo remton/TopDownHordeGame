@@ -153,7 +153,8 @@ public class PlayerHealth : MonoBehaviour {
         if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth);}
         timeSinceHit = 0; 
         chance = UnityEngine.Random.Range(0,hurtsounds.Length);
-        SoundPlayer.Play(hurtsounds[chance], transform.position, volume * 1);
+        //SoundPlayer.Play(hurtsounds[chance], transform.position, volume * 1);
+        AudioManager.instance.PlaySound(hurtsounds[chance], transform.position);
     }
 
     private void StartIFrames() {
@@ -167,7 +168,8 @@ public class PlayerHealth : MonoBehaviour {
     public void Revive() {
         if (reviver == null || !reviver.GetComponent<PlayerHealth>().GetIsBleedingOut()) {
             revivePrompt.Deactivate();
-            SoundPlayer.Play(reviveSound, transform.position);
+            //SoundPlayer.Play(reviveSound, transform.position);
+            AudioManager.instance.PlaySound(reviveSound, transform.position);
             reviveTrigger.EventObjEnter -= OnPlayerEnterReviveTrigger;
             reviveTrigger.EventObjExit -= OnPlayerExitReviveTrigger;
             isBleedingOut = false;

@@ -63,10 +63,12 @@ public class Weapon : MonoBehaviour
 
     // ---- Play sounds ----
     public void PlayReloadSound() {
-        SoundPlayer.Play(reloadSound, transform.position);
+        //SoundPlayer.Play(reloadSound, transform.position);
+        AudioManager.instance.PlaySound(reloadSound, transform.position);
     }
     public void PlaySwapSound() {
-        SoundPlayer.Play(swapSound, transform.position);
+        //SoundPlayer.Play(swapSound, transform.position);
+        AudioManager.instance.PlaySound(swapSound, transform.position);
     }
 
     // ---- Internal Weapon Mechanics ----

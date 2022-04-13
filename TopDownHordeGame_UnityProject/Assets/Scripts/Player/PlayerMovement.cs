@@ -242,13 +242,7 @@ public class PlayerMovement : MonoBehaviour {
         }
         RegenStamina(movementDir);
     }
-    public void ChangeMaximumStamina(float maximumStaminaMultiplier)
-    {
-        staminaMaximum = staminaMaximum * maximumStaminaMultiplier;
-        staminaThreshold = staminaThreshold * maximumStaminaMultiplier;
-    }
-
-    private float walkSpeedMult() {
+    private float walkSpeedMult() { // Calculate the walk speed multiplier of the player. 
         float multSumFast = 0;
         float multSumSlow = 0;
         foreach (float num in walkSpeedMultipliers) {
@@ -302,9 +296,14 @@ public class PlayerMovement : MonoBehaviour {
         Vector2 dir = mousePos - myPos;
         RotateTowards(dir);
     }
-    public void ChangeRegenValues(float balanceMult) {
+    public void ChangeRegenValues(float balanceMult) { // This changes the stamina regeneration rates for standing and walking
         staminaRegenRateStanding = staminaRegenRateStanding * balanceMult;
         staminaRegenRateWalking = staminaRegenRateWalking * balanceMult;
+    }
+    public void ChangeMaximumStamina(float maximumStaminaMultiplier) // This changes the maximum stamina and the stamina sprint threshold
+    {
+        staminaMaximum = staminaMaximum * maximumStaminaMultiplier;
+        staminaThreshold = staminaThreshold * maximumStaminaMultiplier;
     }
 }
 

@@ -47,5 +47,8 @@ MonoBehaviour:
   cost: 1000
   type: 2
   icon: {fileID: 21300000, guid: 11bbdc14ba15d5d4baa200a315dccef1, type: 3}
-  circleObjPrefab: {fileID: 5752626159775955786, guid: 1614186579c0ca9449231d796e048fae, type: 3}
-  electricReloadPrefab: {fileID: 5752626159775955786, guid: 1614186579c0ca9449231d796e048fae, type: 3}
+  balanceDamage: 6
+  balanceRadius: 9.6
+  circleObjPrefab: {fileID: 625011097304364378, guid: 2f2d46d4a9286b046a966c1567a6e2e9, type: 3}
+  electricReloadPrefab: {fileID: 625011097304364378, guid: 2f2d46d4a9286b046a966c1567a6e2e9, type: 3}
+  throwStrength: 400

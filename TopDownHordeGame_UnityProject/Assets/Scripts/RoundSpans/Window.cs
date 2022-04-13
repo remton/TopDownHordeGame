@@ -62,7 +62,8 @@ public class Window : ZombieSpawn
                 //damage the window for each zombie in the queue
                 for (int i = 0; i < numInQueue; i++){
                     if (health <= 0){
-                        SoundPlayer.Play(breakSound, transform.position);
+                        //SoundPlayer.Play(breakSound, transform.position);
+                        AudioManager.instance.PlaySound(breakSound, transform.position);
                         SetWindowOpen();
                     }
                     else{
