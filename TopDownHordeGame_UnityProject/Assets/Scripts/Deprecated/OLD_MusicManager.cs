@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MusicManager : MonoBehaviour {
-    public MusicManager instance;
+public class OLD_MusicManager : MonoBehaviour {
+    public OLD_MusicManager instance;
     public float minTimeLooping;
     public float waitBetweenSongs;
     public List<AudioClip> musicClips;
@@ -19,6 +19,7 @@ public class MusicManager : MonoBehaviour {
         StartPlaying();
     }
     private void Awake() {
+        Debug.LogWarning("OLD_MusicManager is deprecated. Use MusicsManager instead");
         if (instance == null)
             instance = this;
         else

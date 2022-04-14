@@ -5,6 +5,7 @@ using UnityEngine;
 //OLD AND SHOULD BE UNUSED
 public class OLD_SoundPlayer : MonoBehaviour
 {
+    private AudioSource audioSource;
     //Create a temperary gameobject to play our clip and play it
     public static void Play(AudioClip clip, Vector3 location) {
         GameObject obj = new GameObject("AudioClipObj");
@@ -24,9 +25,8 @@ public class OLD_SoundPlayer : MonoBehaviour
         td.destroyTime = clip.length;
         sp.PlayClip(clip, volume);
     }
-    private AudioSource audioSource;
     private void Awake() {
-        Debug.LogWarning("WARNING: OLD SOUND PLAYER STILL USED");
+        Debug.LogWarning("OLD_SoundPlayer is deprecated. Use AudioManager.instance.Playsound() instead");
         audioSource = GetComponent<AudioSource>();
     }
     private void PlayClip(AudioClip newClip) {
@@ -40,5 +40,4 @@ public class OLD_SoundPlayer : MonoBehaviour
         audioSource.Play();
         Destroy(gameObject, newClip.length);
     }
-
 }

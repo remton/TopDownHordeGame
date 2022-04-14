@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
-
 public class Ammo : MonoBehaviour
 {
     public AudioClip pickupSound;
@@ -28,7 +25,7 @@ public class Ammo : MonoBehaviour
         {
             current.GetComponent<PlayerWeaponControl>().RefillWeaponReserve();
         }
-        OLD_SoundPlayer.Play(pickupSound, transform.position);
+        AudioManager.instance.PlaySound(pickupSound, transform.position);
         Stop();
     }
 

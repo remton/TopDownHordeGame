@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class Carpenter : MonoBehaviour
 {
     public AudioClip pickupSound;
@@ -25,7 +24,7 @@ public class Carpenter : MonoBehaviour
         {
             current.GetComponent<PlayerStats>().AddMoney(1200);
         }
-        OLD_SoundPlayer.Play(pickupSound, transform.position);
+        AudioManager.instance.PlaySound(pickupSound, transform.position);
         Stop();
     }
 

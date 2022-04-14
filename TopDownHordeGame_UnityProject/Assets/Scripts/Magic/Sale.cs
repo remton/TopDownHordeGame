@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
-
 public class Sale : MonoBehaviour
 {
     private Timer timer;
@@ -38,7 +35,7 @@ public class Sale : MonoBehaviour
         {
             current.GetComponent<WeaponShop>().SaleStart(balanceCost);
         }
-        OLD_SoundPlayer.Play(pickupSound, transform.position);
+        AudioManager.instance.PlaySound(pickupSound, transform.position);
         transform.position = holdingRoom;
         timer.CreateTimer(balanceTime, Stop);
     }
