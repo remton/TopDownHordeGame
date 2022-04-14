@@ -5322,7 +5322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b726f2bc2e2276b4caff261934e19ee0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zombie: {fileID: 6956723953377203767}
+  zAI: {fileID: 5583149644503066930}
   health: {fileID: -2455652057355692573}
   sliderObj: {fileID: 319891090315275858}
   slider: {fileID: 123291333813278154}
@@ -5454,6 +5454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57777ccf48295b345939986a9c4f6b7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathEffectObj: {fileID: 0}
   hitParticles: {fileID: 6690244077217428205}
   dieParticles: {fileID: 5998376472573162533}
   givesMoney: 1

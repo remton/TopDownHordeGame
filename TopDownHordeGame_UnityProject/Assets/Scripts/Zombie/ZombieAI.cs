@@ -28,6 +28,10 @@ public class ZombieAI : MonoBehaviour
     protected bool isGamePaused;
     protected bool wasPathingBeforePause = false;
 
+    //Called when the sprite is flipped
+    public delegate void OrientationChange(bool xIsNegative);
+    public event OrientationChange EventOrientationChange;
+
     protected virtual void OnPauseStateChange(bool isPaused) {
         if (isPaused) {
             isGamePaused = true;
@@ -121,8 +125,10 @@ public class ZombieAI : MonoBehaviour
         //Handle updating sprite direction
         Vector2 dir = target.transform.position - transform.position;
         float xScale = transform.localScale.x;
-        if ((dir.x < 0) != (xScale < 0))
+        if ((dir.x < 0) != (xScale < 0)) {
             transform.localScale = new Vector3(-1 * transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            if (EventOrientationChange != null) { EventOrientationChange.Invoke(dir.x < 0); }
+        }
 
         //Update target coundown
         if (timeUntilCheckTarget <= 0) {

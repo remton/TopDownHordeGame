@@ -71,7 +71,7 @@ public class Explosion : MonoBehaviour
             if(ownerTag == "Player") {
                 //Update player stats
                 owner.GetComponent<PlayerStats>().AddMoney(zombie.GetComponent<ZombieAI>().payForHit);
-                if (zombie.GetComponent<ZombieHealth>().isDead()) {
+                if (zombie.GetComponent<ZombieHealth>().IsDead()) {
                     owner.GetComponent<PlayerStats>().AddMoney(zombie.GetComponent<ZombieAI>().payForKill);
                     owner.GetComponent<PlayerStats>().AddKill();
                 }

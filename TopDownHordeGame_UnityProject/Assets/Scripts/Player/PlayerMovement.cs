@@ -18,6 +18,14 @@ public class PlayerMovement : MonoBehaviour {
     private bool isMoving = false;
     private bool isRunning = false;
 
+    //Called when the sprite is flipped
+    public delegate void OrientationChange(bool xIsNegative);
+    public event OrientationChange EventOrientationChange;
+
+    //Called when stamina value changes
+    public delegate void StaminaChange(float newStamina, float newMax);
+    public event StaminaChange EventStaminaChange;
+
     private bool knockBackActive;
     private bool forceknockbackActive;
     [SerializeField] private float minSpeedForEndKnockback;
@@ -48,7 +56,6 @@ public class PlayerMovement : MonoBehaviour {
     public List<float> runSpeedMultipliers = new List<float>();
 
     [SerializeField] private Rigidbody2D rb;
-    private Camera mainCamera;
 
     private bool doMovement = true;
     private Vector2 moveDir;
@@ -72,10 +79,11 @@ public class PlayerMovement : MonoBehaviour {
     {
         animator = GetComponent<Animator>();
         timer = GetComponent<Timer>();
-        mainCamera = Camera.main;
         staminaThreshold = staminaMaximum * 0.2F;
     }
-
+    private void Start() {
+        if (EventStaminaChange != null) { EventStaminaChange.Invoke(staminaRemaining, staminaMaximum); }
+    }
 
     public void OnDeviceChange(InputDevice device, InputDeviceChange deviceChange)
     {
@@ -141,8 +149,10 @@ public class PlayerMovement : MonoBehaviour {
         currentLookDir = dir;
         float xScale = transform.localScale.x;
         //if the sign of the direction isn't the same as the sign of x scale 
-        if ((dir.x < 0) != (xScale < 0))
+        if ((dir.x < 0) != (xScale < 0)) {
             transform.localScale = new Vector3(-1* transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            if (EventOrientationChange != null) { EventOrientationChange.Invoke(dir.x < 0); }
+        }
     }
     private void LookAtMouse() {
         if (isDisabled)
@@ -207,6 +217,7 @@ public class PlayerMovement : MonoBehaviour {
                 wentBelowThreshold = false;
                 stillRunning = true;
             }
+            if (EventStaminaChange != null) { EventStaminaChange.Invoke(staminaRemaining, staminaMaximum); }
         }
     }
 
@@ -227,6 +238,7 @@ public class PlayerMovement : MonoBehaviour {
                 {
                     wentBelowThreshold = true;
                 }
+                if (EventStaminaChange != null) { EventStaminaChange.Invoke(staminaRemaining, staminaMaximum); }
             }
             else
             {
@@ -304,6 +316,7 @@ public class PlayerMovement : MonoBehaviour {
     {
         staminaMaximum = staminaMaximum * maximumStaminaMultiplier;
         staminaThreshold = staminaThreshold * maximumStaminaMultiplier;
+        if (EventStaminaChange != null) { EventStaminaChange.Invoke(staminaRemaining, staminaMaximum); }
     }
 }
 

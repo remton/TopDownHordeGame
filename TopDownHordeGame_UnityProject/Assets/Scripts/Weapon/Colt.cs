@@ -36,7 +36,7 @@ public class Colt : Weapon{
                 hitObj.GetComponent<ZombieHealth>().Damage(damage);
                 //Update player stats
                 player.GetComponent<PlayerStats>().AddMoney(hitObj.GetComponent<ZombieAI>().payForHit);
-                if (hitObj.GetComponent<ZombieHealth>().isDead()) {
+                if (hitObj.GetComponent<ZombieHealth>().IsDead()) {
                     player.GetComponent<PlayerStats>().AddMoney(hitObj.GetComponent<ZombieAI>().payForKill);
                     player.GetComponent<PlayerStats>().AddKill();
                 }

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class ZombieHealth : MonoBehaviour
 {
-    //public ParticleSystem particle;
-    //public GameObject hitEffectObj;
     public GameObject deathEffectObj;
     [SerializeField] private ParticleSystem hitParticles;
     [SerializeField] private ParticleSystem dieParticles;
@@ -28,19 +26,20 @@ public class ZombieHealth : MonoBehaviour
     private float maxHealth = 1;
     private float health;
 
-    //public delegate void OnHealthChange(float newHealth);
-    //public event OnHealthChange EventHealthChange;
+    public delegate void OnHealthChange(float newHealth, float newMax);
+    public event OnHealthChange EventHealthChanged;
 
     public float GetHealthRatio() {
         return (float)health / maxHealth;
     }
 
-    public bool isDead(){
+    public bool IsDead(){
         return health <= 0;
     }
 
     private void Start(){
         health = maxHealth;
+        if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
     }
 
     public void Damage(float amount)
@@ -52,9 +51,8 @@ public class ZombieHealth : MonoBehaviour
             Kill();
         hitParticles.Play();
         chance = Random.Range(0,hurtsounds.Length);
-        //SoundPlayer.Play(hurtsounds[chance], transform.position);
         AudioManager.instance.PlaySound(hurtsounds[chance], transform.position);
-        //if (EventHealthChange != null) { EventHealthChange.Invoke(health); }
+        if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
     }
 
     public void Heal(float amount)
@@ -62,7 +60,7 @@ public class ZombieHealth : MonoBehaviour
         health += amount;
         if (health > maxHealth)
             health = maxHealth;
-        //if (EventHealthChange != null) { EventHealthChange.Invoke(health); }
+        if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
     }
 
     public void Kill()

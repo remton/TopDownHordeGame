@@ -5,30 +5,29 @@ using UnityEngine.UI;
 
 public class PlayerHealthBar : MonoBehaviour
 {
-    public GameObject player;
+    const float HIDE_RATIO = 0.95f;
     public PlayerHealth health;
+    public PlayerMovement movement;
     public GameObject sliderObj;
     public Slider slider;
-    Vector3 offset;
-    Quaternion rotation;
 
     private void Awake() {
-        rotation = transform.rotation;
+        health.EventHealthChanged += UpdateValue;
+        movement.EventOrientationChange += UpdateOrientation;
     }
 
-    private void Start() {
-        offset = transform.position - player.transform.position;
-        transform.parent = null;
-        transform.rotation = rotation;
+    private void UpdateOrientation(bool xIsNegative) {
+        if(xIsNegative != (transform.localScale.x < 0)) {
+            transform.localScale = new Vector3(-1 * transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        }
     }
 
-    private void Update() {
-        float healthRatio = health.GetHealthRatio();
-        if (healthRatio >= 1) {
+    private void UpdateValue(float newHealth, float newMax) {
+        float healthRatio = newHealth/newMax;
+        if (healthRatio >= HIDE_RATIO) {
             sliderObj.SetActive(false);
         }
         else {
-            transform.position = player.transform.position + offset;
             sliderObj.SetActive(true);
             slider.value = healthRatio;
         }

@@ -2,35 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StaminaMeter : MonoBehaviour
-{
-    public GameObject player;
+public class StaminaMeter : MonoBehaviour 
+    {
+    const float HIDE_RATIO = 0.95f;
     public PlayerMovement movement;
     public SpriteRenderer spriteRenderer;
     public List<Sprite> sprites;
-    Vector3 offset;
-
-    Quaternion rotation;
     private void Awake() {
-        rotation = transform.rotation;
+        movement.EventOrientationChange += UpdateOrientation;
+        movement.EventStaminaChange += UpdateValue;
     }
 
-    private void Start() {
-        offset = transform.position - player.transform.position;
-        transform.parent = null;
-        transform.rotation = rotation;
+    private void UpdateOrientation(bool xIsNegative) {
+        if (xIsNegative != (transform.localScale.x < 0)) {
+            transform.localScale = new Vector3(-1 * transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        }
     }
 
-    private void Update() {
-        float staminaRatio = movement.GetStaminaRatio();
-        if(staminaRatio >= 1) {
+    private void UpdateValue(float newStamina, float newMax) {
+        float staminaRatio = newStamina / newMax;
+        if (staminaRatio >= HIDE_RATIO) {
             spriteRenderer.enabled = false;
         }
         else {
-            transform.position = player.transform.position + offset;
             spriteRenderer.enabled = true;
-            spriteRenderer.sprite = sprites[Mathf.RoundToInt(staminaRatio * (sprites.Count-1))];
+            spriteRenderer.sprite = sprites[Mathf.RoundToInt(staminaRatio * (sprites.Count - 1))];
         }
-        
     }
 }
