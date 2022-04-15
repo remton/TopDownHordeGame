@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CatCafe : MonoBehaviour
 {
-    const bool OPEN_ELAVATOR_ON_START = true;
+    const bool OPEN_ELAVATOR_ON_START = false;
     public GameObject elavatorAreaLockTrigger;
     public GameObject elavatorCover;
 
