@@ -87,7 +87,7 @@ public class ReticleController : MonoBehaviour
     private void Update() {
         int i = 0;
         foreach (GameObject player in gamepadPlayers) {
-            gamepadReticles[i].SetActive(!player.GetComponent<PlayerWeaponControl>().laserSightEnabled);
+            gamepadReticles[i].GetComponent<Reticle>().Activate(player.GetComponent<PlayerWeaponControl>().NeedReticle());
             Vector3 newReticlePosInWorld = player.GetComponent<PlayerMovement>().GetCurrentLookDir().normalized * radius;
             newReticlePosInWorld += player.transform.position;
             gamepadReticles[i].transform.position = newReticlePosInWorld;

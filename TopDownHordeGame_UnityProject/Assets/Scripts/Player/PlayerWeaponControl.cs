@@ -38,6 +38,7 @@ public class PlayerWeaponControl : MonoBehaviour
     private bool shootButtonDown;
     private bool isWaitingToShoot;
 
+    public bool NeedReticle() { return !laserSightEnabled || isReloading || isSwapping; }
 
     //---------------- EVENTS ----------------
     public delegate void ReloadCalled(float reloadTimeSec);
