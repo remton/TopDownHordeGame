@@ -14,6 +14,8 @@ public class ZombieHealth : MonoBehaviour
     [SerializeField] private AudioClip[] hurtsounds;
     private int chance;
     private bool killed = false;
+    protected Timer timer;
+    private bool soundCooldown;
     public void SetMaxHealth(float newMax)
     {
         maxHealth = newMax;
@@ -29,6 +31,10 @@ public class ZombieHealth : MonoBehaviour
     public delegate void OnHealthChange(float newHealth, float newMax);
     public event OnHealthChange EventHealthChanged;
 
+    protected void Awake(){
+        timer = GetComponent<Timer>();
+        soundCooldown = false;
+    }
     public float GetHealthRatio() {
         return (float)health / maxHealth;
     }
@@ -51,10 +57,18 @@ public class ZombieHealth : MonoBehaviour
             Kill();
         hitParticles.Play();
         chance = Random.Range(0,hurtsounds.Length);
-        AudioManager.instance.PlaySound(hurtsounds[chance], transform.position);
+        if (!soundCooldown) {
+            AudioManager.instance.PlaySound(hurtsounds[chance], transform.position);
+            soundCooldown = true;
+            timer.CreateTimer(.5F, SoundCooled);
+            Debug.Log("Making noise");
+        }
         if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
     }
-
+    protected void SoundCooled(){
+        soundCooldown = false;
+        Debug.Log("Cooled down");
+    }
     public void Heal(float amount)
     {
         health += amount;
