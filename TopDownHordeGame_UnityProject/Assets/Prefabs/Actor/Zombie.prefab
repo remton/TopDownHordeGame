@@ -4882,8 +4882,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.008694889, y: -0.23656808}
-  m_Size: {x: 0.2565773, y: 0.40513548}
+  m_Offset: {x: 0, y: -0.22}
+  m_Size: {x: 0.25, y: 0.4}
   m_Direction: 0
 --- !u!1 &4990931525363486025
 GameObject:
@@ -5405,7 +5405,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 6956723953377203767}
   m_Enabled: 0
   m_AgentTypeID: 0
-  m_Radius: 0.16
+  m_Radius: 0.2
   m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -5415,8 +5415,8 @@ NavMeshAgent:
   m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 0.64
-  m_BaseOffset: 0.32
-  m_WalkableMask: 4294967295
+  m_BaseOffset: 0.5
+  m_WalkableMask: 7
   m_ObstacleAvoidanceType: 2
 --- !u!114 &915062198132948704
 MonoBehaviour:
@@ -5583,7 +5583,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.00000011920929, y: -0.00000016391277}
+  m_AnchoredPosition: {x: 0, y: -0}
   m_SizeDelta: {x: -0.00000023842, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7132916596247592743
