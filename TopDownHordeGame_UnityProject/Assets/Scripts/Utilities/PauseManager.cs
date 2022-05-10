@@ -30,10 +30,22 @@ public class PauseManager : Menu
 
     public void PauseButtonPress() {
         if (!isPaused)
-            Pause();
+            PauseMenu();
     }
 
-    public void Pause() {
+    public void PauseTime() {
+        Time.timeScale = 0;
+        isPaused = true;
+        if (EventPauseStateChange != null) { EventPauseStateChange.Invoke(isPaused); }
+    }
+
+    public void UnpauseTime() {
+        Time.timeScale = 1;
+        isPaused = false; 
+        if (EventPauseStateChange != null) { EventPauseStateChange.Invoke(isPaused); }
+    }
+
+    public void PauseMenu() {
         Debug.Log("PAUSE");
         menuObj.SetActive(true);
         if (isPaused) {
@@ -46,7 +58,7 @@ public class PauseManager : Menu
         if (EventPauseStateChange != null) { EventPauseStateChange.Invoke(isPaused); }
     }
 
-    public void UnPause() {
+    public void ClosePauseMenu() {
         Debug.Log("UNPAUSE");
         menuObj.SetActive(false);
         if (!isPaused) {
@@ -59,7 +71,7 @@ public class PauseManager : Menu
     }
 
     public void QuitToMainMenu() {
-        UnPause();
+        ClosePauseMenu();
         SceneManager.LoadScene(SceneLoadOnQuitGame);
     }
 
@@ -69,7 +81,7 @@ public class PauseManager : Menu
     }
     public void UnpauseWithCheck() {
         if (isPaused)
-            UnPause();
+            ClosePauseMenu();
     }
 
 }
