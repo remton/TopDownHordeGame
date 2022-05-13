@@ -63666,6 +63666,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: KeypadUI
       objectReference: {fileID: 0}
+    - target: {fileID: 5103314132447548724, guid: abc133fba00b1e14dad91dd7db62306d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 3.2000122
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: abc133fba00b1e14dad91dd7db62306d, type: 3}
 --- !u!1001 &3879570095667584402
