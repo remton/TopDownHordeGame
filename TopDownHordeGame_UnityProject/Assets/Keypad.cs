@@ -8,48 +8,50 @@ public class Keypad : MonoBehaviour {
     private HitBoxController hitBox;
     public KeypadUI UI;
 
-    public List<int> code = new List<int>();
-    public void SetCode(List<int> newCode) { code = newCode; }
-
+    public int[] code;
+    
     public delegate void Guess();
     public event Guess EventCorrectGuess;
     public event Guess EventWrongGuess;
 
-    public List<int> numPressed;
 
-
-    public void OnPressNum(int num) {
-        numPressed.Add(num);
-        UI.UpdateUI(numPressed);
+    public void SetCode(int[] newCode) {
+        code = newCode;
     }
 
-    public void OnSubmit() {
-        if(numPressed == code) {
+    private bool CorrectCode(int[] guess) {
+        if (guess.Length != code.Length)
+            return false;
+        for (int i = 0; i < guess.Length; i++) {
+            if (guess[i] != code[i])
+                return false;
+        }
+        return true;
+    }
+
+
+    public void OnSubmit(int[] guess) {
+        if(CorrectCode(guess)) {
             if (EventCorrectGuess != null) { EventCorrectGuess.Invoke(); }
             UI.CloseUI();
         }
         else {
             if (EventWrongGuess != null) { EventWrongGuess.Invoke(); }
-            Clear();
+            UI.Clear();
         }
     }
-    public void Clear() {
-        numPressed.Clear();
-        UI.UpdateUI(numPressed);
-    }
+
 
     private void Awake() {
         hitBox = GetComponent<HitBoxController>();
         hitBox.EventObjEnter += OnPlayerEnter;
         hitBox.EventObjExit += OnPlayerExit;
-        UI.EventNumPressed += OnPressNum;
         UI.EventSubmitPressed += OnSubmit;
     }
 
     private void OnDestroy() {
         hitBox.EventObjEnter -= OnPlayerEnter;
         hitBox.EventObjExit -= OnPlayerExit;
-        UI.EventNumPressed -= OnPressNum;
         UI.EventSubmitPressed -= OnSubmit;
     }
 

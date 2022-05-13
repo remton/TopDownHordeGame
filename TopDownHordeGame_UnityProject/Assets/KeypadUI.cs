@@ -8,12 +8,12 @@ public class KeypadUI : Menu
     private int numDisplaySize;
     public Text UINumTxt;
 
-    public delegate void numPressed(int num);
-    public event numPressed EventNumPressed;
-    public delegate void submitPressed();
+    public delegate void submitPressed(int[] guess);
     public event submitPressed EventSubmitPressed;
     public delegate void cancelPressed();
     public event cancelPressed EventCancelPressed;
+
+    public List<int> currGuess = new List<int>();
 
     public override void OnCancel() {
         base.OnCancel();
@@ -21,16 +21,24 @@ public class KeypadUI : Menu
         CloseUI();
     }
 
+    public void Clear() {
+        currGuess.Clear();
+        UpdateUI(currGuess);
+    }
+
+
     public void PressNum(int num) {
-        if(EventNumPressed != null) { EventNumPressed.Invoke(num); }
+        currGuess.Add(num);
+        UpdateUI(currGuess);
     }
     public void PressSubmit() {
-        if (EventSubmitPressed != null) { EventSubmitPressed.Invoke(); }
+        if (EventSubmitPressed != null) { EventSubmitPressed.Invoke(currGuess.ToArray()); }
     }
 
 
     private void Start() {
         numDisplaySize = UINumTxt.text.Length - 1;
+        UpdateUI(currGuess);
     }
     public void OpenUI() {
         gameObject.SetActive(true);
@@ -49,7 +57,6 @@ public class KeypadUI : Menu
             newText += " ";
         }
         UINumTxt.text = newText;
-        Debug.Log("text updated!!");
     }
 
 }

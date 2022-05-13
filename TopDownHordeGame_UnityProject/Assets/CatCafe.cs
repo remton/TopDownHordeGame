@@ -5,7 +5,6 @@ using UnityEngine;
 public class CatCafe : MonoBehaviour
 {
     const bool OPEN_ELAVATOR_ON_START = false;
-    public GameObject elavatorAreaLockTrigger;
     public GameObject elavatorCover;
     public Keypad keypad;
 
@@ -14,7 +13,8 @@ public class CatCafe : MonoBehaviour
         if (OPEN_ELAVATOR_ON_START) {
             OpenElavatorArea();
         }
-
+        int[] keypadCode = {1,2,3,4,5};
+        keypad.SetCode(keypadCode);
         keypad.EventCorrectGuess += CorrectCodeEntered;
     }
     private void CorrectCodeEntered() {

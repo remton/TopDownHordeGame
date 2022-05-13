@@ -451,9 +451,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 047565a5b2ac2ec4ab50a294765778b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elavatorAreaLockTrigger: {fileID: 0}
   elavatorCover: {fileID: 446124806}
-  keypad: {fileID: 0}
+  keypad: {fileID: 1309567368}
 --- !u!1 &199987307
 GameObject:
   m_ObjectHideFlags: 0
@@ -60531,7 +60530,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UI: {fileID: 1297719156}
   code: 0100000002000000030000000400000005000000
-  numPressed: 
 --- !u!114 &1309567369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63667,10 +63665,6 @@ PrefabInstance:
     - target: {fileID: 879515032955824061, guid: abc133fba00b1e14dad91dd7db62306d, type: 3}
       propertyPath: m_Name
       value: KeypadUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 879515032955824061, guid: abc133fba00b1e14dad91dd7db62306d, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: abc133fba00b1e14dad91dd7db62306d, type: 3}
