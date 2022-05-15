@@ -3,44 +3,98 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+
+[RequireComponent(typeof(Timer))]
 public class Window : ZombieSpawn
-{
+{ 
+    const int TILES_PER_STATE = 3;
+    [SerializeField] private HitBoxController playerTrigger;
+    private Timer timer;
+
     [SerializeField] private AudioClip breakSound;
     [SerializeField] private int health; // health of the boards on this window
     [SerializeField] private int maxHealth;
 
-    [SerializeField] private bool isOpen = false;
+    [SerializeField] protected float boardDelay; //Delay between healing boards
     [SerializeField] protected float breakDelay; // the delay in seconds between each zombie hit to the window health
+    private bool isOpen = false;
+    private bool isBoarding = false;
 
     public Vector3Int topTile;
     public Vector3Int midTile;
     public Vector3Int bottomTile;
 
+    [Tooltip("list of states for window start with open at index 0. 3 tiles per state")]
+    // 3 tiles per state
+    //
+    // open top,     open mid,     open bottom,
+    // 1 board top,  1 board mid,  1 board bottom, 
+    // ...
+    public List<Tile> Tiles;
     public Tilemap tilemap;
-    public Tile boardedTop;
-    public Tile boardedMid;
-    public Tile boardedBottom;
-    public Tile openTop;
-    public Tile openMid;
-    public Tile openBottom;
+
+    private void Awake() {
+        timer = GetComponent<Timer>();
+    }
+    private void Start() {
+        playerTrigger.EventObjEnter += PlayerEntersTrigger;
+        playerTrigger.EventObjExit += PlayerExitsTrigger;
+        health = maxHealth;
+        UpdateWindowBoards();
+    }
 
     private void Damage(int d) {
+        if (isOpen)
+            return;
+        health -= d;
         if (health <= 0) {
-            SetWindowOpen();
+            health = 0;
+            AudioManager.instance.PlaySound(breakSound, transform.position);
+            spawnDelay = .05F;
+            isOpen = true;
         }
-        else health -= d;
+        UpdateWindowBoards();
     }
     public void Heal(int h) {
+        isOpen = false; 
         health += h;
-        SetWindowBoarded();
+        if (health > maxHealth)
+            health = maxHealth;
+        UpdateWindowBoards();
     }
     public void FullRepair()
     {
         health = maxHealth;
-        SetWindowBoarded();
+        isOpen = false;
+        UpdateWindowBoards();
     }
     public override bool GetIsOpen() {
         return isOpen;
+    }
+
+    private void PlayerEntersTrigger(GameObject player) {
+        player.GetComponent<PlayerActivate>().EventPlayerActivate += StartBoarding;
+        player.GetComponent<PlayerActivate>().EventPlayerActivateRelease += StopBoarding;
+    }
+    private void PlayerExitsTrigger(GameObject player) {
+        player.GetComponent<PlayerActivate>().EventPlayerActivate -= StartBoarding;
+        player.GetComponent<PlayerActivate>().EventPlayerActivateRelease -= StopBoarding;
+        if (isBoarding)
+            StopBoarding(player);
+    }
+    public void StartBoarding(GameObject player) {
+        isBoarding = true;
+        Board();
+    }
+    public void StopBoarding(GameObject player) {
+        isBoarding = false;
+    }
+    private void Board() {
+        if (isBoarding) {
+            timer.CreateTimer(boardDelay, Board);
+            Heal(1);
+            Debug.Log("Play Board Sound now!");
+        }
     }
 
     private void Update() {
@@ -59,39 +113,22 @@ public class Window : ZombieSpawn
         else{
             if (timeUntilNextBreak <= 0){
                 timeUntilNextBreak = breakDelay;
-                //damage the window for each zombie in the queue
-                for (int i = 0; i < numInQueue; i++){
-                    if (health <= 0){
-                        //SoundPlayer.Play(breakSound, transform.position);
-                        AudioManager.instance.PlaySound(breakSound, transform.position);
-                        SetWindowOpen();
-                    }
-                    else{
-                        Damage(1);
-                    }
-                }
+                //damage the window if a zombie in the queue
+                if (!isOpen && numInQueue > 0)
+                    Damage(1);
             }
             timeUntilNextBreak -= Time.deltaTime;
         }
     }
     
-    private void SetWindowBoarded() {
-//        Debug.Log("CLOSE WINDOW");
-        isOpen = false;
-        tilemap.SetTile(topTile, boardedTop);
-        tilemap.SetTile(midTile, boardedMid);
-        tilemap.SetTile(bottomTile, boardedBottom);
+    private void UpdateWindowBoards() {
+        int currState = Mathf.CeilToInt(( (float)health / maxHealth) * ( ((Tiles.Count) / TILES_PER_STATE)-1) );
+        Debug.Log("State" + currState.ToString());
+        int topIndex = currState * TILES_PER_STATE;
+        tilemap.SetTile(topTile, Tiles[topIndex]);
+        tilemap.SetTile(midTile, Tiles[topIndex+1]);
+        tilemap.SetTile(bottomTile, Tiles[topIndex+2]);
     }
-
-    private void SetWindowOpen() {
-//        Debug.Log("OPEN WINDOW");
-        spawnDelay = .05F;
-        isOpen = true;
-        tilemap.SetTile(topTile, openTop);
-        tilemap.SetTile(midTile, openMid);
-        tilemap.SetTile(bottomTile, openBottom);
-    }
-
 
     private void SpawnZombie() {
         GameObject zombie = RoundController.instance.CreateZombie();
