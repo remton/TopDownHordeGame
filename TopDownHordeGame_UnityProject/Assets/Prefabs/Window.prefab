@@ -52,10 +52,10 @@ MonoBehaviour:
   canSpawn: 0
   playerTrigger: {fileID: 28906050940318659}
   breakSound: {fileID: 8300000, guid: 87409c0831f126446a39405384a0b26f, type: 3}
-  health: 5
-  maxHealth: 5
-  boardDelay: 2
-  breakDelay: 1.75
+  health: 3
+  maxHealth: 3
+  boardDelay: 1.2
+  breakDelay: 1
   topTile: {x: -15, y: 3, z: 0}
   midTile: {x: -15, y: 2, z: 0}
   bottomTile: {x: -15, y: 1, z: 0}
@@ -249,8 +249,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 3.16}
-  m_SizeDelta: {x: 192, y: 108}
+  m_AnchoredPosition: {x: 0, y: 2.8719}
+  m_SizeDelta: {x: 192, y: 50.3745}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &3881912337083987154
 Canvas:
@@ -391,4 +391,4 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Press activate to board
+  m_Text: Hold  activate to board

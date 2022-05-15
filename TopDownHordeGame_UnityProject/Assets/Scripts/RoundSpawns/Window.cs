@@ -10,6 +10,7 @@ public class Window : ZombieSpawn
     const int TILES_PER_STATE = 3;
     [SerializeField] private HitBoxController playerTrigger;
     private Timer timer;
+    private System.Guid boardTimer;
 
     [SerializeField] private AudioClip breakSound;
     [SerializeField] private int health; // health of the boards on this window
@@ -50,7 +51,7 @@ public class Window : ZombieSpawn
         if (health <= 0) {
             health = 0;
             AudioManager.instance.PlaySound(breakSound, transform.position);
-            spawnDelay = .05F;
+            spawnDelay = 0.5F;
             isOpen = true;
         }
         UpdateWindowBoards();
@@ -83,11 +84,14 @@ public class Window : ZombieSpawn
             StopBoarding(player);
     }
     public void StartBoarding(GameObject player) {
-        isBoarding = true;
-        Board();
+        if (!isBoarding) {
+            isBoarding = true;
+            boardTimer = timer.CreateTimer(boardDelay, Board);
+        }
     }
     public void StopBoarding(GameObject player) {
         isBoarding = false;
+        timer.KillTimer(boardTimer);
     }
     private void Board() {
         if (isBoarding) {
