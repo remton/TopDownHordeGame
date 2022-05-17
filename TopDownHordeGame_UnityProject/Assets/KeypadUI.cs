@@ -7,6 +7,7 @@ public class KeypadUI : Menu
 {
     private int numDisplaySize;
     public Text UINumTxt;
+    public List<GameObject> digitHolders;
 
     public delegate void submitPressed(int[] guess);
     public event submitPressed EventSubmitPressed;
@@ -58,5 +59,15 @@ public class KeypadUI : Menu
         }
         UINumTxt.text = newText;
     }
-
+    public void UpdateUnlockedCode(List<int> unlockedCode) {
+        for (int i = 0; i < digitHolders.Count; i++) {
+            if(i < unlockedCode.Count) {
+                digitHolders[i].SetActive(true);
+                digitHolders[i].GetComponentInChildren<Text>().text = unlockedCode[i].ToString();
+            }
+            else {
+                digitHolders[i].SetActive(false);
+            }
+        }
+    }
 }

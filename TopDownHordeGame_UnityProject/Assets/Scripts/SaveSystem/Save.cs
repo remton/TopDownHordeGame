@@ -3,9 +3,13 @@
 
 [System.Serializable]
 public class Save{
-    public string testStr;
+    public int[] catCafe_code;
+    public int catCafe_unlockedDigits;
+    public bool catCafe_unlockedElevator;
 
     public Save(SaveData data) {
-        testStr = data.test;
+        catCafe_code = data.catCafe_code;
+        catCafe_unlockedDigits = data.catCafe_unlockedDigits;
+        catCafe_unlockedElevator = data.catCafe_unlockedElevator;
     }
 }

@@ -9,12 +9,20 @@ public class Keypad : MonoBehaviour {
     public KeypadUI UI;
 
     public int[] code;
-    
+    public int unlockedDigits;
+
     public delegate void Guess();
     public event Guess EventCorrectGuess;
     public event Guess EventWrongGuess;
 
-
+    public void SetUnlockedDigits(int num) {
+        unlockedDigits = num;
+        List<int> unlockedCode = new List<int>();
+        for (int i = 0; i < Mathf.Min(code.Length, unlockedDigits); i++) {
+            unlockedCode.Add(code[i]);
+        }
+        UI.UpdateUnlockedCode(unlockedCode);
+    }
     public void SetCode(int[] newCode) {
         code = newCode;
     }

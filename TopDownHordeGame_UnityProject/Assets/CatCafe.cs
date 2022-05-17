@@ -1,21 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CatCafe : MonoBehaviour
 {
-    const bool OPEN_ELAVATOR_ON_START = false;
+    public static string LevelName = "CatCafe";
+
     public GameObject elavatorCover;
     public Keypad keypad;
 
+    public int[] keypadCode;
+    public int unlockedDigits;
+    public bool unlockedElevator;
 
     private void Start() {
-        if (OPEN_ELAVATOR_ON_START) {
-            OpenElavatorArea();
-        }
-        int[] keypadCode = {1,2,3,4,5};
+        //Load saved data
+        keypadCode = SaveData.instance.catCafe_code;
+        unlockedDigits = SaveData.instance.catCafe_unlockedDigits;
+        unlockedElevator = SaveData.instance.catCafe_unlockedElevator;
+
+        //Set up elevator keypad
         keypad.SetCode(keypadCode);
+        keypad.SetUnlockedDigits(unlockedDigits);
         keypad.EventCorrectGuess += CorrectCodeEntered;
+    }
+
+    public void UnlockDigit() {
+        unlockedDigits++;
+        keypad.SetUnlockedDigits(unlockedDigits);
     }
     private void CorrectCodeEntered() {
         OpenElavatorArea();
@@ -23,5 +36,7 @@ public class CatCafe : MonoBehaviour
 
     public void OpenElavatorArea() {
         elavatorCover.SetActive(false);
+        unlockedElevator = true;
+        SaveData.instance.catCafe_unlockedElevator = true;
     }
 }

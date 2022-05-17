@@ -11,33 +11,31 @@ public class SaveData : MonoBehaviour
     [Header("Editor Buttons")]
     public bool saveButton;
     public bool loadButton;
-    public bool logDataButton;
+    public bool clearDataButton;
     private void Update() {
         if (saveButton) { Save(); saveButton = false;}
         if (loadButton) { Load(); loadButton = false;}
-        if (logDataButton) { LogData(); logDataButton = false;}
+        if (clearDataButton) { ClearData(); clearDataButton = false;}
     }
 
     // ------ Data ------
     [Header("Data loaded at Runtime")]
-    public string test;
-
+    public int[] catCafe_code;
+    public int catCafe_unlockedDigits;
+    public bool catCafe_unlockedElevator;
 
     // ---- Instance handling ----
     public static SaveData instance;
     private void Awake() {
-        if (instance == null) {
-            DontDestroyOnLoad(this.gameObject);
-            instance = this;
-            Load();
+        if (instance != null && instance != this) {
+            Destroy(gameObject);
         }
+        DontDestroyOnLoad(this.gameObject);
+        instance = this;
+        Load();
     }
 
     // ----- Public Methods -----
-    public static void LogData() {
-        Debug.Log("test: " + instance.test);
-    }
-
     public static void Save() {
         Debug.Log("Saving . . .");
         SaveSystem.Save(instance);
@@ -51,11 +49,18 @@ public class SaveData : MonoBehaviour
             return;
         }
 
-        // Copy all data to this
-        instance.test = save.testStr;
+        // Copy all data to instance
+        instance.catCafe_code = save.catCafe_code;
+        instance.catCafe_unlockedDigits = save.catCafe_unlockedDigits;
     }
 
     public static void ClearData() {
-        instance.test = "NO STRING";
+        //Generate new code for CatCafe
+        instance.catCafe_code = new int[4];
+        for (int i = 0; i < 4; i++) {
+            instance.catCafe_code[i] = Random.Range(0, 10);
+        }
+        instance.catCafe_unlockedDigits = 0;
+        instance.catCafe_unlockedElevator = false;
     }
 }

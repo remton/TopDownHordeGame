@@ -46,7 +46,7 @@ public class PauseManager : Menu
     }
 
     public void PauseMenu() {
-        Debug.Log("PAUSE");
+        //Debug.Log("PAUSE");
         menuObj.SetActive(true);
         if (isPaused) {
             Debug.Log("Can't pause. Already paused");
@@ -59,7 +59,7 @@ public class PauseManager : Menu
     }
 
     public void ClosePauseMenu() {
-        Debug.Log("UNPAUSE");
+        //Debug.Log("UNPAUSE");
         menuObj.SetActive(false);
         if (!isPaused) {
             Debug.Log("Can't unpause. Already unpaused");
