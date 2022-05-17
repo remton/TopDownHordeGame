@@ -100,7 +100,6 @@ public class Window : ZombieSpawn
             Debug.Log("Play Board Sound now!");
         }
     }
-
     private void Update() {
         if (isOpen && numInQueue > 0)
         {
@@ -126,7 +125,8 @@ public class Window : ZombieSpawn
     }
     
     private void UpdateWindowBoards() {
-        int currState = Mathf.CeilToInt(( (float)health / maxHealth) * ( ((Tiles.Count) / TILES_PER_STATE)-1) );
+        int numStates = ((Tiles.Count) / TILES_PER_STATE);
+        int currState = Mathf.CeilToInt(((float)health / maxHealth) * (numStates-1));
         Debug.Log("State" + currState.ToString());
         int topIndex = currState * TILES_PER_STATE;
         tilemap.SetTile(topTile, Tiles[topIndex]);
