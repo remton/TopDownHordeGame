@@ -72,6 +72,7 @@ public class PauseManager : Menu
 
     public void QuitToMainMenu() {
         ClosePauseMenu();
+        SaveData.Save();
         SceneManager.LoadScene(SceneLoadOnQuitGame);
     }
 

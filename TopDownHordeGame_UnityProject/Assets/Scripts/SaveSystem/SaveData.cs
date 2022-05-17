@@ -11,10 +11,12 @@ public class SaveData : MonoBehaviour
     [Header("Editor Buttons")]
     public bool saveButton;
     public bool loadButton;
+    public bool deleteSaveButton;
     public bool clearDataButton;
     private void Update() {
         if (saveButton) { Save(); saveButton = false;}
         if (loadButton) { Load(); loadButton = false;}
+        if (deleteSaveButton) { DeleteSave(); deleteSaveButton = false;}
         if (clearDataButton) { ClearData(); clearDataButton = false;}
     }
 
@@ -54,6 +56,10 @@ public class SaveData : MonoBehaviour
         instance.catCafe_unlockedDigits = save.catCafe_unlockedDigits;
     }
 
+    public static void DeleteSave() {
+        SaveSystem.DeleteSave();
+    }
+
     public static void ClearData() {
         //Generate new code for CatCafe
         instance.catCafe_code = new int[4];
@@ -63,4 +69,5 @@ public class SaveData : MonoBehaviour
         instance.catCafe_unlockedDigits = 0;
         instance.catCafe_unlockedElevator = false;
     }
+
 }

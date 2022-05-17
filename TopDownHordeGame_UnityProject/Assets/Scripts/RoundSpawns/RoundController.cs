@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class RoundController : MonoBehaviour
 {
+    public delegate void RoundChange(int round);
+    public event RoundChange EventRoundChange;
+
     [SerializeField] private GameObject zombiePrefab;
     [SerializeField] private int round;
     public int GetRound() { return round; }
@@ -128,6 +131,7 @@ public class RoundController : MonoBehaviour
         zombiesSpawnedThisRound = 0;
         PlayerManager.instance.RespawnDeadPlayers();
         timeUntilNextSpawn = 0;
+        if (EventRoundChange != null) { EventRoundChange.Invoke(round); }
         //Debug.Log("Round: " + round.ToString());
     }
 

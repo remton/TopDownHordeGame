@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class KeypadUI : Menu
 {
+    public AudioClip buttonSound;
     private int numDisplaySize;
     public Text UINumTxt;
     public List<GameObject> digitHolders;
@@ -29,10 +30,12 @@ public class KeypadUI : Menu
 
 
     public void PressNum(int num) {
+        AudioManager.instance.PlaySound(buttonSound, transform.position);
         currGuess.Add(num);
         UpdateUI(currGuess);
     }
     public void PressSubmit() {
+        AudioManager.instance.PlaySound(buttonSound, transform.position);
         if (EventSubmitPressed != null) { EventSubmitPressed.Invoke(currGuess.ToArray()); }
     }
 

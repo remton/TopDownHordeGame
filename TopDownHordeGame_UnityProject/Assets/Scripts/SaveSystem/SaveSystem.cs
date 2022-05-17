@@ -17,6 +17,7 @@ public static class SaveSystem
 
         formatter.Serialize(stream, save);
         stream.Close();
+        Debug.Log("Saved to: " + path);
     }
     public static Save LoadSave() {
         string path = Application.persistentDataPath + FILEPATH;
@@ -34,8 +35,13 @@ public static class SaveSystem
             return save;
         }
         else {
-            Debug.LogError("Save file not found in " + path);
+            Debug.Log("Save file not found in " + path);
             return null;
         }
+    }
+    public static void DeleteSave() {
+        string path = Application.persistentDataPath + FILEPATH;
+        File.Delete(path);
+        Debug.Log("Deleted " + path);
     }
 }
