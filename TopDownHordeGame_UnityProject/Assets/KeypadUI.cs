@@ -30,12 +30,12 @@ public class KeypadUI : Menu
 
 
     public void PressNum(int num) {
-        AudioManager.instance.PlaySound(buttonSound, transform.position);
+        AudioManager.instance.PlaySound(buttonSound);
         currGuess.Add(num);
         UpdateUI(currGuess);
     }
     public void PressSubmit() {
-        AudioManager.instance.PlaySound(buttonSound, transform.position);
+        AudioManager.instance.PlaySound(buttonSound);
         if (EventSubmitPressed != null) { EventSubmitPressed.Invoke(currGuess.ToArray()); }
     }
 

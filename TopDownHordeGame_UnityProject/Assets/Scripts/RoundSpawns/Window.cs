@@ -50,7 +50,7 @@ public class Window : ZombieSpawn
         health -= d;
         if (health <= 0) {
             health = 0;
-            AudioManager.instance.PlaySound(breakSound, transform.position);
+            AudioManager.instance.PlaySound(breakSound);
             spawnDelay = 0.5F;
             isOpen = true;
         }

@@ -17,14 +17,14 @@ public class SurpriseMechanic : WeaponShop
         if (playerStats.GetBank() >= cost)
         {
             //SoundPlayer.Play(purchaseSound, transform.position);
-            AudioManager.instance.PlaySound(purchaseSound, transform.position);
+            AudioManager.instance.PlaySound(purchaseSound);
             playerStats.SpendMoney(cost);
             weaponControl.PickUpWeapon(RandomChoice.ChooseRandom(weaponChoices));
         }
         else
         {
             //SoundPlayer.Play(failPurchaseSound, transform.position);
-            AudioManager.instance.PlaySound(failPurchaseSound, transform.position);
+            AudioManager.instance.PlaySound(failPurchaseSound);
             Debug.Log("Need something. Money, perhaps.");
         }
     }

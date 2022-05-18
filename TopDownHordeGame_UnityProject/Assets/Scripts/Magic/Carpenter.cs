@@ -24,7 +24,7 @@ public class Carpenter : MonoBehaviour
         {
             current.GetComponent<PlayerStats>().AddMoney(1200);
         }
-        AudioManager.instance.PlaySound(pickupSound, transform.position);
+        AudioManager.instance.PlaySound(pickupSound);
         Stop();
     }
 

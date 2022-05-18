@@ -17,6 +17,7 @@ public class PGL : Weapon
     {
         base.Fire(player, direction);
         FireGrenade(player, direction);
+        AudioManager.instance.PlaySound(shootSound);
     }
 
     public void FireGrenade(GameObject player, Vector2 direction)

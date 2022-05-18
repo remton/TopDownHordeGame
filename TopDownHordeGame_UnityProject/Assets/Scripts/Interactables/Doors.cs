@@ -19,11 +19,11 @@ public class Doors : MonoBehaviour
             playerStats.SpendMoney(cost);
             OpenDoor();
             //SoundPlayer.Play(openSound, transform.position);
-            AudioManager.instance.PlaySound(openSound, transform.position);
+            AudioManager.instance.PlaySound(openSound);
         }
         else {
             //SoundPlayer.Play(failedBuySound, transform.position);
-            AudioManager.instance.PlaySound(failedBuySound, transform.position);
+            AudioManager.instance.PlaySound(failedBuySound);
             Debug.Log("Get a job.");
         }
     }

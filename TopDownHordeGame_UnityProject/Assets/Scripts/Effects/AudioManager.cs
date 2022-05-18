@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour {
     public float masterVolume;
-    public float sfxVolume;
-    public float musicVolume;
     public AudioSource sfxSource;
     AudioSource[] musicSources;
     int activeMusicSourceIndex;
@@ -27,7 +25,7 @@ public class AudioManager : MonoBehaviour {
             newMusicSource.transform.parent = transform;
         }
     }
-    
+
     public void PlayMusic(AudioClip clip, float fadeDuration = 1) {
         activeMusicSourceIndex = 1 - activeMusicSourceIndex;
         musicSources[activeMusicSourceIndex].clip = clip;
@@ -35,19 +33,17 @@ public class AudioManager : MonoBehaviour {
     
         StartCoroutine(AnimateMusicCrossfade(fadeDuration));
     }
-    public void PlaySound(AudioClip clip, Vector3 pos) {
-        sfxSource.PlayOneShot(clip, sfxVolume * masterVolume);
-        //AudioSource.PlayClipAtPoint (clip, transform.position, sfxVolume * masterVolume);
+    public void PlaySound(AudioClip clip, float volumeMultiplier=1f) {
+        sfxSource.PlayOneShot(clip, SaveData.instance.settings_volumeSFX * masterVolume * volumeMultiplier);
     }
     IEnumerator AnimateMusicCrossfade(float duration) {
         float percent = 0;
 
         while(percent < 1) {
             percent += Time.deltaTime * 1/duration; 
-            musicSources[activeMusicSourceIndex].volume = Mathf.Lerp(0,musicVolume * masterVolume, percent);
-            musicSources[1-activeMusicSourceIndex].volume = Mathf.Lerp(musicVolume * masterVolume, 0, percent);
+            musicSources[activeMusicSourceIndex].volume = Mathf.Lerp(0,SaveData.instance.settings_volumeMusic * masterVolume, percent);
+            musicSources[1-activeMusicSourceIndex].volume = Mathf.Lerp(SaveData.instance.settings_volumeMusic * masterVolume, 0, percent);
             yield return null;
         }
     }
-
 }

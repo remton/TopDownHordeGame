@@ -4,18 +4,16 @@ using UnityEngine;
 
 public class FireEffectController : MonoBehaviour
 {
-    private AudioClip fireSound;
     public float duration; // How long in seconds until the trail fades 
     public float maxDistance;
     private float volume = 1;
     public GameObject trailObjPrefab; // The trail to use for this gun
 
-    public void CreateTrail(Vector2 pos1, Vector2 pos2, AudioClip sound) {
+    public void CreateTrail(Vector2 pos1, Vector2 pos2) {
         //fireSound = sound;
         GameObject trailObj = Instantiate(trailObjPrefab);
         //AudioSource audio = trailObj.GetComponent<AudioSource>(); 
         //SoundPlayer.Play(fireSound, transform.position, volume);
-        AudioManager.instance.PlaySound(sound, transform.position);
         trailObj.GetComponent<BulletTrail>().Init(pos1, pos2, duration);
     }
     public void CreateTrailDir(Vector2 pos1, Vector2 direction) {

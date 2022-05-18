@@ -28,6 +28,7 @@ public class M16 : Weapon
             if(timeUntilNextShot <= 0) {
                 base.Fire(currPlayer, currPlayer.GetComponent<PlayerMovement>().GetCurrentLookDir());
                 FireShot(currPlayer, currPlayer.GetComponent<PlayerMovement>().GetCurrentLookDir(), spreadAngle);
+                AudioManager.instance.PlaySound(shootSound);
                 currPlayer.GetComponent<PlayerWeaponControl>().UpdateVisuals();
                 shotsLeftInBurst--;
                 timeUntilNextShot = timebetweenShots;

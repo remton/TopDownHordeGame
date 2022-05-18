@@ -23,7 +23,7 @@ public class Explosion : MonoBehaviour
 
     private void Start() {
 //        SoundPlayer.Play(explosionSound, transform.position);
-        AudioManager.instance.PlaySound(explosionSound, transform.position);
+        AudioManager.instance.PlaySound(explosionSound);
         CameraController.instance.Shake(screenShakeIntensity);
         timer.CreateTimer(aftershockTime, AftershockShake);
     }

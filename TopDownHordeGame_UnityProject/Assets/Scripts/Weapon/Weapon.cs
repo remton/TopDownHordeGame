@@ -64,11 +64,11 @@ public class Weapon : MonoBehaviour
     // ---- Play sounds ----
     public void PlayReloadSound() {
         //SoundPlayer.Play(reloadSound, transform.position);
-        AudioManager.instance.PlaySound(reloadSound, transform.position);
+        AudioManager.instance.PlaySound(reloadSound);
     }
     public void PlaySwapSound() {
         //SoundPlayer.Play(swapSound, transform.position);
-        AudioManager.instance.PlaySound(swapSound, transform.position);
+        AudioManager.instance.PlaySound(swapSound);
     }
 
     // ---- Internal Weapon Mechanics ----
@@ -134,7 +134,7 @@ public class Weapon : MonoBehaviour
         Vector2 startPos = spriteControl.BarrelEndPosition();
         if(hitInfos.Length == 0) {
             Vector2 trailEnd = startPos + (direction.normalized * effectController.maxDistance);
-            effectController.CreateTrail(startPos, trailEnd, shootSound);
+            effectController.CreateTrail(startPos, trailEnd);
             hasCreatedTrail = true;
         }
         //Loop through all collisions
@@ -159,7 +159,7 @@ public class Weapon : MonoBehaviour
                 if (hitZombies == penatration){
                     Vector2 hitPoint = hitInfos[i].point; 
                     hasCreatedTrail = true;
-                    effectController.CreateTrail(startPos, hitPoint, shootSound);
+                    effectController.CreateTrail(startPos, hitPoint);
                     break;
                 }
             }
@@ -167,18 +167,18 @@ public class Weapon : MonoBehaviour
             {
                 Vector2 hitPoint = hitInfos[i].point;
                 hasCreatedTrail = true;
-                effectController.CreateTrail(startPos, hitPoint, shootSound);
+                effectController.CreateTrail(startPos, hitPoint);
                 break;
             }
             else {
                 Vector2 trailEnd = startPos + (direction.normalized * effectController.maxDistance);
                 hasCreatedTrail = true;
-                effectController.CreateTrail(startPos, trailEnd, shootSound);
+                effectController.CreateTrail(startPos, trailEnd);
             }
         }
         if (!hasCreatedTrail) {
             Vector2 trailEnd = startPos + (direction.normalized * effectController.maxDistance);
-            effectController.CreateTrail(startPos, trailEnd, shootSound);
+            effectController.CreateTrail(startPos, trailEnd);
         }
         CameraController.instance.Shake(shakeIntensity);
     }

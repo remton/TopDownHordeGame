@@ -11,5 +11,6 @@ public class PPSh : Weapon
     {
         base.Fire(player, direction);
         FireShot(player, direction, spreadAngle);
+        AudioManager.instance.PlaySound(shootSound);
     }
 }

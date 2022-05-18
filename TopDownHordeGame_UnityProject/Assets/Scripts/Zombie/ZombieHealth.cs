@@ -51,7 +51,7 @@ public class ZombieHealth : MonoBehaviour
             Kill();
         hitParticles.Play();
         chance = Random.Range(0,hurtsounds.Length);
-        AudioManager.instance.PlaySound(hurtsounds[chance], transform.position);
+        AudioManager.instance.PlaySound(hurtsounds[chance]);
         if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
     }
 

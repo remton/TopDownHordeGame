@@ -25,7 +25,7 @@ public class Pickup : MonoBehaviour
     }
 
     public void Collect(GameObject player) {
-        AudioManager.instance.PlaySound(collectSound, transform.position);
+        AudioManager.instance.PlaySound(collectSound);
         if (EventOnCollect != null)
             EventOnCollect.Invoke();
         else

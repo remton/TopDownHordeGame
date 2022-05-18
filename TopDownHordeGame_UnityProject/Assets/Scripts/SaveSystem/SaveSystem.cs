@@ -9,6 +9,7 @@ public static class SaveSystem
     const string FILEPATH = "/game.save";
 
     public static void Save(SaveData data) {
+
         BinaryFormatter formatter = new BinaryFormatter();
         string path = Application.persistentDataPath + FILEPATH;
         FileStream stream = new FileStream(path, FileMode.Create);

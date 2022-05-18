@@ -44,10 +44,7 @@ public class StickyGrenade : MonoBehaviour
         Move(moveDir);
         if (stuck && !stuckToScenery && stuckOn != null)
         {
-            //if () 
-            //{
-                location = stuckOn.transform.position;
-            //}
+            location = stuckOn.transform.position;
             transform.position = location;
         }
     }

@@ -13,6 +13,7 @@ public class RPG : Weapon
     public override void Fire(GameObject player, Vector2 direction)
     {
         base.Fire(player, direction);
+        AudioManager.instance.PlaySound(shootSound);
         FireRocket(player, direction);
         player.GetComponent<PlayerMovement>().KnockBack(fireKnockback, -direction);
     }

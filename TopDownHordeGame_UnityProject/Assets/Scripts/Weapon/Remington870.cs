@@ -9,6 +9,7 @@ public class Remington870 : Weapon
 
     public override void Fire(GameObject player, Vector2 direction) {
         base.Fire(player, direction);
+        AudioManager.instance.PlaySound(shootSound);
         direction.Normalize();
         float baseAngle = Mathf.Atan2(direction.y, direction.x);
         float angleDiff = -spreadAngle / 2;

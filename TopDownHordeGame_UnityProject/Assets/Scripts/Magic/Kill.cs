@@ -32,7 +32,7 @@ public class Kill : MonoBehaviour
             Debug.Log("In player loop");
             current.GetComponent<PlayerWeaponControl>().KillDamage(5000);
         }
-        AudioManager.instance.PlaySound(pickupSound, transform.position);
+        AudioManager.instance.PlaySound(pickupSound);
         Debug.Log("Moving");
         transform.position = holdingRoom;
         Debug.Log("Moved \n Calling Stall");

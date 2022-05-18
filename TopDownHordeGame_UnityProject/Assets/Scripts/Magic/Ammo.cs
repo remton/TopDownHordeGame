@@ -25,7 +25,7 @@ public class Ammo : MonoBehaviour
         {
             current.GetComponent<PlayerWeaponControl>().RefillWeaponReserve();
         }
-        AudioManager.instance.PlaySound(pickupSound, transform.position);
+        AudioManager.instance.PlaySound(pickupSound);
         Stop();
     }
 
