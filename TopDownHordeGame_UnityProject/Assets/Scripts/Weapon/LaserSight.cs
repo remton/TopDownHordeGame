@@ -25,7 +25,7 @@ public class LaserSight : MonoBehaviour
     public void DrawLaser(Vector2 direction) {
         if (!isOn)
             return;
-        Debug.Log("Draw");
+        //Debug.Log("Draw");
         direction.Normalize();
         string[] mask = { "BulletCollider", "ZombieHitbox", "Door" };
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, direction, maxRange, LayerMask.GetMask(mask));
