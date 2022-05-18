@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class Keypad : MonoBehaviour {
 
-    public AudioClip buttonSound;
 
     private HitBoxController hitBox;
     public KeypadUI UI;
