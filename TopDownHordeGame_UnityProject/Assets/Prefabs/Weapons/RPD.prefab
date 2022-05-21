@@ -139,7 +139,7 @@ MonoBehaviour:
   reloadTime: 3
   reloadAmount: 0
   swapTime: 1
-  movePenalty: 0.7
+  movePenalty: 0.8
   isAutomatic: 1
   infiniteReserve: 0
   reloadSound: {fileID: 8300000, guid: 343cfc8fbf6ab4444a6facf1375c5db3, type: 3}

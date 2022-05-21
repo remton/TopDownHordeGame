@@ -55,7 +55,7 @@ MonoBehaviour:
   reloadTime: 0.2
   reloadAmount: 1
   swapTime: 0.1
-  movePenalty: 1.05
+  movePenalty: 1.1
   isAutomatic: 0
   infiniteReserve: 0
   reloadSound: {fileID: 8300000, guid: 38ab4dbe0b1f1f44eab3ea84e6818b41, type: 3}
