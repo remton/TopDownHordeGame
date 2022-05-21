@@ -7,7 +7,6 @@ using UnityEngine;
 
 public class SaveData : MonoBehaviour
 {
-
     // ------ Data ------
     [Header("Data loaded at Runtime")]
     [Header("Settings")]
@@ -60,8 +59,8 @@ public class SaveData : MonoBehaviour
         instance.settings_volumeSFX = 0.5f;
         instance.settings_volumeMusic = 0.5f;
         //CatCafe
-        instance.catCafe_code = new int[4];
-        for (int i = 0; i < 4; i++) {
+        instance.catCafe_code = new int[CatCafe.codeLength];
+        for (int i = 0; i < CatCafe.codeLength; i++) {
             instance.catCafe_code[i] = Random.Range(0, 10);
         }
         instance.catCafe_unlockedDigits = 0;

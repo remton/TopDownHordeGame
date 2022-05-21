@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Keypad : MonoBehaviour {
-
+    private bool isLockedOut = false;
 
     private HitBoxController hitBox;
     public KeypadUI UI;
@@ -26,6 +26,17 @@ public class Keypad : MonoBehaviour {
     }
     public void SetCode(int[] newCode) {
         code = newCode;
+    }
+    public void SetLockout(bool b) {
+        isLockedOut = b;
+        UI.isLockedOut = b;
+        if (b) {
+            AudioManager.instance.PlaySound(UI.lockoutSound);
+            UI.CloseUI();
+        }
+    }
+    public bool IsLockedOut() {
+        return isLockedOut;
     }
 
     private bool CorrectCode(int[] guess) {

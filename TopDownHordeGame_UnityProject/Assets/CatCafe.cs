@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class CatCafe : MonoBehaviour
 {
     public static string LevelName = "CatCafe";
+    public static int codeLength = 4;
 
     public GameObject elavatorCover;
     public Keypad keypad;
@@ -24,9 +25,11 @@ public class CatCafe : MonoBehaviour
         unlockedElevator = SaveData.instance.catCafe_unlockedElevator;
 
         //Set up elevator keypad
+        keypad.SetLockout(false);
         keypad.SetCode(keypadCode);
         keypad.SetUnlockedDigits(unlockedDigits);
         keypad.EventCorrectGuess += CorrectCodeEntered;
+        keypad.EventWrongGuess += WrongCodeEntered;
 
         //set up code pickups
         for (int i = 0; i < codePickups.Count; i++) {
@@ -44,6 +47,9 @@ public class CatCafe : MonoBehaviour
     }
     private void CorrectCodeEntered() {
         OpenElavatorArea();
+    }
+    private void WrongCodeEntered() {
+        keypad.SetLockout(true);
     }
 
     public void SpawnCodePickup() {
@@ -63,7 +69,11 @@ public class CatCafe : MonoBehaviour
         RoundController.instance.EventRoundChange -= OnRoundChange;
     }
     private void OnRoundChange(int round) {
+        if (keypad.IsLockedOut())
+            keypad.SetLockout(false);
+
         if (round >= 10 && round % 10 == 0)
-            SpawnCodePickup();
+            if(unlockedDigits < codeLength)
+                SpawnCodePickup();
     }
 }

@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class KeypadUI : Menu
 {
+    public bool isLockedOut;
+    public AudioClip lockoutSound;
     public AudioClip buttonSound;
     private int numDisplaySize;
     public Text UINumTxt;
@@ -38,13 +40,21 @@ public class KeypadUI : Menu
         AudioManager.instance.PlaySound(buttonSound);
         if (EventSubmitPressed != null) { EventSubmitPressed.Invoke(currGuess.ToArray()); }
     }
-
+    public void PressClear() {
+        AudioManager.instance.PlaySound(buttonSound);
+        currGuess.Clear();
+        UpdateUI(currGuess);
+    }
 
     private void Start() {
         numDisplaySize = UINumTxt.text.Length - 1;
         UpdateUI(currGuess);
     }
     public void OpenUI() {
+        if (isLockedOut) {
+            AudioManager.instance.PlaySound(lockoutSound);
+            return;
+        }
         gameObject.SetActive(true);
         PauseManager.instance.PauseTime();
     }
