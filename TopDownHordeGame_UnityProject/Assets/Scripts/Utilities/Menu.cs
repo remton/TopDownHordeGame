@@ -5,8 +5,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.EventSystems;
+using Mirror;
 
-public class Menu : MonoBehaviour
+public class Menu : NetworkBehaviour
 {
     public GameObject defaultSelectedObject;
     private bool isUsingGamepad = false;
