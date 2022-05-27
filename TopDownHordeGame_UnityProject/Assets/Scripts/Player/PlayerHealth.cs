@@ -135,7 +135,7 @@ public class PlayerHealth : NetworkBehaviour {
         regenHitDelay *= balance;
         regenInterval *= balance;
     }
-
+    [Client]
     public void Damage(float damageAmount) {
         if (inIFrames || isBleedingOut || isDead)
             return;
@@ -158,12 +158,12 @@ public class PlayerHealth : NetworkBehaviour {
         //SoundPlayer.Play(hurtsounds[chance], transform.position, volume * 1);
         AudioManager.instance.PlaySound(hurtsounds[chance]);
     }
-
+    [Client]
     private void StartIFrames() {
         timer.CreateTimer(iFrameTime, EndIFrames);
         inIFrames = true;
     }
-
+    [Client]
     private void EndIFrames() {
         inIFrames = false;
     }
@@ -181,11 +181,12 @@ public class PlayerHealth : NetworkBehaviour {
             Debug.Log("Revived!");
             if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
         }
-//    reviver.GetComponent<PlayerHealth>().OnReviveActivateRelease(gameObject);
+    //    reviver.GetComponent<PlayerHealth>().OnReviveActivateRelease(gameObject);
     OnReviveActivateRelease(reviver);
     reviver = null;
     }
 
+    [Client]
     private void GoDown() {
         reviveTrigger.EventObjEnter += OnPlayerEnterReviveTrigger;
         reviveTrigger.EventObjExit += OnPlayerExitReviveTrigger;

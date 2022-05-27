@@ -35,10 +35,10 @@ public class Player : NetworkBehaviour
         GetComponent<PlayerMovement>().enabled = myConnection.isLocalPlayer;
         GetComponent<PlayerWeaponControl>().enabled = myConnection.isLocalPlayer;
         GetComponent<PlayerActivate>().enabled = myConnection.isLocalPlayer;
+        GetComponent<PlayerHealth>().enabled = isLocalPlayer;
         GetComponent<PlayerInput>().camera = Camera.main;
         GetComponent<PlayerStats>().playerName = PlayerConnection.GetName(myConnection);
 
         //Set up things handled on the server side
-        GetComponent<PlayerHealth>().enabled = isServer;
     }
 }

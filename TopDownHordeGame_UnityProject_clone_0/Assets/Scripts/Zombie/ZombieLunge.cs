@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Mirror;
 
-public class ZombieLunge : MonoBehaviour
+public class ZombieLunge : NetworkBehaviour
 {
     [SerializeField] private HitBoxController hitBox;
     [SerializeField] private float waitTime;
@@ -45,10 +46,16 @@ public class ZombieLunge : MonoBehaviour
         }
     }
 
+    [Server]
     private void Damage(GameObject playerHitbox) {
         GameObject player = playerHitbox.GetComponent<DamageHitbox>().owner;
+        DamageRPC(player, damage);
+    }
+    [ClientRpc]
+    private void DamageRPC(GameObject player, float damage) {
         player.GetComponent<PlayerHealth>().Damage(damage);
     }
+
     public void SetDamage(float newDamage){
         damage = newDamage;
     }
