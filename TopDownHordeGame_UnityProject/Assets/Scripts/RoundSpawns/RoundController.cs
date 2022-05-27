@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class RoundController : MonoBehaviour
+public class RoundController : NetworkBehaviour
 {
     public delegate void RoundChange(int round);
     public event RoundChange EventRoundChange;
@@ -56,6 +57,11 @@ public class RoundController : MonoBehaviour
         }
     }
     private void Start() {
+        if (!isServer) {
+            this.enabled = false;
+            return;
+        }
+
         //Initial round values
         numPlayers = GameSettings.instance.numPlayers;
         zombiesToSpawn = GetMaxZombies();
@@ -113,10 +119,12 @@ public class RoundController : MonoBehaviour
         }
     }
 
+    [Server]
     public GameObject CreateZombie() {
         //spawn special zombie
         GameObject zombieObj = Instantiate(RandomChoice.ChooseRandom(zombieList));
         zombieObj.GetComponent<ZombieAI>().SetValues(GetHealth(), GetSpeed(), GetDamage());
+        NetworkServer.Spawn(zombieObj);
         return zombieObj;
     }
 

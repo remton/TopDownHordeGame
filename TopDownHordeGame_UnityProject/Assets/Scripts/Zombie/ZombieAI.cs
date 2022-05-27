@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 [RequireComponent(typeof(Timer))]
-public class ZombieAI : MonoBehaviour
+public class ZombieAI : NetworkBehaviour
 {
     public int payForHit;
     public int payForKill;
@@ -40,7 +41,7 @@ public class ZombieAI : MonoBehaviour
         }
         else {
             isGamePaused = false;
-            FindTarget(PlayerManager.instance.GetActiveLocalPlayers());
+            FindTarget(PlayerManager.instance.GetActivePlayers());
             if (wasPathingBeforePause)
                 StartPathing();
         }
@@ -95,15 +96,21 @@ public class ZombieAI : MonoBehaviour
     }
 
     protected virtual void Start() {
+        //Disable AI on non-server clients
+        if (!PlayerConnection.myConnection.isServer) {
+            this.enabled = false;
+            return;
+        }
+
         timer.CreateTimer(spwanFramesInSeconds, StartAI);
         isInSpawnFrames = true;
-        PlayerManager.instance.EventActiveLocalPlayersChange += FindTarget;
+        PlayerManager.instance.EventActivePlayersChange += FindTarget;
         PauseManager.instance.EventPauseStateChange += OnPauseStateChange;
         zombiePath.EventLostNavMesh += OnBecomeLost;
     }
     protected void StartAI() {
         isInSpawnFrames = false;
-        FindTarget(PlayerManager.instance.GetActiveLocalPlayers());
+        FindTarget(PlayerManager.instance.GetActivePlayers());
         zombiePath.Activate(2 * Time.deltaTime);
     }
 
@@ -133,7 +140,7 @@ public class ZombieAI : MonoBehaviour
         //Update target coundown
         if (timeUntilCheckTarget <= 0) {
             timeUntilCheckTarget = timeBetweenTargetChecks;
-            FindTarget(PlayerManager.instance.GetActiveLocalPlayers());
+            FindTarget(PlayerManager.instance.GetActivePlayers());
         }
         timeUntilCheckTarget -= Time.deltaTime;
     }

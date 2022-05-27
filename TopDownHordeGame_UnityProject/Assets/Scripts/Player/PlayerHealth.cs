@@ -2,8 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class PlayerHealth : MonoBehaviour {
+public class PlayerHealth : NetworkBehaviour {
     private Timer timer;
     public bool isBeingRevived;
     private GameObject reviver;
@@ -63,6 +64,7 @@ public class PlayerHealth : MonoBehaviour {
     private float health;
     private float timeUntilDeath;
     private bool isBleedingOut;
+    [SyncVar]
     private bool isDead = false;
     private float regenAmount = 1;
     private float regenHitDelay = 10; 

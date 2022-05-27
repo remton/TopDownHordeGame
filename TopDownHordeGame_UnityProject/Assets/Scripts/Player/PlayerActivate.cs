@@ -5,14 +5,14 @@ using UnityEngine.InputSystem;
 
 public class PlayerActivate : MonoBehaviour
 {
-    public bool isDisabled = false;
+    public bool isPaused = false;
 
     public delegate void Activate(GameObject player);
     public event Activate EventPlayerActivate; // button pressed down
     public event Activate EventPlayerActivateRelease; // button is released
 
     public void OnActivateButton(InputAction.CallbackContext context) {
-        if (isDisabled)
+        if (isPaused)
             return;
 
         if (context.action.triggered) {

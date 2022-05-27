@@ -8,9 +8,8 @@ using Mirror;
 //TODO:
 // Update movement penalty when we equip a weapon
 
-public class PlayerWeaponControl : NetworkBehaviour
-{
-    public bool isDisabled = false;
+public class PlayerWeaponControl : NetworkBehaviour {
+    public bool isPaused = false;
 
     [SyncVar]
     public bool laserSightEnabled;
@@ -54,10 +53,6 @@ public class PlayerWeaponControl : NetworkBehaviour
     //if (EventAmmoChanged != null) EventAmmoChanged.Invoke(weapons[equippedIndex].GetInMag(), weapons[equippedIndex].GetInReserve());
 
 
-    // ------- Networking -------
-
-
-
     private void Awake() {
         playerMovement = GetComponent<PlayerMovement>();
         timer = GetComponent<Timer>();
@@ -71,8 +66,8 @@ public class PlayerWeaponControl : NetworkBehaviour
             weapons[equippedIndex].spriteControl.SetLaser(laserSightEnabled);
         }
         if (EventAmmoChanged != null) { EventAmmoChanged.Invoke(Mathf.RoundToInt(weapons[equippedIndex].GetInMag()), weapons[equippedIndex].GetInReserve()); }
-        if(EventWeaponChanged != null) { EventWeaponChanged.Invoke(weapons[equippedIndex].GetWeaponName()); }
-        
+        if (EventWeaponChanged != null) { EventWeaponChanged.Invoke(weapons[equippedIndex].GetWeaponName()); }
+
         playerMovement.runSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
         playerMovement.walkSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
     }
@@ -100,7 +95,7 @@ public class PlayerWeaponControl : NetworkBehaviour
 
     // ------------- LASER CONTROL -------------
     public void OnLaserButton(InputAction.CallbackContext context) {
-        if(context.action.triggered == true) {
+        if (context.action.triggered == true) {
             laserSightEnabled = !laserSightEnabled;
             weapons[equippedIndex].spriteControl.SetLaser(laserSightEnabled);
         }
@@ -111,7 +106,7 @@ public class PlayerWeaponControl : NetworkBehaviour
     // Swap Weapon control
     /// <summary> called when swap weapon button is pressed</summary>
     public void OnSwapWeapon(InputAction.CallbackContext context) {
-        if (isDisabled)
+        if (isPaused)
             return;
         // Make sure this input is pressing down, not pulling off
         if (context.action.triggered == true)
@@ -127,19 +122,14 @@ public class PlayerWeaponControl : NetworkBehaviour
         isSwapping = true;
         float timeUntilSwap = weapons[NextWeaponIndex()].GetSwapTime();
         timer.CreateTimer(timeUntilSwap, Swap);
-        if (EventSwapCalled != null)EventSwapCalled.Invoke(timeUntilSwap);
+        if (EventSwapCalled != null) EventSwapCalled.Invoke(timeUntilSwap);
     }
     private void Swap() {
         isSwapping = false;
         weapons[equippedIndex].PlaySwapSound();
-        Debug.Log("Swapped!");
-        playerMovement.runSpeedMultipliers.Remove(weapons[equippedIndex].GetMoveMult());
-        playerMovement.walkSpeedMultipliers.Remove(weapons[equippedIndex].GetMoveMult());
-        weapons[equippedIndex].spriteControl.DeactivateSprite();
+        DeactivateCurrentWeapon();
         equippedIndex = NextWeaponIndex();
-        weapons[equippedIndex].spriteControl.ActivateSprite();
-        playerMovement.runSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
-        playerMovement.walkSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
+        ActivateCurrentWeapon();
         UpdateVisuals();
     }
     private void CancelSwap() {
@@ -151,7 +141,7 @@ public class PlayerWeaponControl : NetworkBehaviour
     // Reload weapon control
     /// <summary> called when reload button is pressed </summary>
     public void OnReload(InputAction.CallbackContext context) {
-        if (isDisabled)
+        if (isPaused)
             return;
         // Make sure this input is pressing down, not pulling off
         if ((context.action.triggered == true) && (weapons[equippedIndex].GetInMag() < Mathf.RoundToInt(weapons[equippedIndex].GetMagSize() * magMult)))
@@ -186,7 +176,7 @@ public class PlayerWeaponControl : NetworkBehaviour
             StartReload();
         }
         else {
-            repeatingReload = false; 
+            repeatingReload = false;
             isReloading = false;
         }
     }
@@ -199,7 +189,7 @@ public class PlayerWeaponControl : NetworkBehaviour
     // Shoot weapon control
     /// <summary> Called when shoot button state changes </summary>
     public void OnShoot(InputAction.CallbackContext context) {
-        if (isDisabled)
+        if (isPaused)
             return;
         shootButtonDown = context.action.triggered;
         if (shootButtonDown && repeatingReload && !weapons[equippedIndex].MagEmpty())
@@ -239,12 +229,12 @@ public class PlayerWeaponControl : NetworkBehaviour
     private void Shoot() {
         if (weapons[equippedIndex].MagEmpty()) {
             repeatingReload = true;
-            if (!isReloading){
+            if (!isReloading) {
                 StartReload();
-                if (GetComponent<PlayerPerkHolder>().HavePerk(electricPrefab)){
+                if (GetComponent<PlayerPerkHolder>().HavePerk(electricPrefab)) {
                     // Check if the player has the Electric reload perk. 
                     // To do: Fix this to make it call the Electric perk's damage function. 
-                    GetComponent<PlayerPerkHolder>().CallElectricDamage(electricPrefab);  
+                    GetComponent<PlayerPerkHolder>().CallElectricDamage(electricPrefab);
                 }
             }
             return;
@@ -269,35 +259,46 @@ public class PlayerWeaponControl : NetworkBehaviour
     }
 
     public void PickUpWeapon(GameObject weaponPrefab) {
-        playerMovement.runSpeedMultipliers.Remove(weapons[equippedIndex].GetMoveMult());
-        playerMovement.walkSpeedMultipliers.Remove(weapons[equippedIndex].GetMoveMult()); 
         if (isReloading)
             CancelReload();
         if (isSwapping)
             CancelSwap();
         if (isWaitingToShoot)
             CancelShoot();
-        Debug.Log("Picked up: " + weaponPrefab.name);
+
+        //Debug.Log("Picked up: " + weaponPrefab.name);
+        //Create Weapon Obj
         GameObject weaponObj = Instantiate(weaponPrefab, transform);
         weaponObj.transform.position = gameObject.transform.position;
         Weapon weapon = weaponObj.GetComponent<Weapon>();
         weapon.AddReserveAmmo(Mathf.RoundToInt(weapon.GetReserveSize() * reserveMult));
-        if(maxWeapons > weapons.Count) {
+
+        if (maxWeapons > weapons.Count) {
             weapons.Add(weapon);
-            weapons[equippedIndex].spriteControl.DeactivateSprite();
+            DeactivateCurrentWeapon();
             equippedIndex = weapons.Count - 1;
-            weapons[equippedIndex].spriteControl.ActivateSprite();
+            ActivateCurrentWeapon();
         }
         else {
+            DeactivateCurrentWeapon();
             if (weapons[equippedIndex] != null) {
                 Destroy(weapons[equippedIndex].gameObject);
             }
             weapons[equippedIndex] = weapon;
-            weapons[equippedIndex].spriteControl.ActivateSprite();
+            ActivateCurrentWeapon();
         }
         UpdateVisuals();
+    }
+    private void DeactivateCurrentWeapon() {
+        playerMovement.runSpeedMultipliers.Remove(weapons[equippedIndex].GetMoveMult());
+        playerMovement.walkSpeedMultipliers.Remove(weapons[equippedIndex].GetMoveMult());
+        weapons[equippedIndex].spriteControl.DeactivateSprite();
+    }
+    private void ActivateCurrentWeapon() {
+        weapons[equippedIndex].spriteControl.ActivateSprite();
         playerMovement.runSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
         playerMovement.walkSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
+        GetComponent<Player>().SetWeaponForNetworkSync(weapons[equippedIndex].gameObject);
     }
 
     public void RefillWeaponReserve()

@@ -1294,7 +1294,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeUntilLoadNextScene: 10
-  sceneToLoad: PreGame
+  mainMenuScene: MainMenu
+  onlineLobbyScene: OnlineLobby
   statDisplays:
   - {fileID: 631959590}
   - {fileID: 1494517731}

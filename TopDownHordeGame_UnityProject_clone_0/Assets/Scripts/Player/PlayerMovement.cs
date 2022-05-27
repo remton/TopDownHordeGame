@@ -15,7 +15,7 @@ using Mirror;
 public class PlayerMovement : NetworkBehaviour {
     private Animator animator;
 
-    public bool isDisabled = false;
+    public bool isPaused = false;
     private bool isMoving = false;
     private bool isRunning = false;
 
@@ -68,7 +68,6 @@ public class PlayerMovement : NetworkBehaviour {
     private bool useMouseToLook;
 
     // This is used by other scripts to access what direction the player is looking
-    [SyncVar]
     private Vector2 currentLookDir;
     
     public Vector2 GetCurrentLookDir() { return currentLookDir; }
@@ -108,7 +107,7 @@ public class PlayerMovement : NetworkBehaviour {
 
     private void Update()
     {
-        if (isDisabled)
+        if (isPaused)
             return;
 
         if (useMouseToLook) {
@@ -119,7 +118,7 @@ public class PlayerMovement : NetworkBehaviour {
 
     //called after every frame
     private void FixedUpdate() {
-        if (isDisabled)
+        if (isPaused)
             return;
 
         if (doMovement && !knockBackActive && !forceknockbackActive)
@@ -159,7 +158,7 @@ public class PlayerMovement : NetworkBehaviour {
         }
     }
     private void LookAtMouse() {
-        if (isDisabled)
+        if (isPaused)
             return;
 
         Vector2 myPos = transform.position;
@@ -168,7 +167,7 @@ public class PlayerMovement : NetworkBehaviour {
         SetLookDir(dir);
     }
     private void LookTowards(Vector2 lookDir2D) {
-        if (isDisabled)
+        if (isPaused)
             return;
         SetLookDir(lookDir2D);
     }

@@ -1,15 +1,15 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameOverScreenController : MonoBehaviour
 {
     private Timer timer;
     private GameOverData data;
     public float timeUntilLoadNextScene;
-    public string sceneToLoad;
+    public string mainMenuScene;
+    public string onlineLobbyScene;
     public List<GameObject> statDisplays;
     public List<Text> nameTxts;
     public List<Text> scoreTxts;
@@ -39,6 +39,16 @@ public class GameOverScreenController : MonoBehaviour
     }
 
     public void LoadNextScene() {
-        SceneManager.LoadScene(sceneToLoad);
+        //this is an online game
+        if (MyNetworkManager.instance.isNetworkActive) {
+            if(PlayerConnection.myConnection.isServer)
+                MyNetworkManager.instance.ChangeScene(onlineLobbyScene);
+        }
+        else {
+            //this is an offline game
+            SceneManager.LoadScene(mainMenuScene);
+        }
+
+       
     }
 }

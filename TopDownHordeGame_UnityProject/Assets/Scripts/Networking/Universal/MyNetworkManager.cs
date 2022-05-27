@@ -45,6 +45,7 @@ public class MyNetworkManager : NetworkManager
             StartClient();
         }
     }
+    [Server]
     public void ChangeScene(string sceneName) {
         ServerChangeScene(sceneName);
     }

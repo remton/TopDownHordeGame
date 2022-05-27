@@ -28890,6 +28890,7 @@ GameObject:
   - component: {fileID: 1235508277}
   - component: {fileID: 1235508276}
   - component: {fileID: 1235508278}
+  - component: {fileID: 1235508279}
   m_Layer: 0
   m_Name: RoundController
   m_TagString: Untagged
@@ -28909,6 +28910,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2814ea2ea1ffc6448bc8410c03575252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   zombiePrefab: {fileID: 6956723953377203767, guid: 4412f1af9ed220f4a924d6646b25bd45, type: 3}
   round: 0
   display: {fileID: 1235508278}
@@ -28959,6 +28962,23 @@ MonoBehaviour:
   popup: {fileID: 350365487}
   smallDisplay: {fileID: 1015722686}
   displayTime: 3
+--- !u!114 &1235508279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235508275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 1631795234
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!1001 &1244139252
 PrefabInstance:
   m_ObjectHideFlags: 0

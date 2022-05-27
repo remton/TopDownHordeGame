@@ -16,9 +16,20 @@ public class PlayerManager : NetworkBehaviour
     private int numPlayers;
     private List<GameObject> localPlayers = new List<GameObject>();
 
+    private SyncList<GameObject> allPlayers = new SyncList<GameObject>();
+
     public List<GameObject> GetActiveLocalPlayers() {
+        List<GameObject> localPlayers = new List<GameObject>();
+        foreach (GameObject player in this.localPlayers) {
+            if (!player.GetComponent<PlayerHealth>().GetIsDead())
+                localPlayers.Add(player);
+        }
+        return localPlayers;
+    }
+
+    public List<GameObject> GetActivePlayers() {
         List<GameObject> activePlayers = new List<GameObject>();
-        foreach (GameObject player in localPlayers) {
+        foreach (GameObject player in allPlayers) {
             if (!player.GetComponent<PlayerHealth>().GetIsDead())
                 activePlayers.Add(player);
         }
@@ -27,6 +38,7 @@ public class PlayerManager : NetworkBehaviour
 
     public delegate void OnPlayersChanged(List<GameObject> players);
     public event OnPlayersChanged EventActiveLocalPlayersChange;
+    public event OnPlayersChanged EventActivePlayersChange;
 
     public static PlayerManager instance;
     private void Awake() {
@@ -61,12 +73,15 @@ public class PlayerManager : NetworkBehaviour
 
     [TargetRpc]
     public void AddLocalPlayerCharacter(NetworkConnection network, GameObject player) {
-        if(player == null) {
-            Debug.LogError("NULL PLAYER");
-        }
         localPlayers.Add(player);
         if (EventActiveLocalPlayersChange != null) { EventActiveLocalPlayersChange.Invoke(GetActiveLocalPlayers()); }
     }
+    [Server]
+    public void AddPlayerCharacter(GameObject player) {
+        allPlayers.Add(player);
+        if (EventActivePlayersChange != null) { EventActivePlayersChange.Invoke(GetActivePlayers()); }
+    }
+
 
     public void RespawnDeadPlayers() {
         foreach (GameObject player in localPlayers) {
@@ -101,6 +116,9 @@ public class PlayerManager : NetworkBehaviour
         Destroy(p);
         if (EventActiveLocalPlayersChange != null) { EventActiveLocalPlayersChange.Invoke(GetActiveLocalPlayers()); }
     }
+
+
+    [Command(requiresAuthority = false)]
     private void CheckGameOver() {
         List<PlayerConnection> connections = MyNetworkManager.instance.GetPlayerConnections();
         for (int i = 0; i < connections.Count; i++) {

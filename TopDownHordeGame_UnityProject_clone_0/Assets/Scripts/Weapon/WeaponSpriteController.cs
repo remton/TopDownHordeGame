@@ -7,9 +7,8 @@ public class WeaponSpriteController : MonoBehaviour
     public GameObject laserSightPrefab;
     private GameObject myLaser;
     [SerializeField] private GameObject barralEndObj;
-    [SerializeField] private GameObject spriteObj;
+    public GameObject spriteObj;
     public void UpdateDirection(Vector2 dir) {
-        //Debug.DrawLine(BarrelEndPosition(), BarrelEndPosition() + new Vector3(dir.x, dir.y, transform.position.z).normalized * 100, Color.red, 0, false);
         if (myLaser != null)
             myLaser.GetComponent<LaserSight>().DrawLaser(dir);
         if (dir.x < 0)

@@ -38,16 +38,16 @@ public class PlayerPauseControl : MonoBehaviour
         }
     }
     private void PausePlayer() {
-        movement.isDisabled = true;
-        activate.isDisabled = true;
-        weapon.isDisabled = true;
+        movement.isPaused = true;
+        activate.isPaused = true;
+        weapon.isPaused = true;
         timer.SavePauseState();
         timer.PauseAll();
     }
     private void UnPausePlayer() {
-        movement.isDisabled = false;
-        activate.isDisabled = false;
-        weapon.isDisabled = false;
+        movement.isPaused = false;
+        activate.isPaused = false;
+        weapon.isPaused = false;
         timer.LoadPauseState();
     }
 }
