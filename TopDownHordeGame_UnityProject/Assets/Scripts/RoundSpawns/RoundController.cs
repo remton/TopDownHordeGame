@@ -58,6 +58,7 @@ public class RoundController : NetworkBehaviour
     }
     private void Start() {
         if (!isServer) {
+            activeSpawns.Clear();
             this.enabled = false;
             return;
         }

@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class ZombieHealth : MonoBehaviour
+public class ZombieHealth : NetworkBehaviour
 {
     public GameObject deathEffectObj;
     [SerializeField] private ParticleSystem hitParticles;
@@ -14,6 +15,26 @@ public class ZombieHealth : MonoBehaviour
     [SerializeField] private AudioClip[] hurtsounds;
     private int chance;
     private bool killed = false;
+
+    public delegate void HealthChange(float newHealth, float newMax);
+    public event HealthChange EventHealthChanged;
+
+    [SyncVar(hook = nameof(OnMaxHealthChange))]
+    private float maxHealth;
+    [SyncVar(hook = nameof(OnHealthChange))]
+    private float health;
+    [Client]
+    private void OnHealthChange(float oldHealth, float newHealth) {
+        health = newHealth;
+        if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
+    }
+    [Client]
+    private void OnMaxHealthChange(float oldMax, float newMax) {
+        maxHealth = newMax;
+        if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
+    }
+
+
     public void SetMaxHealth(float newMax)
     {
         maxHealth = newMax;
@@ -23,11 +44,6 @@ public class ZombieHealth : MonoBehaviour
         return maxHealth;
     }
 
-    private float maxHealth = 1;
-    private float health;
-
-    public delegate void OnHealthChange(float newHealth, float newMax);
-    public event OnHealthChange EventHealthChanged;
 
     public float GetHealthRatio() {
         return (float)health / maxHealth;
@@ -42,6 +58,7 @@ public class ZombieHealth : MonoBehaviour
         if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
     }
 
+    [Command(requiresAuthority = false)]
     public void Damage(float amount)
     {
         if (killed)
@@ -55,14 +72,7 @@ public class ZombieHealth : MonoBehaviour
         if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
     }
 
-    public void Heal(float amount)
-    {
-        health += amount;
-        if (health > maxHealth)
-            health = maxHealth;
-        if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
-    }
-
+    [Server]
     public void Kill()
     {
         dieParticles.gameObject.transform.parent = null;

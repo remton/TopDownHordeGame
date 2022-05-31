@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 2408408245422526197}
   - component: {fileID: 2408408245422526196}
   - component: {fileID: 8316371371656077750}
+  - component: {fileID: 2651861167290442005}
+  - component: {fileID: 88454662373833760}
   m_Layer: 7
   m_Name: PlayerHitEffect
   m_TagString: Untagged
@@ -4820,3 +4822,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyTime: 2
+--- !u!114 &2651861167290442005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2408408245422526199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2481c070c49a4dd4cb8ace2ff92559b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &88454662373833760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2408408245422526199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 89d497461da91eb42910b9e873abe67f
+  hasSpawned: 0

@@ -799,10 +799,10 @@ MonoBehaviour:
   reviveTime: 3
   reviveTrigger: {fileID: 3654527221107561917}
   revivePrompt: {fileID: 6156069030793835517}
-  maxHealth: 10
   bleedOutTime: 20
-  hitEffectObj: {fileID: 2408408245422526199, guid: 89d497461da91eb42910b9e873abe67f, type: 3}
+  hitEffectPrefab: {fileID: 2408408245422526199, guid: 89d497461da91eb42910b9e873abe67f, type: 3}
   iFrameTime: 0.25
+  maxHealth: 10
 --- !u!114 &1620798982028091914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -818,13 +818,14 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   isPaused: 0
+  laserSightEnabled: 0
   reloadSpeedMult: 1
   fireDelayMult: 1
   magMult: 1
   reserveMult: 1
   starterWeaponPrefab: {fileID: 2093619312353819989, guid: fdf774ac936edeb448f010811a3c19dc, type: 3}
+  weapons: []
   maxWeapons: 2
-  laserSightEnabled: 0
   electricRadius: 10
   electricDamage: 10
   electricPrefab: {fileID: 7920108413950733430, guid: 63bc2d6571b51ed4fbef6330636d64a8, type: 3}
@@ -899,7 +900,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  weaponSpriteNetTransform: {fileID: 0}
 --- !u!114 &894019221409681671
 MonoBehaviour:
   m_ObjectHideFlags: 0

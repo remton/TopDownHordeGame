@@ -98,6 +98,7 @@ public class ZombieAI : NetworkBehaviour
     protected virtual void Start() {
         //Disable AI on non-server clients
         if (!PlayerConnection.myConnection.isServer) {
+            GetComponent<ZombieHealth>().enabled = false;
             this.enabled = false;
             return;
         }

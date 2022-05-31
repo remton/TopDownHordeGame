@@ -11,19 +11,39 @@ public class PlayerHealth : NetworkBehaviour {
     [SerializeField] private AudioClip reviveSound;
     [SerializeField] private AudioClip[] hurtsounds;
 
-    private int chance;
-    private void Awake() {
-        timer = GetComponent<Timer>();
-    }
-
-    public float GetHealthRatio() {
-        return (float)health / maxHealth;
-    }
-
     [SerializeField] private float reviveTime;
     [SerializeField] private HitBoxController reviveTrigger;
     public RevivePrompt revivePrompt;
     private Guid reviveTimerID = Guid.Empty;
+
+    public float bleedOutTime;
+
+    private float timeUntilDeath;
+    private bool isBleedingOut;
+    private float regenAmount = 1;
+    private float regenHitDelay = 10; 
+    private float regenInterval = 4;
+    private float timeSinceHit;
+    private float timeSinceRegen;
+    public GameObject hitEffectPrefab;
+    private bool inIFrames = false;
+    [SerializeField] private float iFrameTime;
+
+    [SyncVar(hook = nameof(OnHealthChange))]
+    private float health;
+    [SyncVar(hook = nameof(OnMaxHealthChange))]
+    [SerializeField] private float maxHealth;
+
+    [Client]
+    private void OnHealthChange(float oldHealth, float newHealth) {
+        health = newHealth;
+        if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
+    }
+    [Client]
+    private void OnMaxHealthChange(float oldMax, float newMax) {
+        maxHealth = newMax;
+        if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
+    }
 
     [Command]
     private void OnPlayerEnterReviveTrigger(GameObject otherPlayer) {
@@ -51,6 +71,14 @@ public class PlayerHealth : NetworkBehaviour {
         }
         
     }
+    private void Awake() {
+        timer = GetComponent<Timer>();
+    }
+
+    public float GetHealthRatio() {
+        return (float)health / maxHealth;
+    }
+
     private void OnReviveActivateDown(GameObject otherPlayer) {
         if (isBleedingOut && !otherPlayer.GetComponent<PlayerHealth>().isBleedingOut) {
             Debug.Log("Player start revive");
@@ -72,24 +100,10 @@ public class PlayerHealth : NetworkBehaviour {
         }
     }
 
-    [SerializeField] private float maxHealth;
-    public float bleedOutTime;
-    private float health;
-    private float timeUntilDeath;
-    private bool isBleedingOut;
-    private float regenAmount = 1;
-    private float regenHitDelay = 10; 
-    private float regenInterval = 4;
-    private float timeSinceHit;
-    private float timeSinceRegen;
-    public GameObject hitEffectObj;
-    private bool inIFrames = false;
-    [SerializeField] private float iFrameTime;
 
 
     [SyncVar] private bool isDead = false;
     public bool GetIsDead() { return isDead; }
-
 
     public bool GetIsBleedingOut() { return isBleedingOut; }
 
@@ -119,6 +133,7 @@ public class PlayerHealth : NetworkBehaviour {
     }
 
     //Heals by healAmount up to maxHealth
+    [Server]
     public void Heal(float healAmount) {
         float newHealth = health + healAmount;
         if (newHealth > maxHealth)
@@ -150,6 +165,7 @@ public class PlayerHealth : NetworkBehaviour {
         regenHitDelay *= balance;
         regenInterval *= balance;
     }
+    [Command(requiresAuthority = false)]
     public void Damage(float damageAmount) {
         if (inIFrames || isBleedingOut || isDead)
             return;
@@ -162,13 +178,17 @@ public class PlayerHealth : NetworkBehaviour {
         health = newHealth;
 
         //Hit effect
-        GameObject obj = Instantiate(hitEffectObj);
+        GameObject obj = Instantiate(hitEffectPrefab);
         obj.transform.position = transform.position;
+        NetworkServer.Spawn(obj);
 
         // timeSinceHit resets health regeneration in RegenUpdate function
-        if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth);}
         timeSinceHit = 0; 
-        chance = UnityEngine.Random.Range(0,hurtsounds.Length);
+
+        if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth);}
+
+        int chance = UnityEngine.Random.Range(0,hurtsounds.Length);
+
         //SoundPlayer.Play(hurtsounds[chance], transform.position, volume * 1);
         AudioManager.instance.PlaySound(hurtsounds[chance]);
     }
@@ -227,7 +247,8 @@ public class PlayerHealth : NetworkBehaviour {
         reviveTrigger.EventObjExit -= OnPlayerExitReviveTrigger;
         isBleedingOut = false;
         isDead = true;
-        PlayerManager.instance.OnPlayerDie(gameObject);
+        //The player who owns this needs to call this method since they are the authority for this object
+        PlayerManager.instance.OnPlayerDie(GetComponent<Player>().GetConnection().connectionToClient, gameObject);
     }
     public void Respawn()
     {

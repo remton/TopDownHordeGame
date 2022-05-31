@@ -49,10 +49,6 @@ public class ZombieLunge : NetworkBehaviour
     [Server]
     private void Damage(GameObject playerHitbox) {
         GameObject player = playerHitbox.GetComponent<DamageHitbox>().owner;
-        DamageRPC(player, damage);
-    }
-    [ClientRpc]
-    private void DamageRPC(GameObject player, float damage) {
         player.GetComponent<PlayerHealth>().Damage(damage);
     }
 

@@ -145,7 +145,8 @@ public class PlayerManager : NetworkBehaviour
         }
         if (EventActiveLocalPlayersChange != null) { EventActiveLocalPlayersChange.Invoke(GetActiveLocalPlayers()); }
     }
-    public void OnPlayerDie(GameObject player) {
+    [TargetRpc]
+    public void OnPlayerDie(NetworkConnection network, GameObject player) {
         player.SetActive(false);
         player.transform.position = deadPlayerLocation.transform.position;
         CheckGameOver();
