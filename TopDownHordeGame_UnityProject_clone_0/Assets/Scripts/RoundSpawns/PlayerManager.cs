@@ -15,8 +15,17 @@ public class PlayerManager : NetworkBehaviour
     public PlayerSidebarManager sidebarManager;
     private int numPlayers;
     private List<GameObject> localPlayers = new List<GameObject>();
+    private List<GameObject> allPlayers = new List<GameObject>();
 
-    private SyncList<GameObject> allPlayers = new SyncList<GameObject>();
+    
+    public static Player FindPlayerWithID(System.Guid id) {
+        foreach (GameObject player in instance.allPlayers) {
+            if (player.GetComponent<Player>().GetPlayerID() == id)
+                return player.GetComponent<Player>();
+        }
+        Debug.LogWarning("Could not find player with id:" + id);
+        return null;
+    }
 
     public List<GameObject> GetActiveLocalPlayers() {
         List<GameObject> localPlayers = new List<GameObject>();
@@ -50,6 +59,12 @@ public class PlayerManager : NetworkBehaviour
         CreatePlayers();
     }
 
+    public override void OnStartClient() {
+        base.OnStartClient();
+        localPlayers.Clear();
+    }
+
+
     public void CreatePlayers() {
         //This is an online game
         if (MyNetworkManager.instance.isNetworkActive) {
@@ -71,14 +86,41 @@ public class PlayerManager : NetworkBehaviour
         }
     }
 
+
     [TargetRpc]
     public void AddLocalPlayerCharacter(NetworkConnection network, GameObject player) {
         localPlayers.Add(player);
         if (EventActiveLocalPlayersChange != null) { EventActiveLocalPlayersChange.Invoke(GetActiveLocalPlayers()); }
     }
+    [TargetRpc]
+    public void RemoveLocalPlayerCharacter(NetworkConnection network, GameObject player) {
+        localPlayers.Remove(player);
+        if (EventActiveLocalPlayersChange != null) { EventActiveLocalPlayersChange.Invoke(GetActiveLocalPlayers()); }
+    }
+
     [Server]
-    public void AddPlayerCharacter(GameObject player) {
+    public void AddPlayerCharacter(GameObject player, PlayerConnection connection) {
+        AddLocalPlayerCharacter(connection.connectionToClient, player);
+        AddPlayerCharacter_RPC(player);
+    }
+    [ClientRpc]
+    public void AddPlayerCharacter_RPC(GameObject player) {
+        if (player == null) {
+            Debug.LogError("ERROR: Recieved null PlayerCharacter");
+            return;
+        }
         allPlayers.Add(player);
+        if (EventActivePlayersChange != null) { EventActivePlayersChange.Invoke(GetActivePlayers()); }
+    }
+
+    [Server]
+    public void RemovePlayerCharacter(GameObject player, PlayerConnection connection) {
+        RemoveLocalPlayerCharacter(connection.connectionToClient, player);
+        RemovePlayerCharacter_RPC(player);
+    }
+    [ClientRpc]
+    public void RemovePlayerCharacter_RPC(GameObject player) {
+        allPlayers.Remove(player);
         if (EventActivePlayersChange != null) { EventActivePlayersChange.Invoke(GetActivePlayers()); }
     }
 

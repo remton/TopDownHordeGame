@@ -22,6 +22,10 @@ public class RevivePrompt : MonoBehaviour
     }
 
     private void Update() {
+        if(player == null) {
+            Destroy(gameObject);
+            return;
+        }
         transform.position = player.transform.position + offset;
     }
 }

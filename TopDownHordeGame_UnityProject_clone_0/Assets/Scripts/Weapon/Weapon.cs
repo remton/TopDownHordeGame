@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class Weapon : MonoBehaviour
+public class Weapon : NetworkBehaviour
 {
     [SerializeField] private string weaponName;     // Weapon name for display
     [SerializeField] private float baseDamage;        // Used to reset damage for the magic that makes players intantly kill zombies
@@ -27,6 +28,10 @@ public class Weapon : MonoBehaviour
     protected int inMag = 0;    // bullets in magazine
     protected int inReserve = 0;// bullets in reserve
 
+    [SyncVar]
+    private GameObject owner;
+
+
     private void Awake() {
         spriteControl = GetComponent<WeaponSpriteController>();
     }
@@ -35,7 +40,32 @@ public class Weapon : MonoBehaviour
         damage = baseDamage;
         if (infiniteReserve)
             reserveSize = int.MaxValue;
+
+        if(owner != null) {
+            owner.GetComponent<PlayerWeaponControl>().AddWeapon(this);
+            name = owner.name + "'s " + name;
+            transform.position = owner.transform.position;
+        }
+        else {
+            Debug.LogWarning("No owner set for " + name);
+        }
     }
+
+    private void Update() {
+        if(owner == null) {
+            return;
+        }
+
+        transform.position = owner.transform.position;
+        spriteControl.UpdateDirection(owner.GetComponent<PlayerMovement>().GetCurrentLookDir());
+    }
+
+    [Server]
+    public void SetOwner(Player player) {
+        if (player != null)
+            owner = player.gameObject;
+    }
+
     // ---- Getters and Setters ----
     public bool IsAutomatic() { return isAutomatic; }
     public int GetReloadAmount() { return reloadAmount; }

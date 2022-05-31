@@ -49,6 +49,19 @@ public class MyNetworkManager : NetworkManager
     public void ChangeScene(string sceneName) {
         ServerChangeScene(sceneName);
     }
+    
+    public int GetPrefabIndex(GameObject prefab) {
+        for (int i = 0; i < spawnPrefabs.Count; i++) {
+            if (prefab == spawnPrefabs[i])
+                return i;
+        }
+        Debug.LogError("Prefab: " + prefab.name + " was not found in MyNetworkManager spawnable prefabs");
+        return 0;
+    }
+    [Server]
+    public GameObject GetPrefab(int index) {
+        return spawnPrefabs[index];
+    }
 
     //--- Handle SteamLobby Events ---
     private void OnSteamLobbyJoinGame(SteamLobby.JoinLobbyData data) {

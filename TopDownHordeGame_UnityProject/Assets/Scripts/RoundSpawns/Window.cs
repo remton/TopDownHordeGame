@@ -127,7 +127,7 @@ public class Window : ZombieSpawn
     private void UpdateWindowBoards() {
         int numStates = ((Tiles.Count) / TILES_PER_STATE);
         int currState = Mathf.CeilToInt(((float)health / maxHealth) * (numStates-1));
-        Debug.Log("State" + currState.ToString());
+        //Debug.Log("State" + currState.ToString());
         int topIndex = currState * TILES_PER_STATE;
         tilemap.SetTile(topTile, Tiles[topIndex]);
         tilemap.SetTile(midTile, Tiles[topIndex+1]);

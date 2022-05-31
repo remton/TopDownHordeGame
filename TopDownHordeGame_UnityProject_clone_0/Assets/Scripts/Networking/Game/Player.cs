@@ -9,36 +9,49 @@ public class Player : NetworkBehaviour
 {
     // --- Player connection and Input Setup --- 
     [SyncVar]
-    private PlayerConnection myConnection;
-    public PlayerConnection GetConnection() { return myConnection; }
+    private PlayerConnection connection;
+    private new bool isLocalPlayer = false;
 
-    [SerializeField]
-    private NetworkTransformChild weaponSpriteNetTransform;
-    public void SetWeaponForNetworkSync(GameObject weaponObj) {
-        weaponSpriteNetTransform.target = weaponObj.GetComponent<Weapon>().transform;
+    [SyncVar]
+    private System.Guid playerID;
+    public System.Guid GetPlayerID() { return playerID; }
+
+    public PlayerConnection GetConnection() { return connection; }
+
+    public void SetConnection(PlayerConnection connection) {
+        this.connection = connection;
     }
 
-    public void SetConnection(GameObject connectionObj) {
-        Debug.LogWarning("Connection set:" + connectionObj.GetComponent<PlayerConnection>().netId);
-        myConnection = connectionObj.GetComponent<PlayerConnection>();
+    private void Awake() {
+        connection = PlayerConnection.myConnection;
+        SetUpPlayerOnClient();
     }
 
-    private void Start() {
-        //If our connection is already set (Was spawned in on server) we still need to set up this player for this client
+    public override void OnStartServer() {
+        base.OnStartServer();
+        playerID = new System.Guid();
+    }
+    private void OnDestroy() {
+        if(isServer)
+            PlayerManager.instance.RemovePlayerCharacter(gameObject, connection);
+    }
+
+    public override void OnStartClient() {
+        base.OnStartClient();
         SetUpPlayerOnClient();
     }
 
     [Client]
     private void SetUpPlayerOnClient() {
-        //Set up things handled on the local client side
-        GetComponent<PlayerInput>().enabled = myConnection.isLocalPlayer;
-        GetComponent<PlayerMovement>().enabled = myConnection.isLocalPlayer;
-        GetComponent<PlayerWeaponControl>().enabled = myConnection.isLocalPlayer;
-        GetComponent<PlayerActivate>().enabled = myConnection.isLocalPlayer;
+        isLocalPlayer = (connection == PlayerConnection.myConnection);
+
+        GetComponent<PlayerInput>().enabled = isLocalPlayer;
+        GetComponent<PlayerMovement>().enabled = isLocalPlayer;
+        GetComponent<PlayerWeaponControl>().enabled = isLocalPlayer;
+        GetComponent<PlayerActivate>().enabled = isLocalPlayer;
         GetComponent<PlayerHealth>().enabled = isLocalPlayer;
         GetComponent<PlayerInput>().camera = Camera.main;
-        GetComponent<PlayerStats>().playerName = PlayerConnection.GetName(myConnection);
-
-        //Set up things handled on the server side
+        GetComponent<PlayerStats>().playerName = PlayerConnection.GetName(connection);
     }
+
 }

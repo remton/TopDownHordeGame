@@ -24,12 +24,24 @@ public class PlayerHealth : NetworkBehaviour {
     [SerializeField] private HitBoxController reviveTrigger;
     public RevivePrompt revivePrompt;
     private Guid reviveTimerID = Guid.Empty;
+
+    [Command]
     private void OnPlayerEnterReviveTrigger(GameObject otherPlayer) {
+        OnPlayerEnterReviveTrigger_TargetRPC(otherPlayer.GetComponent<Player>().connectionToClient, otherPlayer);
+    }
+    [TargetRpc]
+    private void OnPlayerEnterReviveTrigger_TargetRPC(NetworkConnection connection, GameObject otherPlayer) {
         revivePrompt.Activate();
         otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivate += OnReviveActivateDown;
         otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivateRelease += OnReviveActivateRelease;
     }
+
+    [Command]
     private void OnPlayerExitReviveTrigger(GameObject otherPlayer) {
+        OnPlayerExitReviveTrigger_TargetRPC(otherPlayer.GetComponent<Player>().connectionToClient, otherPlayer);
+    }
+    [TargetRpc]
+    private void OnPlayerExitReviveTrigger_TargetRPC(NetworkConnection connection, GameObject otherPlayer) {
         revivePrompt.Deactivate();
         otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivate -= OnReviveActivateDown;
         otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivateRelease -= OnReviveActivateRelease;
@@ -37,6 +49,7 @@ public class PlayerHealth : NetworkBehaviour {
             timer.KillTimer(reviveTimerID);
             isBeingRevived = false;
         }
+        
     }
     private void OnReviveActivateDown(GameObject otherPlayer) {
         if (isBleedingOut && !otherPlayer.GetComponent<PlayerHealth>().isBleedingOut) {
@@ -64,8 +77,6 @@ public class PlayerHealth : NetworkBehaviour {
     private float health;
     private float timeUntilDeath;
     private bool isBleedingOut;
-    [SyncVar]
-    private bool isDead = false;
     private float regenAmount = 1;
     private float regenHitDelay = 10; 
     private float regenInterval = 4;
@@ -75,7 +86,11 @@ public class PlayerHealth : NetworkBehaviour {
     private bool inIFrames = false;
     [SerializeField] private float iFrameTime;
 
+
+    [SyncVar] private bool isDead = false;
     public bool GetIsDead() { return isDead; }
+
+
     public bool GetIsBleedingOut() { return isBleedingOut; }
 
     public delegate void HealthChanged(float health, float max);
@@ -135,7 +150,6 @@ public class PlayerHealth : NetworkBehaviour {
         regenHitDelay *= balance;
         regenInterval *= balance;
     }
-    [Client]
     public void Damage(float damageAmount) {
         if (inIFrames || isBleedingOut || isDead)
             return;
@@ -158,15 +172,15 @@ public class PlayerHealth : NetworkBehaviour {
         //SoundPlayer.Play(hurtsounds[chance], transform.position, volume * 1);
         AudioManager.instance.PlaySound(hurtsounds[chance]);
     }
-    [Client]
     private void StartIFrames() {
         timer.CreateTimer(iFrameTime, EndIFrames);
         inIFrames = true;
     }
-    [Client]
     private void EndIFrames() {
         inIFrames = false;
     }
+
+    [ClientRpc]
     public void Revive() {
         if (reviver == null || !reviver.GetComponent<PlayerHealth>().GetIsBleedingOut()) {
             revivePrompt.Deactivate();
@@ -181,9 +195,9 @@ public class PlayerHealth : NetworkBehaviour {
             Debug.Log("Revived!");
             if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
         }
-    //    reviver.GetComponent<PlayerHealth>().OnReviveActivateRelease(gameObject);
-    OnReviveActivateRelease(reviver);
-    reviver = null;
+        //    reviver.GetComponent<PlayerHealth>().OnReviveActivateRelease(gameObject);
+        OnReviveActivateRelease(reviver);
+        reviver = null;
     }
 
     [Client]

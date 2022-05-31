@@ -45,18 +45,17 @@ public class PlayerConnection : NetworkBehaviour
 
     [Client]
     public void SpawnPlayer(Vector3 location) {
-        SpawnPlayerCommand(location, gameObject);
+        SpawnPlayerCommand(location, this);
     }
 
     [Command]
-    private void SpawnPlayerCommand(Vector3 location, GameObject connObj) {
-        PlayerConnection conn = connObj.GetComponent<PlayerConnection>();
+    private void SpawnPlayerCommand(Vector3 location, PlayerConnection conn) {
         GameObject character = Instantiate(conn.playerPrefab, location, Quaternion.identity);
-        character.GetComponent<Player>().SetConnection(connObj);
-        NetworkServer.Spawn(character, connObj);
+        character.GetComponent<Player>().SetConnection(conn);
+        NetworkServer.Spawn(character, conn.connectionToClient);
+        character.GetComponent<NetworkIdentity>().AssignClientAuthority(conn.connectionToClient);
         playerCharacter = character;
-        PlayerManager.instance.AddLocalPlayerCharacter(conn.GetComponent<PlayerConnection>().connectionToClient, character);
-        PlayerManager.instance.AddPlayerCharacter(character);
+        PlayerManager.instance.AddPlayerCharacter(character, conn);
     }
 
     private void Awake() {

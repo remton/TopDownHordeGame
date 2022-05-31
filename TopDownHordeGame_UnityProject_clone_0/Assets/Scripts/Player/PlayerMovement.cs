@@ -30,15 +30,6 @@ public class PlayerMovement : NetworkBehaviour {
     private bool knockBackActive;
     private bool forceknockbackActive;
     [SerializeField] private float minSpeedForEndKnockback;
-    public void KnockBack(float strength, Vector2 dir) {
-        knockBackActive = true;
-        forceknockbackActive = true;
-        rb.AddForce(dir.normalized * strength);
-        timer.CreateTimer(Time.fixedDeltaTime*2, EndKnockbackTimer);
-    }
-    private void EndKnockbackTimer() {
-        forceknockbackActive = false;
-    }
     private Timer timer;
 
     [SerializeField] private float walkSpeed = 2;
@@ -67,14 +58,18 @@ public class PlayerMovement : NetworkBehaviour {
     // If mouse input was detected this is true if gamepad this is false
     private bool useMouseToLook;
 
-    // This is used by other scripts to access what direction the player is looking
-    private Vector2 currentLookDir;
-    
-    public Vector2 GetCurrentLookDir() { return currentLookDir; }
-    
     /// <summary> returns the ratio of current stamina to max stamina  </summary>
     public float GetStaminaRatio() { return staminaRemaining / staminaMaximum; }
-    
+
+
+    // --- Networking Synced Vars ---
+    // This is used by other scripts to access what direction the player is looking
+    [SyncVar]
+    private Vector2 currentLookDir;
+    public Vector2 GetCurrentLookDir() { return currentLookDir; }
+    [Command]
+    private void SetCurrentLookDir(Vector2 newDir) { currentLookDir = newDir; }
+
 
     private void Awake()
     {
@@ -129,6 +124,16 @@ public class PlayerMovement : NetworkBehaviour {
         }
     }
 
+    public void KnockBack(float strength, Vector2 dir) {
+        knockBackActive = true;
+        forceknockbackActive = true;
+        rb.AddForce(dir.normalized * strength);
+        timer.CreateTimer(Time.fixedDeltaTime * 2, EndKnockbackTimer);
+    }
+    private void EndKnockbackTimer() {
+        forceknockbackActive = false;
+    }
+
     public void DisableMovement()
     {
         doMovement = false;
@@ -142,14 +147,15 @@ public class PlayerMovement : NetworkBehaviour {
     // Called whenever a change in movement input. Moves the player based in walk and run speed
     public void OnMove(InputAction.CallbackContext context)
     {
-        Debug.Log("PlayerCon [" + GetComponent<Player>().GetConnection().netId + "] moving . . .");
-        Debug.Log("Con [" + netId + "] moving . . .");
+        //Debug.Log("PlayerCon [" + GetComponent<Player>().GetConnection().netId + "] moving . . .");
+        //Debug.Log("Con [" + netId + "] moving . . .");
         Vector2 moveInput = context.ReadValue<Vector2>();
         moveDir = moveInput.normalized;
     }
 
+    [Client]
     private void SetLookDir(Vector2 dir) {
-        currentLookDir = dir;
+        SetCurrentLookDir(dir);
         float xScale = transform.localScale.x;
         //if the sign of the direction isn't the same as the sign of x scale 
         if ((dir.x < 0) != (xScale < 0)) {

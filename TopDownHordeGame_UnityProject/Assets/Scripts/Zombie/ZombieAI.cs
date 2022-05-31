@@ -129,6 +129,11 @@ public class ZombieAI : NetworkBehaviour
         if (isGamePaused || isInSpawnFrames || isFrozen)
             return;
 
+        if(target == null) {
+            FindTarget(PlayerManager.instance.GetActivePlayers());
+            return;
+        }
+
         //Handle updating sprite direction
         Vector2 dir = target.transform.position - transform.position;
         float xScale = transform.localScale.x;

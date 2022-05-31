@@ -24,6 +24,7 @@ public class PlayerWeaponControl : NetworkBehaviour {
     public GameObject starterWeaponPrefab;
 
     private int equippedIndex;
+
     public List<Weapon> weapons;
     [SerializeField] private int maxWeapons;
 
@@ -52,38 +53,119 @@ public class PlayerWeaponControl : NetworkBehaviour {
     //Whenever ammo is changed add this code:
     //if (EventAmmoChanged != null) EventAmmoChanged.Invoke(weapons[equippedIndex].GetInMag(), weapons[equippedIndex].GetInReserve());
 
+    //--- Networking Stuff ---
+    [SyncVar(hook = nameof(OnEquippedWeaponChange))] 
+    private Weapon equippedWeapon;
+    public Weapon GetEquippedWeapon() { return equippedWeapon; }
+
+    private void OnEquippedWeaponChange(Weapon oldWeapon, Weapon newWeapon) {
+        if(oldWeapon != null)
+            DeactivateWeapon(oldWeapon);
+        if(newWeapon != null)
+            ActivateWeapon(newWeapon);
+        UpdateVisuals();
+    }
+
+    [Command(requiresAuthority = false)]
+    private void EquipWeapon(Weapon newEquippedWeapon) {
+        equippedWeapon = newEquippedWeapon;
+    }
+    [Client]
+    private void SetEquippedIndex(int newIndex) {
+        equippedIndex = newIndex;
+        if(weapons.Count > equippedIndex)
+            EquipWeapon(weapons[equippedIndex]);
+    }
+
+    [Client]
+    public void PickUpWeapon(GameObject weaponPrefab) {
+        Debug.Log("Picking up weapon . . .");
+
+        if (isReloading)
+            CancelReload();
+        if (isSwapping)
+            CancelSwap();
+        if (isWaitingToShoot)
+            CancelShoot();
+        int index = MyNetworkManager.instance.GetPrefabIndex(weaponPrefab);
+        CreateWeapon(index);
+    }
+    [Command(requiresAuthority = false)]
+    private void CreateWeapon(int prefabIndex) {
+        GameObject weaponPrefab = MyNetworkManager.instance.GetPrefab(prefabIndex);
+        Debug.Log("Creating weapon: " + weaponPrefab.name);
+        GameObject weaponObj = Instantiate(weaponPrefab, transform.position, Quaternion.identity);
+        weaponObj.GetComponent<Weapon>().SetOwner(GetComponent<Player>());
+        NetworkServer.Spawn(weaponObj);
+    }
+    [Command]
+    private void DeleteWeapon(Weapon weapon) {
+        NetworkServer.Destroy(weapon.gameObject);
+    }
+    [Client]
+    public void AddWeapon(Weapon weapon) {
+        Debug.Log("Adding weapon . . .");
+
+        weapon.AddReserveAmmo(Mathf.RoundToInt(weapon.GetReserveSize() * reserveMult));
+        if (maxWeapons > weapons.Count) {
+            //Add a new weapon to list
+            weapons.Add(weapon);
+            SetEquippedIndex(weapons.Count - 1);
+        }
+        else {
+            //Replace the current weapon
+            if (weapons.Count > 0) {
+                if (weapons[equippedIndex] != null) {
+                    DeleteWeapon(weapons[equippedIndex]);
+                }
+                weapons[equippedIndex] = weapon;
+                SetEquippedIndex(equippedIndex);
+            }
+        }
+        UpdateVisuals();
+    }
+
+    private void DeactivateWeapon(Weapon weapon) {
+        playerMovement.runSpeedMultipliers.Remove(weapon.GetMoveMult());
+        playerMovement.walkSpeedMultipliers.Remove(weapon.GetMoveMult());
+        weapon.spriteControl.DeactivateSprite();
+    }
+    private void ActivateWeapon(Weapon weapon) {
+        weapon.spriteControl.ActivateSprite();
+        playerMovement.runSpeedMultipliers.Add(weapon.GetMoveMult());
+        playerMovement.walkSpeedMultipliers.Add(weapon.GetMoveMult());
+    }
 
     private void Awake() {
         playerMovement = GetComponent<PlayerMovement>();
         timer = GetComponent<Timer>();
     }
     private void Start() {
-        for (int i = 0; i < weapons.Count; i++) {
-            weapons[i].AddReserveAmmo(Mathf.RoundToInt(weapons[i].GetReserveSize() * reserveMult));
-            weapons[i].Reload();
-            weapons[equippedIndex].spriteControl.ActivateSprite();
-            laserSightEnabled = true;
-            weapons[equippedIndex].spriteControl.SetLaser(laserSightEnabled);
-        }
-        if (EventAmmoChanged != null) { EventAmmoChanged.Invoke(Mathf.RoundToInt(weapons[equippedIndex].GetInMag()), weapons[equippedIndex].GetInReserve()); }
-        if (EventWeaponChanged != null) { EventWeaponChanged.Invoke(weapons[equippedIndex].GetWeaponName()); }
-
-        playerMovement.runSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
-        playerMovement.walkSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
+        if (!PlayerConnection.myConnection.isLocalPlayer)
+            return;
+        ResetWeapons();
     }
+
+
     private void Update() {
-        weapons[equippedIndex].spriteControl.UpdateDirection(playerMovement.GetCurrentLookDir());
+        if (weapons.Count > 0) {
+            weapons[equippedIndex].spriteControl.UpdateDirection(playerMovement.GetCurrentLookDir());
+        }
     }
 
     //Used to Change Weapon count for perks or whatever else in the future
+    [Client]
     public void SetWeaponCount(int newCount) {
-        for (int i = 0; i < maxWeapons - newCount; i++) {
+        for (int i = newCount; i < weapons.Count; i++) {
             if (weapons[i] != null) {
-                Destroy(weapons[equippedIndex].gameObject);
+                DeleteWeapon(weapons[i]);
             }
             weapons.RemoveAt(i);
         }
         maxWeapons = newCount;
+        if(equippedIndex >= maxWeapons) {
+            SetEquippedIndex(NextWeaponIndex());
+        }
     }
 
     private int NextWeaponIndex() {
@@ -97,7 +179,7 @@ public class PlayerWeaponControl : NetworkBehaviour {
     public void OnLaserButton(InputAction.CallbackContext context) {
         if (context.action.triggered == true) {
             laserSightEnabled = !laserSightEnabled;
-            weapons[equippedIndex].spriteControl.SetLaser(laserSightEnabled);
+            equippedWeapon.spriteControl.SetLaser(laserSightEnabled);
         }
     }
 
@@ -126,10 +208,8 @@ public class PlayerWeaponControl : NetworkBehaviour {
     }
     private void Swap() {
         isSwapping = false;
-        weapons[equippedIndex].PlaySwapSound();
-        DeactivateCurrentWeapon();
-        equippedIndex = NextWeaponIndex();
-        ActivateCurrentWeapon();
+        equippedWeapon.PlaySwapSound();
+        SetEquippedIndex(NextWeaponIndex());
         UpdateVisuals();
     }
     private void CancelSwap() {
@@ -191,6 +271,11 @@ public class PlayerWeaponControl : NetworkBehaviour {
     public void OnShoot(InputAction.CallbackContext context) {
         if (isPaused)
             return;
+
+        //We dont have a weapon
+        if (weapons.Count <= 0)
+            return;
+
         shootButtonDown = context.action.triggered;
         if (shootButtonDown && repeatingReload && !weapons[equippedIndex].MagEmpty())
             repeatingReload = false;
@@ -199,9 +284,9 @@ public class PlayerWeaponControl : NetworkBehaviour {
             shootButtonDown = false;
 
         //We are still waiting on the fire deley from the previous shot so we do nothing
-        if (isWaitingToShoot) {
+        if (isWaitingToShoot)
             return;
-        }
+
         else if (shootButtonDown) {
             Shoot();
             if (weapons[equippedIndex].IsAutomatic())
@@ -253,53 +338,15 @@ public class PlayerWeaponControl : NetworkBehaviour {
     // ------ Other Misc Methods ------
 
     public void UpdateVisuals() {
-        if (EventAmmoChanged != null) EventAmmoChanged.Invoke(Mathf.RoundToInt(weapons[equippedIndex].GetInMag()), Mathf.RoundToInt(weapons[equippedIndex].GetInReserve()));
-        if (EventWeaponChanged != null) EventWeaponChanged.Invoke(weapons[equippedIndex].GetWeaponName());
-        weapons[equippedIndex].spriteControl.SetLaser(laserSightEnabled);
+        //We dont have a weapon
+        if (weapons.Count <= 0 || equippedWeapon == null)
+            return;
+
+        if (EventAmmoChanged != null) EventAmmoChanged.Invoke(Mathf.RoundToInt(equippedWeapon.GetInMag()), Mathf.RoundToInt(equippedWeapon.GetInReserve()));
+        if (EventWeaponChanged != null) EventWeaponChanged.Invoke(equippedWeapon.GetWeaponName());
+        equippedWeapon.spriteControl.SetLaser(laserSightEnabled);
     }
 
-    public void PickUpWeapon(GameObject weaponPrefab) {
-        if (isReloading)
-            CancelReload();
-        if (isSwapping)
-            CancelSwap();
-        if (isWaitingToShoot)
-            CancelShoot();
-
-        //Debug.Log("Picked up: " + weaponPrefab.name);
-        //Create Weapon Obj
-        GameObject weaponObj = Instantiate(weaponPrefab, transform);
-        weaponObj.transform.position = gameObject.transform.position;
-        Weapon weapon = weaponObj.GetComponent<Weapon>();
-        weapon.AddReserveAmmo(Mathf.RoundToInt(weapon.GetReserveSize() * reserveMult));
-
-        if (maxWeapons > weapons.Count) {
-            weapons.Add(weapon);
-            DeactivateCurrentWeapon();
-            equippedIndex = weapons.Count - 1;
-            ActivateCurrentWeapon();
-        }
-        else {
-            DeactivateCurrentWeapon();
-            if (weapons[equippedIndex] != null) {
-                Destroy(weapons[equippedIndex].gameObject);
-            }
-            weapons[equippedIndex] = weapon;
-            ActivateCurrentWeapon();
-        }
-        UpdateVisuals();
-    }
-    private void DeactivateCurrentWeapon() {
-        playerMovement.runSpeedMultipliers.Remove(weapons[equippedIndex].GetMoveMult());
-        playerMovement.walkSpeedMultipliers.Remove(weapons[equippedIndex].GetMoveMult());
-        weapons[equippedIndex].spriteControl.DeactivateSprite();
-    }
-    private void ActivateCurrentWeapon() {
-        weapons[equippedIndex].spriteControl.ActivateSprite();
-        playerMovement.runSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
-        playerMovement.walkSpeedMultipliers.Add(weapons[equippedIndex].GetMoveMult());
-        GetComponent<Player>().SetWeaponForNetworkSync(weapons[equippedIndex].gameObject);
-    }
 
     public void RefillWeaponReserve()
     {
