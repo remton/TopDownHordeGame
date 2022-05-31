@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: -1161127667021845320}
   - component: {fileID: 7524845823652781340}
   - component: {fileID: 4761720175564451057}
+  - component: {fileID: 4544143830394628533}
   m_Layer: 0
   m_Name: G18
   m_TagString: Untagged
@@ -161,6 +162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ec4257b931f01e4291a849fa314e5d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   weaponName: G18
   baseDamage: 0.8
   penatration: 1
@@ -289,9 +292,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f1c28a8ebc941f42bc0bbd9b83f0d72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   myLaser: {fileID: 3940211482879703825}
   barralEndObj: {fileID: 3916244070320449444}
   spriteObj: {fileID: 2470111229567702602}
+--- !u!114 &4544143830394628533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6429082733309257629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14961e36a52fb9046828cf5baf6ae0d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 0.2
+  maxDistance: 70
+  trailObjPrefab: {fileID: 5599144035722061591, guid: 1173e4391071715429544057dfc90985, type: 3}
 --- !u!1001 &1098984258632949609
 PrefabInstance:
   m_ObjectHideFlags: 0

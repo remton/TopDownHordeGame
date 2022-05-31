@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: -8696066200283626811}
   - component: {fileID: 6610173058259867372}
   - component: {fileID: 6261302763225947469}
+  - component: {fileID: -76608098350631611}
   m_Layer: 0
   m_Name: Colt
   m_TagString: Untagged
@@ -46,6 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8686393a02b91e346a7a8116ae69e656, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   weaponName: Colt
   baseDamage: 4
   penatration: 3
@@ -173,9 +176,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f1c28a8ebc941f42bc0bbd9b83f0d72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   myLaser: {fileID: 4174292785251591288, guid: 719f14220d5a57a47bffb39184ebba60, type: 3}
   barralEndObj: {fileID: 7304115831935819916}
   spriteObj: {fileID: 7333434646624960146}
+--- !u!114 &-76608098350631611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093619312353819989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14961e36a52fb9046828cf5baf6ae0d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 0.2
+  maxDistance: 70
+  trailObjPrefab: {fileID: 5599144035722061591, guid: 1173e4391071715429544057dfc90985, type: 3}
 --- !u!1 &7304115831935819916
 GameObject:
   m_ObjectHideFlags: 0

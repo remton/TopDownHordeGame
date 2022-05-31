@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 280554671962952437}
   - component: {fileID: 7853944436744635101}
   - component: {fileID: 165125178573960015}
+  - component: {fileID: 7803333558576652749}
   m_Layer: 0
   m_Name: Remington870
   m_TagString: Untagged
@@ -46,6 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f8dc6a8bfcee8046a2dada9ebbe4f57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   weaponName: Remton 870
   baseDamage: 1
   penatration: 2
@@ -174,9 +177,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f1c28a8ebc941f42bc0bbd9b83f0d72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   myLaser: {fileID: 8401459796731716656}
   barralEndObj: {fileID: 8345761270163853299}
   spriteObj: {fileID: 7541072871943695148}
+--- !u!114 &7803333558576652749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 280554671962952436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14961e36a52fb9046828cf5baf6ae0d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 0.2
+  maxDistance: 70
+  trailObjPrefab: {fileID: 5599144035722061591, guid: 1173e4391071715429544057dfc90985, type: 3}
 --- !u!1 &7541072871943695148
 GameObject:
   m_ObjectHideFlags: 0

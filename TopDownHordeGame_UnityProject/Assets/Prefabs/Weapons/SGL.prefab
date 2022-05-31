@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: -5850693161771667612}
   - component: {fileID: 6384690412411767132}
   - component: {fileID: 5690047386926144567}
+  - component: {fileID: -8871941958371890710}
   m_Layer: 0
   m_Name: SGL
   m_TagString: Untagged
@@ -161,6 +162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b84101ee2027a14ea38817827262cfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   weaponName: SGL
   baseDamage: 10
   penatration: 0
@@ -290,9 +293,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f1c28a8ebc941f42bc0bbd9b83f0d72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   myLaser: {fileID: 4966268324096284033}
   barralEndObj: {fileID: 1196184399504450986}
   spriteObj: {fileID: 3452466401427837634}
+--- !u!114 &-8871941958371890710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4997718862678949635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14961e36a52fb9046828cf5baf6ae0d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 0.2
+  maxDistance: 70
+  trailObjPrefab: {fileID: 5599144035722061591, guid: 1173e4391071715429544057dfc90985, type: 3}
 --- !u!1001 &9008795271172010489
 PrefabInstance:
   m_ObjectHideFlags: 0

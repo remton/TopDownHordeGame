@@ -20,9 +20,10 @@ public class Weapon : NetworkBehaviour
     [SerializeField] public AudioClip reloadSound;  //sound played on reload
     [SerializeField] public AudioClip swapSound;    //sound played when swapping to this weapon
     [SerializeField] public AudioClip shootSound;   //sound of gunshot
-    [SerializeField] protected FireEffectController effectController; //Controller for bullet trail and fire sound
     [SerializeField] protected float shakeIntensity; //Intensity of screen shake
     [HideInInspector]public WeaponSpriteController spriteControl; //Controls the sprite for the weapon
+
+    protected FireEffectController effectController; //Controller for bullet trail and fire sound
 
     protected float damage;       // damage per bullet
     protected int inMag = 0;    // bullets in magazine
@@ -34,6 +35,7 @@ public class Weapon : NetworkBehaviour
 
     private void Awake() {
         spriteControl = GetComponent<WeaponSpriteController>();
+        effectController = GetComponent<FireEffectController>();
     }
 
     private void Start() {

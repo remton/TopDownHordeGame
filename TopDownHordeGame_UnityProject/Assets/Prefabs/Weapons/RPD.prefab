@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 5112120546164950310}
   - component: {fileID: 3671396959211290512}
   - component: {fileID: 1333140583710454618}
+  - component: {fileID: -290197385014870261}
   m_Layer: 0
   m_Name: RPD
   m_TagString: Untagged
@@ -130,6 +131,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf548ad34e199244eaa2731bbe0b717c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   weaponName: RPD
   baseDamage: 3
   penatration: 3
@@ -257,9 +260,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f1c28a8ebc941f42bc0bbd9b83f0d72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   myLaser: {fileID: 7348025518944932110}
   barralEndObj: {fileID: 8239975092363279513}
   spriteObj: {fileID: 900938255767261646}
+--- !u!114 &-290197385014870261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6091863861613352169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14961e36a52fb9046828cf5baf6ae0d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 0.2
+  maxDistance: 70
+  trailObjPrefab: {fileID: 5599144035722061591, guid: 1173e4391071715429544057dfc90985, type: 3}
 --- !u!1 &8239975092363279513
 GameObject:
   m_ObjectHideFlags: 0

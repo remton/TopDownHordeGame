@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 3128542989009549440}
   - component: {fileID: 4068152018087585329}
   - component: {fileID: 2463911640964357872}
+  - component: {fileID: 1914255558280927202}
   m_Layer: 0
   m_Name: M16
   m_TagString: Untagged
@@ -77,6 +78,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cedc796b9c51c504cbec023981f22b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   weaponName: M16
   baseDamage: 3
   penatration: 2
@@ -206,9 +209,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f1c28a8ebc941f42bc0bbd9b83f0d72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   myLaser: {fileID: 9154480232927518358}
   barralEndObj: {fileID: 638630046168665278}
   spriteObj: {fileID: 8295649116921816451}
+--- !u!114 &1914255558280927202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093619312353819989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14961e36a52fb9046828cf5baf6ae0d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 0.2
+  maxDistance: 70
+  trailObjPrefab: {fileID: 5599144035722061591, guid: 1173e4391071715429544057dfc90985, type: 3}
 --- !u!1 &8295649116921816451
 GameObject:
   m_ObjectHideFlags: 0

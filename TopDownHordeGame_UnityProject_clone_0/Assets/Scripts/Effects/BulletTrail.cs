@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 [RequireComponent(typeof(LineRenderer))]
-public class BulletTrail : MonoBehaviour
+public class BulletTrail : NetworkBehaviour
 {
     public bool isFinished;
     public LineRenderer line;
@@ -15,6 +16,7 @@ public class BulletTrail : MonoBehaviour
         line.enabled = false;
     }
 
+    [ClientRpc]
     public void Init(Vector2 pos1, Vector2 pos2, float dur) {
         line.SetPosition(0, pos1);
         line.SetPosition(1, pos2);

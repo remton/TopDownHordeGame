@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: 2887635924103591734}
   - component: {fileID: 3127585394012047881}
   - component: {fileID: 2404315362293929957}
+  - component: {fileID: 7148266411124818234}
   m_Layer: 0
   m_Name: PPSh
   m_TagString: Untagged
@@ -161,6 +162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cb29c0fce882c043ae311d6820b0719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   weaponName: PPSh
   baseDamage: 1
   penatration: 1
@@ -289,9 +292,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f1c28a8ebc941f42bc0bbd9b83f0d72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   myLaser: {fileID: 4537783129826507323}
   barralEndObj: {fileID: 2948301143215549093}
   spriteObj: {fileID: 5127777334810413574}
+--- !u!114 &7148266411124818234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6068070935636465678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14961e36a52fb9046828cf5baf6ae0d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 0.2
+  maxDistance: 70
+  trailObjPrefab: {fileID: 5599144035722061591, guid: 1173e4391071715429544057dfc90985, type: 3}
 --- !u!1001 &510983310633344579
 PrefabInstance:
   m_ObjectHideFlags: 0

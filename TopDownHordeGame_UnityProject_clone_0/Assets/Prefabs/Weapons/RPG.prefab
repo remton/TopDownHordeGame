@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: -821279164858328841}
   - component: {fileID: -4901118659480325546}
   - component: {fileID: 1691279667324185807}
+  - component: {fileID: 1479930928129163118}
   m_Layer: 0
   m_Name: RPG
   m_TagString: Untagged
@@ -161,6 +162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4588a50c1645a074f986cc9525b47a91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   weaponName: RPG
   baseDamage: 18
   penatration: 1
@@ -292,9 +295,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f1c28a8ebc941f42bc0bbd9b83f0d72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   myLaser: {fileID: 830369460356182290}
   barralEndObj: {fileID: 4695835037377020971}
   spriteObj: {fileID: 1203934106553080433}
+--- !u!114 &1479930928129163118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4997718862678949635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14961e36a52fb9046828cf5baf6ae0d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 0.2
+  maxDistance: 70
+  trailObjPrefab: {fileID: 5599144035722061591, guid: 1173e4391071715429544057dfc90985, type: 3}
 --- !u!1001 &3632154972377404778
 PrefabInstance:
   m_ObjectHideFlags: 0
