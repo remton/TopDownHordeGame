@@ -5228,6 +5228,7 @@ GameObject:
   - component: {fileID: 915062198132948704}
   - component: {fileID: 3164400826681102581}
   - component: {fileID: -817894813331274744}
+  - component: {fileID: -3335081962815805167}
   m_Layer: 7
   m_Name: Zombie
   m_TagString: Zombie
@@ -5360,6 +5361,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea3ea3845553936448f3700aa19b5f14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   hitBox: {fileID: 4164462514332702161}
   waitTime: 0.3
   lungeTime: 0.2
@@ -5377,6 +5380,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57777ccf48295b345939986a9c4f6b7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   deathEffectObj: {fileID: 0}
   hitParticles: {fileID: 4372391901890484816}
   dieParticles: {fileID: 2625950378744035311}
@@ -5486,6 +5491,22 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+--- !u!114 &-3335081962815805167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6956723953377203767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 0
+  animator: {fileID: 3164400826681102581}
 --- !u!1 &7148339711807338049
 GameObject:
   m_ObjectHideFlags: 0

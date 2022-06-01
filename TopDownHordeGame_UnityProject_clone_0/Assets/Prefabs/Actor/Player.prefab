@@ -418,6 +418,7 @@ GameObject:
   - component: {fileID: 3931682938914733752}
   - component: {fileID: 894019221409681671}
   - component: {fileID: 1649101895203883345}
+  - component: {fileID: 9175221374391698584}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -769,8 +770,8 @@ MonoBehaviour:
   runSpeed: 3.65
   staminaRegenRateWalking: 0.04
   staminaRegenRateStanding: 0.05
-  staminaMaximum: 9
   staminaDrainRate: 0.09
+  staminaMaximum: 9
   walkSpeedMultipliers: []
   runSpeedMultipliers: []
   rb: {fileID: 1620798982028091912}
@@ -951,6 +952,22 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+--- !u!114 &9175221374391698584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1620798982028091906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 1
+  animator: {fileID: 7648342198556502056}
 --- !u!1 &1696714171538714277
 GameObject:
   m_ObjectHideFlags: 0

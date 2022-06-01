@@ -10147,6 +10147,7 @@ GameObject:
   - component: {fileID: 6960533144537042957}
   - component: {fileID: -380756305375863602}
   - component: {fileID: -9023623392346305182}
+  - component: {fileID: 5549850004711393056}
   m_Layer: 7
   m_Name: Minion
   m_TagString: Zombie
@@ -10258,6 +10259,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea3ea3845553936448f3700aa19b5f14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   hitBox: {fileID: 1306914959944589791}
   waitTime: 0.3
   lungeTime: 0.2
@@ -10275,6 +10278,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57777ccf48295b345939986a9c4f6b7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   deathEffectObj: {fileID: 0}
   hitParticles: {fileID: 8701491702526020044}
   dieParticles: {fileID: 7306723499815483347}
@@ -10418,6 +10423,22 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+--- !u!114 &5549850004711393056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6956723953377203767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 0
+  animator: {fileID: 6960533144537042957}
 --- !u!1 &7510183044028830196
 GameObject:
   m_ObjectHideFlags: 0

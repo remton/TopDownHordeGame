@@ -10210,6 +10210,7 @@ GameObject:
   - component: {fileID: 7885198531593119129}
   - component: {fileID: 6125097215778166448}
   - component: {fileID: 871771685103261206}
+  - component: {fileID: 6612901254366500114}
   m_Layer: 7
   m_Name: BiggestFan
   m_TagString: Zombie
@@ -10321,6 +10322,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57777ccf48295b345939986a9c4f6b7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   deathEffectObj: {fileID: 0}
   hitParticles: {fileID: 7840340506163624005}
   dieParticles: {fileID: 2308848048988258830}
@@ -10399,6 +10402,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea3ea3845553936448f3700aa19b5f14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   hitBox: {fileID: 5617553464189486681}
   waitTime: 0.4
   lungeTime: 0.4
@@ -10486,6 +10491,22 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+--- !u!114 &6612901254366500114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6956723953377203767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 0
+  animator: {fileID: 7885198531593119129}
 --- !u!1 &8303522512004910656
 GameObject:
   m_ObjectHideFlags: 0

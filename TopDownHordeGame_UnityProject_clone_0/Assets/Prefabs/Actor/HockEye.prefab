@@ -5345,6 +5345,7 @@ GameObject:
   - component: {fileID: 5205460181893472463}
   - component: {fileID: 2389574174256334623}
   - component: {fileID: -8196749228963241976}
+  - component: {fileID: 7143486602985053605}
   m_Layer: 7
   m_Name: HockEye
   m_TagString: Zombie
@@ -5455,6 +5456,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57777ccf48295b345939986a9c4f6b7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   deathEffectObj: {fileID: 0}
   hitParticles: {fileID: 6690244077217428205}
   dieParticles: {fileID: 5998376472573162533}
@@ -5601,6 +5604,22 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+--- !u!114 &7143486602985053605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6956723953377203767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 0
+  animator: {fileID: 5205460181893472463}
 --- !u!1 &7644100658154569549
 GameObject:
   m_ObjectHideFlags: 0
