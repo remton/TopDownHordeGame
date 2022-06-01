@@ -32,12 +32,18 @@ public class WeaponSpriteController : NetworkBehaviour
     public Vector3 BarrelEndPosition() {
         return barralEndObj.transform.position;
     }
+    [Command(requiresAuthority = false)]
     public void SetLaser(bool power) {
+        SetLaserRPC(power);
+    }
+    [ClientRpc]
+    private void SetLaserRPC(bool power) {
         if (power)
             myLaser.GetComponent<LaserSight>().TurnOn();
         else
             myLaser.GetComponent<LaserSight>().TurnOff();
     }
+
     public void ActivateSprite() {
         Debug.Log(gameObject.name + ": ACTIVATE SPRITE!!");
         spriteObj.SetActive(true);

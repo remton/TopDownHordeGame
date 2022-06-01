@@ -176,6 +176,7 @@ public class PlayerWeaponControl : NetworkBehaviour {
     }
 
     // ------------- LASER CONTROL -------------
+    [Client]
     public void OnLaserButton(InputAction.CallbackContext context) {
         if (context.action.triggered == true) {
             laserSightEnabled = !laserSightEnabled;
