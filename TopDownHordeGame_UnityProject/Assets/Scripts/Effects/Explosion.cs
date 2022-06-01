@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 public class Explosion : MonoBehaviour
 {
@@ -28,7 +29,12 @@ public class Explosion : MonoBehaviour
         timer.CreateTimer(aftershockTime, AftershockShake);
     }
 
+
     public void Init(GameObject nOwner, List<string> nDamageTags, List<string> nKnockbackTags, float nDamage, float nKnockbackStrength) {
+        if (!PlayerConnection.myConnection.isServer) {
+            return;
+        }
+
         owner = nOwner;
         ownerTag = nOwner.tag;
         damageTags = nDamageTags;
@@ -37,6 +43,7 @@ public class Explosion : MonoBehaviour
         knockbackStrength = nKnockbackStrength;
         hitBox = GetComponent<HitBoxController>();
         hitBox.triggerTags.Clear();
+        
         for (int i = 0; i < nDamageTags.Count; i++) {
             hitBox.triggerTags.Add(nDamageTags[i]);
         }

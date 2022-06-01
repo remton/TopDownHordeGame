@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class StickyGrenade : MonoBehaviour
+public class StickyGrenade : NetworkBehaviour
 {
     public GameObject explosionPrefab;
     private GameObject explosionObj;
@@ -20,6 +21,7 @@ public class StickyGrenade : MonoBehaviour
 
     private GameObject owner;
 
+    [ClientRpc]
     public void Init(GameObject newOwner, Vector2 movementDir, float damage, float radius, float speed, float knockback, float explodeTime)
     {
         owner = newOwner; 
@@ -35,8 +37,14 @@ public class StickyGrenade : MonoBehaviour
         stuck = false;
         stuckToScenery = false;
         timer = GetComponent<Timer>();
+
+        if (!isServer) {
+            this.enabled = false;
+            return;
+        }
+
         gameObject.GetComponent<HitBoxController>().EventObjEnter += Stick;
-        timer.CreateTimer(balanceTimer, Explode);
+        timer.CreateTimer(balanceTimer, OnTimerEnd);
     }
 
     private void FixedUpdate()
@@ -49,11 +57,16 @@ public class StickyGrenade : MonoBehaviour
         }
     }
   
+    [Server]
+    private void OnTimerEnd() {
+        Explode(transform.position);
+    }
+
     //Creates an Explosion Object
-    public void Explode(/*GameObject player*/)
+    [ClientRpc]
+    public void Explode(Vector3 location)
     {
         Debug.Log("Creating explosion object.");
-        location = transform.position;
         explosionObj = Instantiate(explosionPrefab, location, Quaternion.identity);
 
         List<string> damageTags = new List<string>();

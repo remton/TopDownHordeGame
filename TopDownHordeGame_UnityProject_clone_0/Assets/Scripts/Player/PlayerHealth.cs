@@ -216,7 +216,7 @@ public class PlayerHealth : NetworkBehaviour {
             isBeingRevived = false;
             health = maxHealth;
             GetComponent<PlayerMovement>().EnableMovement();
-            Debug.Log("Revived!");
+            //Debug.Log("Revived!");
             if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
         }
         //    reviver.GetComponent<PlayerHealth>().OnReviveActivateRelease(gameObject);
@@ -232,18 +232,15 @@ public class PlayerHealth : NetworkBehaviour {
         timeUntilDeath = bleedOutTime;
         isBleedingOut = true;
         GetComponent<PlayerMovement>().DisableMovement();
-        foreach (GameObject obj in reviveTrigger.Hits()) {
-            Debug.Log("OBJ tag: " + obj.tag);
+        //foreach (GameObject obj in reviveTrigger.Hits()) {
+        //    Debug.Log("OBJ tag: " + obj.tag);
+        //}
 
-        }
-
-        foreach (GameObject revivee in reviveTrigger.Hits())
-        {
+        foreach (GameObject revivee in reviveTrigger.Hits()){
             revivee.GetComponent<PlayerHealth>().OnReviveActivateRelease(gameObject);
             OnReviveActivateRelease(revivee);
-            Debug.Log("HUIFRERLAH");
         }        
-        Debug.Log("Bleeding out!");
+        //Debug.Log("Bleeding out!");
     }
 
     [Server]
@@ -267,8 +264,8 @@ public class PlayerHealth : NetworkBehaviour {
         isBeingRevived = false;
         reviveTimerID = Guid.Empty;
         GetComponent<PlayerMovement>().EnableMovement();
-//        GetComponent<PlayerWeaponControl>().ResetWeapons();
-        Debug.Log("Revived!");
+        //GetComponent<PlayerWeaponControl>().ResetWeapons();
+        //Debug.Log("Revived!");
         if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
     }
     public bool IsBleedingOut() {

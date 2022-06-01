@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 public class BiggestFanAI : ZombieAI
 {
@@ -42,6 +43,7 @@ public class BiggestFanAI : ZombieAI
         animator.SetBool("isInPrelunge", false);
     }
 
+    [ClientRpc]
     private void Explode() {
         List<string> damageTags = new List<string>();
         damageTags.Add("Player");

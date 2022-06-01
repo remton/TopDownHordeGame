@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class Rocket : MonoBehaviour
+public class Rocket : NetworkBehaviour
 {
     public GameObject explosionPrefab;
     private GameObject explosionObj;
@@ -14,15 +15,20 @@ public class Rocket : MonoBehaviour
 
     private GameObject owner;
 
+    [ClientRpc]
     public void Init(GameObject newOwner, Vector2 movementDir, float damage, float speed, float knockback)
     {
+        if (!isServer) {
+            this.enabled = false;
+            return;
+        }
         owner = newOwner;
         transform.position = newOwner.transform.position;
         moveDir = movementDir;
         balanceDamage = damage;
         throwStrength = knockback;
         flySpeed = speed;
-        this.GetComponent<HitBoxController>().EventObjEnter += Explode;
+        this.GetComponent<HitBoxController>().EventObjEnter += OnHitSomething;
     }
 
     private void FixedUpdate()
@@ -30,13 +36,18 @@ public class Rocket : MonoBehaviour
         Move(moveDir);
     }
   
-    //Creates an Explosion Object
-    public void Explode(GameObject player)
+    public void OnHitSomething(GameObject obj) {
+        Explode(transform.position);
+        GetComponent<HitBoxController>().EventObjEnter -= OnHitSomething;
+    }
+
+    //Creates an Explosion Object at location
+    [ClientRpc]
+    public void Explode(Vector3 location)
     {
         Debug.Log("Creating explosion object.");
         //Stop this from exploding multiple times
-        GetComponent<HitBoxController>().EventObjEnter -= Explode;
-        Vector3 location = transform.position;
+        
         explosionObj = Instantiate(explosionPrefab, location, Quaternion.identity);
 
         List<string> damageTags = new List<string>();
@@ -55,5 +66,4 @@ public class Rocket : MonoBehaviour
         newPos += flySpeed * movementDir * Time.fixedDeltaTime;
         rb.MovePosition(newPos);
     }
-   
 }

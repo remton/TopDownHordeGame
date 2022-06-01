@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 public class SGL : Weapon 
 {
@@ -20,11 +21,13 @@ public class SGL : Weapon
         AudioManager.instance.PlaySound(shootSound);
     }
 
+    [Command(requiresAuthority = false)]
     public void FireGrenade(GameObject player, Vector2 direction)
     {
         Vector3 playerPos = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
         playerLookDir = direction;
         GameObject grenade = Instantiate(grenadeObjPrefab, playerPos, Quaternion.identity);
+        NetworkServer.Spawn(grenade);
         grenade.GetComponent<StickyGrenade>().Init(player, playerLookDir.normalized, damage, balanceRadius, flySpeed, knockback, explodeTime);
     }
 }

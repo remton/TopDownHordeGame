@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 public class RPG : Weapon 
 {
@@ -18,10 +19,12 @@ public class RPG : Weapon
         player.GetComponent<PlayerMovement>().KnockBack(fireKnockback, -direction);
     }
 
+    [Command(requiresAuthority = false)]
     public void FireRocket(GameObject player, Vector2 direction)
     {
         GameObject rocket = Instantiate(rocketObjPrefab, spriteControl.BarrelEndPosition(), Quaternion.identity);
         rocket.transform.right = new Vector3(direction.x, direction.y, transform.position.z);
+        NetworkServer.Spawn(rocket);
         rocket.GetComponent<Rocket>().Init(player, direction.normalized, damage, flySpeed, knockback);
     }
 }
