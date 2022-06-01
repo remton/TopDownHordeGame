@@ -16,10 +16,15 @@ public class PlayerHealth : NetworkBehaviour {
     public RevivePrompt revivePrompt;
     private Guid reviveTimerID = Guid.Empty;
 
-    public float bleedOutTime;
 
-    private float timeUntilDeath;
+    [SyncVar]
     private bool isBleedingOut;
+    [SyncVar]
+    public float bleedOutTime;
+    [SyncVar]
+    private float timeUntilDeath;
+
+
     private float regenAmount = 1;
     private float regenHitDelay = 10; 
     private float regenInterval = 4;
@@ -126,6 +131,7 @@ public class PlayerHealth : NetworkBehaviour {
         }
         RegenUpdate();
     }
+
     public float GetMaxHealth() { return maxHealth; }
     public void ChangeMaxHealth(float balance){
         maxHealth = Mathf.RoundToInt(balance * maxHealth);

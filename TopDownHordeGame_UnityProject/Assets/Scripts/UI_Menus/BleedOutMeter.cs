@@ -18,6 +18,5 @@ public class BleedOutMeter : MonoBehaviour
             spriteRenderer.enabled = true;
             spriteRenderer.sprite = sprites[Mathf.RoundToInt(bleedOutRatio * (sprites.Count-1))];
         }
-
     }
 }

@@ -11,19 +11,22 @@ public class PlayerHealthBar : MonoBehaviour
     public GameObject sliderObj;
     public Slider slider;
 
+    private float awakeScaleX;
     private void Awake() {
+        awakeScaleX = transform.localScale.x;
         health.EventHealthChanged += UpdateValue;
-        movement.EventOrientationChange += UpdateOrientation;
     }
 
-    private void UpdateOrientation(bool xIsNegative) {
-        if(xIsNegative != (transform.localScale.x < 0)) {
-            transform.localScale = new Vector3(-1 * transform.localScale.x, transform.localScale.y, transform.localScale.z);
-        }
+    private void Update() {
+        if (movement.transform.localScale.x < 0)
+            transform.localScale = new Vector3(-1 * awakeScaleX, transform.localScale.y, transform.localScale.z);
+        else
+            transform.localScale = new Vector3(awakeScaleX, transform.localScale.y, transform.localScale.z);
     }
 
     private void UpdateValue(float newHealth, float newMax) {
         float healthRatio = newHealth/newMax;
+        Debug.Log("Health Ratio: " + healthRatio);
         if (healthRatio >= HIDE_RATIO) {
             sliderObj.SetActive(false);
         }

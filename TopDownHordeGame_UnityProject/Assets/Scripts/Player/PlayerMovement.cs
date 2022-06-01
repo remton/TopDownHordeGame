@@ -19,10 +19,6 @@ public class PlayerMovement : NetworkBehaviour {
     private bool isMoving = false;
     private bool isRunning = false;
 
-    //Called when the sprite is flipped
-    public delegate void OrientationChange(bool xIsNegative);
-    public event OrientationChange EventOrientationChange;
-
     //Called when stamina value changes
     public delegate void StaminaChange(float newStamina, float newMax);
     public event StaminaChange EventStaminaChange;
@@ -36,9 +32,19 @@ public class PlayerMovement : NetworkBehaviour {
     [SerializeField] private float runSpeed = 4;
     [SerializeField] private float staminaRegenRateWalking = .01375F;
     [SerializeField] private float staminaRegenRateStanding = .0275F;
-    [SerializeField] private float staminaMaximum = 10F;
     [SerializeField] private float staminaDrainRate = .05F;
+    [SerializeField] private float staminaMaximum = 10F;
     private float staminaRemaining = 10F;
+
+    [Command(requiresAuthority = false)]
+    private void CallStaminaChangeEvent(float stamina, float max) {
+        OnStaminaRatioChange(stamina, max);
+    }
+    [ClientRpc]
+    private void OnStaminaRatioChange(float stamina, float max) {
+        if (EventStaminaChange != null) { EventStaminaChange.Invoke(stamina, max); }
+    }
+
 
     private bool wentBelowThreshold = false;
     private float staminaThreshold = 0F;
@@ -78,7 +84,7 @@ public class PlayerMovement : NetworkBehaviour {
         staminaThreshold = staminaMaximum * 0.2F;
     }
     private void Start() {
-        if (EventStaminaChange != null) { EventStaminaChange.Invoke(staminaRemaining, staminaMaximum); }
+        CallStaminaChangeEvent(staminaRemaining, staminaMaximum);
     }
 
     public void OnDeviceChange(InputDevice device, InputDeviceChange deviceChange)
@@ -160,7 +166,6 @@ public class PlayerMovement : NetworkBehaviour {
         //if the sign of the direction isn't the same as the sign of x scale 
         if ((dir.x < 0) != (xScale < 0)) {
             transform.localScale = new Vector3(-1* transform.localScale.x, transform.localScale.y, transform.localScale.z);
-            if (EventOrientationChange != null) { EventOrientationChange.Invoke(dir.x < 0); }
         }
     }
     private void LookAtMouse() {
@@ -226,7 +231,7 @@ public class PlayerMovement : NetworkBehaviour {
                 wentBelowThreshold = false;
                 stillRunning = true;
             }
-            if (EventStaminaChange != null) { EventStaminaChange.Invoke(staminaRemaining, staminaMaximum); }
+            CallStaminaChangeEvent(staminaRemaining, staminaMaximum);
         }
     }
 
@@ -247,7 +252,7 @@ public class PlayerMovement : NetworkBehaviour {
                 {
                     wentBelowThreshold = true;
                 }
-                if (EventStaminaChange != null) { EventStaminaChange.Invoke(staminaRemaining, staminaMaximum); }
+                CallStaminaChangeEvent(staminaRemaining, staminaMaximum);
             }
             else
             {
@@ -302,7 +307,7 @@ public class PlayerMovement : NetworkBehaviour {
     {
         staminaMaximum = staminaMaximum * maximumStaminaMultiplier;
         staminaThreshold = staminaThreshold * maximumStaminaMultiplier;
-        if (EventStaminaChange != null) { EventStaminaChange.Invoke(staminaRemaining, staminaMaximum); }
+        CallStaminaChangeEvent(staminaRemaining, staminaMaximum);
     }
 }
 

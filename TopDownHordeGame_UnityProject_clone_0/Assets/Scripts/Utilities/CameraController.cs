@@ -135,6 +135,10 @@ public class CameraController : NetworkBehaviour {
 
     public void OnPlayersChanged(List<GameObject> newPlayers) {
         players = newPlayers;
+        if(players.Count == 0) {
+            players = PlayerManager.instance.GetActivePlayers();
+        }
+
     }
 
     private void Awake() {
