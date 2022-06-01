@@ -200,8 +200,12 @@ public class PlayerHealth : NetworkBehaviour {
         inIFrames = false;
     }
 
-    [ClientRpc]
+    [Command(requiresAuthority = false)]
     public void Revive() {
+        ReviveRPC();
+    }
+    [ClientRpc]
+    private void ReviveRPC() {
         if (reviver == null || !reviver.GetComponent<PlayerHealth>().GetIsBleedingOut()) {
             revivePrompt.Deactivate();
             //SoundPlayer.Play(reviveSound, transform.position);
@@ -220,7 +224,7 @@ public class PlayerHealth : NetworkBehaviour {
         reviver = null;
     }
 
-    [Client]
+    [ClientRpc]
     private void GoDown() {
         reviveTrigger.EventObjEnter += OnPlayerEnterReviveTrigger;
         reviveTrigger.EventObjExit += OnPlayerExitReviveTrigger;
@@ -242,14 +246,20 @@ public class PlayerHealth : NetworkBehaviour {
         Debug.Log("Bleeding out!");
     }
 
+    [Server]
     private void Die() {
+        DieRPC();
+        //The player who owns this needs to call this method since they are the authority for this object
+        PlayerManager.instance.OnPlayerDie(gameObject);
+    }
+    [ClientRpc]
+    private void DieRPC() {
         reviveTrigger.EventObjEnter -= OnPlayerEnterReviveTrigger;
         reviveTrigger.EventObjExit -= OnPlayerExitReviveTrigger;
         isBleedingOut = false;
         isDead = true;
-        //The player who owns this needs to call this method since they are the authority for this object
-        PlayerManager.instance.OnPlayerDie(GetComponent<Player>().GetConnection().connectionToClient, gameObject);
     }
+
     public void Respawn()
     {
         health = maxHealth;
