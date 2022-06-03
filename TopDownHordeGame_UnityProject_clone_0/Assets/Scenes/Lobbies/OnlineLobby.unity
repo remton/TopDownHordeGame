@@ -1625,9 +1625,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PreGameController, Assembly-CSharp
-        m_MethodName: LoadMainMenu
+      - m_Target: {fileID: 275825060}
+        m_TargetAssemblyTypeName: LobbyMenu, Assembly-CSharp
+        m_MethodName: LeaveLobby
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2305,6 +2305,7 @@ MonoBehaviour:
   syncInterval: 0.1
   menu: {fileID: 275825060}
   gameSceneName: CatCafeOnline
+  mainMenuScene: MainMenu
   maxPlayers: 4
 --- !u!4 &1849094993
 Transform:

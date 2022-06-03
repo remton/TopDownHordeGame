@@ -6,8 +6,7 @@ using UnityEngine.UI;
 
 public class LobbyMenu : MonoBehaviour
 {
-    const string EMPTY_NAME_TEXT = "Empty";
-    const string JOIN_NAME_TEXT = "Press start/space to join!";
+    const string EMPTY_NAME_TEXT = "Press start/space to join!";
     const string NOT_READY_TEXT = "Not Ready";
     const string READY_TEXT = "Ready";
 
@@ -24,9 +23,12 @@ public class LobbyMenu : MonoBehaviour
     [SerializeField]
     private Lobby lobby;
 
-
+    //Buttons
     public void ReadyUp() {
         lobby.ReadyUp();
+    }
+    public void LeaveLobby() {
+        lobby.LeaveLobby();
     }
 
     //Updates UI with the correct details
@@ -46,7 +48,7 @@ public class LobbyMenu : MonoBehaviour
             //If we havent joined a local player for this connection yet
             if(playerDetails[detailsIndex].numLocalPlayers == 0) {
                 //Set the name
-                playerNames[slotIndex].text = JOIN_NAME_TEXT;
+                playerNames[slotIndex].text = EMPTY_NAME_TEXT;
 
                 //Set ready button text
                 readyButtons[slotIndex].GetComponentInChildren<Text>().text = NOT_READY_TEXT;
@@ -71,9 +73,10 @@ public class LobbyMenu : MonoBehaviour
                     }
 
                     //If these are my details, set this as my button
-                    if (playerDetails[detailsIndex].netID == PlayerConnection.myConnection.netId) {
-                        SetMyReadyButton(slotIndex);
-                    }
+                    if (playerDetails[detailsIndex].netID == PlayerConnection.myConnection.netId)
+                        SetReadyButton(slotIndex, true);
+                    else
+                        SetReadyButton(slotIndex, false);
                 }
                 slotIndex++;
             }
@@ -86,13 +89,13 @@ public class LobbyMenu : MonoBehaviour
     }
 
     //Activates the button at the given index and deativates all others
-    private void SetMyReadyButton(int index) {
+    private void SetReadyButton(int index, bool on) {
         if (index > readyButtons.Count)
             Debug.LogError("ERROR: Cant set ready button to " + index + ". Only " + readyButtons.Count + "exist.");
 
-        foreach (GameObject obj in readyButtons) {
-            obj.GetComponent<Button>().interactable = false;
-        }
-        readyButtons[index].GetComponent<Button>().interactable = true;
+        readyButtons[index].GetComponent<Button>().interactable = on;
+        //foreach (GameObject obj in readyButtons) {
+        //    obj.GetComponent<Button>().interactable = false;
+        //}
     }
 }

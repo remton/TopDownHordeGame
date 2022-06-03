@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using Mirror;
 
 public class Lobby : NetworkBehaviour
@@ -10,6 +11,8 @@ public class Lobby : NetworkBehaviour
     private LobbyMenu menu;
     [SerializeField]
     private string gameSceneName;
+    [SerializeField]
+    private string mainMenuScene;
 
     [SyncVar]
     public int maxPlayers;
@@ -34,6 +37,14 @@ public class Lobby : NetworkBehaviour
                 StartGame();
             }
         }
+    }
+
+    public void LeaveLobby() {
+        if (isClient && isServer)
+            MyNetworkManager.instance.StopHost();
+        else if (isClient)
+            MyNetworkManager.instance.StopClient();
+        SceneManager.LoadScene(mainMenuScene);
     }
 
 
