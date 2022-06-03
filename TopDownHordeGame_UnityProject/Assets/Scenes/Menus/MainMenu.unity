@@ -1212,7 +1212,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.87600005}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00021362305, y: 0.3010254}
+  m_AnchoredPosition: {x: 0.00024414062, y: 0.3010254}
   m_SizeDelta: {x: -0.52667236, y: -1.1035385}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &282152479
@@ -1862,7 +1862,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.88900006, y: 0.87600005}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.2402649, y: -0.10168457}
+  m_AnchoredPosition: {x: 0.24023438, y: -0.10168457}
   m_SizeDelta: {x: -0.48294067, y: -0.4550476}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &479508497
@@ -2362,7 +2362,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.2741131, y: 0.6127088}
   m_AnchorMax: {x: 0.721, y: 0.717}
-  m_AnchoredPosition: {x: 1.0001068, y: -0.75408936}
+  m_AnchoredPosition: {x: 1.0001221, y: -0.75408936}
   m_SizeDelta: {x: 3.449997, y: -4.855999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &743569217
@@ -3620,7 +3620,7 @@ MonoBehaviour:
   - {fileID: 6396399298110489017, guid: 8cdeb959bda28654e8e2935ee6e478a3, type: 3}
   - {fileID: 6396399298110489017, guid: 82fb970eb680ef543814a550e285d10d, type: 3}
   - {fileID: 6396399298110489017, guid: 4453c43dc2fab504e9aa9ee6e04a7af1, type: 3}
-  useSteam: 0
+  useSteam: 1
   steamTransport: {fileID: 1273725193}
   steamLobby: {fileID: 1304918359}
   steamManager: {fileID: 1273725194}
