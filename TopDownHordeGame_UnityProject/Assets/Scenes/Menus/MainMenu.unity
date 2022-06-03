@@ -377,7 +377,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 35172220}
         m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
         m_MethodName: LoadHelpMenu
         m_Mode: 1
@@ -2243,7 +2243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultSelectedObject: {fileID: 1058665803}
-  mainMenu: {fileID: 0}
+  mainMenu: {fileID: 35172220}
   SFXSlider: {fileID: 1058665805}
   MusicSlider: {fileID: 1243186211}
 --- !u!1 &690722271
@@ -3590,7 +3590,7 @@ MonoBehaviour:
   onlineScene: 
   transport: {fileID: 1273725195}
   networkAddress: localhost
-  maxConnections: 100
+  maxConnections: 4
   authenticator: {fileID: 0}
   playerPrefab: {fileID: 6861647561282506606, guid: 19279e01470ac944287319f09516e8d8, type: 3}
   autoCreatePlayer: 1
@@ -3651,7 +3651,7 @@ GameObject:
   - component: {fileID: 1304918360}
   - component: {fileID: 1304918359}
   m_Layer: 0
-  m_Name: Lobby
+  m_Name: SteamLobby
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3795,7 +3795,6 @@ MonoBehaviour:
   mainMenu: {fileID: 35172220}
   code: {fileID: 743569217}
   onlineLobbySceneName: OnlineLobby
-  offlineLobbySceneName: OfflineLobby
 --- !u!1 &1389830626
 GameObject:
   m_ObjectHideFlags: 0
@@ -4023,7 +4022,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 78034636}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &1621547919

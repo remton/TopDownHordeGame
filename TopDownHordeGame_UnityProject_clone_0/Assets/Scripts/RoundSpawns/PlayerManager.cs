@@ -68,7 +68,7 @@ public class PlayerManager : NetworkBehaviour
     public void CreatePlayers() {
         //This is an online game
         if (MyNetworkManager.instance.isNetworkActive) {
-            PlayerConnection.myConnection.SpawnPlayer(spawnPoint.transform.position);
+            PlayerConnection.myConnection.SpawnPlayers(spawnPoint.transform.position);
         }
         else {
             //this is an offline game
@@ -160,14 +160,16 @@ public class PlayerManager : NetworkBehaviour
         if (EventActiveLocalPlayersChange != null) { EventActiveLocalPlayersChange.Invoke(GetActiveLocalPlayers()); }
     }
 
-
     [Command(requiresAuthority = false)]
     private void CheckGameOver() {
         List<PlayerConnection> connections = MyNetworkManager.instance.GetPlayerConnections();
         for (int i = 0; i < connections.Count; i++) {
-            GameObject playerChar = connections[i].GetPlayerCharacter();
-            if (!playerChar.GetComponent<PlayerHealth>().GetIsDead())
-                return;
+            List<GameObject> localCharacters = connections[i].GetPlayerCharacters();
+            for (int j = 0; j < localCharacters.Count; j++) {
+                GameObject playerChar = localCharacters[j];
+                if (!playerChar.GetComponent<PlayerHealth>().GetIsDead())
+                    return;
+            }
         }
 
         //Everyone died

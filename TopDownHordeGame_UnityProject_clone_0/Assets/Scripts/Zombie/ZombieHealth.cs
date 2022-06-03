@@ -12,6 +12,8 @@ public class ZombieHealth : NetworkBehaviour
 
     public delegate void onDeath();
     public event onDeath EventOnDeath;
+    public bool DontDestroyOnDeath = false;
+
     [SerializeField] private AudioClip[] hurtsounds;
     private int chance;
     private bool killed = false;
@@ -88,6 +90,8 @@ public class ZombieHealth : NetworkBehaviour
         Vector3 myLocation = transform.position;
         MagicController.instance.MagicDrop(myLocation);
         if (EventOnDeath != null) EventOnDeath.Invoke();
-        Destroy(gameObject);
+        if (DontDestroyOnDeath)
+            return;
+        NetworkServer.Destroy(gameObject);
     }
 }

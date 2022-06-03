@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6610173058259867372}
   - component: {fileID: 6261302763225947469}
   - component: {fileID: -76608098350631611}
+  - component: {fileID: 5942744747127681132}
   m_Layer: 0
   m_Name: Colt
   m_TagString: Untagged
@@ -64,7 +65,6 @@ MonoBehaviour:
   reloadSound: {fileID: 8300000, guid: 38ab4dbe0b1f1f44eab3ea84e6818b41, type: 3}
   swapSound: {fileID: 8300000, guid: e53c5f6b8d30c5f4c9ef0c7d7f40ab90, type: 3}
   shootSound: {fileID: 8300000, guid: e7ef617406060cb4eb1040f9f9883b96, type: 3}
-  effectController: {fileID: 2769296667775464315, guid: 7d9940cc4635be54da99373e2c0dfb27, type: 3}
   shakeIntensity: 1.1
   spriteControl: {fileID: 6261302763225947469}
   spreadAngleOnRicochet: 10
@@ -178,7 +178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  myLaser: {fileID: 4174292785251591288, guid: 719f14220d5a57a47bffb39184ebba60, type: 3}
+  myLaser: {fileID: 3809875136519736791}
   barralEndObj: {fileID: 7304115831935819916}
   spriteObj: {fileID: 7333434646624960146}
 --- !u!114 &-76608098350631611
@@ -193,9 +193,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14961e36a52fb9046828cf5baf6ae0d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   duration: 0.2
   maxDistance: 70
   trailObjPrefab: {fileID: 5599144035722061591, guid: 1173e4391071715429544057dfc90985, type: 3}
+--- !u!114 &5942744747127681132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093619312353819989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 9edbdeec5cf78b147838230c566fbedf
+  hasSpawned: 0
 --- !u!1 &7304115831935819916
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,6 +387,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 719f14220d5a57a47bffb39184ebba60, type: 3}
+--- !u!1 &3809875136519736791 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4174292785251591288, guid: 719f14220d5a57a47bffb39184ebba60, type: 3}
+  m_PrefabInstance: {fileID: 950669002412108207}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4703465901123086080 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5509983971345501871, guid: 719f14220d5a57a47bffb39184ebba60, type: 3}

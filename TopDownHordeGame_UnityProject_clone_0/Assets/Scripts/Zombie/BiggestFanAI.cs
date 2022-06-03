@@ -18,6 +18,7 @@ public class BiggestFanAI : ZombieAI
         zombieLunge.EventLungeEnd += zombieHealth.Kill;
         zombieLunge.EventPrelungeEnd += OnPrelungeEnd;
         zombieHealth.EventOnDeath += Explode;
+        zombieHealth.DontDestroyOnDeath = true;
     }
 
     public override void SetValues(float newHealth, float newSpeed, float newDamage) {
@@ -45,6 +46,8 @@ public class BiggestFanAI : ZombieAI
 
     [ClientRpc]
     private void Explode() {
+        Debug.LogWarning("EXPLODE!");
+
         List<string> damageTags = new List<string>();
         damageTags.Add("Player");
         damageTags.Add("ZombieDamageHitbox");
@@ -54,5 +57,6 @@ public class BiggestFanAI : ZombieAI
 
         GameObject obj = Instantiate(explosionObj, transform.position, Quaternion.identity);
         obj.GetComponent<Explosion>().Init(gameObject, damageTags, knockbackTags, damage, knockbackStrength);
+        Destroy(gameObject);
     }
 }

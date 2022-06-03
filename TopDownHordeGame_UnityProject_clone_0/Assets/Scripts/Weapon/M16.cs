@@ -23,7 +23,8 @@ public class M16 : Weapon
         currPlayer = player;
         shotsLeftInBurst = burstCount;
     }
-    private void Update() {
+    public override void Update() {
+        base.Update();
         if (shotsLeftInBurst > 0) {
             if(timeUntilNextShot <= 0) {
                 base.Fire(currPlayer, currPlayer.GetComponent<PlayerMovement>().GetCurrentLookDir());

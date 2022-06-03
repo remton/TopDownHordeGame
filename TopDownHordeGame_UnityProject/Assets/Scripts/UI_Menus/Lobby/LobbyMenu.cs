@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class LobbyMenu : MonoBehaviour
 {
     const string EMPTY_NAME_TEXT = "Empty";
-
+    const string JOIN_NAME_TEXT = "Press start/space to join!";
     const string NOT_READY_TEXT = "Not Ready";
     const string READY_TEXT = "Ready";
 
@@ -31,29 +31,57 @@ public class LobbyMenu : MonoBehaviour
 
     //Updates UI with the correct details
     public void UpdateUI(List<Lobby.PlayerDetails> playerDetails) {
+        int numSlots = playerNames.Count;
+        int numPlayers = 0;
+        for (int i = 0; i < playerDetails.Count; i++) {
+            numPlayers += playerDetails[i].numLocalPlayers;
+        }
+        if (numPlayers > numSlots)
+            Debug.LogError("More players than slots");
 
-        for (int i = 0; i < playerNames.Count; i++) {
-            if(i < playerDetails.Count) {
+        int slotIndex = 0;
+        //For every details (connection)
+        for (int detailsIndex = 0; detailsIndex < playerDetails.Count; detailsIndex++) {
+
+            //If we havent joined a local player for this connection yet
+            if(playerDetails[detailsIndex].numLocalPlayers == 0) {
                 //Set the name
-                playerNames[i].text = playerDetails[i].name;
+                playerNames[slotIndex].text = JOIN_NAME_TEXT;
 
                 //Set ready button text
-                if (playerDetails[i].isReady) {
-                    readyButtons[i].GetComponentInChildren<Text>().text = READY_TEXT;
-                }
-                else {
-                    readyButtons[i].GetComponentInChildren<Text>().text = NOT_READY_TEXT;
-                }
-                
-                //If these are my details, set this as my button
-                if(playerDetails[i].netID == PlayerConnection.myConnection.netId) {
-                    SetMyReadyButton(i);
-                }
+                readyButtons[slotIndex].GetComponentInChildren<Text>().text = NOT_READY_TEXT;
+
+                slotIndex++;
+                return;
             }
-            else {
-                playerNames[i].text = EMPTY_NAME_TEXT;
-                readyButtons[i].GetComponentInChildren<Text>().text = NOT_READY_TEXT;
+
+            //For every local player
+            for (int localPlayer = 0; localPlayer < playerDetails[detailsIndex].numLocalPlayers; localPlayer++) {
+                //Only if there is a slot available
+                if(slotIndex < numSlots) {
+                    //Set the name
+                    playerNames[slotIndex].text = playerDetails[detailsIndex].name;
+
+                    //Set ready button text
+                    if (playerDetails[detailsIndex].isReady) {
+                        readyButtons[slotIndex].GetComponentInChildren<Text>().text = READY_TEXT;
+                    }
+                    else {
+                        readyButtons[slotIndex].GetComponentInChildren<Text>().text = NOT_READY_TEXT;
+                    }
+
+                    //If these are my details, set this as my button
+                    if (playerDetails[detailsIndex].netID == PlayerConnection.myConnection.netId) {
+                        SetMyReadyButton(slotIndex);
+                    }
+                }
+                slotIndex++;
             }
+        }
+        //For the rest of the slots
+        for (int i = slotIndex; i < numSlots; i++) {
+            playerNames[i].text = EMPTY_NAME_TEXT;
+            readyButtons[i].GetComponentInChildren<Text>().text = NOT_READY_TEXT;
         }
     }
 

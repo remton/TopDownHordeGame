@@ -27,6 +27,12 @@ public class MyNetworkManager : NetworkManager
 
 
     //--- Public Methods ---
+    public void HostOffline() {
+        useSteam = false;
+        SetKcpTransport();
+        networkAddress = "localhost";
+        StartHost();
+    }
     public void HostGame(string code) {
         if (useSteam) {
             steamLobby.GetLobbies(code);

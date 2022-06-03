@@ -11,7 +11,7 @@ public class PlayMenu : Menu
     public InputField code;
 
     public string onlineLobbySceneName;
-    public string offlineLobbySceneName;
+    //public string offlineLobbySceneName;
 
     public void OpenMenu() {
         gameObject.SetActive(true);
@@ -31,7 +31,7 @@ public class PlayMenu : Menu
     }
 
     public void Button_Offline() {
-        SceneManager.LoadScene(offlineLobbySceneName);
+        MyNetworkManager.instance.HostOffline();
     }
 
     public void Button_Close() {

@@ -53,7 +53,7 @@ public class Weapon : NetworkBehaviour
         }
     }
 
-    private void Update() {
+    public virtual void Update() {
         if(owner == null) {
             return;
         }
