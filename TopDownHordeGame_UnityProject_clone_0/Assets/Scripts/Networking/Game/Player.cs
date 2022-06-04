@@ -30,6 +30,7 @@ public class Player : NetworkBehaviour
     public override void OnStartServer() {
         base.OnStartServer();
         playerID = new System.Guid();
+        StatScreen.AddSidebar(gameObject);
     }
     private void OnDestroy() {
         if(isServer)
@@ -50,7 +51,7 @@ public class Player : NetworkBehaviour
         GetComponent<PlayerWeaponControl>().enabled = isLocalPlayer;
         GetComponent<PlayerActivate>().enabled = isLocalPlayer;
         GetComponent<PlayerInput>().camera = Camera.main;
-        GetComponent<PlayerStats>().playerName = PlayerConnection.GetName(connection);
+        GetComponent<PlayerStats>().playerName = PlayerConnection.GetName(connection, gameObject);
 
         //Server controlled
         GetComponent<PlayerHealth>().enabled = isServer;

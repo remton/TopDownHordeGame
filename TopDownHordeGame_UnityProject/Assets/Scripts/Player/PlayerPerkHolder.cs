@@ -8,6 +8,8 @@ public class PlayerPerkHolder : MonoBehaviour
     public event PerkChanged EventPerkChanged;
 
     private List<Perk> perks = new List<Perk>();
+    public List<Perk> GetPerks() { return perks; }
+
     public void AddPerk(GameObject perkPrefab) {
         perkPrefab.GetComponent<Perk>().OnPerkGained(this.gameObject);
         GameObject perkObj = Instantiate(perkPrefab, transform);

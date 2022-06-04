@@ -25,5 +25,12 @@ public class PlayerActivate : MonoBehaviour
         }
     }
 
-    
+    public void OnOpenStatScreenButton(InputAction.CallbackContext context) {
+        if (context.action.triggered) {
+            StatScreen.OpenMenu();
+        }
+        else {
+            StatScreen.CloseMenu();
+        }
+    }
 }

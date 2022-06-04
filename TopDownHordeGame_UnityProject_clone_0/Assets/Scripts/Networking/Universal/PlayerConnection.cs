@@ -32,6 +32,21 @@ public class PlayerConnection : NetworkBehaviour
         else
             return "Con [" + connection.netId + "]";
     }
+    public static string GetName(PlayerConnection connection, GameObject player) {
+        ConnectionData data = connection.connectionData;
+        string name;
+        if (data.useSteam)
+            name = SteamFriends.GetFriendPersonaName(new CSteamID(ulong.Parse(data.steamID)));
+        else
+            name = "Player";
+
+        List<GameObject> localPlayers = connection.GetPlayerCharacters();
+        for (int i = 1; i < localPlayers.Count; i++) {
+            if (player == localPlayers[i])
+                name += " [" + (i+1).ToString() + "]";
+        }
+        return name;
+    }
 
     [ClientRpc(includeOwner = true)]
     public void Init(ConnectionData data) {
@@ -73,6 +88,7 @@ public class PlayerConnection : NetworkBehaviour
 
         playerCharacters.Add(character);
         PlayerManager.instance.AddPlayerCharacter(character, conn);
+
     }
 
     private void Awake() {

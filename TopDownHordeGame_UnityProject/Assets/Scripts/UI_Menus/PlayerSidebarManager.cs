@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 public class PlayerSidebarManager : MonoBehaviour
 {
@@ -14,7 +15,8 @@ public class PlayerSidebarManager : MonoBehaviour
     }
 
     public void AddSidebar(GameObject player) {
-        if(counter >= sidebars.Count) {
+
+        if (counter >= sidebars.Count) {
             Debug.Log("Cannot add sidebar. Max sidebars active");
             return;
         }

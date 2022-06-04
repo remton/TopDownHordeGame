@@ -12,7 +12,6 @@ public class PlayerManager : NetworkBehaviour
     public GameObject playerPrefab;
     public GameObject spawnPoint;
     public GameObject deadPlayerLocation;
-    public PlayerSidebarManager sidebarManager;
     private int numPlayers;
     private List<GameObject> localPlayers = new List<GameObject>();
     private List<GameObject> allPlayers = new List<GameObject>();
@@ -64,7 +63,7 @@ public class PlayerManager : NetworkBehaviour
         localPlayers.Clear();
     }
 
-
+    [Server]
     public void CreatePlayers() {
         //This is an online game
         if (MyNetworkManager.instance.isNetworkActive) {
@@ -72,17 +71,21 @@ public class PlayerManager : NetworkBehaviour
         }
         else {
             //this is an offline game
-            numPlayers = GameSettings.instance.numPlayers;
-            for (int i = 0; i < numPlayers; i++) {
-                PlayerInput input = PlayerInputManager.instance.JoinPlayer(i, i, null, GameSettings.instance.devices[i]);
-                GameObject playerObj = input.gameObject;
-                playerObj.transform.position = spawnPoint.transform.position;
-                playerObj.GetComponent<PlayerInput>().camera = Camera.main;
-                playerObj.GetComponent<PlayerStats>().playerName = (i + 1).ToString();
-                localPlayers.Add(playerObj);
-                sidebarManager.AddSidebar(playerObj);
-            }
-            if (EventActiveLocalPlayersChange != null) { EventActiveLocalPlayersChange.Invoke(GetActiveLocalPlayers()); }
+            //All games will techincally be online
+            Debug.LogError("NetworkServer is inactive");
+
+            //Old code
+            //numPlayers = GameSettings.instance.numPlayers;
+            //for (int i = 0; i < numPlayers; i++) {
+            //    PlayerInput input = PlayerInputManager.instance.JoinPlayer(i, i, null, GameSettings.instance.devices[i]);
+            //    GameObject playerObj = input.gameObject;
+            //    playerObj.transform.position = spawnPoint.transform.position;
+            //    playerObj.GetComponent<PlayerInput>().camera = Camera.main;
+            //    playerObj.GetComponent<PlayerStats>().playerName = (i + 1).ToString();
+            //    localPlayers.Add(playerObj);
+            //    sidebarManager.AddSidebar(playerObj);
+            //}
+            //if (EventActiveLocalPlayersChange != null) { EventActiveLocalPlayersChange.Invoke(GetActiveLocalPlayers()); }
         }
     }
 

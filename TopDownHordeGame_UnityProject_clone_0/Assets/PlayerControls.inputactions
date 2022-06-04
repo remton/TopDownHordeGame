@@ -84,6 +84,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "OpenStatMenu",
+                    "type": "Button",
+                    "id": "1a33f5b5-2c54-48af-820d-c039f8b88b5a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -431,7 +439,7 @@
                 {
                     "name": "",
                     "id": "bd809452-2a7e-4c15-aa6d-feb029ef84fa",
-                    "path": "<Gamepad>/select",
+                    "path": "<Gamepad>/dpad/up",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -458,6 +466,28 @@
                     "processors": "",
                     "groups": "Eric keyboard",
                     "action": "ToggleLaser",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3c3faf69-5ac1-4ac7-9e92-8dd238b373ac",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard;Eric keyboard",
+                    "action": "OpenStatMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8df3e991-71eb-47ad-b046-3398f12451ee",
+                    "path": "<Gamepad>/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "OpenStatMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
