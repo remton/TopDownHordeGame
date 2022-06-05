@@ -37,7 +37,7 @@ public class PlayerConnection : NetworkBehaviour
     public static string GetName(PlayerConnection connection) {
         ConnectionData data = connection.connectionData;
         if (MyNetworkManager.instance.useSteam)
-            return SteamFriends.GetFriendPersonaName(new CSteamID(ulong.Parse(data.steamID)));
+            return "ERROR"; //SteamFriends.GetFriendPersonaName(new CSteamID(ulong.Parse(data.steamID)));
         else
             return "Con [" + connection.netId + "]";
     }
