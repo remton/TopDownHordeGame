@@ -175,7 +175,10 @@ namespace Mirror.FizzySteam
                 }
                 else if (res != EResult.k_EResultOK)
                 {
-                    Debug.LogError($"Could not send: {res.ToString()}");
+                    if (res != EResult.k_EResultLimitExceeded)
+                        Debug.LogError($"Could not send: {res.ToString()}");
+                    else
+                        Debug.LogWarning("LIMIT EXCEEDED");
                 }
             }
             else
