@@ -105,7 +105,7 @@ public class Lobby : NetworkBehaviour
         details.name = PlayerConnection.GetName(connection);
         details.hasDevice = connection.devices.Count > 0;
         details.isReady = false;
-        details.numLocalPlayers = connection.numLocalPlayers;
+        details.numLocalPlayers = connection.GetNumLocalPlayers();
         playerDetails.Add(details);
     }
 
@@ -177,7 +177,7 @@ public class Lobby : NetworkBehaviour
         //Add a local player
         JoinLocalPlayerCommand(PlayerConnection.myConnection.netId);
         PlayerConnection.myConnection.devices.Add(device);
-        PlayerConnection.myConnection.numLocalPlayers++;
+        PlayerConnection.myConnection.SetNumLocalPlayers(PlayerConnection.myConnection.GetNumLocalPlayers() + 1);
         return true;
     }
     [Command(requiresAuthority = false)]

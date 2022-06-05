@@ -9,7 +9,16 @@ public class PlayerConnection : NetworkBehaviour
 {
     //The playerconnection for a given client (set in first Init call)
     public static PlayerConnection myConnection;
-    public int numLocalPlayers = 0;
+
+
+
+    [SyncVar]
+    private int numLocalPlayers = 0;
+    public int GetNumLocalPlayers() { return numLocalPlayers; }
+    [Command]
+    public void SetNumLocalPlayers(int num) { numLocalPlayers = num; }
+
+
     public List<InputDevice> devices = new List<InputDevice>();
 
 
@@ -27,7 +36,7 @@ public class PlayerConnection : NetworkBehaviour
 
     public static string GetName(PlayerConnection connection) {
         ConnectionData data = connection.connectionData;
-        if (data.useSteam)
+        if (MyNetworkManager.instance.useSteam)
             return SteamFriends.GetFriendPersonaName(new CSteamID(ulong.Parse(data.steamID)));
         else
             return "Con [" + connection.netId + "]";
@@ -35,7 +44,7 @@ public class PlayerConnection : NetworkBehaviour
     public static string GetName(PlayerConnection connection, GameObject player) {
         ConnectionData data = connection.connectionData;
         string name;
-        if (data.useSteam)
+        if (MyNetworkManager.instance.useSteam)
             name = SteamFriends.GetFriendPersonaName(new CSteamID(ulong.Parse(data.steamID)));
         else
             name = "Player";
