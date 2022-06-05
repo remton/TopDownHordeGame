@@ -35,19 +35,23 @@ public class PlayerConnection : NetworkBehaviour
     }
 
     public static string GetName(PlayerConnection connection) {
-        ConnectionData data = connection.connectionData;
-        if (MyNetworkManager.instance.useSteam)
-            return "ERROR"; //SteamFriends.GetFriendPersonaName(new CSteamID(ulong.Parse(data.steamID)));
-        else
-            return "Con [" + connection.netId + "]";
+        return "Con [" + connection.netId + "]";
+
+        //ConnectionData data = connection.connectionData;
+        //if (MyNetworkManager.instance.useSteam)
+        //    return SteamFriends.GetFriendPersonaName(new CSteamID(ulong.Parse(data.steamID)));
+        //else
+        //    return "Con [" + connection.netId + "]";
     }
     public static string GetName(PlayerConnection connection, GameObject player) {
         ConnectionData data = connection.connectionData;
         string name;
-        if (MyNetworkManager.instance.useSteam)
-            name = SteamFriends.GetFriendPersonaName(new CSteamID(ulong.Parse(data.steamID)));
-        else
-            name = "Player";
+        name = "Player";
+
+        //if (MyNetworkManager.instance.useSteam)
+        //    name = SteamFriends.GetFriendPersonaName(new CSteamID(ulong.Parse(data.steamID)));
+        //else
+        //    name = "Player";
 
         List<GameObject> localPlayers = connection.GetPlayerCharacters();
         for (int i = 1; i < localPlayers.Count; i++) {
