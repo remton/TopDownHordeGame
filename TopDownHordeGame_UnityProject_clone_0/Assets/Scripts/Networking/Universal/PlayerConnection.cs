@@ -44,7 +44,6 @@ public class PlayerConnection : NetworkBehaviour
         //    return "Con [" + connection.netId + "]";
     }
     public static string GetName(PlayerConnection connection, GameObject player) {
-        ConnectionData data = connection.connectionData;
         string name;
         name = "Player";
 
@@ -62,11 +61,9 @@ public class PlayerConnection : NetworkBehaviour
     }
 
     [ClientRpc(includeOwner = true)]
-    public void Init(ConnectionData data) {
+    public void Init() {
         numLocalPlayers = 0;
         devices.Clear();
-        connectionData = data;
-        Debug.Log(GetName(this) + "'s PlayerConnection Initialized");
         DontDestroyOnLoad(gameObject);
         if(myConnection == null) {
             Debug.Log("My netID: " + netId);
@@ -110,13 +107,4 @@ public class PlayerConnection : NetworkBehaviour
     private void OnDestroy() {
         MyNetworkManager.instance.OnPlayerConnectionDestroyed(this);
     }
-
-    public struct ConnectionData {
-        public uint netID;
-        public bool useSteam;
-        public string steamID;
-        public string address;
-    }
-    public ConnectionData connectionData;
-
 }

@@ -92,23 +92,7 @@ public class MyNetworkManager : NetworkManager
         NetworkServer.AddPlayerForConnection(conn, player);
 
         //Addition for MyNetworkManager
-        PlayerConnection.ConnectionData connectionData;
-        if (useSteam) {
-            connectionData.useSteam = true;
-            if(conn.address == "localhost") {
-                connectionData.steamID = SteamUser.GetSteamID().ToString();
-            }
-            else {
-                connectionData.steamID = conn.address;
-            }
-        }
-        else {
-            connectionData.useSteam = false;
-            connectionData.steamID = "0";
-        }
-        connectionData.address = conn.address;
-        connectionData.netID = player.GetComponent<PlayerConnection>().netId;
-        player.GetComponent<PlayerConnection>().Init(connectionData);
+        player.GetComponent<PlayerConnection>().Init();
         playerConnections.Add(player.GetComponent<PlayerConnection>());
         if(ServerEvent_PlayerConnectionAdded != null) { ServerEvent_PlayerConnectionAdded.Invoke(player.GetComponent<PlayerConnection>()); }
     }
