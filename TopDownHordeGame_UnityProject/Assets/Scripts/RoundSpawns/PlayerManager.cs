@@ -66,8 +66,11 @@ public class PlayerManager : NetworkBehaviour
     [Server]
     public void CreatePlayers() {
         //This is an online game
+        List<PlayerConnection> connections = MyNetworkManager.instance.GetPlayerConnections();
         if (MyNetworkManager.instance.isNetworkActive) {
-            PlayerConnection.myConnection.SpawnPlayers(spawnPoint.transform.position);
+            for (int i = 0; i < connections.Count; i++) {
+                connections[i].SpawnPlayers(connections[i].connectionToClient, spawnPoint.transform.position);
+            }
         }
         else {
             //this is an offline game

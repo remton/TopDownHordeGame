@@ -78,12 +78,11 @@ public class PlayerConnection : NetworkBehaviour
         SteamMatchmaking.LeaveLobby(lobbyID);
     }
 
-    [Client]
-    public void SpawnPlayers(Vector3 location) {
+    [TargetRpc]
+    public void SpawnPlayers(NetworkConnection network, Vector3 location) {
         for (int i = 0; i < numLocalPlayers; i++) {
             SpawnPlayerCommand(location, this, i);
         }
-
     }
 
     [Command]
@@ -98,7 +97,6 @@ public class PlayerConnection : NetworkBehaviour
 
         playerCharacters.Add(character);
         PlayerManager.instance.AddPlayerCharacter(character, conn);
-
     }
 
     private void Awake() {
