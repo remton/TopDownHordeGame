@@ -79,7 +79,7 @@ public class PlayerWeaponControl : NetworkBehaviour {
 
     [Client]
     public void PickUpWeapon(GameObject weaponPrefab) {
-        Debug.Log("Picking up weapon . . .");
+        Debug.Log("Picking up weapon " + weaponPrefab.name);
 
         if (isReloading)
             CancelReload();
@@ -141,10 +141,13 @@ public class PlayerWeaponControl : NetworkBehaviour {
         playerMovement = GetComponent<PlayerMovement>();
         timer = GetComponent<Timer>();
     }
+
     private void Start() {
-        if (!PlayerConnection.myConnection.isLocalPlayer)
-            return;
-        ResetWeapons();
+        Debug.Log("START player weapon control. local? " + GetComponent<Player>().isLocalPlayer + " Netid:" + netId);
+
+        if (GetComponent<Player>().IsLocalCharacter()) {
+            ResetWeapons();
+        }
     }
     private void Update() {
         if (equippedWeapon != null) {

@@ -10,7 +10,10 @@ public class Player : NetworkBehaviour
     // --- Player connection and Input Setup --- 
     [SyncVar]
     private PlayerConnection connection;
-    private new bool isLocalPlayer = false;
+    public bool IsLocalCharacter() {
+        return connection == PlayerConnection.myConnection;
+    }
+
 
     [SyncVar]
     private System.Guid playerID;
@@ -40,16 +43,17 @@ public class Player : NetworkBehaviour
     public override void OnStartClient() {
         base.OnStartClient();
         SetUpPlayerOnClient();
+        Debug.Log("CLIENT START START player netID:" + netId);
     }
 
     [Client]
     private void SetUpPlayerOnClient() {
-        isLocalPlayer = (connection == PlayerConnection.myConnection);
+        bool isLocalCharacter = (connection == PlayerConnection.myConnection);
 
-        GetComponent<PlayerInput>().enabled = isLocalPlayer;
-        GetComponent<PlayerMovement>().enabled = isLocalPlayer;
-        GetComponent<PlayerWeaponControl>().enabled = isLocalPlayer;
-        GetComponent<PlayerActivate>().enabled = isLocalPlayer;
+        GetComponent<PlayerInput>().enabled = isLocalCharacter;
+        GetComponent<PlayerMovement>().enabled = isLocalCharacter;
+        GetComponent<PlayerWeaponControl>().enabled = isLocalCharacter;
+        GetComponent<PlayerActivate>().enabled = isLocalCharacter;
         GetComponent<PlayerInput>().camera = Camera.main;
         GetComponent<PlayerStats>().playerName = PlayerConnection.GetName(connection, gameObject);
 

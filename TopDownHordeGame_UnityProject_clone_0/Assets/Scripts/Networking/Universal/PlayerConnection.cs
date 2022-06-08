@@ -10,8 +10,6 @@ public class PlayerConnection : NetworkBehaviour
     //The playerconnection for a given client (set in first Init call)
     public static PlayerConnection myConnection;
 
-
-
     [SyncVar]
     private int numLocalPlayers = 0;
     public int GetNumLocalPlayers() { return numLocalPlayers; }

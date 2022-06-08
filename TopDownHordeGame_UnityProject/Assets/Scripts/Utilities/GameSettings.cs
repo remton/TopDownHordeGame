@@ -14,7 +14,7 @@ public class GameSettings : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else {
-            Debug.Log("GameSettings already has an instance, one was destoyed");
+            //Debug.Log("GameSettings already has an instance, one was destoyed");
             Destroy(gameObject);
         }
     }
