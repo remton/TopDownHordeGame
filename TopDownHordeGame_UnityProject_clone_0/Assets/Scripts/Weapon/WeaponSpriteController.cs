@@ -10,12 +10,11 @@ public class WeaponSpriteController : NetworkBehaviour
     [SerializeField] private GameObject myLaser;
     [SerializeField] private GameObject barralEndObj;
     public GameObject spriteObj;
-    [Command(requiresAuthority = false)]
-    public void UpdateDirection(Vector2 dir) {
-        SetDirection_RPC(dir);
-    }
-    [ClientRpc]
-    private void SetDirection_RPC(Vector2 dir) {
+
+    private Timer timer;
+    public float sendInterval;
+
+    private void UpdateDirection(Vector2 dir) {
         if (myLaser != null)
             myLaser.GetComponent<LaserSight>().DrawLaser(dir);
         if (dir.x < 0) {
@@ -54,6 +53,48 @@ public class WeaponSpriteController : NetworkBehaviour
     }
 
     private void Awake() {
+        timer = GetComponent<Timer>();
         xScaleMagnitude = transform.localScale.x;
+    }
+
+
+    // NETWORKING 
+    private Vector2 lastDirectionRecieved;
+    private bool sendOnIntervalEnd = false;
+    private bool canSend = true;
+    [Client]
+    public void DirectionChanged(Vector2 dir) {
+        UpdateDirection(dir);
+        lastDirectionRecieved = dir;
+        if (canSend) {
+            SendDirectionCommand(dir);
+            timer.CreateTimer(sendInterval, SendIntervalEnd);
+        }
+        else {
+            sendOnIntervalEnd = true;
+        }
+    }
+    [Client]
+    private void SendIntervalEnd() {
+        if (sendOnIntervalEnd) {
+            sendOnIntervalEnd = false;
+            SendDirectionCommand(lastDirectionRecieved);
+            timer.CreateTimer(sendInterval, SendIntervalEnd);
+        }
+        else {
+            canSend = true;
+        }
+    }
+
+    [Command(requiresAuthority = false)]
+    public void SendDirectionCommand(Vector2 dir) {
+        RecieveDirection(dir);
+        if(enabled && hasAuthority)
+            timer.CreateTimer(sendInterval, SendIntervalEnd);
+    }
+    [ClientRpc]
+    public void RecieveDirection(Vector2 dir) {
+        lastDirectionRecieved = dir;
+        UpdateDirection(dir);
     }
 }

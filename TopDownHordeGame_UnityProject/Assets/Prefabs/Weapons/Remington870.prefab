@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7853944436744635101}
   - component: {fileID: 165125178573960015}
   - component: {fileID: 7803333558576652749}
+  - component: {fileID: -3710430357400789318}
   m_Layer: 0
   m_Name: Remington870
   m_TagString: Untagged
@@ -64,7 +65,6 @@ MonoBehaviour:
   reloadSound: {fileID: 8300000, guid: 35135340b7019394eaf85d5bf819a71c, type: 3}
   swapSound: {fileID: 8300000, guid: e53c5f6b8d30c5f4c9ef0c7d7f40ab90, type: 3}
   shootSound: {fileID: 8300000, guid: 86c63c303618beb49b6d7f80525459ed, type: 3}
-  effectController: {fileID: 2769296667775464315, guid: 7d9940cc4635be54da99373e2c0dfb27, type: 3}
   shakeIntensity: 3
   spriteControl: {fileID: 165125178573960015}
   pelletCount: 9
@@ -182,6 +182,7 @@ MonoBehaviour:
   myLaser: {fileID: 8401459796731716656}
   barralEndObj: {fileID: 8345761270163853299}
   spriteObj: {fileID: 7541072871943695148}
+  sendInterval: 0.05
 --- !u!114 &7803333558576652749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,9 +195,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14961e36a52fb9046828cf5baf6ae0d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   duration: 0.2
   maxDistance: 70
   trailObjPrefab: {fileID: 5599144035722061591, guid: 1173e4391071715429544057dfc90985, type: 3}
+--- !u!114 &-3710430357400789318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 280554671962952436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2481c070c49a4dd4cb8ace2ff92559b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7541072871943695148
 GameObject:
   m_ObjectHideFlags: 0

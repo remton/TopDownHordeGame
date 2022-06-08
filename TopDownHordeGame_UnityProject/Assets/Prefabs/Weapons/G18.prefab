@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: 7524845823652781340}
   - component: {fileID: 4761720175564451057}
   - component: {fileID: 4544143830394628533}
+  - component: {fileID: -387140712897375927}
   m_Layer: 0
   m_Name: G18
   m_TagString: Untagged
@@ -179,7 +180,6 @@ MonoBehaviour:
   reloadSound: {fileID: 8300000, guid: f5b299c453ad8c446bf1fd3760e15405, type: 3}
   swapSound: {fileID: 8300000, guid: e53c5f6b8d30c5f4c9ef0c7d7f40ab90, type: 3}
   shootSound: {fileID: 8300000, guid: 91e5707cac1adba418266eb43225e71f, type: 3}
-  effectController: {fileID: 2769296667775464315, guid: 7d9940cc4635be54da99373e2c0dfb27, type: 3}
   shakeIntensity: 0.9
   spriteControl: {fileID: 0}
   pelletCount: 1
@@ -297,6 +297,7 @@ MonoBehaviour:
   myLaser: {fileID: 3940211482879703825}
   barralEndObj: {fileID: 3916244070320449444}
   spriteObj: {fileID: 2470111229567702602}
+  sendInterval: 0.05
 --- !u!114 &4544143830394628533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,9 +310,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14961e36a52fb9046828cf5baf6ae0d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   duration: 0.2
   maxDistance: 70
   trailObjPrefab: {fileID: 5599144035722061591, guid: 1173e4391071715429544057dfc90985, type: 3}
+--- !u!114 &-387140712897375927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6429082733309257629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2481c070c49a4dd4cb8ace2ff92559b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1098984258632949609
 PrefabInstance:
   m_ObjectHideFlags: 0

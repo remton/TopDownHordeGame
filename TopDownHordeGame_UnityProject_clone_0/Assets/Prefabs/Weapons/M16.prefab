@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 4068152018087585329}
   - component: {fileID: 2463911640964357872}
   - component: {fileID: 1914255558280927202}
+  - component: {fileID: 1931532802963676720}
   m_Layer: 0
   m_Name: M16
   m_TagString: Untagged
@@ -95,7 +96,6 @@ MonoBehaviour:
   reloadSound: {fileID: 8300000, guid: 0f4b81a392373a242aa45e339f2b80c7, type: 3}
   swapSound: {fileID: 8300000, guid: e53c5f6b8d30c5f4c9ef0c7d7f40ab90, type: 3}
   shootSound: {fileID: 8300000, guid: c484a7bc68f7e054f901ea8447bc9bee, type: 3}
-  effectController: {fileID: 2769296667775464315, guid: 429618851dc338546ad8ba0c14d3528d, type: 3}
   shakeIntensity: 1.1
   spriteControl: {fileID: 2463911640964357872}
   spreadAngle: 4
@@ -214,6 +214,7 @@ MonoBehaviour:
   myLaser: {fileID: 9154480232927518358}
   barralEndObj: {fileID: 638630046168665278}
   spriteObj: {fileID: 8295649116921816451}
+  sendInterval: 0.05
 --- !u!114 &1914255558280927202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,9 +227,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14961e36a52fb9046828cf5baf6ae0d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   duration: 0.2
   maxDistance: 70
   trailObjPrefab: {fileID: 5599144035722061591, guid: 1173e4391071715429544057dfc90985, type: 3}
+--- !u!114 &1931532802963676720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093619312353819989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2481c070c49a4dd4cb8ace2ff92559b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8295649116921816451
 GameObject:
   m_ObjectHideFlags: 0

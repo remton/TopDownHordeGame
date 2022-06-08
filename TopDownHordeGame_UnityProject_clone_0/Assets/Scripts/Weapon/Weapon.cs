@@ -57,9 +57,7 @@ public class Weapon : NetworkBehaviour
         if(owner == null) {
             return;
         }
-
         transform.position = owner.transform.position;
-        spriteControl.UpdateDirection(owner.GetComponent<PlayerMovement>().GetCurrentLookDir());
     }
 
     [Server]

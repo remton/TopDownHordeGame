@@ -68,14 +68,11 @@ public class PlayerMovement : NetworkBehaviour {
     public float GetStaminaRatio() { return staminaRemaining / staminaMaximum; }
 
 
-    // --- Networking Synced Vars ---
-    // This is used by other scripts to access what direction the player is looking
-    [SyncVar]
     private Vector2 currentLookDir;
     public Vector2 GetCurrentLookDir() { return currentLookDir; }
-    [Command]
-    private void SetCurrentLookDir(Vector2 newDir) { currentLookDir = newDir; }
-
+    private void SetCurrentLookDir(Vector2 newDir) { 
+        currentLookDir = newDir;
+    }
 
     private void Awake()
     {

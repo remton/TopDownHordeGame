@@ -26,7 +26,7 @@ public class PlayerHealthBar : MonoBehaviour
 
     private void UpdateValue(float newHealth, float newMax) {
         float healthRatio = newHealth/newMax;
-        Debug.Log("Health Ratio: " + healthRatio);
+        //Debug.Log("Health Ratio: " + healthRatio);
         if (healthRatio >= HIDE_RATIO) {
             sliderObj.SetActive(false);
         }

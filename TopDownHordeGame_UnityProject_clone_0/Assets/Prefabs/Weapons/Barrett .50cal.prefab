@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -549045695109720335}
   - component: {fileID: 7321150282014981082}
   - component: {fileID: -8806230621021008024}
+  - component: {fileID: -2511552463525276262}
   m_Layer: 0
   m_Name: Barrett .50cal
   m_TagString: Untagged
@@ -64,7 +65,6 @@ MonoBehaviour:
   reloadSound: {fileID: 8300000, guid: 61614a76e7536c847aefa023858f6534, type: 3}
   swapSound: {fileID: 8300000, guid: e53c5f6b8d30c5f4c9ef0c7d7f40ab90, type: 3}
   shootSound: {fileID: 8300000, guid: a238402409dcddb448f7a684c43427ef, type: 3}
-  effectController: {fileID: 2769296667775464315, guid: 429618851dc338546ad8ba0c14d3528d, type: 3}
   shakeIntensity: 5
   spriteControl: {fileID: 7321150282014981082}
   fireKnockback: 120
@@ -181,6 +181,7 @@ MonoBehaviour:
   myLaser: {fileID: 7140553569666004275}
   barralEndObj: {fileID: 9142011954876628723}
   spriteObj: {fileID: 3033067572034453709}
+  sendInterval: 0.05
 --- !u!114 &-8806230621021008024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,9 +194,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14961e36a52fb9046828cf5baf6ae0d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   duration: 0.2
   maxDistance: 70
   trailObjPrefab: {fileID: 5599144035722061591, guid: 1173e4391071715429544057dfc90985, type: 3}
+--- !u!114 &-2511552463525276262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2855130827376799539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2481c070c49a4dd4cb8ace2ff92559b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3033067572034453709
 GameObject:
   m_ObjectHideFlags: 0

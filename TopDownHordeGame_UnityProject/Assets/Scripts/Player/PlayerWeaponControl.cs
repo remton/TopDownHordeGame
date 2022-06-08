@@ -97,6 +97,7 @@ public class PlayerWeaponControl : NetworkBehaviour {
         GameObject weaponObj = Instantiate(weaponPrefab, transform.position, Quaternion.identity);
         weaponObj.GetComponent<Weapon>().SetOwner(GetComponent<Player>());
         NetworkServer.Spawn(weaponObj);
+        weaponObj.GetComponent<NetworkIdentity>().AssignClientAuthority(connectionToClient);
     }
     [Command]
     private void DeleteWeapon(Weapon weapon) {
@@ -145,11 +146,9 @@ public class PlayerWeaponControl : NetworkBehaviour {
             return;
         ResetWeapons();
     }
-
-
     private void Update() {
-        if (weapons.Count > 0) {
-            weapons[equippedIndex].spriteControl.UpdateDirection(playerMovement.GetCurrentLookDir());
+        if (equippedWeapon != null) {
+            equippedWeapon.spriteControl.DirectionChanged(GetComponent<PlayerMovement>().GetCurrentLookDir());
         }
     }
 
