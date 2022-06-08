@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using Mirror.FizzySteam;
 using Steamworks;
 
 public class MyNetworkManager : NetworkManager
@@ -143,18 +144,33 @@ public class MyNetworkManager : NetworkManager
     }
 
     private void SetSteamTransport() {
-        useSteam = true;
         kcpTransport.enabled = false;
+        useSteam = true;
+
+        if (!gameObject.HasComponent<SteamManager>())
+            steamManager = gameObject.AddComponent<SteamManager>();
+        if (!gameObject.HasComponent<FizzySteamworks>())
+            steamTransport = gameObject.AddComponent<FizzySteamworks>();
+
         steamTransport.enabled = true;
-        steamLobby.enabled = true;
         steamManager.enabled = true;
+
+        steamLobby.enabled = true;
         transport = steamTransport;
+
+        if (!SteamManager.Initialized)
+            SetKcpTransport();
     }
     private void SetKcpTransport() {
         useSteam = false;
-        steamTransport.enabled = false;
+
+        if (gameObject.HasComponent<SteamManager>())
+            Destroy(steamManager);            
+        if (gameObject.HasComponent<FizzySteamworks>())
+            Destroy(steamTransport);
+
         steamLobby.enabled = false;
-        steamManager.enabled = false;
+        
         kcpTransport.enabled = true;
         transport = kcpTransport;
     }
