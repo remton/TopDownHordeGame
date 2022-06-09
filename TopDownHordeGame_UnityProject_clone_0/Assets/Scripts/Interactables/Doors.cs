@@ -16,7 +16,7 @@ public class Doors : MonoBehaviour
     {
         PlayerStats playerStats = player.GetComponent<PlayerStats>();
         if (playerStats.GetBank() >= cost){
-            playerStats.SpendMoney(cost);
+            playerStats.TrySpendMoney(cost);
             OpenDoor();
             //SoundPlayer.Play(openSound, transform.position);
             AudioManager.instance.PlaySound(openSound);

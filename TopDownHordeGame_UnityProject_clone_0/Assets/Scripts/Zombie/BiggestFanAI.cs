@@ -14,11 +14,14 @@ public class BiggestFanAI : ZombieAI
     protected override void Awake() {
         base.Awake();
         animator = GetComponent<Animator>();
-        zombieLunge = GetComponent<ZombieLunge>(); 
-        zombieLunge.EventLungeEnd += zombieHealth.Kill;
-        zombieLunge.EventPrelungeEnd += OnPrelungeEnd;
-        zombieHealth.EventOnDeath += Explode;
-        zombieHealth.DontDestroyOnDeath = true;
+        zombieLunge = GetComponent<ZombieLunge>();
+
+        if (isServer) {
+            zombieLunge.EventLungeEnd += zombieHealth.Kill;
+            zombieLunge.EventPrelungeEnd += OnPrelungeEnd;
+            zombieHealth.EventOnDeath += Explode;
+            zombieHealth.DontDestroyOnDeath = true;
+        }
     }
 
     public override void SetValues(float newHealth, float newSpeed, float newDamage) {

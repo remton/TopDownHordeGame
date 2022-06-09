@@ -17,7 +17,7 @@ public class WeaponShop : MonoBehaviour
         PlayerStats playerStats = player.GetComponent<PlayerStats>();
         PlayerWeaponControl weaponControl = player.GetComponent<PlayerWeaponControl>();
         if (playerStats.GetBank() >= cost) {
-            playerStats.SpendMoney(cost);
+            playerStats.TrySpendMoney(cost);
             weaponControl.PickUpWeapon(weaponPrefab);
             //SoundPlayer.Play(purchaseSound, transform.position);
             AudioManager.instance.PlaySound(purchaseSound);

@@ -31,7 +31,7 @@ public class GameOverData : MonoBehaviour
             playerNames.Add("Player " + (i+1).ToString());
             scores.Add(players[i].GetComponent<PlayerStats>().GetTotalScore());
             kills.Add(players[i].GetComponent<PlayerStats>().GetTotalKills());
-            moneys.Add(players[i].GetComponent<PlayerStats>().GetTotalMoneyEarned());
+            moneys.Add(players[i].GetComponent<PlayerStats>().GetTotalMoney());
         }
     }
 

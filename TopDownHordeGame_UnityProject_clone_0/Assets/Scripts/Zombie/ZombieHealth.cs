@@ -25,6 +25,7 @@ public class ZombieHealth : NetworkBehaviour
     private float maxHealth;
     [SyncVar(hook = nameof(OnHealthChange))]
     private float health;
+
     [Client]
     private void OnHealthChange(float oldHealth, float newHealth) {
         health = newHealth;
@@ -35,7 +36,6 @@ public class ZombieHealth : NetworkBehaviour
         maxHealth = newMax;
         if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
     }
-
 
     public void SetMaxHealth(float newMax)
     {
@@ -61,37 +61,66 @@ public class ZombieHealth : NetworkBehaviour
     }
 
     [Command(requiresAuthority = false)]
-    public void Damage(float amount)
-    {
+    public void DamageCMD(float amount) {
         if (killed)
             return;
         health -= amount;
         if (health <= 0)
             Kill();
+        PlayDamageEffects();
+    }
+
+    [Command(requiresAuthority = false)]
+    public void DamageCMD(float amount, GameObject damager) {
+        if (killed)
+            return; health -= amount;
+
+        if (health <= 0) {
+            Kill();
+        }
+        PlayDamageEffects();
+
+        if (damager.HasComponent<Player>()) {
+            int payForHit = GetComponent<ZombieAI>().payForHit;
+            int payForKill = GetComponent<ZombieAI>().payForKill;
+            damager.GetComponent<PlayerStats>().AddMoney(payForHit);
+            if (health <= 0) {
+                damager.GetComponent<PlayerStats>().AddMoney(payForKill);
+            }
+        }
+    }
+
+    [ClientRpc]
+    private void PlayDamageEffects() {
         hitParticles.Play();
-        chance = Random.Range(0,hurtsounds.Length);
+        chance = Random.Range(0, hurtsounds.Length);
         AudioManager.instance.PlaySound(hurtsounds[chance]);
         if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
+    }
+
+    [ClientRpc]
+    private void PlayDeathEffects() {
+        dieParticles.gameObject.transform.parent = null;
+        Destroy(dieParticles.gameObject, 1);
+        dieParticles.Play();
+        if (EventOnDeath != null) EventOnDeath.Invoke();
     }
 
     [Server]
     public void Kill()
     {
-        dieParticles.gameObject.transform.parent = null;
-        Destroy(dieParticles.gameObject, 1);
-        dieParticles.Play();
-
-        killed = true;
-        Debug.Log(name + ": \"*dies\"");
-        if (gameObject.HasComponent<BiggestFanDeath>())
-            GetComponent<BiggestFanDeath>().Explode();
         if (!gameObject.HasComponent<DoNotCount>())
             RoundController.instance.ZombieDies();
+        if (gameObject.HasComponent<BiggestFanDeath>())
+            GetComponent<BiggestFanDeath>().Explode();
+        killed = true;
+
         Vector3 myLocation = transform.position;
         MagicController.instance.MagicDrop(myLocation);
-        if (EventOnDeath != null) EventOnDeath.Invoke();
-        if (DontDestroyOnDeath)
-            return;
-        NetworkServer.Destroy(gameObject);
+
+        PlayDeathEffects();
+
+        if (!DontDestroyOnDeath)
+            NetworkServer.Destroy(gameObject);
     }
 }

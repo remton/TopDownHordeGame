@@ -30,7 +30,7 @@ public class Weapon : NetworkBehaviour
     protected int inReserve = 0;// bullets in reserve
 
     [SyncVar]
-    private GameObject owner;
+    protected GameObject owner;
 
 
     private void Awake() {
@@ -176,14 +176,7 @@ public class Weapon : NetworkBehaviour
             {
                 hitObj = hitObj.GetComponent<DamageHitbox>().owner;
                 hitZombies++;
-                hitObj.GetComponent<ZombieHealth>().Damage(damage);
-
-                //Update player stats
-                player.GetComponent<PlayerStats>().AddMoney(hitObj.GetComponent<ZombieAI>().payForHit);
-                if (hitObj.GetComponent<ZombieHealth>().IsDead()){
-                    player.GetComponent<PlayerStats>().AddMoney(hitObj.GetComponent<ZombieAI>().payForKill);
-                    player.GetComponent<PlayerStats>().AddKill();
-                }
+                hitObj.GetComponent<ZombieHealth>().DamageCMD(damage, owner);
 
                 //We have hit our max number of zombies in one shot so we create the trail and break;
                 if (hitZombies == penatration){

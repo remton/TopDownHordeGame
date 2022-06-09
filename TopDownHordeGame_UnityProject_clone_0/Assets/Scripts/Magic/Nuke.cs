@@ -28,7 +28,7 @@ public class Nuke : MonoBehaviour
         players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject current in zombies)
         {
-            current.GetComponent<ZombieHealth>().Damage(500);
+            current.GetComponent<ZombieHealth>().DamageCMD(500);
         }
         foreach (GameObject current in players)
         {

@@ -9,6 +9,8 @@ public class MyNetworkManager : NetworkManager
 {
     public static MyNetworkManager instance;
 
+    private Timer timer;
+
     [Header("Transport set by script!!")]
     public bool useSteam;
     [SerializeField] protected Transport steamTransport;
@@ -26,6 +28,8 @@ public class MyNetworkManager : NetworkManager
     public delegate void Server_PlayerConnectionRemoved(PlayerConnection pConnection);
     public event Server_PlayerConnectionRemoved ServerEvent_PlayerConnectionRemoved;
 
+    public delegate void Server_AllClientsReady();
+    public event Server_AllClientsReady ServerEvent_AllClientsReady;
 
     //--- Public Methods ---
     public void HostOffline() {
@@ -79,6 +83,34 @@ public class MyNetworkManager : NetworkManager
     }
 
 
+    public override void OnServerReady(NetworkConnectionToClient conn) {
+        base.OnServerReady(conn);
+
+        //Check if all clients are ready
+        if(ServerEvent_AllClientsReady != null) {
+            if (AllClientsReady()) {
+                ServerEvent_AllClientsReady.Invoke();
+            }
+        }
+    }
+    public bool AllClientsReady() {
+        bool b = true;
+        for (int i = 0; i < playerConnections.Count; i++) {
+            if (!playerConnections[i].connectionToClient.isReady) {
+                b = false;
+            }
+        }
+        return b;
+    }
+    public bool AllPlayerCharactersSpawned() {
+        for (int i = 0; i < playerConnections.Count; i++) {
+            if (!playerConnections[i].AllLocalPlayersSpawned())
+                return false;
+        }
+        return true;
+    }
+
+
     //--- Handle PlayerConnection components ---
     public override void OnServerAddPlayer(NetworkConnectionToClient conn) {
         // Normal Networkmanager 
@@ -122,6 +154,8 @@ public class MyNetworkManager : NetworkManager
 
     //--- Other Private methods ---
     public override void Awake() {
+        timer = GetComponent<Timer>();
+
         HandleInstance();
         steamLobby.EventOnJoinGame += OnSteamLobbyJoinGame;
         steamLobby.EventOnCreateLobby += OnSteamLobbyCreateGame;

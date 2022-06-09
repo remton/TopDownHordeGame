@@ -24,6 +24,7 @@ public class PlayerConnection : NetworkBehaviour
     private GameObject playerPrefab;
 
     private SyncList<GameObject> playerCharacters = new SyncList<GameObject>();
+
     public List<GameObject> GetPlayerCharacters() {
         List<GameObject> players = new List<GameObject>();
         for (int i = 0; i < playerCharacters.Count; i++) {
@@ -64,7 +65,7 @@ public class PlayerConnection : NetworkBehaviour
         devices.Clear();
         DontDestroyOnLoad(gameObject);
         if(myConnection == null) {
-            Debug.Log("My netID: " + netId);
+            //Debug.Log("My netID: " + netId);
             myConnection = this;
         }
     }
@@ -78,10 +79,16 @@ public class PlayerConnection : NetworkBehaviour
 
     [TargetRpc]
     public void SpawnPlayers(NetworkConnection network, Vector3 location) {
+        SetNumSpawnedPlayers(0);
         for (int i = 0; i < numLocalPlayers; i++) {
             SpawnPlayerCommand(location, this, i);
         }
     }
+
+    [SyncVar]
+    private int numSpawnedPlayers = 0;
+    [Command]
+    private void SetNumSpawnedPlayers(int num) { numSpawnedPlayers = num; }
 
     [Command]
     private void SpawnPlayerCommand(Vector3 location, PlayerConnection conn, int deviceIndex) {
@@ -96,6 +103,15 @@ public class PlayerConnection : NetworkBehaviour
         playerCharacters.Add(character);
         PlayerManager.instance.AddPlayerCharacter(character, conn);
     }
+    [Command(requiresAuthority = false)]
+    public void PlayerSpawnConfirm() {
+        numSpawnedPlayers++;
+        Debug.Log("Confirmed spawn: " + numSpawnedPlayers + " spawned for con [" + netId + "]");
+    }
+    public bool AllLocalPlayersSpawned() {
+        return numSpawnedPlayers == numLocalPlayers;
+    }
+
 
     private void Awake() {
         DontDestroyOnLoad(gameObject);

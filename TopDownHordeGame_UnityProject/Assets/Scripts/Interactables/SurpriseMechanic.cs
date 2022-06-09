@@ -18,7 +18,7 @@ public class SurpriseMechanic : WeaponShop
         {
             //SoundPlayer.Play(purchaseSound, transform.position);
             AudioManager.instance.PlaySound(purchaseSound);
-            playerStats.SpendMoney(cost);
+            playerStats.TrySpendMoney(cost);
             weaponControl.PickUpWeapon(RandomChoice.ChooseRandom(weaponChoices));
         }
         else

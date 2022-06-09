@@ -30,16 +30,13 @@ public class Colt : Weapon{
                     break;
                 hitObj = hitObj.GetComponent<DamageHitbox>().owner;
 
-                if (i>0)//Double damage for every zombie penetrated!
-                    hitObj.GetComponent<ZombieHealth>().Damage(damage*2*i);
+                //Double damage for every zombie penetrated!
+                if (i>0)
+                    hitObj.GetComponent<ZombieHealth>().DamageCMD(damage*i, owner);
+
                 //do normal damage
-                hitObj.GetComponent<ZombieHealth>().Damage(damage);
-                //Update player stats
-                player.GetComponent<PlayerStats>().AddMoney(hitObj.GetComponent<ZombieAI>().payForHit);
-                if (hitObj.GetComponent<ZombieHealth>().IsDead()) {
-                    player.GetComponent<PlayerStats>().AddMoney(hitObj.GetComponent<ZombieAI>().payForKill);
-                    player.GetComponent<PlayerStats>().AddKill();
-                }
+                hitObj.GetComponent<ZombieHealth>().DamageCMD(damage, owner);
+
                 if (Random.Range(0, 2) == 0)
                     break;
             }

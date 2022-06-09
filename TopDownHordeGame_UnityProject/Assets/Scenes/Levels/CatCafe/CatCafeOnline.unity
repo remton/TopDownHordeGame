@@ -11819,7 +11819,6 @@ MonoBehaviour:
   sidebarObj: {fileID: 530909040}
   playerNameTxt: {fileID: 2001479853}
   bankTxt: {fileID: 1152388559}
-  player: {fileID: 0}
   perkIconObjects: []
 --- !u!114 &530909043
 MonoBehaviour:
@@ -12074,14 +12073,13 @@ GameObject:
   - component: {fileID: 702820149}
   - component: {fileID: 702820153}
   - component: {fileID: 702820152}
-  - component: {fileID: 702820150}
   m_Layer: 5
   m_Name: SidebarHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &702820149
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12089,7 +12087,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 702820148}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -12105,23 +12103,6 @@ RectTransform:
   m_AnchoredPosition: {x: 1.0014648, y: 2}
   m_SizeDelta: {x: -2.927597, y: -3.3314018}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &702820150
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 702820148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 106db0b038c573e4aac892314ed51ef2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sidebars:
-  - {fileID: 1450255393}
-  - {fileID: 530909040}
-  - {fileID: 1948450946}
-  - {fileID: 1636858127}
 --- !u!114 &702820152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27670,7 +27651,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &902275790
 RectTransform:
   m_ObjectHideFlags: 0
@@ -27705,7 +27686,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  sidebarManager: {fileID: 702820150}
+  instanceDEBUG: {fileID: 0}
+  screen: {fileID: 702820148}
+  statHolders:
+  - {fileID: 1450255395}
+  - {fileID: 530909042}
+  - {fileID: 1948450948}
+  - {fileID: 1636858129}
 --- !u!114 &902275792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27718,7 +27705,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneId: 1693972496
+  sceneId: 1788162206
   serverOnly: 0
   visible: 0
   m_AssetId: 
@@ -102721,7 +102708,6 @@ MonoBehaviour:
   sidebarObj: {fileID: 1450255393}
   playerNameTxt: {fileID: 1005685663}
   bankTxt: {fileID: 712788960}
-  player: {fileID: 0}
   perkIconObjects: []
 --- !u!114 &1450255396
 MonoBehaviour:
@@ -103750,7 +103736,6 @@ MonoBehaviour:
   sidebarObj: {fileID: 1636858127}
   playerNameTxt: {fileID: 387111293}
   bankTxt: {fileID: 1769200371}
-  player: {fileID: 0}
   perkIconObjects: []
 --- !u!114 &1636858130
 MonoBehaviour:
@@ -104501,7 +104486,6 @@ MonoBehaviour:
   sidebarObj: {fileID: 1948450946}
   playerNameTxt: {fileID: 858074153}
   bankTxt: {fileID: 1530753462}
-  player: {fileID: 0}
   perkIconObjects: []
 --- !u!114 &1948450949
 MonoBehaviour:

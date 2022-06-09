@@ -54,12 +54,14 @@ public class ZombieAI : NetworkBehaviour
     }
 
     public void OnBecomeLost() {
-        if (gameObject.HasComponent<ZombieHealth>()) {
-            zombieHealth.Kill();
-        }
-        else {
-            Debug.LogWarning("Zombie: " + name + "was destroyed without being killed");
-            Destroy(gameObject);
+        if (isServer) {
+            if (gameObject.HasComponent<ZombieHealth>()) {
+                zombieHealth.Kill();
+            }
+            else {
+                Debug.LogWarning("Zombie: " + name + "was destroyed without being killed");
+                NetworkServer.Destroy(gameObject);
+            }
         }
     }
 

@@ -31,10 +31,7 @@ public class Electric : Perk
     }
 
     public void DamageZombies(GameObject zombie) {
-        zombie.GetComponent<ZombieHealth>().Damage(balanceDamage);
-        player.GetComponent<PlayerStats>().AddMoney(1); // Give the player money for electricity hitting someone 
-        if (zombie.GetComponent<ZombieHealth>().IsDead())
-            player.GetComponent<PlayerStats>().AddKill();
+        zombie.GetComponent<ZombieHealth>().DamageCMD(balanceDamage);
     }
 
     private float timeActive;

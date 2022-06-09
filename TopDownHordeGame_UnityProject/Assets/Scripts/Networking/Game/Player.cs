@@ -27,13 +27,11 @@ public class Player : NetworkBehaviour
 
     private void Awake() {
         connection = PlayerConnection.myConnection;
-        SetUpPlayerOnClient();
     }
 
     public override void OnStartServer() {
         base.OnStartServer();
         playerID = new System.Guid();
-        StatScreen.AddSidebar(gameObject);
     }
     private void OnDestroy() {
         if(isServer)
@@ -43,22 +41,22 @@ public class Player : NetworkBehaviour
     public override void OnStartClient() {
         base.OnStartClient();
         SetUpPlayerOnClient();
-        Debug.Log("CLIENT START START player netID:" + netId);
     }
 
     [Client]
     private void SetUpPlayerOnClient() {
         bool isLocalCharacter = (connection == PlayerConnection.myConnection);
+        if(isLocalCharacter)
+            connection.PlayerSpawnConfirm();
 
         GetComponent<PlayerInput>().enabled = isLocalCharacter;
         GetComponent<PlayerMovement>().enabled = isLocalCharacter;
         GetComponent<PlayerWeaponControl>().enabled = isLocalCharacter;
         GetComponent<PlayerActivate>().enabled = isLocalCharacter;
         GetComponent<PlayerInput>().camera = Camera.main;
-        GetComponent<PlayerStats>().playerName = PlayerConnection.GetName(connection, gameObject);
+        GetComponent<PlayerStats>().SetName(PlayerConnection.GetName(connection, gameObject));
 
         //Server controlled
         GetComponent<PlayerHealth>().enabled = isServer;
     }
-
 }
