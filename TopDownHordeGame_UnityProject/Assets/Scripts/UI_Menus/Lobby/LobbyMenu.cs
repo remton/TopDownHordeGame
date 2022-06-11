@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class LobbyMenu : MonoBehaviour
 {
     const string EMPTY_NAME_TEXT = "Press start/space to join!";
+    const string EMPTY_READY_TEXT = " ";
     const string NOT_READY_TEXT = "Not Ready";
     const string READY_TEXT = "Ready";
 
@@ -32,7 +33,8 @@ public class LobbyMenu : MonoBehaviour
     }
 
     //Updates UI with the correct details
-    public void UpdateUI(List<Lobby.PlayerDetails> playerDetails) {
+    public void UpdateUI(List<Lobby.PlayerLobbyDetails> playerDetails) {
+
         int numSlots = playerNames.Count;
         int numPlayers = 0;
         for (int i = 0; i < playerDetails.Count; i++) {
@@ -52,9 +54,7 @@ public class LobbyMenu : MonoBehaviour
 
                 //Set ready button text
                 readyButtons[slotIndex].GetComponentInChildren<Text>().text = NOT_READY_TEXT;
-
-                slotIndex++;
-                return;
+                ActivateReadyButton(slotIndex, false);
             }
 
             //For every local player
@@ -73,29 +73,27 @@ public class LobbyMenu : MonoBehaviour
                     }
 
                     //If these are my details, set this as my button
-                    if (playerDetails[detailsIndex].netID == PlayerConnection.myConnection.netId)
-                        SetReadyButton(slotIndex, true);
+                    if (playerDetails[detailsIndex].netID == PlayerConnection.myConnection.netId && playerDetails[detailsIndex].hasDevice)
+                        ActivateReadyButton(slotIndex, true);
                     else
-                        SetReadyButton(slotIndex, false);
+                        ActivateReadyButton(slotIndex, false);
                 }
                 slotIndex++;
             }
         }
         //For the rest of the slots
-        for (int i = slotIndex; i < numSlots; i++) {
-            playerNames[i].text = EMPTY_NAME_TEXT;
-            readyButtons[i].GetComponentInChildren<Text>().text = NOT_READY_TEXT;
+        for (; slotIndex < numSlots; slotIndex++) {
+            playerNames[slotIndex].text = EMPTY_NAME_TEXT;
+            readyButtons[slotIndex].GetComponentInChildren<Text>().text = EMPTY_READY_TEXT;
+            ActivateReadyButton(slotIndex, false);
         }
     }
 
     //Activates the button at the given index and deativates all others
-    private void SetReadyButton(int index, bool on) {
+    private void ActivateReadyButton(int index, bool on) {
         if (index > readyButtons.Count)
             Debug.LogError("ERROR: Cant set ready button to " + index + ". Only " + readyButtons.Count + "exist.");
 
         readyButtons[index].GetComponent<Button>().interactable = on;
-        //foreach (GameObject obj in readyButtons) {
-        //    obj.GetComponent<Button>().interactable = false;
-        //}
     }
 }

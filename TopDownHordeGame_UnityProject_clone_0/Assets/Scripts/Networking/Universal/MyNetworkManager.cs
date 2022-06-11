@@ -17,6 +17,7 @@ public class MyNetworkManager : NetworkManager
     [SerializeField] protected SteamLobby steamLobby;
     [SerializeField] protected SteamManager steamManager;
     [SerializeField] protected Transport kcpTransport;
+    private GameObject steamLobbyObj;
 
     private List<PlayerConnection> playerConnections = new List<PlayerConnection>();
     public List<PlayerConnection> GetPlayerConnections() { return playerConnections; }
@@ -34,16 +35,17 @@ public class MyNetworkManager : NetworkManager
     //--- Public Methods ---
     public void HostOffline() {
         useSteam = false;
-        SetKcpTransport();
         networkAddress = "localhost";
         StartHost();
     }
     public void HostGame(string code) {
         if (useSteam) {
+            SetSteamTransport();
             steamLobby.GetLobbies(code);
             steamLobby.HostLobby();
         }
         else {
+            SetKcpTransport();
             StartHost();
         }
     }
@@ -155,7 +157,7 @@ public class MyNetworkManager : NetworkManager
     //--- Other Private methods ---
     public override void Awake() {
         timer = GetComponent<Timer>();
-
+        steamLobbyObj = steamLobby.gameObject;
         HandleInstance();
         steamLobby.EventOnJoinGame += OnSteamLobbyJoinGame;
         steamLobby.EventOnCreateLobby += OnSteamLobbyCreateGame;
@@ -185,10 +187,11 @@ public class MyNetworkManager : NetworkManager
             steamManager = gameObject.AddComponent<SteamManager>();
         if (!gameObject.HasComponent<FizzySteamworks>())
             steamTransport = gameObject.AddComponent<FizzySteamworks>();
+        if (!steamLobbyObj.HasComponent<SteamLobby>())
+            steamLobby = steamLobbyObj.AddComponent<SteamLobby>();
 
         steamTransport.enabled = true;
         steamManager.enabled = true;
-
         steamLobby.enabled = true;
         transport = steamTransport;
 
@@ -202,8 +205,8 @@ public class MyNetworkManager : NetworkManager
             Destroy(steamManager);            
         if (gameObject.HasComponent<FizzySteamworks>())
             Destroy(steamTransport);
-
-        steamLobby.enabled = false;
+        if(steamLobbyObj.HasComponent<SteamLobby>())
+            Destroy(steamLobby);
         
         kcpTransport.enabled = true;
         transport = kcpTransport;
