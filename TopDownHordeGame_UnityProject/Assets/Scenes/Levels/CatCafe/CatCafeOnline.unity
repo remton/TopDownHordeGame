@@ -29422,13 +29422,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1212253581}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc56fe83bbfae5545977d2d68aa4cd8d, type: 3}
+  m_Script: {fileID: 11500000, guid: 23cabdb6595b6064dbdd9ae04f0065ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   defaultSelectedObject: {fileID: 1294272858}
   SceneLoadOnQuitGame: MainMenu
   menuObj: {fileID: 501155146}
-  timer: {fileID: 0}
+  timer: {fileID: 1212253584}
 --- !u!114 &1212253584
 MonoBehaviour:
   m_ObjectHideFlags: 0

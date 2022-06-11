@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Mirror;
 using Mirror.FizzySteam;
 using Steamworks;
@@ -17,11 +18,11 @@ public class MyNetworkManager : NetworkManager
     [HideInInspector]
     public bool useSteam;
 
-    [SerializeField] protected Transport steamTransport;
-    [SerializeField] protected SteamLobby steamLobby;
-    [SerializeField] protected SteamManager steamManager;
-    [SerializeField] protected Transport kcpTransport;
-    private GameObject steamLobbyObj;
+    protected Transport steamTransport;
+    protected SteamLobby steamLobby;
+    protected SteamManager steamManager;
+    protected Transport kcpTransport;
+    [SerializeField] private GameObject steamLobbyObj;
 
     private List<PlayerConnection> playerConnections = new List<PlayerConnection>();
     public List<PlayerConnection> GetPlayerConnections() { return playerConnections; }
@@ -64,7 +65,8 @@ public class MyNetworkManager : NetworkManager
     }
     [Server]
     public void ChangeScene(string sceneName) {
-        ServerChangeScene(sceneName);
+        if (isNetworkActive)
+            ServerChangeScene(sceneName);
     }
     
     public int GetPrefabIndex(GameObject prefab) {
@@ -101,6 +103,7 @@ public class MyNetworkManager : NetworkManager
             }
         }
     }
+
     public bool AllClientsReady() {
         bool b = true;
         for (int i = 0; i < playerConnections.Count; i++) {
@@ -117,7 +120,6 @@ public class MyNetworkManager : NetworkManager
         }
         return true;
     }
-
 
     //--- Handle PlayerConnection components ---
     public override void OnServerAddPlayer(NetworkConnectionToClient conn) {
@@ -165,14 +167,15 @@ public class MyNetworkManager : NetworkManager
 
     //--- Other Private methods ---
     public override void Awake() {
-
         timer = GetComponent<Timer>();
-        steamLobbyObj = steamLobby.gameObject;
+        kcpTransport = GetComponent<kcp2k.KcpTransport>();
         HandleInstance();
-        steamLobby.EventOnJoinGame += OnSteamLobbyJoinGame;
-        steamLobby.EventOnCreateLobby += OnSteamLobbyCreateGame;
+        if (steamDisabled)
+            DisableSteam();
         if (useSteam) {
             SetSteamTransport();
+            steamLobby.EventOnJoinGame += OnSteamLobbyJoinGame;
+            steamLobby.EventOnCreateLobby += OnSteamLobbyCreateGame;
         }
         else {
             SetKcpTransport();

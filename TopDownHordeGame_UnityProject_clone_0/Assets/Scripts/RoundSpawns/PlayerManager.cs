@@ -52,6 +52,9 @@ public class PlayerManager : NetworkBehaviour
     private void Awake() {
         if (instance == null) { instance = this; }
         else { Debug.Log("Two playerManagers active. Destroying one..."); }
+
+        //Set up events from MyNetworkManager
+        MyNetworkManager.instance.ServerEvent_PlayerConnectionRemoved += OnPlayerLeft;
     }
 
     private void Start() {
@@ -64,6 +67,19 @@ public class PlayerManager : NetworkBehaviour
     }
 
     [Server]
+    private void OnPlayerLeft(PlayerConnection connection) {
+        List<GameObject> charas = connection.GetPlayerCharacters();
+        for (int i = 0; i < allPlayers.Count; i++) {
+            if (allPlayers[i] == null)
+                allPlayers.RemoveAt(i);
+        }
+        for (int i = 0; i < charas.Count; i++) {
+            RemovePlayerCharacter_RPC(charas[i].GetInstanceID());
+        }
+        if (EventActivePlayersChange != null) { EventActivePlayersChange.Invoke(GetActivePlayers()); }
+    }
+
+    [Server]
     public void CreatePlayers() {
         //This is an online game
         List<PlayerConnection> connections = MyNetworkManager.instance.GetPlayerConnections();
@@ -73,22 +89,7 @@ public class PlayerManager : NetworkBehaviour
             }
         }
         else {
-            //this is an offline game
-            //All games will techincally be online
             Debug.LogError("NetworkServer is inactive");
-
-            //Old code
-            //numPlayers = GameSettings.instance.numPlayers;
-            //for (int i = 0; i < numPlayers; i++) {
-            //    PlayerInput input = PlayerInputManager.instance.JoinPlayer(i, i, null, GameSettings.instance.devices[i]);
-            //    GameObject playerObj = input.gameObject;
-            //    playerObj.transform.position = spawnPoint.transform.position;
-            //    playerObj.GetComponent<PlayerInput>().camera = Camera.main;
-            //    playerObj.GetComponent<PlayerStats>().playerName = (i + 1).ToString();
-            //    localPlayers.Add(playerObj);
-            //    sidebarManager.AddSidebar(playerObj);
-            //}
-            //if (EventActiveLocalPlayersChange != null) { EventActiveLocalPlayersChange.Invoke(GetActiveLocalPlayers()); }
         }
     }
 
@@ -122,11 +123,14 @@ public class PlayerManager : NetworkBehaviour
     [Server]
     public void RemovePlayerCharacter(GameObject player, PlayerConnection connection) {
         RemoveLocalPlayerCharacter(connection.connectionToClient, player);
-        RemovePlayerCharacter_RPC(player);
+        RemovePlayerCharacter_RPC(player.GetInstanceID());
     }
     [ClientRpc]
-    public void RemovePlayerCharacter_RPC(GameObject player) {
-        allPlayers.Remove(player);
+    public void RemovePlayerCharacter_RPC(int playerInstanceID) {
+        for (int i = 0; i < allPlayers.Count; i++) {
+            if(allPlayers[i].GetInstanceID() == playerInstanceID)
+                allPlayers.RemoveAt(i);
+        }
         if (EventActivePlayersChange != null) { EventActivePlayersChange.Invoke(GetActivePlayers()); }
     }
 
@@ -159,12 +163,6 @@ public class PlayerManager : NetworkBehaviour
         if (EventActiveLocalPlayersChange != null) { EventActiveLocalPlayersChange.Invoke(GetActiveLocalPlayers()); }
     }
 
-    public void RemovePlayer(int index) {
-        GameObject p = localPlayers[index];
-        localPlayers.RemoveAt(index);
-        Destroy(p);
-        if (EventActiveLocalPlayersChange != null) { EventActiveLocalPlayersChange.Invoke(GetActiveLocalPlayers()); }
-    }
 
     [Command(requiresAuthority = false)]
     private void CheckGameOver() {

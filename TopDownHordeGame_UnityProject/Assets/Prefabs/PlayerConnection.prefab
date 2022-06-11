@@ -63,4 +63,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  sceneToLoadOnDisconnect: MainMenu
   playerPrefab: {fileID: 1620798982028091906, guid: da7522fb48f2225408d952f19e1a2338, type: 3}

@@ -2071,7 +2071,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -5.0000916, y: 0}
+  m_AnchoredPosition: {x: -5.0001373, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &609514665
@@ -2583,7 +2583,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -5.0000916, y: 0}
+  m_AnchoredPosition: {x: -5.0000763, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &820281274
@@ -3504,8 +3504,6 @@ GameObject:
   - component: {fileID: 1273725197}
   - component: {fileID: 1273725196}
   - component: {fileID: 1273725195}
-  - component: {fileID: 1273725194}
-  - component: {fileID: 1273725193}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -3513,34 +3511,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1273725193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1273725192}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6e55fca1f4e4844593a3dd65a3ecb39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Channels: 0200000001000000
-  Timeout: 25
-  AllowSteamRelay: 1
-  UseNextGenSteamNetworking: 1
---- !u!114 &1273725194
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1273725192}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef4bffeda13d7a748973ff9204401c07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1273725195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3586,8 +3556,8 @@ MonoBehaviour:
   runInBackground: 1
   autoStartServerBuild: 1
   serverTickRate: 30
-  offlineScene: 
-  onlineScene: 
+  offlineScene: Assets/Scenes/Menus/MainMenu.unity
+  onlineScene: Assets/Scenes/Lobbies/OnlineLobby.unity
   transport: {fileID: 1273725195}
   networkAddress: localhost
   maxConnections: 4
@@ -3620,12 +3590,9 @@ MonoBehaviour:
   - {fileID: 6396399298110489017, guid: 8cdeb959bda28654e8e2935ee6e478a3, type: 3}
   - {fileID: 6396399298110489017, guid: 82fb970eb680ef543814a550e285d10d, type: 3}
   - {fileID: 6396399298110489017, guid: 4453c43dc2fab504e9aa9ee6e04a7af1, type: 3}
-  steamDisabled: 0
-  useSteam: 1
-  steamTransport: {fileID: 1273725193}
-  steamLobby: {fileID: 1304918359}
-  steamManager: {fileID: 1273725194}
-  kcpTransport: {fileID: 1273725195}
+  steamDisabled: 1
+  useSteam: 0
+  steamLobbyObj: {fileID: 1304918358}
 --- !u!4 &1273725197
 Transform:
   m_ObjectHideFlags: 0
@@ -4340,7 +4307,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -5.411072, y: 17.904}
+  m_AnchoredPosition: {x: -5.4111023, y: 17.904}
   m_SizeDelta: {x: -9.3, y: -35.807}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1728626882

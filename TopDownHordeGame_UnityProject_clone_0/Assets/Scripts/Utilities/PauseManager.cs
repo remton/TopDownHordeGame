@@ -72,8 +72,10 @@ public class PauseManager : Menu
 
     public void QuitToMainMenu() {
         ClosePauseMenu();
-        SaveData.Save();
-        SceneManager.LoadScene(SceneLoadOnQuitGame);
+        if(PlayerConnection.myConnection.isServer)
+            SaveData.Save();
+
+        PlayerConnection.myConnection.Disconnect();
     }
 
     public override void OnCancel() {

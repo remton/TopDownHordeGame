@@ -69,7 +69,6 @@ public class Lobby : NetworkBehaviour
     #region Client Side
     public override void OnStartClient() {
         base.OnStartClient();
-        UpdateUI();
     }
 
     [Client]

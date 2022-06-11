@@ -33,10 +33,6 @@ public class Player : NetworkBehaviour
         base.OnStartServer();
         playerID = new System.Guid();
     }
-    private void OnDestroy() {
-        if(isServer)
-            PlayerManager.instance.RemovePlayerCharacter(gameObject, connection);
-    }
 
     public override void OnStartClient() {
         base.OnStartClient();

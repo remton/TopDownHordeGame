@@ -4,11 +4,14 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Steamworks;
 using Mirror;
+using UnityEngine.SceneManagement;
 
 public class PlayerConnection : NetworkBehaviour
 {
     //The playerconnection for a given client (set in first Init call)
     public static PlayerConnection myConnection;
+
+    public string sceneToLoadOnDisconnect;
 
     [SyncVar]
     private int numLocalPlayers = 0;
@@ -94,9 +97,6 @@ public class PlayerConnection : NetworkBehaviour
     private void SpawnPlayerCommand(Vector3 location, PlayerConnection conn, int deviceIndex) {
         GameObject character = Instantiate(conn.playerPrefab, location, Quaternion.identity);
         character.GetComponent<Player>().SetConnection(conn);
-        //InputActionAsset inputAsset = character.GetComponent<PlayerInput>().actions;
-        //InputControlScheme scheme = (InputControlScheme)InputControlScheme.FindControlSchemeForDevice(devices[deviceIndex], inputAsset.controlSchemes);
-        //character.GetComponent<PlayerInput>().defaultControlScheme = scheme.name; 
         NetworkServer.Spawn(character, conn.connectionToClient);
         character.GetComponent<NetworkIdentity>().AssignClientAuthority(conn.connectionToClient);
 
@@ -112,6 +112,15 @@ public class PlayerConnection : NetworkBehaviour
         return numSpawnedPlayers == numLocalPlayers;
     }
 
+    public void Disconnect() {
+        if (MyNetworkManager.instance.isNetworkActive) {
+            if (isServer && isClient)
+                MyNetworkManager.instance.StopHost();
+            else if (isClient)
+                MyNetworkManager.instance.StopClient();
+        }
+        SceneManager.LoadScene(sceneToLoadOnDisconnect);
+    }
 
     private void Awake() {
         DontDestroyOnLoad(gameObject);
@@ -119,4 +128,5 @@ public class PlayerConnection : NetworkBehaviour
     private void OnDestroy() {
         MyNetworkManager.instance.OnPlayerConnectionDestroyed(this);
     }
+
 }
