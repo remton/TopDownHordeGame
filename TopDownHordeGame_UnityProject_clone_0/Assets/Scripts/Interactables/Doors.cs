@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Mirror;
 
-public class Doors : MonoBehaviour
+public class Doors : NetworkBehaviour
 {
     public int cost;
     public GameObject doorHolder;
@@ -51,10 +52,18 @@ public class Doors : MonoBehaviour
         player.GetComponent<PlayerActivate>().EventPlayerActivate -= TryBuyDoor;
         popupCanvas.SetActive(false);
     }
+    [Client]
     private void OpenDoor()
     {
+        OpenDoorCMD();
+    }
+    [Command(requiresAuthority = false)]
+    private void OpenDoorCMD() {
         RoundController.instance.ActivateSpawns(roomSpawns);
+        OpenDoorRPC();
+    }
+    [ClientRpc]
+    private void OpenDoorRPC() {
         Destroy(gameObject);
     }
-
 }
