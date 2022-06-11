@@ -12,7 +12,11 @@ public class MyNetworkManager : NetworkManager
     private Timer timer;
 
     [Header("Transport set by script!!")]
+    [SerializeField]
+    private bool steamDisabled = false;
+    [HideInInspector]
     public bool useSteam;
+
     [SerializeField] protected Transport steamTransport;
     [SerializeField] protected SteamLobby steamLobby;
     [SerializeField] protected SteamManager steamManager;
@@ -78,11 +82,13 @@ public class MyNetworkManager : NetworkManager
 
     //--- Handle SteamLobby Events ---
     private void OnSteamLobbyJoinGame(SteamLobby.JoinLobbyData data) {
-        Debug.Log("Connected User ID:" + SteamFriends.GetFriendPersonaName(data.userSteamID));
+        if(data.successful)
+            Debug.Log("Connected User ID:" + SteamFriends.GetFriendPersonaName(data.userSteamID));
     }
     private void OnSteamLobbyCreateGame(SteamLobby.CreateLobbyData data) {
         Debug.Log("Hosting Lobby ID:" + data.lobbySteamID);
     }
+
 
 
     public override void OnServerReady(NetworkConnectionToClient conn) {
@@ -151,11 +157,15 @@ public class MyNetworkManager : NetworkManager
             Debug.LogWarning("NetworkManager - Player Prefab should not be added to Registered Spawnable Prefabs list...removed it.");
             spawnPrefabs.Remove(playerPrefab);
         }
+
+        //If we manually disable steam in editor
+        useSteam = !steamDisabled;
     }
 
 
     //--- Other Private methods ---
     public override void Awake() {
+
         timer = GetComponent<Timer>();
         steamLobbyObj = steamLobby.gameObject;
         HandleInstance();
@@ -170,6 +180,12 @@ public class MyNetworkManager : NetworkManager
         base.Awake();
     }
 
+    public override void Start() {
+        base.Start();
+        if (!steamDisabled)
+            useSteam = true;
+    }
+
     private void HandleInstance() {
         if (instance == null) {
             instance = this;
@@ -180,6 +196,11 @@ public class MyNetworkManager : NetworkManager
     }
 
     private void SetSteamTransport() {
+        if (steamDisabled) {
+            SetKcpTransport();
+            return;
+        }
+
         kcpTransport.enabled = false;
         useSteam = true;
 
@@ -195,20 +216,30 @@ public class MyNetworkManager : NetworkManager
         steamLobby.enabled = true;
         transport = steamTransport;
 
-        if (!SteamManager.Initialized)
+        //Failed connection to steam.
+        if (!SteamManager.Initialized) {
+            DisableSteam();
             SetKcpTransport();
+        }
     }
     private void SetKcpTransport() {
         useSteam = false;
 
-        if (gameObject.HasComponent<SteamManager>())
-            Destroy(steamManager);            
-        if (gameObject.HasComponent<FizzySteamworks>())
-            Destroy(steamTransport);
-        if(steamLobbyObj.HasComponent<SteamLobby>())
-            Destroy(steamLobby);
-        
         kcpTransport.enabled = true;
         transport = kcpTransport;
+    }
+    private void DisableSteam() {
+        steamDisabled = true;
+        if (gameObject.HasComponent<SteamManager>())
+            Destroy(steamManager);
+        if (gameObject.HasComponent<FizzySteamworks>())
+            Destroy(steamTransport);
+        if (steamLobbyObj.HasComponent<SteamLobby>())
+            Destroy(steamLobby);
+    }
+
+    public override void OnDestroy() {
+        Destroy(steamLobbyObj);
+        base.OnDestroy();
     }
 }
