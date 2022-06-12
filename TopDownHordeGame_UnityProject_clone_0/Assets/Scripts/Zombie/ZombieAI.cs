@@ -33,6 +33,21 @@ public class ZombieAI : NetworkBehaviour
     public delegate void OrientationChange(bool xIsNegative);
     public event OrientationChange EventOrientationChange;
 
+    [Server]
+    private void SubscribeEvents() {
+        PlayerManager.instance.EventActivePlayersChange += FindTarget;
+        PauseManager.instance.EventPauseStateChange += OnPauseStateChange;
+        zombiePath.EventLostNavMesh += OnBecomeLost;
+    }
+    [Server]
+    private void UnsubscribeEvents() {
+
+        PlayerManager.instance.EventActivePlayersChange -= FindTarget;
+        PauseManager.instance.EventPauseStateChange -= OnPauseStateChange;
+        zombiePath.EventLostNavMesh -= OnBecomeLost;
+    }
+
+
     protected virtual void OnPauseStateChange(bool isPaused) {
         if (isPaused) {
             isGamePaused = true;
@@ -104,12 +119,9 @@ public class ZombieAI : NetworkBehaviour
             this.enabled = false;
             return;
         }
-
         timer.CreateTimer(spwanFramesInSeconds, StartAI);
         isInSpawnFrames = true;
-        PlayerManager.instance.EventActivePlayersChange += FindTarget;
-        PauseManager.instance.EventPauseStateChange += OnPauseStateChange;
-        zombiePath.EventLostNavMesh += OnBecomeLost;
+        SubscribeEvents();
     }
     protected void StartAI() {
         isInSpawnFrames = false;
@@ -154,8 +166,8 @@ public class ZombieAI : NetworkBehaviour
     }
 
     protected virtual void OnDestroy() {
-        zombiePath.EventLostNavMesh -= OnBecomeLost;
-        PlayerManager.instance.EventActiveLocalPlayersChange -= FindTarget;
-        PauseManager.instance.EventPauseStateChange -= OnPauseStateChange;
+        if (PlayerConnection.myConnection.isServer) {
+            UnsubscribeEvents();
+        }
     }
 }
