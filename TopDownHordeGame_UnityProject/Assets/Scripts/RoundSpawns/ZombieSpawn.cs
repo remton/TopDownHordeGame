@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-
-public class ZombieSpawn: MonoBehaviour
+using Mirror;
+public class ZombieSpawn: NetworkBehaviour
 {
     //used and set by roundcontroller to determine which windows are active
     [HideInInspector] public bool isActive;
@@ -42,6 +42,7 @@ public class ZombieSpawn: MonoBehaviour
         }
     }
 
+    [Server]
     private void SpawnZombie() {
         GameObject zombie = RoundController.instance.CreateZombie();
         zombie.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);

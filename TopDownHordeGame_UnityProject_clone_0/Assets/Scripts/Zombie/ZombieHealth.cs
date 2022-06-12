@@ -98,13 +98,26 @@ public class ZombieHealth : NetworkBehaviour
         if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
     }
 
-    [ClientRpc]
+    [Server]
     private void PlayDeathEffects() {
         dieParticles.gameObject.transform.parent = null;
         Destroy(dieParticles.gameObject, 1);
         dieParticles.Play();
         if (EventOnDeath != null) EventOnDeath.Invoke();
+        PlayDeathEffectRPC();
     }
+    [ClientRpc]
+    private void PlayDeathEffectRPC() {
+        //Server runs this before calling the rpc
+        if (isServer)
+            return;
+
+        dieParticles.gameObject.transform.parent = null;
+        Destroy(dieParticles.gameObject, 1);
+        dieParticles.Play();
+        if (EventOnDeath != null) EventOnDeath.Invoke();
+    }
+
 
     [Server]
     public void Kill()

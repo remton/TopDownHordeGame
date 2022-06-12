@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-
+using Mirror;
 
 [RequireComponent(typeof(Timer))]
 public class Window : ZombieSpawn
@@ -13,8 +13,17 @@ public class Window : ZombieSpawn
     private System.Guid boardTimer;
 
     [SerializeField] private AudioClip breakSound;
+
+
+    [SyncVar(hook = nameof(OnHealthChange))]
     [SerializeField] private int health; // health of the boards on this window
+    [SyncVar(hook = nameof(OnHealthChange))]
     [SerializeField] private int maxHealth;
+    private void OnHealthChange(int oldHealth, int newHealth) {
+        UpdateWindowBoards();
+    }
+
+
 
     [SerializeField] protected float boardDelay; //Delay between healing boards
     [SerializeField] protected float breakDelay; // the delay in seconds between each zombie hit to the window health
@@ -56,13 +65,19 @@ public class Window : ZombieSpawn
         }
         UpdateWindowBoards();
     }
+    [Client]
     public void Heal(int h) {
-        isOpen = false; 
+        HealCMD(h);
+    }
+    [Command(requiresAuthority = false)]
+    public void HealCMD(int h) {
+        isOpen = false;
         health += h;
         if (health > maxHealth)
             health = maxHealth;
         UpdateWindowBoards();
     }
+    [Server]
     public void FullRepair()
     {
         health = maxHealth;
