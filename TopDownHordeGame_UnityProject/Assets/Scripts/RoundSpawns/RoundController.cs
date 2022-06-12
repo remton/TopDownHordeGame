@@ -138,7 +138,6 @@ public class RoundController : NetworkBehaviour
         hasShownRoundChange = false;
         spawnDelay = GetSpawnDeley();
         zombiesSpawnedThisRound = 0;
-        PlayerManager.instance.RespawnDeadPlayers();
         timeUntilNextSpawn = 0;
         if (EventRoundChange != null) { EventRoundChange.Invoke(round); }
         //Debug.Log("Round: " + round.ToString());

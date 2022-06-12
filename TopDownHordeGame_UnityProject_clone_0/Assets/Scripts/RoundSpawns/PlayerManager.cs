@@ -58,6 +58,7 @@ public class PlayerManager : NetworkBehaviour
 
         //Set up events from MyNetworkManager
         MyNetworkManager.instance.ServerEvent_PlayerConnectionRemoved += OnPlayerLeft;
+        allPlayers.Callback += OnAllPlayersChange;
     }
 
     private void Start() {
@@ -67,6 +68,7 @@ public class PlayerManager : NetworkBehaviour
     public override void OnStartClient() {
         base.OnStartClient();
         localPlayers.Clear();
+        if (EventActivePlayersChange != null) { EventActivePlayersChange.Invoke(GetActivePlayers()); }
     }
 
     [Server]
@@ -121,27 +123,30 @@ public class PlayerManager : NetworkBehaviour
 
     [ClientRpc]
     public void RespawnDeadPlayers() {
+        //Clients respawn all dead players since respawn does not auto update the server
         foreach (GameObject player in allPlayers) {
             if (player.GetComponent<PlayerHealth>().GetIsDead()) {
                 player.SetActive(true);
                 player.transform.position = spawnPoint.transform.position;
                 player.GetComponent<PlayerHealth>().Respawn();
-                Debug.Log("Player respawned");
+                //Debug.Log("Player respawned");
             }
         }
         if (EventActiveLocalPlayersChange != null) { EventActiveLocalPlayersChange.Invoke(GetActiveLocalPlayers()); }
+        if (EventActivePlayersChange != null) { EventActivePlayersChange.Invoke(GetActivePlayers()); }
     }
 
     [ClientRpc]
     public void ReviveDownedPlayers() {
-        foreach (GameObject player in allPlayers) {
+        //Each client revives their own local players Revive auto updates the server
+        foreach (GameObject player in localPlayers) {
             if (player.GetComponent<PlayerHealth>().IsBleedingOut()) {
                 player.GetComponent<PlayerHealth>().Revive();
-                Debug.Log("Player revived.");
+                //Debug.Log("Player revived.");
             }
         }
-        if (EventActiveLocalPlayersChange != null) { EventActiveLocalPlayersChange.Invoke(GetActiveLocalPlayers()); }
     }
+
     [ClientRpc]
     public void OnPlayerDie(GameObject player) {
         player.SetActive(false);
