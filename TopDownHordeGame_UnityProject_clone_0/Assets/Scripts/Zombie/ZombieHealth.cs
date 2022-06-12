@@ -80,12 +80,14 @@ public class ZombieHealth : NetworkBehaviour
         }
         PlayDamageEffects();
 
-        if (damager.HasComponent<Player>()) {
-            int payForHit = GetComponent<ZombieAI>().payForHit;
-            int payForKill = GetComponent<ZombieAI>().payForKill;
-            damager.GetComponent<PlayerStats>().AddMoney(payForHit);
-            if (health <= 0) {
-                damager.GetComponent<PlayerStats>().AddMoney(payForKill);
+        if (damager != null) {
+            if (damager.HasComponent<Player>()) {
+                int payForHit = GetComponent<ZombieAI>().payForHit;
+                int payForKill = GetComponent<ZombieAI>().payForKill;
+                damager.GetComponent<PlayerStats>().AddMoney(payForHit);
+                if (health <= 0) {
+                    damager.GetComponent<PlayerStats>().AddMoney(payForKill);
+                }
             }
         }
     }

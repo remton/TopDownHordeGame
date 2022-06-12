@@ -16,7 +16,12 @@ public class BiggestFanAI : ZombieAI
         animator = GetComponent<Animator>();
         zombieLunge = GetComponent<ZombieLunge>();
 
+    }
+
+    protected override void Start() {
+        base.Start();
         if (isServer) {
+            Debug.Log("Subscribe server BIGGESTFAN");
             zombieLunge.EventLungeEnd += zombieHealth.Kill;
             zombieLunge.EventPrelungeEnd += OnPrelungeEnd;
             zombieHealth.EventOnDeath += Explode;
@@ -39,8 +44,7 @@ public class BiggestFanAI : ZombieAI
             if (zombieLunge.StartPrelunge(dir)) {
                 animator.SetBool("isInPrelunge", true);
             }
-            
-            Debug.Log("Lunging in " + dir.ToString());
+            //Debug.Log("Lunging in " + dir.ToString());
         }
     }
     private void OnPrelungeEnd() {
