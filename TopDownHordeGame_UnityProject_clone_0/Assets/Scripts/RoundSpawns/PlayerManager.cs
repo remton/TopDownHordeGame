@@ -14,8 +14,11 @@ public class PlayerManager : NetworkBehaviour
     public GameObject deadPlayerLocation;
     private int numPlayers;
     private List<GameObject> localPlayers = new List<GameObject>();
-    private List<GameObject> allPlayers = new List<GameObject>();
+    private readonly SyncList<GameObject> allPlayers = new SyncList<GameObject>();
 
+    private void OnAllPlayersChange(SyncList<GameObject>.Operation op, int index, GameObject oldObj, GameObject newObj) {
+        if (EventActivePlayersChange != null) { EventActivePlayersChange.Invoke(GetActivePlayers()); }
+    }
     
     public static Player FindPlayerWithID(System.Guid id) {
         foreach (GameObject player in instance.allPlayers) {
@@ -74,7 +77,7 @@ public class PlayerManager : NetworkBehaviour
                 allPlayers.RemoveAt(i);
         }
         for (int i = 0; i < charas.Count; i++) {
-            RemovePlayerCharacter_RPC(charas[i].GetInstanceID());
+            allPlayers.Remove(charas[i]);
         }
         if (EventActivePlayersChange != null) { EventActivePlayersChange.Invoke(GetActivePlayers()); }
     }
@@ -108,35 +111,17 @@ public class PlayerManager : NetworkBehaviour
     [Server]
     public void AddPlayerCharacter(GameObject player, PlayerConnection connection) {
         AddLocalPlayerCharacter(connection.connectionToClient, player);
-        AddPlayerCharacter_RPC(player);
-    }
-    [ClientRpc]
-    public void AddPlayerCharacter_RPC(GameObject player) {
-        if (player == null) {
-            Debug.LogError("ERROR: Recieved null PlayerCharacter");
-            return;
-        }
         allPlayers.Add(player);
-        if (EventActivePlayersChange != null) { EventActivePlayersChange.Invoke(GetActivePlayers()); }
     }
-
     [Server]
     public void RemovePlayerCharacter(GameObject player, PlayerConnection connection) {
         RemoveLocalPlayerCharacter(connection.connectionToClient, player);
-        RemovePlayerCharacter_RPC(player.GetInstanceID());
+        allPlayers.Remove(player);
     }
+
     [ClientRpc]
-    public void RemovePlayerCharacter_RPC(int playerInstanceID) {
-        for (int i = 0; i < allPlayers.Count; i++) {
-            if(allPlayers[i].GetInstanceID() == playerInstanceID)
-                allPlayers.RemoveAt(i);
-        }
-        if (EventActivePlayersChange != null) { EventActivePlayersChange.Invoke(GetActivePlayers()); }
-    }
-
-
     public void RespawnDeadPlayers() {
-        foreach (GameObject player in localPlayers) {
+        foreach (GameObject player in allPlayers) {
             if (player.GetComponent<PlayerHealth>().GetIsDead()) {
                 player.SetActive(true);
                 player.transform.position = spawnPoint.transform.position;
@@ -146,8 +131,10 @@ public class PlayerManager : NetworkBehaviour
         }
         if (EventActiveLocalPlayersChange != null) { EventActiveLocalPlayersChange.Invoke(GetActiveLocalPlayers()); }
     }
+
+    [ClientRpc]
     public void ReviveDownedPlayers() {
-        foreach (GameObject player in localPlayers) {
+        foreach (GameObject player in allPlayers) {
             if (player.GetComponent<PlayerHealth>().IsBleedingOut()) {
                 player.GetComponent<PlayerHealth>().Revive();
                 Debug.Log("Player revived.");

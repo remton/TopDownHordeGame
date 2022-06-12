@@ -50,7 +50,7 @@ public class PlayerHealth : NetworkBehaviour {
         if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
     }
 
-    [Command]
+    [Command(requiresAuthority = false)]
     private void OnPlayerEnterReviveTrigger(GameObject otherPlayer) {
         OnPlayerEnterReviveTrigger_TargetRPC(otherPlayer.GetComponent<Player>().connectionToClient, otherPlayer);
     }
@@ -61,7 +61,7 @@ public class PlayerHealth : NetworkBehaviour {
         otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivateRelease += OnReviveActivateRelease;
     }
 
-    [Command]
+    [Command(requiresAuthority = false)]
     private void OnPlayerExitReviveTrigger(GameObject otherPlayer) {
         OnPlayerExitReviveTrigger_TargetRPC(otherPlayer.GetComponent<Player>().connectionToClient, otherPlayer);
     }
