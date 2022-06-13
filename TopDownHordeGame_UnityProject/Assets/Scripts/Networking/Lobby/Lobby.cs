@@ -169,7 +169,7 @@ public class Lobby : NetworkBehaviour
     //Server method to start the game
     [Server]
     private void StartGame() {
-        GameSettings.instance.numPlayers = 1;
+        GameSettings.instance.numPlayers = numPlayers;
         GameSettings.instance.devices.Add(Keyboard.current);
         MyNetworkManager.instance.ChangeScene(gameSceneName);
     }
