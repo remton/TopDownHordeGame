@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Mirror;
 
 [RequireComponent(typeof(ZombieLunge))]
 public class ZathrakAI : ZombieAI
@@ -60,6 +60,7 @@ public class ZathrakAI : ZombieAI
         timeUntilLungeCooldown = lungeCooldown;
         StartPathing();
     }
+    [Server]
     private GameObject CreateMinion() {
         Freeze(freezeTime);
         animator.SetTrigger("summon");
@@ -68,9 +69,10 @@ public class ZathrakAI : ZombieAI
         minion.GetComponent<Minion>().owner = this.gameObject;
         minion.transform.position = new Vector3(transform.position.x, transform.position.y, minion.transform.position.z);
         minion.GetComponent<ZombieAI>().SetValues(
-            zombieHealth.GetMaxHealth() * .2f,                      //health
-            speed * Random.Range(1.6f, 1.8F),                       //speed
-            damage * .3F);                                          //damage
+            zombieHealth.GetMaxHealth() * .2f,      //health
+            speed * Random.Range(1.6f, 1.8F),       //speed
+            damage * .3F);                          //damage
+        NetworkServer.Spawn(minion);
         return minion;
     }
 
