@@ -14,7 +14,7 @@ public class PlayerManager : NetworkBehaviour
     public GameObject deadPlayerLocation;
     private int numPlayers;
     private List<GameObject> localPlayers = new List<GameObject>();
-    private readonly SyncList<GameObject> allPlayers = new SyncList<GameObject>();
+    private SyncList<GameObject> allPlayers = new SyncList<GameObject>();
 
     private void OnAllPlayersChange(SyncList<GameObject>.Operation op, int index, GameObject oldObj, GameObject newObj) {
         if (EventActivePlayersChange != null) { EventActivePlayersChange.Invoke(GetActivePlayers()); }
@@ -125,6 +125,9 @@ public class PlayerManager : NetworkBehaviour
     public void RespawnDeadPlayers() {
         //Clients respawn all dead players since respawn does not auto update the server
         foreach (GameObject player in allPlayers) {
+            if (player == null)
+                continue;
+
             if (player.GetComponent<PlayerHealth>().GetIsDead()) {
                 player.SetActive(true);
                 player.transform.position = spawnPoint.transform.position;
@@ -140,6 +143,9 @@ public class PlayerManager : NetworkBehaviour
     public void ReviveDownedPlayers() {
         //Each client revives their own local players Revive auto updates the server
         foreach (GameObject player in localPlayers) {
+            if (player == null)
+                continue;
+
             if (player.GetComponent<PlayerHealth>().IsBleedingOut()) {
                 player.GetComponent<PlayerHealth>().Revive();
                 //Debug.Log("Player revived.");

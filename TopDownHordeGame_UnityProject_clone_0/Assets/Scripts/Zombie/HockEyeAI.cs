@@ -16,12 +16,20 @@ public class HockEyeAI : ZombieAI
         base.Awake();
         animator = GetComponent<Animator>();
         hockEyeThrow = GetComponent<HockEyeThrow>();
+        hockEyeThrow.EventOnThrow += OnThrow;
     }
 
     public override void SetValues(float newHealth, float newSpeed, float newDamage)
     {
         base.SetValues(Mathf.CeilToInt(newHealth / 2.0f), newSpeed * 1.5f, Mathf.CeilToInt(newDamage * 0.8f));
         hockEyeThrow.SetDamage(damage);
+    }
+
+    private void OnThrow() {
+        animator.SetTrigger("throw");
+        animator.SetBool("isIdle", true);
+        timeToMove = timeCountdown;
+        canMove = false;
     }
 
     protected override void Update()
@@ -34,12 +42,7 @@ public class HockEyeAI : ZombieAI
         {
             StopPathing();
             Vector2 dir = target.transform.position - transform.position;
-            if (hockEyeThrow.Throw(dir)) {
-                animator.SetTrigger("throw");
-                animator.SetBool("isIdle", true);
-                timeToMove = timeCountdown;
-                canMove = false;
-            }
+            hockEyeThrow.Throw(dir);
         }
         else if (!canMove && timeToMove > 0)
             timeToMove -= Time.deltaTime;

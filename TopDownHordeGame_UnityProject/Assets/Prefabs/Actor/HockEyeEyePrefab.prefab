@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4434337978146247457}
   - component: {fileID: 8586738530391387875}
   - component: {fileID: 3310816954732143919}
+  - component: {fileID: 608309122093804536}
   m_Layer: 12
   m_Name: HockEyeEyePrefab
   m_TagString: Untagged
@@ -47,6 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc5496667d66eed4f8c825390ec06ca5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   rb: {fileID: -8744719242660788853}
 --- !u!50 &-8744719242660788853
 Rigidbody2D:
@@ -152,3 +155,37 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.14938386
+--- !u!114 &608309122093804536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8087499198492442456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 0
+  sendInterval: 0.05
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 0
+  bufferTimeMultiplier: 1
+  bufferSizeLimit: 64
+  catchupThreshold: 4
+  catchupMultiplier: 0.1
+  onlySyncOnChange: 1
+  bufferResetMultiplier: 5
+  positionSensitivity: 0.01
+  rotationSensitivity: 0.01
+  scaleSensitivity: 0.01
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}

@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
-public class HockEyeThrow : MonoBehaviour
+using Mirror;
+
+public class HockEyeThrow : NetworkBehaviour
 {
     [SerializeField] private float timeBetweenThrows;
     [SerializeField] private float damage;
@@ -15,6 +16,10 @@ public class HockEyeThrow : MonoBehaviour
     private float timeUntilThrowOver;
     private ZombieAI AI;
     private Rigidbody2D rb;
+
+    public delegate void OnThrow();
+    public event OnThrow EventOnThrow;
+
     private void Awake()
     {
         AI = GetComponent<ZombieAI>();
@@ -28,22 +33,27 @@ public class HockEyeThrow : MonoBehaviour
     {
         damage = newDamage;
     }
-    public bool Throw(Vector2 d)
+
+    [Command(requiresAuthority = false)]
+    public void Throw(Vector2 d)
     {
         if (AI == null)
         {
             Debug.LogError("Cannot call Throw before setting the zombie AI");
-            return false;
+            return;
         }
         if (isWaitingToThrow || isThrowing)
-            return false;
+            return;
+
         dir = d.normalized;
         Vector3 hockerPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         GameObject obj = Instantiate(eyePrefab, hockerPos, Quaternion.identity);
+        NetworkServer.Spawn(obj);
         obj.GetComponent<HockEyeEye>().Init(dir, damage, throwForce);
         //Debug.Log("Tried throwing an eye.");
         StartWait();
-        return true;
+
+        if(EventOnThrow != null) { EventOnThrow.Invoke(); }
     }
     void FixedUpdate()
     {
