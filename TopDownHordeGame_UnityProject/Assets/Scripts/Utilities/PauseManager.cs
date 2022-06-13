@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using Mirror;
 
-public class PauseManager : Menu
+public class PauseManager : NetworkBehaviour
 {
-    [SerializeField] private string SceneLoadOnQuitGame;
-    public GameObject menuObj;
-    public Timer timer;
-
+    public PauseMenu menu;
     public static PauseManager instance;
     private void Awake() {
         if (instance == null) {
@@ -18,8 +16,6 @@ public class PauseManager : Menu
         else {
             Destroy(gameObject);
         }
-
-        timer = GetComponent<Timer>();
     }
 
     public delegate void PauseStateChange(bool isPaused);
@@ -29,8 +25,30 @@ public class PauseManager : Menu
     public bool IsPaused() { return isPaused; }
 
     public void PauseButtonPress() {
-        if (!isPaused)
-            PauseMenu();
+        if (!isPaused) {
+            PauseCMD(true);
+        }
+        else {
+            PauseCMD(false);
+        }
+    }
+
+    [Command(requiresAuthority = false)]
+    private void PauseCMD(bool paused) {
+        PauseRPC(paused);
+    }
+
+    [ClientRpc]
+    private void PauseRPC(bool paused) {
+        isPaused = paused;
+        if (isPaused) {
+            menu.OpenMenu();
+            PauseTime();
+        }
+        else {
+            menu.CloseMenu();
+            UnpauseTime();
+        }
     }
 
     public void PauseTime() {
@@ -44,47 +62,4 @@ public class PauseManager : Menu
         isPaused = false; 
         if (EventPauseStateChange != null) { EventPauseStateChange.Invoke(isPaused); }
     }
-
-    public void PauseMenu() {
-        //Debug.Log("PAUSE");
-        menuObj.SetActive(true);
-        if (isPaused) {
-            Debug.Log("Can't pause. Already paused");
-            return;
-        }
-        Time.timeScale = 0;
-        isPaused = true;
-        EventSystem.current.SetSelectedGameObject(defaultSelectedObject);
-        if (EventPauseStateChange != null) { EventPauseStateChange.Invoke(isPaused); }
-    }
-
-    public void ClosePauseMenu() {
-        //Debug.Log("UNPAUSE");
-        menuObj.SetActive(false);
-        if (!isPaused) {
-            Debug.Log("Can't unpause. Already unpaused");
-            return;
-        }
-        Time.timeScale = 1;
-        isPaused = false;
-        if (EventPauseStateChange != null) { EventPauseStateChange.Invoke(isPaused); }
-    }
-
-    public void QuitToMainMenu() {
-        ClosePauseMenu();
-        if(PlayerConnection.myConnection.isServer)
-            SaveData.Save();
-
-        PlayerConnection.myConnection.Disconnect();
-    }
-
-    public override void OnCancel() {
-        base.OnCancel();
-        timer.CreateTimer(2 * Time.deltaTime, UnpauseWithCheck);
-    }
-    public void UnpauseWithCheck() {
-        if (isPaused)
-            ClosePauseMenu();
-    }
-
 }
