@@ -9,7 +9,8 @@ public class PauseMenu : Menu {
             PauseManager.instance.PauseButtonPress();
     }
     public void Button_LeaveGame() {
-        CloseMenu();
+        if (PauseManager.instance.IsPaused())
+            PauseManager.instance.UnpauseTime();
         QuitToMainMenu();
     }
 
@@ -20,6 +21,7 @@ public class PauseMenu : Menu {
     public void CloseMenu() {
         gameObject.SetActive(false);
     }
+
     public void QuitToMainMenu() {
         if (PlayerConnection.myConnection.isServer)
             SaveData.Save();

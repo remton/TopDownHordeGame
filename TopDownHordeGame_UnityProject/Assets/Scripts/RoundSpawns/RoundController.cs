@@ -82,7 +82,7 @@ public class RoundController : NetworkBehaviour
         //Manages round changing
         if (isWaitingForNextRound) {
             if (!hasShownRoundChange) { 
-                display.RoundChange(round + 1); //display before the zombies start spawning
+                DisplayRoundChangeRPC(round + 1); //display before the zombies start spawning
                 PlayerManager.instance.ReviveDownedPlayers();
                 PlayerManager.instance.RespawnDeadPlayers();
                 hasShownRoundChange = true;
@@ -139,8 +139,18 @@ public class RoundController : NetworkBehaviour
         spawnDelay = GetSpawnDeley();
         zombiesSpawnedThisRound = 0;
         timeUntilNextSpawn = 0;
-        if (EventRoundChange != null) { EventRoundChange.Invoke(round); }
+        NextRoundRPC(round);
         //Debug.Log("Round: " + round.ToString());
+    }
+    [ClientRpc]
+    private void NextRoundRPC(int round) {
+        this.round = round;
+        hasShownRoundChange = false;
+        if (EventRoundChange != null) { EventRoundChange.Invoke(round); }
+    }
+    [ClientRpc]
+    private void DisplayRoundChangeRPC(int round) {
+        display.RoundChange(round);
     }
 
     private int GetMaxZombies() {

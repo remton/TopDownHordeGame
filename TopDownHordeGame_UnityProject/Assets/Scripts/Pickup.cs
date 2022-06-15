@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 [RequireComponent(typeof(HitBoxController))]
-public class Pickup : MonoBehaviour
+public class Pickup : NetworkBehaviour
 {
     public AudioClip collectSound;
 
@@ -17,6 +18,10 @@ public class Pickup : MonoBehaviour
         hitBox.EventObjExit += OnPlayerExit;
     }
 
+    public void Activate(bool b) {
+        gameObject.SetActive(b);
+    }
+
     public void OnPlayerEnter(GameObject player) {
         player.GetComponent<PlayerActivate>().EventPlayerActivate += Collect;
     }
@@ -25,6 +30,14 @@ public class Pickup : MonoBehaviour
     }
 
     public void Collect(GameObject player) {
+        CollectCMD();
+    }
+    [Command(requiresAuthority = false)]
+    private void CollectCMD() {
+        CollectRPC();
+    }
+    [ClientRpc]
+    private void CollectRPC() {
         AudioManager.instance.PlaySound(collectSound);
         if (EventOnCollect != null)
             EventOnCollect.Invoke();

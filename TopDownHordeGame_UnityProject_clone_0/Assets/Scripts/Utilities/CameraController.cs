@@ -95,6 +95,9 @@ public class CameraController : NetworkBehaviour {
     }
 
     private void ChangeSize() {
+        if (players.Count == 0)
+            return;
+
         float maxX = players[0].transform.position.x;
         float minX = players[0].transform.position.x;
         float maxY = players[0].transform.position.y;
@@ -138,7 +141,6 @@ public class CameraController : NetworkBehaviour {
         if(players.Count == 0) {
             players = PlayerManager.instance.GetActivePlayers();
         }
-
     }
 
     private void Awake() {

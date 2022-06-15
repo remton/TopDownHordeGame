@@ -1411,6 +1411,85 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 366142321}
   m_CullTransparentMesh: 1
+--- !u!1 &389085576
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 389085579}
+  - component: {fileID: 389085578}
+  - component: {fileID: 389085577}
+  m_Layer: 5
+  m_Name: ConnectedTxt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &389085577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389085576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 1
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Please connect to Steam for online play
+--- !u!222 &389085578
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389085576}
+  m_CullTransparentMesh: 1
+--- !u!224 &389085579
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389085576}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2103708451}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.09740962, y: 0.78760517}
+  m_AnchorMax: {x: 0.900649, y: 0.8526489}
+  m_AnchoredPosition: {x: 0, y: -2.0296478}
+  m_SizeDelta: {x: -1.7372131, y: 1.8983002}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &393460654
 GameObject:
   m_ObjectHideFlags: 0
@@ -3591,8 +3670,9 @@ MonoBehaviour:
   - {fileID: 6396399298110489017, guid: 82fb970eb680ef543814a550e285d10d, type: 3}
   - {fileID: 6396399298110489017, guid: 4453c43dc2fab504e9aa9ee6e04a7af1, type: 3}
   - {fileID: 8087499198492442456, guid: 112a6939347ff754eac966a681930a17, type: 3}
-  steamDisabled: 1
-  useSteam: 0
+  - {fileID: 2642044969666840145, guid: 48be525a5f9c7764aa783d4c8efaf40d, type: 3}
+  steamDisabled: 0
+  useSteam: 1
   steamLobbyObj: {fileID: 1304918358}
 --- !u!4 &1273725197
 Transform:
@@ -3763,7 +3843,11 @@ MonoBehaviour:
   defaultSelectedObject: {fileID: 743569215}
   mainMenu: {fileID: 35172220}
   code: {fileID: 743569217}
+  hostButton: {fileID: 393460656}
+  joinButton: {fileID: 1905792007}
+  connectedTxt: {fileID: 389085577}
   onlineLobbySceneName: OnlineLobby
+  kcpEnabled: 0
 --- !u!1 &1389830626
 GameObject:
   m_ObjectHideFlags: 0
@@ -4985,6 +5069,7 @@ RectTransform:
   - {fileID: 1905792006}
   - {fileID: 860807190}
   - {fileID: 743569216}
+  - {fileID: 389085579}
   m_Father: {fileID: 1327773737}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

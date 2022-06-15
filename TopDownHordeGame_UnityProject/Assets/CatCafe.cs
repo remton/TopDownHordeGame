@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Mirror;
 
-public class CatCafe : MonoBehaviour
+public class CatCafe : NetworkBehaviour
 {
     public static string LevelName = "CatCafe";
     public static int codeLength = 4;
@@ -19,61 +20,110 @@ public class CatCafe : MonoBehaviour
     private List<Pickup> availablePickups;
 
     private void Start() {
+        RoundController.instance.EventRoundChange += OnRoundChange;
+    }
+
+    public override void OnStartClient() {
+        base.OnStartClient();
+        if (isServer) {
+            if (MyNetworkManager.instance.AllClientsReady()) {
+                OnAllClientsLoaded();
+            }
+            else {
+                MyNetworkManager.instance.ServerEvent_AllClientsReady += OnAllClientsLoaded;
+            }
+        }
+    }
+    [Server]
+    private void OnAllClientsLoaded() {
+        MyNetworkManager.instance.ServerEvent_AllClientsReady -= OnAllClientsLoaded;
+
         //Load saved data
         keypadCode = SaveData.instance.catCafe_code;
         unlockedDigits = SaveData.instance.catCafe_unlockedDigits;
         unlockedElevator = SaveData.instance.catCafe_unlockedElevator;
 
-        //Set up elevator keypad
+        SetupPickupsRPC();
+        SetUpKeypadRPC(keypadCode, unlockedDigits, unlockedElevator);
+    }
+    [ClientRpc]
+    private void SetupPickupsRPC() {
+        for (int i = 0; i < codePickups.Count; i++) {
+            if(isServer)
+                codePickups[i].EventOnCollect += UnlockDigit;
+            codePickups[i].Activate(false);
+        }
+        availablePickups = codePickups;
+    }
+    [ClientRpc]
+    private void SetUpKeypadRPC(int[] code, int numUnlocked, bool isUnlocked) {
+        keypadCode = code;
+        unlockedDigits = numUnlocked;
+        unlockedElevator = isUnlocked;
         keypad.SetLockout(false);
         keypad.SetCode(keypadCode);
         keypad.SetUnlockedDigits(unlockedDigits);
         keypad.EventCorrectGuess += CorrectCodeEntered;
         keypad.EventWrongGuess += WrongCodeEntered;
-
-        //set up code pickups
-        for (int i = 0; i < codePickups.Count; i++) {
-            codePickups[i].EventOnCollect += UnlockDigit;
-            codePickups[i].gameObject.SetActive(false);
-        }
-        availablePickups = codePickups;
-        RoundController.instance.EventRoundChange += OnRoundChange;
+    }
+    [ClientRpc]
+    private void UpdateKeypadValues(int[] code, int numUnlocked, bool isUnlocked) {
+        keypadCode = code;
+        unlockedDigits = numUnlocked;
+        unlockedElevator = isUnlocked; 
+        keypad.SetCode(keypadCode);
+        keypad.SetUnlockedDigits(unlockedDigits);
     }
 
+    [Server]
     public void UnlockDigit() {
         unlockedDigits++;
         SaveData.instance.catCafe_unlockedDigits = unlockedDigits;
         keypad.SetUnlockedDigits(unlockedDigits);
+        UpdateKeypadValues(keypadCode, unlockedDigits, unlockedElevator);
     }
+
     private void CorrectCodeEntered() {
-        OpenElavatorArea();
+        OpenElavatorCMD();
     }
     private void WrongCodeEntered() {
         keypad.SetLockout(true);
     }
 
+    [Server]
     public void SpawnCodePickup() {
         int choice = Random.Range(0, availablePickups.Count);
-        availablePickups[choice].gameObject.SetActive(true);
+        SpawnCodePickupRPC(choice);
+    }
+    [ClientRpc]
+    public void SpawnCodePickupRPC(int choice) {
+        availablePickups[choice].Activate(true);
         availablePickups.RemoveAt(choice);
     }
 
-    public void OpenElavatorArea() {
+    [Command(requiresAuthority = false)]
+    public void OpenElavatorCMD() {
+        SaveData.instance.catCafe_unlockedElevator = true;
+        OpenElevatorRPC();
+    }
+    [ClientRpc]
+    private void OpenElevatorRPC() {
         elavatorCover.SetActive(false);
         unlockedElevator = true;
-        SaveData.instance.catCafe_unlockedElevator = true;
     }
-
 
     private void OnDestroy() {
-        RoundController.instance.EventRoundChange -= OnRoundChange;
+        if(isServer)
+            RoundController.instance.EventRoundChange -= OnRoundChange;
     }
+
     private void OnRoundChange(int round) {
         if (keypad.IsLockedOut())
             keypad.SetLockout(false);
-
-        if (round >= 10 && round % 10 == 0)
-            if(unlockedDigits < codeLength)
-                SpawnCodePickup();
+        if (isServer) {
+            if (round >= 10 && round % 10 == 0)
+                if(unlockedDigits < codeLength)
+                    SpawnCodePickup();
+        }
     }
 }
