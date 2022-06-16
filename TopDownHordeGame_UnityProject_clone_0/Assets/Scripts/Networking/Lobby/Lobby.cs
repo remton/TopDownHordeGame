@@ -73,11 +73,7 @@ public class Lobby : NetworkBehaviour
 
     [Client]
     public void LeaveLobby() {
-        if (isClient && isServer)
-            MyNetworkManager.instance.StopHost();
-        else if (isClient)
-            MyNetworkManager.instance.StopClient();
-        SceneManager.LoadScene(mainMenuScene);
+        PlayerConnection.myConnection.Disconnect();
     }
 
     //Client method to update the UI (called whenever player details changes

@@ -49,9 +49,7 @@ public class SteamLobby : NetworkBehaviour
     private List<CSteamID> lobbies = new List<CSteamID>();
 
 
-    private MyNetworkManager networkManager;
     private void Start() {
-        networkManager = MyNetworkManager.instance;
         // if not signed into steam
         if (!SteamManager.Initialized) {
             Debug.LogWarning("Must sign into steam for online play");
@@ -71,7 +69,7 @@ public class SteamLobby : NetworkBehaviour
         }
 
         if(lobbies.Count == 0) {
-            SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypePublic, networkManager.maxConnections);
+            SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypePublic, MyNetworkManager.instance.maxConnections);
             //Create lobby triggers a callback (OnLobbbyCreated) when it is done
         }
         else {
@@ -129,7 +127,7 @@ public class SteamLobby : NetworkBehaviour
             return;
         }
 
-        networkManager.StartHost();
+        MyNetworkManager.instance.StartHost();
 
         //Adds data to the lobby. Data is accessed using a string key in this case, HOSTADDRESS_KEY.
         //Here we are storing the user's steam id as the address.
@@ -170,9 +168,9 @@ public class SteamLobby : NetworkBehaviour
             CallJoinLobbyEvent(false);
             return;
         }
-        networkManager.networkAddress = hostAddress;
+        MyNetworkManager.instance.networkAddress = hostAddress;
         Debug.Log("Starting client!!!");
-        networkManager.StartClient();
+        MyNetworkManager.instance.StartClient();
         CallJoinLobbyEvent(true);
     }
 
