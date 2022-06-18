@@ -6,6 +6,9 @@ using Mirror;
 using Mirror.FizzySteam;
 using Steamworks;
 
+[RequireComponent(typeof(SteamLobby)), 
+ RequireComponent(typeof(FizzySteamworks)), 
+ RequireComponent(typeof(kcp2k.KcpTransport))]
 public class MyNetworkManager : NetworkManager
 {
     public static MyNetworkManager instance {
@@ -20,10 +23,9 @@ public class MyNetworkManager : NetworkManager
     [HideInInspector]
     public bool useSteam;
 
-    protected Transport steamTransport;
     protected SteamLobby steamLobby;
+    protected Transport steamTransport;
     protected Transport kcpTransport;
-    [SerializeField] private GameObject steamLobbyObj;
 
     private List<PlayerConnection> playerConnections = new List<PlayerConnection>();
     public List<PlayerConnection> GetPlayerConnections() { return playerConnections; }
@@ -45,6 +47,8 @@ public class MyNetworkManager : NetworkManager
         StartHost();
     }
     public void HostGame(string code) {
+        Debug.Log("Hosting game");
+
         if (useSteam) {
             steamLobby.GetLobbies(code);
             steamLobby.HostLobby();
@@ -162,7 +166,6 @@ public class MyNetworkManager : NetworkManager
         useSteam = !steamDisabled;
     }
 
-
     //--- Other Private methods ---
     public override void Awake() {
         base.Awake();
@@ -178,7 +181,6 @@ public class MyNetworkManager : NetworkManager
         }
     }
 
-
     public override void Start() {
         base.Start();
         useSteam = !steamDisabled;
@@ -192,8 +194,8 @@ public class MyNetworkManager : NetworkManager
         kcpTransport.enabled = false;
         useSteam = true;
 
+        steamLobby = gameObject.GetComponent<SteamLobby>();
         steamTransport = gameObject.GetComponent<FizzySteamworks>();
-        steamLobby = steamLobbyObj.GetComponent<SteamLobby>();
        
         steamTransport.enabled = true;
         steamLobby.enabled = true;
@@ -219,8 +221,4 @@ public class MyNetworkManager : NetworkManager
         steamLobby.enabled = false;
     }
 
-    public override void OnDestroy() {
-        Destroy(steamLobbyObj);
-        base.OnDestroy();
-    }
 }
