@@ -217,11 +217,12 @@ public class MyNetworkManager : NetworkManager
         useSteam = false;
         kcpTransport.enabled = true;
         transport = kcpTransport;
+        Transport.activeTransport = transport;
     }
     private void DisableSteam() {
         steamDisabled = true;
         useSteam = false;
-
+        
         steamTransport.enabled = false;
         steamLobby.enabled = false;
     }
