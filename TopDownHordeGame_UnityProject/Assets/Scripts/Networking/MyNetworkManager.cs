@@ -89,10 +89,19 @@ public class MyNetworkManager : NetworkManager
     //--- Handle SteamLobby Events ---
     private void OnSteamLobbyJoinGame(SteamLobby.JoinLobbyData data) {
         if(data.successful)
-            Debug.Log("Connected User ID:" + SteamFriends.GetFriendPersonaName(data.userSteamID));
+            Debug.Log("Connected User SteamID:" + SteamFriends.GetFriendPersonaName(data.userSteamID));
     }
     private void OnSteamLobbyCreateGame(SteamLobby.CreateLobbyData data) {
-        Debug.Log("Hosting Lobby ID:" + data.lobbySteamID);
+        Debug.Log("Hosting Lobby SteamID:" + data.lobbySteamID);
+    }
+
+    public override void OnServerConnect(NetworkConnectionToClient conn) {
+        base.OnServerConnect(conn);
+        Debug.Log("Connected: " + conn.ToString());
+    }
+    public override void OnClientConnect() {
+        base.OnClientConnect();
+        Debug.Log("Connected!");
     }
 
     public override void OnServerReady(NetworkConnectionToClient conn) {
