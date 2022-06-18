@@ -14,16 +14,8 @@ public class Window : ZombieSpawn
 
     [SerializeField] private AudioClip breakSound;
 
-
-    [SyncVar(hook = nameof(OnHealthChange))]
     [SerializeField] private int health; // health of the boards on this window
-    [SyncVar(hook = nameof(OnHealthChange))]
     [SerializeField] private int maxHealth;
-    private void OnHealthChange(int oldHealth, int newHealth) {
-        UpdateWindowBoards();
-    }
-
-
 
     [SerializeField] protected float boardDelay; //Delay between healing boards
     [SerializeField] protected float breakDelay; // the delay in seconds between each zombie hit to the window health
@@ -63,8 +55,9 @@ public class Window : ZombieSpawn
             spawnDelay = 0.5F;
             isOpen = true;
         }
-        UpdateWindowBoards();
+        SetHealthRPC(health, maxHealth);
     }
+
     [Client]
     public void Heal(int h) {
         HealCMD(h);
@@ -75,8 +68,16 @@ public class Window : ZombieSpawn
         health += h;
         if (health > maxHealth)
             health = maxHealth;
+        SetHealthRPC(health, maxHealth);
+    }
+    [ClientRpc]
+    private void SetHealthRPC(int h, int maxH) {
+        health = h;
+        if (health > maxHealth)
+            health = maxHealth;
         UpdateWindowBoards();
     }
+
     [Server]
     public void FullRepair()
     {
