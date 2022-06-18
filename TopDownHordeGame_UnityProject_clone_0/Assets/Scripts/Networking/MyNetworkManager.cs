@@ -6,8 +6,7 @@ using Mirror;
 using Mirror.FizzySteam;
 using Steamworks;
 
-[RequireComponent(typeof(SteamLobby)), 
- RequireComponent(typeof(FizzySteamworks)), 
+[RequireComponent(typeof(FizzySteamworks)), 
  RequireComponent(typeof(kcp2k.KcpTransport))]
 public class MyNetworkManager : NetworkManager
 {
@@ -23,6 +22,7 @@ public class MyNetworkManager : NetworkManager
     [HideInInspector]
     public bool useSteam;
 
+    [SerializeField]
     protected SteamLobby steamLobby;
     protected Transport steamTransport;
     protected Transport kcpTransport;
@@ -191,7 +191,6 @@ public class MyNetworkManager : NetworkManager
 
         kcpTransport = GetComponent<kcp2k.KcpTransport>();
         steamTransport = gameObject.GetComponent<FizzySteamworks>();
-        steamLobby = GetComponent<SteamLobby>();
 
         if (!steamDisabled && useSteam && SetSteamTransport()) {
             steamLobby.EventOnJoinGame += OnSteamLobbyJoinGame;
@@ -240,4 +239,9 @@ public class MyNetworkManager : NetworkManager
         steamLobby.enabled = false;
     }
 
+    public override void OnDestroy() {
+        if(steamLobby!=null)
+            Destroy(steamLobby.gameObject);
+        base.OnDestroy();
+    }
 }
