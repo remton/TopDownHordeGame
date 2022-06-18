@@ -99,9 +99,17 @@ public class MyNetworkManager : NetworkManager
         base.OnServerConnect(conn);
         Debug.Log("Connected: " + conn.ToString());
     }
+    public override void OnServerDisconnect(NetworkConnectionToClient conn) {
+        base.OnServerDisconnect(conn);
+        Debug.Log("Disconnected: " + conn.ToString());
+    }
     public override void OnClientConnect() {
         base.OnClientConnect();
         Debug.Log("Connected!");
+    }
+    public override void OnClientDisconnect() {
+        base.OnClientDisconnect();
+        Debug.Log("Disconnected!");
     }
 
     public override void OnServerReady(NetworkConnectionToClient conn) {
