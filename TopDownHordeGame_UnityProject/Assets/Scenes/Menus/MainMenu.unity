@@ -3699,7 +3699,7 @@ MonoBehaviour:
   onlineScene: Assets/Scenes/Lobbies/OnlineLobby.unity
   transport: {fileID: 1273725195}
   networkAddress: localhost
-  maxConnections: 4
+  maxConnections: 100
   authenticator: {fileID: 0}
   playerPrefab: {fileID: 6861647561282506606, guid: 19279e01470ac944287319f09516e8d8, type: 3}
   autoCreatePlayer: 1
