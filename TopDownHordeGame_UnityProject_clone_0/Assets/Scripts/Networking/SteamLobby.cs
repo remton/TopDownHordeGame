@@ -195,7 +195,7 @@ public class SteamLobby : MonoBehaviour
     private void OnGetLobbiesList(LobbyMatchList_t result) {
         isWaitingOnLobbyRequest = false;
         lobbies.Clear();
-        //Debug.Log("Found " + result.m_nLobbiesMatching + " lobbies!");
+        Debug.Log("Found " + result.m_nLobbiesMatching + " lobbies!");
         for (int i = 0; i < result.m_nLobbiesMatching; i++) {
             lobbies.Add(SteamMatchmaking.GetLobbyByIndex(i));
         }
