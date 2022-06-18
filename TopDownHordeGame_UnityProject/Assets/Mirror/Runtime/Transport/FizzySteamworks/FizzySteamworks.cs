@@ -66,6 +66,8 @@ namespace Mirror.FizzySteam
         public override bool ClientConnected() => ClientActive() && client.Connected;
         public override void ClientConnect(string address)
         {
+            Debug.Log("FizzySteamworks Client connect called");
+
             try
             {
 #if UNITY_SERVER

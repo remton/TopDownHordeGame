@@ -86,17 +86,6 @@ public class MyNetworkManager : NetworkManager
         return spawnPrefabs[index];
     }
 
-    //--- Handle SteamLobby Events ---
-    private void OnSteamLobbyJoinGame(SteamLobby.JoinLobbyData data) {
-        if (data.successful) {
-            Debug.Log("Connecting User SteamID :" + SteamFriends.GetFriendPersonaName(data.userSteamID));
-        }
-    }
-    private void OnSteamLobbyCreateGame(SteamLobby.CreateLobbyData data) {
-        Debug.Log("Hosting Lobby SteamID:" + data.lobbySteamID);
-    }
-
-
     public override void OnServerConnect(NetworkConnectionToClient conn) {
         base.OnServerConnect(conn);
         Debug.Log("Server Connected: " + conn.ToString());
@@ -192,14 +181,11 @@ public class MyNetworkManager : NetworkManager
         kcpTransport = GetComponent<kcp2k.KcpTransport>();
         steamTransport = gameObject.GetComponent<FizzySteamworks>();
 
-        if (!steamDisabled && useSteam && SetSteamTransport()) {
-            steamLobby.EventOnJoinGame += OnSteamLobbyJoinGame;
-            steamLobby.EventOnCreateLobby += OnSteamLobbyCreateGame;
-        }
-        else {
+        if(steamDisabled || !useSteam || !SetSteamTransport()) {
             DisableSteam();
             SetKcpTransport();
         }
+
     }
 
     public override void Start() {
@@ -218,6 +204,7 @@ public class MyNetworkManager : NetworkManager
         steamTransport.enabled = true;
         steamLobby.enabled = true;
         transport = steamTransport;
+        Transport.activeTransport = transport;
 
         //Failed connection to steam.
         if (!SteamManager.Initialized) {
