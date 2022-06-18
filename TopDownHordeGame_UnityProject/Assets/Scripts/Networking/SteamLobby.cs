@@ -114,10 +114,10 @@ public class SteamLobby : MonoBehaviour
 
         isWaitingOnLobbyRequest = true;
         lobbyCode = code;
-        SteamMatchmaking.AddRequestLobbyListStringFilter(
-            LOBBYCODE_KEY,
-            code,
-            ELobbyComparison.k_ELobbyComparisonEqual);
+        //SteamMatchmaking.AddRequestLobbyListStringFilter(
+        //    LOBBYCODE_KEY,
+        //    code,
+        //    ELobbyComparison.k_ELobbyComparisonEqual);
         SteamMatchmaking.RequestLobbyList();
     }
 
@@ -161,10 +161,10 @@ public class SteamLobby : MonoBehaviour
             HOSTADDRESS_KEY, 
             SteamUser.GetSteamID().ToString());
         //Here we are setting the code for our lobby
-        SteamMatchmaking.SetLobbyData(
-            new CSteamID(callback.m_ulSteamIDLobby),
-            LOBBYCODE_KEY,
-            lobbyCode);
+        //SteamMatchmaking.SetLobbyData(
+        //    new CSteamID(callback.m_ulSteamIDLobby),
+        //    LOBBYCODE_KEY,
+        //    lobbyCode);
         CallCreateLobbyEvent(new CSteamID(callback.m_ulSteamIDLobby));
         CallJoinLobbyEvent(true);
     }
