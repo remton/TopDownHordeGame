@@ -190,6 +190,9 @@ public class MyNetworkManager : NetworkManager
         base.Awake();
 
         kcpTransport = GetComponent<kcp2k.KcpTransport>();
+        steamTransport = gameObject.GetComponent<FizzySteamworks>();
+        steamLobby = GetComponent<SteamLobby>();
+
         if (!steamDisabled && useSteam && SetSteamTransport()) {
             steamLobby.EventOnJoinGame += OnSteamLobbyJoinGame;
             steamLobby.EventOnCreateLobby += OnSteamLobbyCreateGame;
@@ -212,9 +215,6 @@ public class MyNetworkManager : NetworkManager
 
         kcpTransport.enabled = false;
         useSteam = true;
-
-        steamLobby = gameObject.GetComponent<SteamLobby>();
-        steamTransport = gameObject.GetComponent<FizzySteamworks>();
        
         steamTransport.enabled = true;
         steamLobby.enabled = true;

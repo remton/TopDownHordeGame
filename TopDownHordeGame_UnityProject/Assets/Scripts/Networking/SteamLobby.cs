@@ -156,6 +156,7 @@ public class SteamLobby : MonoBehaviour
             LOBBYCODE_KEY,
             lobbyCode);
         Debug.Log("Lobby host address: " + SteamUser.GetSteamID().ToString());
+        Debug.Log("Lobby code : " + lobbyCode);
         CallCreateLobbyEvent(new CSteamID(callback.m_ulSteamIDLobby));
         CallJoinLobbyEvent(true);
     }
