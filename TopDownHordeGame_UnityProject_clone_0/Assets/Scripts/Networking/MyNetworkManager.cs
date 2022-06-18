@@ -6,7 +6,8 @@ using Mirror;
 using Mirror.FizzySteam;
 using Steamworks;
 
-[RequireComponent(typeof(FizzySteamworks)), 
+[RequireComponent(typeof(SteamLobby)), 
+ RequireComponent(typeof(FizzySteamworks)), 
  RequireComponent(typeof(kcp2k.KcpTransport))]
 public class MyNetworkManager : NetworkManager
 {
@@ -22,7 +23,6 @@ public class MyNetworkManager : NetworkManager
     [HideInInspector]
     public bool useSteam;
 
-    [SerializeField]
     protected SteamLobby steamLobby;
     protected Transport steamTransport;
     protected Transport kcpTransport;
@@ -88,30 +88,11 @@ public class MyNetworkManager : NetworkManager
 
     //--- Handle SteamLobby Events ---
     private void OnSteamLobbyJoinGame(SteamLobby.JoinLobbyData data) {
-        if (data.successful) {
-            Debug.Log("Connecting User SteamID:" + SteamFriends.GetFriendPersonaName(data.userSteamID));
-        }
+        if(data.successful)
+            Debug.Log("Connected User ID:" + SteamFriends.GetFriendPersonaName(data.userSteamID));
     }
     private void OnSteamLobbyCreateGame(SteamLobby.CreateLobbyData data) {
-        Debug.Log("Hosting Lobby SteamID:" + data.lobbySteamID);
-    }
-
-
-    public override void OnServerConnect(NetworkConnectionToClient conn) {
-        base.OnServerConnect(conn);
-        Debug.Log("Connected: " + conn.ToString());
-    }
-    public override void OnServerDisconnect(NetworkConnectionToClient conn) {
-        base.OnServerDisconnect(conn);
-        Debug.Log("Disconnected: " + conn.ToString());
-    }
-    public override void OnClientConnect() {
-        base.OnClientConnect();
-        Debug.Log("Connected!");
-    }
-    public override void OnClientDisconnect() {
-        base.OnClientDisconnect();
-        Debug.Log("Disconnected!");
+        Debug.Log("Hosting Lobby ID:" + data.lobbySteamID);
     }
 
     public override void OnServerReady(NetworkConnectionToClient conn) {
@@ -190,8 +171,6 @@ public class MyNetworkManager : NetworkManager
         base.Awake();
 
         kcpTransport = GetComponent<kcp2k.KcpTransport>();
-        steamTransport = gameObject.GetComponent<FizzySteamworks>();
-
         if (!steamDisabled && useSteam && SetSteamTransport()) {
             steamLobby.EventOnJoinGame += OnSteamLobbyJoinGame;
             steamLobby.EventOnCreateLobby += OnSteamLobbyCreateGame;
@@ -214,6 +193,9 @@ public class MyNetworkManager : NetworkManager
 
         kcpTransport.enabled = false;
         useSteam = true;
+
+        steamLobby = gameObject.GetComponent<SteamLobby>();
+        steamTransport = gameObject.GetComponent<FizzySteamworks>();
        
         steamTransport.enabled = true;
         steamLobby.enabled = true;
@@ -239,9 +221,4 @@ public class MyNetworkManager : NetworkManager
         steamLobby.enabled = false;
     }
 
-    public override void OnDestroy() {
-        if(steamLobby!=null)
-            Destroy(steamLobby.gameObject);
-        base.OnDestroy();
-    }
 }
