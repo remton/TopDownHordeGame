@@ -171,6 +171,8 @@ public class SteamLobby : MonoBehaviour
             return;
         }
 
+        Debug.Log("Entered lobby: " + callback.m_ulSteamIDLobby); 
+
         string hostAddress = SteamMatchmaking.GetLobbyData(
             new CSteamID(callback.m_ulSteamIDLobby), 
             HOSTADDRESS_KEY);
@@ -200,5 +202,4 @@ public class SteamLobby : MonoBehaviour
             EventAfterLobbyRequest = null;
         }
     }
-
 }
