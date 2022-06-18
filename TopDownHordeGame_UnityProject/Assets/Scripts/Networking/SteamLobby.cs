@@ -4,7 +4,7 @@ using UnityEngine;
 using Steamworks;
 using Mirror;
 
-public class SteamLobby : MonoBehaviour
+public class SteamLobby : NetworkBehaviour
 {
     // --- Callbacks used by steam when various things happen ---
 
