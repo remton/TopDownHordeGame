@@ -3266,7 +3266,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 35172220}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
         m_MethodName: ExitGame
         m_Mode: 1
@@ -3584,7 +3584,6 @@ GameObject:
   - component: {fileID: 1273725196}
   - component: {fileID: 1273725195}
   - component: {fileID: 1273725193}
-  - component: {fileID: 1273725194}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -3608,18 +3607,6 @@ MonoBehaviour:
   Timeout: 25
   AllowSteamRelay: 1
   UseNextGenSteamNetworking: 1
---- !u!114 &1273725194
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1273725192}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 712cb6fd2af283143893479b5de0805b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1273725195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3703,6 +3690,7 @@ MonoBehaviour:
   - {fileID: 2642044969666840145, guid: 48be525a5f9c7764aa783d4c8efaf40d, type: 3}
   steamDisabled: 0
   useSteam: 1
+  steamLobbyObj: {fileID: 1304918358}
 --- !u!4 &1273725197
 Transform:
   m_ObjectHideFlags: 0
@@ -3711,6 +3699,69 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1273725192}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 467.66782, y: 168.19691, z: -159.65938}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1304918358
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1304918361}
+  - component: {fileID: 1304918360}
+  - component: {fileID: 1304918359}
+  m_Layer: 0
+  m_Name: SteamLobby
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1304918359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1304918358}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 712cb6fd2af283143893479b5de0805b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+--- !u!114 &1304918360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1304918358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 3094466676
+  serverOnly: 1
+  visible: 0
+  m_AssetId: 
+  hasSpawned: 0
+--- !u!4 &1304918361
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1304918358}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 467.66782, y: 168.19691, z: -159.65938}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -4895,7 +4946,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2017318833}
   - component: {fileID: 2017318832}
-  - component: {fileID: 2017318834}
   m_Layer: 0
   m_Name: SteamManager
   m_TagString: Untagged
@@ -4927,20 +4977,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2017318834
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2017318831}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 712cb6fd2af283143893479b5de0805b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2044996595
 GameObject:
   m_ObjectHideFlags: 0

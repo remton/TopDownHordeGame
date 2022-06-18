@@ -4,7 +4,7 @@ using UnityEngine;
 using Steamworks;
 using Mirror;
 
-public class SteamLobby : MonoBehaviour
+public class SteamLobby : NetworkBehaviour
 {
     // --- Callbacks used by steam when various things happen ---
 
@@ -48,41 +48,27 @@ public class SteamLobby : MonoBehaviour
     private string lobbyCode;
     private List<CSteamID> lobbies = new List<CSteamID>();
 
-    private void Awake() {
-        Debug.Log("Awake called");
-        Debug.Log("enabled? " + this.enabled);
-        Debug.Log("gameobject enabled? " + this.gameObject.activeSelf);
-    }
-
 
     private void Start() {
-        Debug.Log("start called set");
-
         // if not signed into steam
         if (!SteamManager.Initialized) {
-            Debug.Log("Must sign into steam for online play");
+            Debug.LogWarning("Must sign into steam for online play");
             return;
         }
 
         //Set steam callback functions
-        Debug.Log("callbacks set");
         lobbyCreated = Callback<LobbyCreated_t>.Create(OnLobbyCreated);
         gameLobbyJoinRequested = Callback<GameLobbyJoinRequested_t>.Create(OnGameLobbyJoinRequested);
         lobbyEntered = Callback<LobbyEnter_t>.Create(OnLobbyEntered);
         lobbyList = Callback<LobbyMatchList_t>.Create(OnGetLobbiesList);
-
-        DontDestroyOnLoad(gameObject);
     }
     public void HostLobby() {
-        Debug.Log("HostLobby called");
-
         if (isWaitingOnLobbyRequest) {
             EventAfterLobbyRequest += HostLobby;
             return;
         }
 
         if(lobbies.Count == 0) {
-            Debug.Log("Creating lobby. . .");
             SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypePublic, MyNetworkManager.instance.maxConnections);
             //Create lobby triggers a callback (OnLobbbyCreated) when it is done
         }
@@ -91,8 +77,6 @@ public class SteamLobby : MonoBehaviour
         }
     }
     public void JoinLobby() {
-        Debug.Log("JoinLobby called");
-
         if (isWaitingOnLobbyRequest) {
             EventAfterLobbyRequest += JoinLobby;
             return;
@@ -110,8 +94,6 @@ public class SteamLobby : MonoBehaviour
     }
 
     public void GetLobbies(string code) {
-        Debug.Log("GetLobbies called");
-
         isWaitingOnLobbyRequest = true;
         lobbyCode = code;
         SteamMatchmaking.AddRequestLobbyListStringFilter(
@@ -140,14 +122,8 @@ public class SteamLobby : MonoBehaviour
 
     //callback called when steam finishes creating the lobby
     private void OnLobbyCreated(LobbyCreated_t callback) {
-        Debug.Log("OnLobbyCreated called");
-
         //if the lobby wasnt created
-        if (callback.m_eResult == EResult.k_EResultAccessDenied) {
-            Debug.LogError("Could not create lobby: Access Denied!");
-        }
         if(callback.m_eResult != EResult.k_EResultOK) {
-            Debug.LogError("Could not create lobby: " + callback.m_eResult.ToString());
             return;
         }
 
@@ -200,8 +176,6 @@ public class SteamLobby : MonoBehaviour
 
     //Callback when steam finishes lobby list request
     private void OnGetLobbiesList(LobbyMatchList_t result) {
-        Debug.Log("OnGetLobbiesList called");
-
         isWaitingOnLobbyRequest = false;
         lobbies.Clear();
         Debug.Log("Found " + result.m_nLobbiesMatching + " lobbies!");
@@ -214,4 +188,7 @@ public class SteamLobby : MonoBehaviour
         }
     }
 
+    private void Awake() {
+        DontDestroyOnLoad(gameObject);
+    }
 }
