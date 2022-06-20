@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-
+using Mirror;
 
 [RequireComponent(typeof(Timer))]
 public class Window : ZombieSpawn
@@ -13,6 +13,7 @@ public class Window : ZombieSpawn
     private System.Guid boardTimer;
 
     [SerializeField] private AudioClip breakSound;
+
     [SerializeField] private int health; // health of the boards on this window
     [SerializeField] private int maxHealth;
 
@@ -54,15 +55,30 @@ public class Window : ZombieSpawn
             spawnDelay = 0.5F;
             isOpen = true;
         }
-        UpdateWindowBoards();
+        SetHealthRPC(health, maxHealth);
     }
+
+    [Client]
     public void Heal(int h) {
-        isOpen = false; 
+        HealCMD(h);
+    }
+    [Command(requiresAuthority = false)]
+    public void HealCMD(int h) {
+        isOpen = false;
         health += h;
+        if (health > maxHealth)
+            health = maxHealth;
+        SetHealthRPC(health, maxHealth);
+    }
+    [ClientRpc]
+    private void SetHealthRPC(int h, int maxH) {
+        health = h;
         if (health > maxHealth)
             health = maxHealth;
         UpdateWindowBoards();
     }
+
+    [Server]
     public void FullRepair()
     {
         health = maxHealth;
@@ -127,7 +143,7 @@ public class Window : ZombieSpawn
     private void UpdateWindowBoards() {
         int numStates = ((Tiles.Count) / TILES_PER_STATE);
         int currState = Mathf.CeilToInt(((float)health / maxHealth) * (numStates-1));
-        Debug.Log("State" + currState.ToString());
+        //Debug.Log("State" + currState.ToString());
         int topIndex = currState * TILES_PER_STATE;
         tilemap.SetTile(topTile, Tiles[topIndex]);
         tilemap.SetTile(midTile, Tiles[topIndex+1]);
