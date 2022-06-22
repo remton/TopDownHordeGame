@@ -133,7 +133,7 @@ public class MyNetworkManager : NetworkManager
 
     //--- Handle PlayerConnection components ---
     public override void OnServerAddPlayer(NetworkConnectionToClient conn) {
-        // Normal Networkmanager 
+        // ------- Normal Networkmanager -------
         Transform startPos = GetStartPosition();
         GameObject player = startPos != null
             ? Instantiate(playerPrefab, startPos.position, startPos.rotation)
@@ -143,12 +143,16 @@ public class MyNetworkManager : NetworkManager
         // => appending the connectionId is WAY more useful for debugging!
         player.name = $"{playerPrefab.name} [connId={conn.connectionId}]";
         NetworkServer.AddPlayerForConnection(conn, player);
+        // ------- Normal Networkmanager -------
 
-        //Addition for MyNetworkManager
+        //------- Addition for MyNetworkManager -------
         player.GetComponent<PlayerConnection>().Init();
         playerConnections.Add(player.GetComponent<PlayerConnection>());
         if(ServerEvent_PlayerConnectionAdded != null) { ServerEvent_PlayerConnectionAdded.Invoke(player.GetComponent<PlayerConnection>()); }
+        //------- Addition for MyNetworkManager -------
     }
+
+    //Called by playerconnections in their OnDestroy method
     public void OnPlayerConnectionDestroyed(PlayerConnection connection) {
         if (playerConnections.Remove(connection)) {
             if (ServerEvent_PlayerConnectionRemoved != null) { ServerEvent_PlayerConnectionRemoved.Invoke(connection); }
@@ -187,12 +191,17 @@ public class MyNetworkManager : NetworkManager
         }
 
     }
-
     public override void Start() {
         base.Start();
         useSteam = !steamDisabled;
     }
+    public override void OnDestroy() {
+        if(steamLobby!=null)
+            Destroy(steamLobby.gameObject);
+        base.OnDestroy();
+    }
 
+    //--- Set network transports ---
     private bool SetSteamTransport() {
         if (steamDisabled) {
             return false;
@@ -225,11 +234,5 @@ public class MyNetworkManager : NetworkManager
         
         steamTransport.enabled = false;
         steamLobby.enabled = false;
-    }
-
-    public override void OnDestroy() {
-        if(steamLobby!=null)
-            Destroy(steamLobby.gameObject);
-        base.OnDestroy();
     }
 }

@@ -10,7 +10,7 @@ public class StatScreen : NetworkBehaviour
     public GameObject screen;
     public List<UIPlayerSidebar> statHolders;
 
-    public SyncList<PlayerStats> stats = new SyncList<PlayerStats>();
+    public readonly SyncList<PlayerStats> stats = new SyncList<PlayerStats>();
 
     //Only called by the server when scene is loaded. Clients do not run awake if the object was already in the scene when it loads
     private void Awake() {

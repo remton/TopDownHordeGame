@@ -1294,8 +1294,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeUntilLoadNextScene: 10
-  mainMenuScene: MainMenu
-  onlineLobbyScene: OnlineLobby
+  mainMenuScene: Assets/Scenes/MainMenu.unity
+  lobbyScene: Assets/Scenes/Lobby.unity
   statDisplays:
   - {fileID: 631959590}
   - {fileID: 1494517731}

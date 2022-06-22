@@ -16,16 +16,18 @@ public class PlayMenu : Menu
     public Button joinButton;
     public Text connectedTxt;
 
-    public string onlineLobbySceneName;
-    //public string offlineLobbySceneName;
+    //Scene to load when hosting or joining offline
+    [Mirror.Scene]
+    public string lobbyScene;
 
+    //Used to allow KCP transport for testing networking on a single machine bia parrelSync
     [SerializeField]
     private bool kcpEnabled;
 
     public override void Open() {
         mainMenu.Close();
         base.Open();
-        ConnectedToSteam(MyNetworkManager.instance.useSteam);
+        ConnectToSteam(MyNetworkManager.instance.useSteam);
     }
 
     public void CloseMenu() {
@@ -33,7 +35,7 @@ public class PlayMenu : Menu
         mainMenu.Open();
     }
 
-    public void ConnectedToSteam(bool connected) {
+    public void ConnectToSteam(bool connected) {
         if (connected)
             EnableOnline();
         else
@@ -54,6 +56,7 @@ public class PlayMenu : Menu
         connectedTxt.text = NO_STEAM_TEXT;
     }
 
+    //Buttons in this menu
     public void Button_Host() {
         MyNetworkManager.instance.HostGame(code.text);
     }
@@ -71,6 +74,6 @@ public class PlayMenu : Menu
     }
 
     private void Start() {
-        MyNetworkManager.instance.onlineScene = onlineLobbySceneName;
+        MyNetworkManager.instance.onlineScene = lobbyScene;
     }
 }

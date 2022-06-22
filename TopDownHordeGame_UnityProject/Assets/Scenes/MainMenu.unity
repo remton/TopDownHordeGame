@@ -3695,8 +3695,8 @@ MonoBehaviour:
   runInBackground: 1
   autoStartServerBuild: 1
   serverTickRate: 30
-  offlineScene: Assets/Scenes/Menus/MainMenu.unity
-  onlineScene: Assets/Scenes/Lobbies/OnlineLobby.unity
+  offlineScene: 
+  onlineScene: 
   transport: {fileID: 1273725195}
   networkAddress: localhost
   maxConnections: 100
@@ -3843,7 +3843,7 @@ MonoBehaviour:
   hostButton: {fileID: 393460656}
   joinButton: {fileID: 1905792007}
   connectedTxt: {fileID: 389085577}
-  onlineLobbySceneName: OnlineLobby
+  lobbyScene: Assets/Scenes/Lobby.unity
   kcpEnabled: 0
 --- !u!1 &1389830626
 GameObject:

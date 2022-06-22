@@ -33,11 +33,13 @@ public class PauseManager : NetworkBehaviour
         }
     }
 
+    //Anyone can tell the server to pause
     [Command(requiresAuthority = false)]
     private void PauseCMD(bool paused) {
         PauseRPC(paused);
     }
 
+    //Server tells all clients to pause the game
     [ClientRpc]
     private void PauseRPC(bool paused) {
         isPaused = paused;

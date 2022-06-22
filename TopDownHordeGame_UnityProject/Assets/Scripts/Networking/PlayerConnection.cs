@@ -26,7 +26,7 @@ public class PlayerConnection : NetworkBehaviour
     [SerializeField]
     private GameObject playerPrefab;
 
-    private SyncList<GameObject> playerCharacters = new SyncList<GameObject>();
+    private readonly SyncList<GameObject> playerCharacters = new SyncList<GameObject>();
 
     public List<GameObject> GetPlayerCharacters() {
         List<GameObject> players = new List<GameObject>();

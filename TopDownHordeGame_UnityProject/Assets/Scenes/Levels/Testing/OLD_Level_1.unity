@@ -2591,8 +2591,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14114a6e435b09c46b3dfda1c15f8929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  purchaseSound: {fileID: 0}
+  failPurchaseSound: {fileID: 0}
   weaponPrefab: {fileID: 6429082733309257629, guid: 5b052c79d1303c04396797d03783426e, type: 3}
-  cost: 500
+  popupCanvas: {fileID: 0}
+  baseCost: 0
 --- !u!114 &319745773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2605,8 +2608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 613adb43c86583f4093d871f5bbb9c85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeTags:
-  - Player
+  triggerTags: []
 --- !u!61 &319745774
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2924,6 +2926,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2951,6 +2954,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 032828bd2767bfb40ac44c0b45c80662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   cam: {fileID: 519420031}
   edgeBufferSize: 5
   minSize: 4.5
@@ -3012,6 +3017,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 4276853911
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!1 &593804362
 GameObject:
   m_ObjectHideFlags: 0
@@ -3073,7 +3095,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.11000001
+  m_VoxelSize: 0.14
   m_BuildHeightMesh: 0
   m_HideEditorLogs: 0
   m_NavMeshData: {fileID: 23800000, guid: 93538366ef662c6438ca37e1a3ce272c, type: 2}
@@ -5674,6 +5696,8 @@ GameObject:
   m_Component:
   - component: {fileID: 893541387}
   - component: {fileID: 893541385}
+  - component: {fileID: 893541388}
+  - component: {fileID: 893541386}
   m_Layer: 9
   m_Name: Window
   m_TagString: Untagged
@@ -5693,21 +5717,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a38f2be4f397d944841ed89313ecdbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   isActive: 0
-  breakDelay: 1
-  health: 5
-  isOpen: 0
   canSpawn: 0
+  playerTrigger: {fileID: 0}
+  breakSound: {fileID: 0}
+  health: 5
+  maxHealth: 0
+  boardDelay: 0
+  breakDelay: 1
   topTile: {x: -15, y: 3, z: 0}
   midTile: {x: -15, y: 2, z: 0}
   bottomTile: {x: -15, y: 1, z: 0}
+  Tiles: []
   tilemap: {fileID: 1951685013}
-  boardedTop: {fileID: 11400000, guid: 6601a22dc9d950d41b6cecac1cfe780d, type: 2}
-  boardedMid: {fileID: 11400000, guid: 933dcaaaa20aa8f4b91925f2741ba0bd, type: 2}
-  boardedBottom: {fileID: 11400000, guid: c62ee2e23333e4e499ca5719624519a5, type: 2}
-  openTop: {fileID: 11400000, guid: 8946fb9acfc56f94c85db248ff1af566, type: 2}
-  openMid: {fileID: 11400000, guid: 3aaa7ce9d99009a4f97d3ac97ed9c5af, type: 2}
-  openBottom: {fileID: 11400000, guid: ee91cfd367530824a9071885d2967feb, type: 2}
+--- !u!114 &893541386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893541384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 4059142887
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!4 &893541387
 Transform:
   m_ObjectHideFlags: 0
@@ -5722,6 +5763,18 @@ Transform:
   m_Father: {fileID: 297376574}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &893541388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893541384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2481c070c49a4dd4cb8ace2ff92559b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &914393318
 GameObject:
   m_ObjectHideFlags: 0
@@ -5879,6 +5932,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1026786699}
   - component: {fileID: 1026786698}
+  - component: {fileID: 1026786701}
+  - component: {fileID: 1026786700}
   m_Layer: 9
   m_Name: StartWindow
   m_TagString: Untagged
@@ -5898,21 +5953,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a38f2be4f397d944841ed89313ecdbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   isActive: 0
-  breakDelay: 1
-  health: 5
-  isOpen: 0
   canSpawn: 0
+  playerTrigger: {fileID: 0}
+  breakSound: {fileID: 0}
+  health: 5
+  maxHealth: 0
+  boardDelay: 0
+  breakDelay: 1
   topTile: {x: -11, y: -5, z: 0}
   midTile: {x: -11, y: -6, z: 0}
   bottomTile: {x: -11, y: -7, z: 0}
+  Tiles: []
   tilemap: {fileID: 1951685013}
-  boardedTop: {fileID: 11400000, guid: 6601a22dc9d950d41b6cecac1cfe780d, type: 2}
-  boardedMid: {fileID: 11400000, guid: 933dcaaaa20aa8f4b91925f2741ba0bd, type: 2}
-  boardedBottom: {fileID: 11400000, guid: c62ee2e23333e4e499ca5719624519a5, type: 2}
-  openTop: {fileID: 11400000, guid: 8946fb9acfc56f94c85db248ff1af566, type: 2}
-  openMid: {fileID: 11400000, guid: 3aaa7ce9d99009a4f97d3ac97ed9c5af, type: 2}
-  openBottom: {fileID: 11400000, guid: ee91cfd367530824a9071885d2967feb, type: 2}
 --- !u!4 &1026786699
 Transform:
   m_ObjectHideFlags: 0
@@ -5927,6 +5982,35 @@ Transform:
   m_Father: {fileID: 297376574}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1026786700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1026786697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 3957729310
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 
+  hasSpawned: 0
+--- !u!114 &1026786701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1026786697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2481c070c49a4dd4cb8ace2ff92559b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1094848940
 GameObject:
   m_ObjectHideFlags: 0
@@ -6131,6 +6215,7 @@ GameObject:
   - component: {fileID: 1235508277}
   - component: {fileID: 1235508276}
   - component: {fileID: 1235508278}
+  - component: {fileID: 1235508279}
   m_Layer: 0
   m_Name: RoundController
   m_TagString: Untagged
@@ -6150,14 +6235,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2814ea2ea1ffc6448bc8410c03575252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   zombiePrefab: {fileID: 6956723953377203767, guid: 4412f1af9ed220f4a924d6646b25bd45, type: 3}
   round: 1
   display: {fileID: 1235508278}
   startRoomWindows:
   - {fileID: 1026786698}
   players: []
+  pauseBeforeGameStart: 0
   pauseBetweenRounds: 0
   maxActiveZombies: 5
+  zombieList: []
 --- !u!4 &1235508277
 Transform:
   m_ObjectHideFlags: 0
@@ -6187,6 +6276,23 @@ MonoBehaviour:
   popup: {fileID: 350365487}
   smallDisplay: {fileID: 1015722686}
   displayTime: 5
+--- !u!114 &1235508279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235508275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 2490328607
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!1001 &1288859729
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8611,6 +8717,7 @@ GameObject:
   - component: {fileID: 1476809641}
   - component: {fileID: 1476809644}
   - component: {fileID: 1476809643}
+  - component: {fileID: 1476809645}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -8630,11 +8737,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8127bc0f35fa6744ebbbc796bbb1280a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   cost: 1000
   doorHolder: {fileID: 130398692}
-  roomWindows:
-  - {fileID: 893541385}
-  - {fileID: 1026786698}
+  popupCanvas: {fileID: 0}
+  roomSpawns: []
+  openSound: {fileID: 0}
+  failedBuySound: {fileID: 0}
 --- !u!4 &1476809642
 Transform:
   m_ObjectHideFlags: 0
@@ -8662,8 +8772,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 613adb43c86583f4093d871f5bbb9c85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeTags:
-  - Player
+  triggerTags: []
 --- !u!61 &1476809644
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8690,6 +8799,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.926898, y: 1.5148396}
   m_EdgeRadius: 0
+--- !u!114 &1476809645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1476809640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 3906798069
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!1 &1768317674
 GameObject:
   m_ObjectHideFlags: 0

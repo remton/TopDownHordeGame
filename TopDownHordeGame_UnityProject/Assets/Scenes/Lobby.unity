@@ -2305,8 +2305,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   menu: {fileID: 275825060}
-  gameSceneName: CatCafeOnline
-  mainMenuScene: MainMenu
+  gameSceneName: Assets/Scenes/Levels/CatCafe/CatCafe.unity
+  mainMenuScene: Assets/Scenes/MainMenu.unity
   maxPlayers: 4
 --- !u!4 &1849094993
 Transform:

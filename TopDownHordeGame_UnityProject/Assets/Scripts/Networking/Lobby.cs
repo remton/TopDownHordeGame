@@ -9,9 +9,9 @@ public class Lobby : NetworkBehaviour
 {
     [SerializeField]
     private LobbyMenu menu;
-    [SerializeField]
+    [SerializeField][Scene]
     private string gameSceneName;
-    [SerializeField]
+    [SerializeField][Scene]
     private string mainMenuScene;
 
     [SyncVar]
@@ -20,7 +20,7 @@ public class Lobby : NetworkBehaviour
     private int numPlayers;
 
     //Synced list holds details for each player's Ready state
-    private SyncList<PlayerLobbyDetails> playerDetails = new SyncList<PlayerLobbyDetails>();
+    private readonly SyncList<PlayerLobbyDetails> playerDetails = new SyncList<PlayerLobbyDetails>();
 
 
     //Local devices
