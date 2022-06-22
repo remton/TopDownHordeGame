@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuController : Menu
 {
-
     public void LoadHelpMenu() {
         SceneManager.LoadScene(2);
     }

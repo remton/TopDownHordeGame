@@ -41,6 +41,14 @@ public class Menu : MonoBehaviour
         }
     }
 
+    public virtual void Open() {
+        gameObject.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(defaultSelectedObject);
+    }
+    public virtual void Close() {
+        gameObject.SetActive(false);
+    }
+
 
     protected virtual void OnUseGamepad() {
         isUsingGamepad = true;

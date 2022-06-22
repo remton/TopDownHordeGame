@@ -55,4 +55,11 @@ public class Player : NetworkBehaviour
         //Server controlled
         GetComponent<PlayerHealth>().enabled = isServer;
     }
+
+    public delegate void ControlsChanged(string controlScheme);
+    public event ControlsChanged EventControlsChanged;
+    public void OnControlsChange() {
+        string scheme = GetComponent<PlayerInput>().currentControlScheme;
+        if (EventControlsChanged != null) { EventControlsChanged.Invoke(scheme); }
+    }
 }

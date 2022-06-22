@@ -22,15 +22,15 @@ public class PlayMenu : Menu
     [SerializeField]
     private bool kcpEnabled;
 
-    public void OpenMenu() {
-        gameObject.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(defaultSelectedObject);
+    public override void Open() {
+        mainMenu.Close();
+        base.Open();
         ConnectedToSteam(MyNetworkManager.instance.useSteam);
     }
 
     public void CloseMenu() {
-        gameObject.SetActive(false);
-        EventSystem.current.SetSelectedGameObject(mainMenu.defaultSelectedObject);
+        base.Close();
+        mainMenu.Open();
     }
 
     public void ConnectedToSteam(bool connected) {

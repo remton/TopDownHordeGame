@@ -9,7 +9,9 @@ public class ReticleController : MonoBehaviour
     private GameObject mouseReticle;
     private List<GameObject> gamepadPlayers = new List<GameObject>();
     private List<GameObject> gamepadReticles = new List<GameObject>();
+    private List<GameObject> players = new List<GameObject>();
     public GameObject reticlePrefab;
+
 
     //used with gamepad for how far to display the reticle
     public float radius;
@@ -55,6 +57,10 @@ public class ReticleController : MonoBehaviour
     }
 
     void OnPlayersChanged(List<GameObject> newPlayers) {
+        UnsubscribePlayerEvents(players);
+        SubscribePlayerEvents(newPlayers);
+        players = newPlayers;
+
         Destroy(mouseReticle);
         // Debug.Log("Reticle OnPlayersChanged was called.");
         mouseReticle = null;
@@ -82,7 +88,24 @@ public class ReticleController : MonoBehaviour
             }
         }
     }
+    
+    public void UpdatedControls(string controlScheme) {
+        Debug.Log("Controls changed to: " + controlScheme);
+        OnPlayersChanged(PlayerManager.instance.GetActiveLocalPlayers());
+    }
 
+    private void SubscribePlayerEvents(List<GameObject> playerList) {
+        foreach (var player in playerList) {
+            if(player != null && player.HasComponent<Player>())
+                player.GetComponent<Player>().EventControlsChanged += UpdatedControls;
+        }
+    }
+    private void UnsubscribePlayerEvents(List<GameObject> playerList) {
+        foreach (var player in playerList) {
+            if (player != null && player.HasComponent<Player>())
+                player.GetComponent<Player>().EventControlsChanged -= UpdatedControls;
+        }
+    }
 
     private void Update() {
         int i = 0;

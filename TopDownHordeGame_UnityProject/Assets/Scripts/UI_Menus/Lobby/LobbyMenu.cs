@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class LobbyMenu : MonoBehaviour
+public class LobbyMenu : Menu
 {
     const string EMPTY_NAME_TEXT = "Press start/space to join!";
     const string EMPTY_READY_TEXT = " ";
