@@ -28,6 +28,10 @@ public class LobbyMenu : Menu
     [SerializeField]
     private GameOptionsMenu gameOptionsMenu;
 
+    public override void OnCancel() {
+        //Do nothing
+    }
+
     //Buttons
     public void ReadyUp() {
         lobby.ReadyUp();

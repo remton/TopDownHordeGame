@@ -44,11 +44,11 @@ public class PauseManager : NetworkBehaviour
     private void PauseRPC(bool paused) {
         isPaused = paused;
         if (isPaused) {
-            menu.OpenMenu();
+            menu.Open();
             PauseTime();
         }
         else {
-            menu.CloseMenu();
+            menu.Close();
             UnpauseTime();
         }
     }

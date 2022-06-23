@@ -13,13 +13,9 @@ public class PauseMenu : Menu {
             PauseManager.instance.UnpauseTime();
         QuitToMainMenu();
     }
-
-    public void OpenMenu() {
-        gameObject.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(defaultSelectedObject);
-    }
-    public void CloseMenu() {
-        gameObject.SetActive(false);
+    public override void OnCancel() {
+        base.OnCancel();
+        PauseManager.instance.PauseButtonPress();
     }
 
     public void QuitToMainMenu() {

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenuController : Menu
-{
+public class MainMenuController : Menu {
+    public override void OnCancel() {
+        //Do nothing
+    }
     public void LoadHelpMenu() {
         SceneManager.LoadScene(2);
     }
