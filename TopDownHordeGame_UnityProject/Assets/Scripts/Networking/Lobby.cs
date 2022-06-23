@@ -10,7 +10,7 @@ public class Lobby : NetworkBehaviour
     [SerializeField]
     private LobbyMenu menu;
     [SerializeField][Scene]
-    private string gameSceneName;
+    public string gameSceneName;
     [SerializeField][Scene]
     private string mainMenuScene;
 
@@ -130,18 +130,6 @@ public class Lobby : NetworkBehaviour
     private void OnPlayerDetailsChanged(SyncList<PlayerLobbyDetails>.Operation op, int index, PlayerLobbyDetails oldDetails, PlayerLobbyDetails newDetails) {
         if (isClient)
             UpdateUI();
-
-        if (isServer) {
-            //Check if everyone is ready and start the game
-            bool everyoneReady = true;
-            for (int i = 0; i < playerDetails.Count; i++) {
-                if (!playerDetails[i].isReady)
-                    everyoneReady = false;
-            }
-            if (everyoneReady) {
-                StartGame();
-            }
-        }
     }
     #endregion
 
@@ -163,6 +151,22 @@ public class Lobby : NetworkBehaviour
     }
 
     //Server method to start the game
+    [Server]
+    public void TryStartGame() {
+        //Check if everyone is ready and start the game
+        bool everyoneReady = true;
+        for (int i = 0; i < playerDetails.Count; i++) {
+            if (!playerDetails[i].isReady)
+                everyoneReady = false;
+        }
+        if (everyoneReady)
+            StartGame();
+    }
+
+    public void OpenGameSettingsMenu() {
+
+    }
+
     [Server]
     private void StartGame() {
         GameSettings.instance.numPlayers = numPlayers;

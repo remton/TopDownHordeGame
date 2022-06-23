@@ -14,7 +14,8 @@ public class LobbyMenu : Menu
     const string EVERYONE_READY_TEXT = "Waiting on host . . .";
     const string NOT_EVERYONE_READY_TEXT = "Ready Up!";
 
-
+    [SerializeField]
+    private GameObject StartGameButton;
     [SerializeField]
     private List<Text> playerNames;
     [SerializeField]
@@ -24,6 +25,9 @@ public class LobbyMenu : Menu
     [SerializeField]
     private Lobby lobby;
 
+    [SerializeField]
+    private GameOptionsMenu gameOptionsMenu;
+
     //Buttons
     public void ReadyUp() {
         lobby.ReadyUp();
@@ -31,10 +35,15 @@ public class LobbyMenu : Menu
     public void LeaveLobby() {
         lobby.LeaveLobby();
     }
+    public void StartGame() {
+        gameOptionsMenu.Open();
+        Close();
+    }
 
     //Updates UI with the correct details
     public void UpdateUI(List<Lobby.PlayerLobbyDetails> playerDetails) {
 
+        bool allReady = true;
         int numSlots = playerNames.Count;
         int numPlayers = 0;
         for (int i = 0; i < playerDetails.Count; i++) {
@@ -46,6 +55,8 @@ public class LobbyMenu : Menu
         int slotIndex = 0;
         //For every details (connection)
         for (int detailsIndex = 0; detailsIndex < playerDetails.Count; detailsIndex++) {
+            if (!playerDetails[detailsIndex].isReady)
+                allReady = false;
 
             //If we havent joined a local player for this connection yet
             if(playerDetails[detailsIndex].numLocalPlayers == 0) {
@@ -79,6 +90,16 @@ public class LobbyMenu : Menu
                         ActivateReadyButton(slotIndex, false);
                 }
                 slotIndex++;
+            }
+
+            //Handle start game button
+            if (PlayerConnection.myConnection.isServer) {
+                StartGameButton.SetActive(true);
+                StartGameButton.GetComponent<Button>().interactable = allReady;
+            }
+            else {
+                StartGameButton.GetComponent<Button>().interactable = false;
+                StartGameButton.SetActive(false);
             }
         }
         //For the rest of the slots
