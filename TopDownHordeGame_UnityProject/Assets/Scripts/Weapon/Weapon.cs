@@ -159,7 +159,7 @@ public class Weapon : NetworkBehaviour
         string[] mask = { "BulletCollider", "ZombieHitbox", "Door", "Prop"};
         RaycastHit2D[] hitInfos = Physics2D.RaycastAll(player.transform.position, direction, Mathf.Infinity, LayerMask.GetMask(mask));
         
-        int hitZombies = 0; //Used to count how many zombies we collided with and not hit more than weapon's penetration
+        int penetrated = 0; //Used to count how many zombies we collided with and not hit more than weapon's penetration
 
         Vector2 startPos = spriteControl.BarrelEndPosition();
         if(hitInfos.Length == 0) {
@@ -175,11 +175,11 @@ public class Weapon : NetworkBehaviour
             if (hitObj.CompareTag("ZombieDamageHitbox")) // We hit a zombie's hitbox
             {
                 hitObj = hitObj.GetComponent<DamageHitbox>().owner;
-                hitZombies++;
+                penetrated++;
                 hitObj.GetComponent<ZombieHealth>().DamageCMD(damage, owner);
 
                 //We have hit our max number of zombies in one shot so we create the trail and break;
-                if (hitZombies == penatration){
+                if (penetrated >= penatration){
                     Vector2 hitPoint = hitInfos[i].point; 
                     hasCreatedTrail = true;
                     effectController.CreateTrail(startPos, hitPoint);
@@ -194,10 +194,15 @@ public class Weapon : NetworkBehaviour
                 break;
             }
             else if (hitObj.CompareTag("Prop") && hitObj.GetComponent<Prop>().canBeShot) {
-                Vector2 hitPoint = hitInfos[i].point;
-                hitObj.GetComponent<Prop>().ShootCMD();
-                hasCreatedTrail = true;
-                effectController.CreateTrail(startPos, hitPoint);
+                Prop prop = hitObj.GetComponent<Prop>();
+                prop.ShootCMD();
+                penetrated += prop.hardness;
+                if (penetrated >= penatration) {
+                    Vector2 hitPoint = hitInfos[i].point;
+                    hasCreatedTrail = true;
+                    effectController.CreateTrail(startPos, hitPoint);
+                    break;
+                }
             }
             else {
                 Vector2 trailEnd = startPos + (direction.normalized * effectController.maxDistance);
@@ -205,6 +210,7 @@ public class Weapon : NetworkBehaviour
                 effectController.CreateTrail(startPos, trailEnd);
             }
         }
+
         if (!hasCreatedTrail) {
             Vector2 trailEnd = startPos + (direction.normalized * effectController.maxDistance);
             effectController.CreateTrail(startPos, trailEnd);

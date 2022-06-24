@@ -6,6 +6,7 @@ using Mirror;
 public class Prop : NetworkBehaviour
 {
     public bool canBeShot;
+    public int hardness; // used to determine bullet penetration
 
     [Command(requiresAuthority = false)]
     public void ShootCMD() {

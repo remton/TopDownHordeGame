@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Timer))]
-public class Prop_Computer : Prop
+public class Prop_Monitor : Prop
 {
     [SerializeField]
     private HitBoxController trigger;
     private Animator animator;
     private Timer timer;
 
+    [SerializeField]
+    private float sparkDelay;
+    private bool canSpark = false;
     private bool isBroke = false;
-    private bool hasTyped = false;
-    public float timeBetweenSparks;
+    private bool hasTurnedOn = false;
     public AudioClip breakSound;
-    public AudioClip typeSound;
-
+    public AudioClip turnOnSoundSound;
 
     private void Awake() {
         timer = GetComponent<Timer>();
@@ -25,31 +26,39 @@ public class Prop_Computer : Prop
     }
 
     protected override void OnShot() {
-        canBeShot = false;
+        if (isBroke) {
+            if(canSpark)
+                Spark();
+            return;
+        }
+        canSpark = true;
         isBroke = true;
-        animator.SetTrigger("shot");
-        timer.CreateTimer(timeBetweenSparks, Spark);
+        animator.SetTrigger("break");
         AudioManager.instance.PlaySound(breakSound);
     }
 
     private void Spark() {
         if (!isBroke)
             return;
+        canSpark = false;
         animator.SetTrigger("spark");
-        timer.CreateTimer(timeBetweenSparks, Spark);
+        timer.CreateTimer(sparkDelay, AllowSpark);
+    }
+    private void AllowSpark() {
+        canSpark = true;    
     }
 
-    private void Type(GameObject player) {
-        if (isBroke || hasTyped)
+    private void TurnOn(GameObject player) {
+        if (isBroke || hasTurnedOn)
             return;
-        AudioManager.instance.PlaySound(typeSound);
-        animator.SetTrigger("type");
+        AudioManager.instance.PlaySound(turnOnSoundSound);
+        animator.SetTrigger("turnOn");
     }
 
     private void PlayerEnterTrigger(GameObject player) {
-        player.GetComponent<PlayerActivate>().EventPlayerActivate += Type;
+        player.GetComponent<PlayerActivate>().EventPlayerActivate += TurnOn;
     }
     private void PlayerExitTrigger(GameObject player) {
-        player.GetComponent<PlayerActivate>().EventPlayerActivate -= Type;
+        player.GetComponent<PlayerActivate>().EventPlayerActivate -= TurnOn;
     }
 }
