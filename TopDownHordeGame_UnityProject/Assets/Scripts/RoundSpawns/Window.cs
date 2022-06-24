@@ -22,9 +22,7 @@ public class Window : ZombieSpawn
     private bool isOpen = false;
     private bool isBoarding = false;
 
-    public Vector3Int topTile;
-    public Vector3Int midTile;
-    public Vector3Int bottomTile;
+    public GameObject spawnPoint;
 
     [Tooltip("list of states for window start with open at index 0. 3 tiles per state")]
     // 3 tiles per state
@@ -32,8 +30,7 @@ public class Window : ZombieSpawn
     // open top,     open mid,     open bottom,
     // 1 board top,  1 board mid,  1 board bottom, 
     // ...
-    public List<Tile> Tiles;
-    public Tilemap tilemap;
+    public List<Sprite> boardStates;
 
     private void Awake() {
         timer = GetComponent<Timer>();
@@ -141,17 +138,17 @@ public class Window : ZombieSpawn
     }
     
     private void UpdateWindowBoards() {
-        int numStates = ((Tiles.Count) / TILES_PER_STATE);
-        int currState = Mathf.CeilToInt(((float)health / maxHealth) * (numStates-1));
-        //Debug.Log("State" + currState.ToString());
-        int topIndex = currState * TILES_PER_STATE;
-        tilemap.SetTile(topTile, Tiles[topIndex]);
-        tilemap.SetTile(midTile, Tiles[topIndex+1]);
-        tilemap.SetTile(bottomTile, Tiles[topIndex+2]);
+        if(boardStates.Count == 0) {
+            Debug.LogWarning("Windows boards havent been set in inspector!");
+            return;
+        }
+
+        int currState = Mathf.CeilToInt(((float)health / maxHealth) * (boardStates.Count-1));
+        GetComponent<SpriteRenderer>().sprite = boardStates[currState];
     }
 
-    private void SpawnZombie() {
+    protected override void SpawnZombie() {
         GameObject zombie = RoundController.instance.CreateZombie();
-        zombie.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        zombie.transform.position = new Vector3(spawnPoint.transform.position.x, spawnPoint.transform.position.y, spawnPoint.transform.position.z);
     }
 }

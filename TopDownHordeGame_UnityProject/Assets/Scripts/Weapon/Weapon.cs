@@ -156,7 +156,7 @@ public class Weapon : NetworkBehaviour
         bool hasCreatedTrail = false;
 
         // Raycast in direction and get all collisions with mask
-        string[] mask = { "BulletCollider", "ZombieHitbox", "Door"};
+        string[] mask = { "BulletCollider", "ZombieHitbox", "Door", "Prop"};
         RaycastHit2D[] hitInfos = Physics2D.RaycastAll(player.transform.position, direction, Mathf.Infinity, LayerMask.GetMask(mask));
         
         int hitZombies = 0; //Used to count how many zombies we collided with and not hit more than weapon's penetration
@@ -192,6 +192,12 @@ public class Weapon : NetworkBehaviour
                 hasCreatedTrail = true;
                 effectController.CreateTrail(startPos, hitPoint);
                 break;
+            }
+            else if (hitObj.CompareTag("Prop") && hitObj.GetComponent<Prop>().canBeShot) {
+                Vector2 hitPoint = hitInfos[i].point;
+                hitObj.GetComponent<Prop>().ShootCMD();
+                hasCreatedTrail = true;
+                effectController.CreateTrail(startPos, hitPoint);
             }
             else {
                 Vector2 trailEnd = startPos + (direction.normalized * effectController.maxDistance);

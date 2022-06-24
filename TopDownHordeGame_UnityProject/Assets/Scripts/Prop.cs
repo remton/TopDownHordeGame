@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class Prop : MonoBehaviour
+public class Prop : NetworkBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public bool canBeShot;
+
+    [Command(requiresAuthority = false)]
+    public void ShootCMD() {
+        ShootRPC();
+    }
+    [ClientRpc]
+    private void ShootRPC() {
+        OnShot();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    protected virtual void OnShot() {
         
     }
 }

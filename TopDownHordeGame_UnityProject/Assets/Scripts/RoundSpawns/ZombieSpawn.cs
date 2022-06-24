@@ -43,7 +43,7 @@ public class ZombieSpawn: NetworkBehaviour
     }
 
     [Server]
-    private void SpawnZombie() {
+    protected virtual void SpawnZombie() {
         GameObject zombie = RoundController.instance.CreateZombie();
         zombie.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
     }
