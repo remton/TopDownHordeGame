@@ -44,6 +44,7 @@ public class Prop_Computer : Prop
     private void Type(GameObject player) {
         if (isBroke || hasTyped)
             return;
+        hasTyped = true;
         AudioManager.instance.PlaySound(typeSound);
         animator.SetTrigger("type");
     }
