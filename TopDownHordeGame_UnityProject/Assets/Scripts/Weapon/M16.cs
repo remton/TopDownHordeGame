@@ -15,6 +15,7 @@ public class M16 : Weapon
     private GameObject currPlayer;
 
     protected override void Awake() {
+        base.Awake();
         fireDeley += burstTime;
         timebetweenShots = burstTime/burstCount;
     }
