@@ -130,7 +130,8 @@ public class PlayerConnection : NetworkBehaviour
         DontDestroyOnLoad(gameObject);
     }
     private void OnDestroy() {
-        MyNetworkManager.instance.OnPlayerConnectionDestroyed(this);
+        if(MyNetworkManager.instance!=null)
+            MyNetworkManager.instance.OnPlayerConnectionDestroyed(this);
     }
 
 }

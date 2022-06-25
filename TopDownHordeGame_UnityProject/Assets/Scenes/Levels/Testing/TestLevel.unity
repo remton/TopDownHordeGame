@@ -29576,80 +29576,23 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1620573663443423773, guid: 47d4051e580cd704281fa716cc0b3945, type: 3}
-      propertyPath: m_Size.y
-      value: 0.20935309
-      objectReference: {fileID: 0}
-    - target: {fileID: 1620573663443423773, guid: 47d4051e580cd704281fa716cc0b3945, type: 3}
-      propertyPath: m_Offset.y
-      value: 0.43681717
-      objectReference: {fileID: 0}
-    - target: {fileID: 2173837885223394198, guid: 47d4051e580cd704281fa716cc0b3945, type: 3}
-      propertyPath: m_SpriteSortPoint
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2704578078993037818, guid: 47d4051e580cd704281fa716cc0b3945, type: 3}
       propertyPath: sceneId
-      value: 2430527336
+      value: 3415282048
       objectReference: {fileID: 0}
-    - target: {fileID: 3392550246646733062, guid: 47d4051e580cd704281fa716cc0b3945, type: 3}
-      propertyPath: m_Offset.y
-      value: 0
+    - target: {fileID: 3581152306804683302, guid: 47d4051e580cd704281fa716cc0b3945, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6221675596874323354, guid: 47d4051e580cd704281fa716cc0b3945, type: 3}
       propertyPath: m_Name
       value: Prop_Tree
       objectReference: {fileID: 0}
-    - target: {fileID: 6477225195484038310, guid: 47d4051e580cd704281fa716cc0b3945, type: 3}
-      propertyPath: m_RootOrder
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 6477225195484038310, guid: 47d4051e580cd704281fa716cc0b3945, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -8.27
-      objectReference: {fileID: 0}
-    - target: {fileID: 6477225195484038310, guid: 47d4051e580cd704281fa716cc0b3945, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 17.74
-      objectReference: {fileID: 0}
-    - target: {fileID: 6477225195484038310, guid: 47d4051e580cd704281fa716cc0b3945, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6477225195484038310, guid: 47d4051e580cd704281fa716cc0b3945, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6477225195484038310, guid: 47d4051e580cd704281fa716cc0b3945, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6477225195484038310, guid: 47d4051e580cd704281fa716cc0b3945, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6477225195484038310, guid: 47d4051e580cd704281fa716cc0b3945, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6477225195484038310, guid: 47d4051e580cd704281fa716cc0b3945, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6477225195484038310, guid: 47d4051e580cd704281fa716cc0b3945, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6477225195484038310, guid: 47d4051e580cd704281fa716cc0b3945, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7877978429744392410, guid: 47d4051e580cd704281fa716cc0b3945, type: 3}
       propertyPath: sceneId
-      value: 1643278393
+      value: 2465494384
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2704578078993037818, guid: 47d4051e580cd704281fa716cc0b3945, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47d4051e580cd704281fa716cc0b3945, type: 3}
 --- !u!1 &2138646291
 GameObject:
@@ -29912,6 +29855,10 @@ PrefabInstance:
     - target: {fileID: 1013533334214971830, guid: abc133fba00b1e14dad91dd7db62306d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1013533335297054288, guid: abc133fba00b1e14dad91dd7db62306d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -5.3930206
       objectReference: {fileID: 0}
     - target: {fileID: 6519708967023122633, guid: abc133fba00b1e14dad91dd7db62306d, type: 3}
       propertyPath: m_SizeDelta.x

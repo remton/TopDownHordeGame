@@ -33,12 +33,12 @@ public class Weapon : NetworkBehaviour
     protected GameObject owner;
 
 
-    private void Awake() {
+    protected virtual void Awake() {
         spriteControl = GetComponent<WeaponSpriteController>();
         effectController = GetComponent<FireEffectController>();
     }
 
-    private void Start() {
+    protected virtual void Start() {
         damage = baseDamage;
         if (infiniteReserve)
             reserveSize = int.MaxValue;

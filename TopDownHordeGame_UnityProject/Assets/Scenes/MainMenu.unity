@@ -3844,7 +3844,7 @@ MonoBehaviour:
   joinButton: {fileID: 1905792007}
   connectedTxt: {fileID: 389085577}
   lobbyScene: Assets/Scenes/Lobby.unity
-  kcpEnabled: 0
+  kcpEnabled: 1
 --- !u!1 &1389830626
 GameObject:
   m_ObjectHideFlags: 0

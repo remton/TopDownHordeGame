@@ -14,7 +14,7 @@ public class M16 : Weapon
     private int shotsLeftInBurst;
     private GameObject currPlayer;
 
-    private void Awake() {
+    protected override void Awake() {
         fireDeley += burstTime;
         timebetweenShots = burstTime/burstCount;
     }
