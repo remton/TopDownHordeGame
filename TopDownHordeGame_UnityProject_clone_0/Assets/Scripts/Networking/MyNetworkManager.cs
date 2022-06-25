@@ -86,32 +86,21 @@ public class MyNetworkManager : NetworkManager
         return spawnPrefabs[index];
     }
 
-    //--- Handle SteamLobby Events ---
-    private void OnSteamLobbyJoinGame(SteamLobby.JoinLobbyData data) {
-        if (data.successful) {
-            Debug.Log("Connecting User SteamID:" + SteamFriends.GetFriendPersonaName(data.userSteamID));
-        }
-    }
-    private void OnSteamLobbyCreateGame(SteamLobby.CreateLobbyData data) {
-        Debug.Log("Hosting Lobby SteamID:" + data.lobbySteamID);
-    }
-
-
     public override void OnServerConnect(NetworkConnectionToClient conn) {
         base.OnServerConnect(conn);
-        Debug.Log("Connected: " + conn.ToString());
+        Debug.Log("Server Connected: " + conn.ToString());
     }
     public override void OnServerDisconnect(NetworkConnectionToClient conn) {
         base.OnServerDisconnect(conn);
-        Debug.Log("Disconnected: " + conn.ToString());
+        Debug.Log("Server Disconnected: " + conn.ToString());
     }
     public override void OnClientConnect() {
         base.OnClientConnect();
-        Debug.Log("Connected!");
+        Debug.Log("Client Connected!");
     }
     public override void OnClientDisconnect() {
         base.OnClientDisconnect();
-        Debug.Log("Disconnected!");
+        Debug.Log("Client Disconnected!");
     }
 
     public override void OnServerReady(NetworkConnectionToClient conn) {
@@ -144,7 +133,7 @@ public class MyNetworkManager : NetworkManager
 
     //--- Handle PlayerConnection components ---
     public override void OnServerAddPlayer(NetworkConnectionToClient conn) {
-        // Normal Networkmanager 
+        // ------- Normal Networkmanager -------
         Transform startPos = GetStartPosition();
         GameObject player = startPos != null
             ? Instantiate(playerPrefab, startPos.position, startPos.rotation)
@@ -154,12 +143,16 @@ public class MyNetworkManager : NetworkManager
         // => appending the connectionId is WAY more useful for debugging!
         player.name = $"{playerPrefab.name} [connId={conn.connectionId}]";
         NetworkServer.AddPlayerForConnection(conn, player);
+        // ------- Normal Networkmanager -------
 
-        //Addition for MyNetworkManager
+        //------- Addition for MyNetworkManager -------
         player.GetComponent<PlayerConnection>().Init();
         playerConnections.Add(player.GetComponent<PlayerConnection>());
         if(ServerEvent_PlayerConnectionAdded != null) { ServerEvent_PlayerConnectionAdded.Invoke(player.GetComponent<PlayerConnection>()); }
+        //------- Addition for MyNetworkManager -------
     }
+
+    //Called by playerconnections in their OnDestroy method
     public void OnPlayerConnectionDestroyed(PlayerConnection connection) {
         if (playerConnections.Remove(connection)) {
             if (ServerEvent_PlayerConnectionRemoved != null) { ServerEvent_PlayerConnectionRemoved.Invoke(connection); }
@@ -192,21 +185,23 @@ public class MyNetworkManager : NetworkManager
         kcpTransport = GetComponent<kcp2k.KcpTransport>();
         steamTransport = gameObject.GetComponent<FizzySteamworks>();
 
-        if (!steamDisabled && useSteam && SetSteamTransport()) {
-            steamLobby.EventOnJoinGame += OnSteamLobbyJoinGame;
-            steamLobby.EventOnCreateLobby += OnSteamLobbyCreateGame;
-        }
-        else {
+        if(steamDisabled || !useSteam || !SetSteamTransport()) {
             DisableSteam();
             SetKcpTransport();
         }
-    }
 
+    }
     public override void Start() {
         base.Start();
         useSteam = !steamDisabled;
     }
+    public override void OnDestroy() {
+        if(steamLobby!=null)
+            Destroy(steamLobby.gameObject);
+        base.OnDestroy();
+    }
 
+    //--- Set network transports ---
     private bool SetSteamTransport() {
         if (steamDisabled) {
             return false;
@@ -218,6 +213,7 @@ public class MyNetworkManager : NetworkManager
         steamTransport.enabled = true;
         steamLobby.enabled = true;
         transport = steamTransport;
+        Transport.activeTransport = transport;
 
         //Failed connection to steam.
         if (!SteamManager.Initialized) {
@@ -230,18 +226,13 @@ public class MyNetworkManager : NetworkManager
         useSteam = false;
         kcpTransport.enabled = true;
         transport = kcpTransport;
+        Transport.activeTransport = transport;
     }
     private void DisableSteam() {
         steamDisabled = true;
         useSteam = false;
-
+        
         steamTransport.enabled = false;
         steamLobby.enabled = false;
-    }
-
-    public override void OnDestroy() {
-        if(steamLobby!=null)
-            Destroy(steamLobby.gameObject);
-        base.OnDestroy();
     }
 }

@@ -19,7 +19,7 @@ public class Menu : MonoBehaviour
             OnCancel();
         }
 
-        //If we click we are using a keyboard to navigate
+        //If we click or we dont have a gamepad we are using a keyboard to navigate
         if (Gamepad.current == null)
             OnUseKeyboard();
         if (Mouse.current != null && Mouse.current.leftButton.IsPressed()) {
@@ -41,6 +41,13 @@ public class Menu : MonoBehaviour
         }
     }
 
+    public virtual void Open() {
+        gameObject.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(defaultSelectedObject);
+    }
+    public virtual void Close() {
+        gameObject.SetActive(false);
+    }
 
     protected virtual void OnUseGamepad() {
         isUsingGamepad = true;
@@ -51,6 +58,6 @@ public class Menu : MonoBehaviour
     }
 
     public virtual void OnCancel() {
-
+        Close();
     }
 }

@@ -15,7 +15,6 @@ public class ImageAnimation : MonoBehaviour {
 
 	private int index = 0;
 	private Image image;
-	private int frame = 0;
 
 	void Awake() {
 		image = GetComponent<Image>();

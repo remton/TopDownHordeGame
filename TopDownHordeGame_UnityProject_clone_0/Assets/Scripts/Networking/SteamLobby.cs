@@ -4,7 +4,7 @@ using UnityEngine;
 using Steamworks;
 using Mirror;
 
-public class SteamLobby : NetworkBehaviour
+public class SteamLobby : MonoBehaviour
 {
     // --- Callbacks used by steam when various things happen ---
 
@@ -48,13 +48,6 @@ public class SteamLobby : NetworkBehaviour
     private string lobbyCode;
     private List<CSteamID> lobbies = new List<CSteamID>();
 
-    private void Awake() {
-        //Debug.Log("Awake called");
-        //Debug.Log("enabled? " + this.enabled);
-        //Debug.Log("gameobject enabled? " + this.gameObject.activeSelf);
-    }
-
-
     private void Start() {
         // if not signed into steam
         if (!SteamManager.Initialized) {
@@ -78,7 +71,6 @@ public class SteamLobby : NetworkBehaviour
         }
 
         if(lobbies.Count == 0) {
-            Debug.Log("Creating lobby. . .");
             SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypePublic, MyNetworkManager.instance.maxConnections);
             //Create lobby triggers a callback (OnLobbbyCreated) when it is done
         }
@@ -104,6 +96,8 @@ public class SteamLobby : NetworkBehaviour
     }
 
     public void GetLobbies(string code) {
+        Debug.Log("GetLobbies called");
+
         isWaitingOnLobbyRequest = true;
         lobbyCode = code;
         SteamMatchmaking.AddRequestLobbyListStringFilter(
@@ -132,6 +126,7 @@ public class SteamLobby : NetworkBehaviour
 
     //callback called when steam finishes creating the lobby
     private void OnLobbyCreated(LobbyCreated_t callback) {
+
         //if the lobby wasnt created
         if (callback.m_eResult == EResult.k_EResultAccessDenied) {
             Debug.LogError("Could not create lobby: Access Denied!");
@@ -140,8 +135,6 @@ public class SteamLobby : NetworkBehaviour
             Debug.LogError("Could not create lobby: " + callback.m_eResult.ToString());
             return;
         }
-
-        MyNetworkManager.instance.StartHost();
 
         //Adds data to the lobby. Data is accessed using a string key in this case, HOSTADDRESS_KEY.
         //Here we are storing the user's steam id as the address.
@@ -155,8 +148,10 @@ public class SteamLobby : NetworkBehaviour
             new CSteamID(callback.m_ulSteamIDLobby),
             LOBBYCODE_KEY,
             lobbyCode);
-        Debug.Log("Lobby host address: " + SteamUser.GetSteamID().ToString());
-        Debug.Log("Lobby code : " + lobbyCode);
+
+        Debug.Log("Created lobby with code: " + lobbyCode);
+        MyNetworkManager.instance.StartHost();
+
         CallCreateLobbyEvent(new CSteamID(callback.m_ulSteamIDLobby));
         CallJoinLobbyEvent(true);
     }
@@ -173,7 +168,7 @@ public class SteamLobby : NetworkBehaviour
             return;
         }
 
-        Debug.Log("Entered lobby: " + callback.m_ulSteamIDLobby); 
+        Debug.Log("We are client");
 
         string hostAddress = SteamMatchmaking.GetLobbyData(
             new CSteamID(callback.m_ulSteamIDLobby), 
@@ -187,12 +182,15 @@ public class SteamLobby : NetworkBehaviour
             return;
         }
         MyNetworkManager.instance.networkAddress = hostAddress;
+        Debug.Log("Starting client!!!");
         MyNetworkManager.instance.StartClient();
         CallJoinLobbyEvent(true);
     }
 
     //Callback when steam finishes lobby list request
     private void OnGetLobbiesList(LobbyMatchList_t result) {
+        Debug.Log("OnGetLobbiesList called");
+
         isWaitingOnLobbyRequest = false;
         lobbies.Clear();
         Debug.Log("Found " + result.m_nLobbiesMatching + " lobbies!");
@@ -204,4 +202,5 @@ public class SteamLobby : NetworkBehaviour
             EventAfterLobbyRequest = null;
         }
     }
+
 }

@@ -6,22 +6,19 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
+    path: Assets/Scenes/Menus/MainMenu.unity
     guid: bc4c9be4b2c3d3f47a7ccecc500cdcd1
   - enabled: 1
-    path: Assets/Scenes/HelpMenu.unity
+    path: Assets/Scenes/Menus/HelpMenu.unity
     guid: 237765cca3bfc6a47909379c2428459b
   - enabled: 1
-    path: Assets/Scenes/GameOver.unity
+    path: Assets/Scenes/Menus/GameOver.unity
     guid: a7916dc74c7094744a709837fcc0534e
   - enabled: 1
-    path: Assets/Scenes/Lobby.unity
+    path: Assets/Scenes/Lobbies/OnlineLobby.unity
     guid: f44bd40f9ad066948970bd52c950c82d
   - enabled: 1
-    path: Assets/Scenes/Levels/CatCafe/CatCafe.unity
+    path: Assets/Scenes/Levels/CatCafe/CatCafeOnline.unity
     guid: 2d05ab18e6d8b584f91ae94adbae6ea4
-  - enabled: 1
-    path: Assets/Scenes/Levels/Testing/TestLevel.unity
-    guid: 17aa16e9f6b322e4a8396b9d3ca9feb9
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 58c65e19acd3a36498243221d21df442, type: 2}

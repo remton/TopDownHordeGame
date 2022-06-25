@@ -680,6 +680,7 @@ namespace Mirror
 
             // set active transport AFTER setting singleton.
             // so only if we didn't destroy ourselves.
+            Debug.Log("Active transport set! " + transport.ToString());
             Transport.activeTransport = transport;
             return true;
         }

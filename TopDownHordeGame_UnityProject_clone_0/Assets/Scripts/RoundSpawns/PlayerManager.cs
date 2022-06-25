@@ -12,9 +12,8 @@ public class PlayerManager : NetworkBehaviour
     public GameObject playerPrefab;
     public GameObject spawnPoint;
     public GameObject deadPlayerLocation;
-    private int numPlayers;
     private List<GameObject> localPlayers = new List<GameObject>();
-    private SyncList<GameObject> allPlayers = new SyncList<GameObject>();
+    private readonly SyncList<GameObject> allPlayers = new SyncList<GameObject>();
 
     private void OnAllPlayersChange(SyncList<GameObject>.Operation op, int index, GameObject oldObj, GameObject newObj) {
         if (EventActivePlayersChange != null) { EventActivePlayersChange.Invoke(GetActivePlayers()); }

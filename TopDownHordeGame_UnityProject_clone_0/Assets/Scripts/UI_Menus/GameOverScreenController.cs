@@ -8,8 +8,12 @@ public class GameOverScreenController : MonoBehaviour
     private Timer timer;
     private GameOverData data;
     public float timeUntilLoadNextScene;
-    public string mainMenuScene;
-    public string onlineLobbyScene;
+
+    [Mirror.Scene]
+    public string mainMenuScene = "";
+    [Mirror.Scene]
+    public string lobbyScene = "";
+
     public List<GameObject> statDisplays;
     public List<Text> nameTxts;
     public List<Text> scoreTxts;
@@ -42,7 +46,7 @@ public class GameOverScreenController : MonoBehaviour
         //this is an online game
         if (MyNetworkManager.instance.isNetworkActive) {
             if(PlayerConnection.myConnection.isServer)
-                MyNetworkManager.instance.ChangeScene(onlineLobbyScene);
+                MyNetworkManager.instance.ChangeScene(lobbyScene);
         }
         else {
             //this is an offline game
