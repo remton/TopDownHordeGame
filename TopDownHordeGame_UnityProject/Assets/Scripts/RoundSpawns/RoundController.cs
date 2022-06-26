@@ -48,6 +48,10 @@ public class RoundController : NetworkBehaviour
     }
 
     private void Awake() {
+        if (isServer) {
+            MyNetworkManager.instance.ServerEvent_PlayerConnectionAdded += PlayerConnect;
+            MyNetworkManager.instance.ServerEvent_AllClientsReady += StartGame;
+        }
         if (instance == null) {
             instance = this;
         }
@@ -56,12 +60,21 @@ public class RoundController : NetworkBehaviour
             Debug.LogWarning("Two instances of round controller active! One is being destroyed!");
         }
     }
+    private void OnDestroy() {
+        if (MyNetworkManager.instance != null) {
+            MyNetworkManager.instance.ServerEvent_PlayerConnectionAdded -= PlayerConnect;
+            MyNetworkManager.instance.ServerEvent_AllClientsReady -= StartGame;
+        }
+    }
     private void Start() {
         if (!isServer) {
             activeSpawns.Clear();
             this.enabled = false;
             return;
         }
+    }
+
+    private void StartGame() {
 
         //Initial round values
         numPlayers = GameSettings.instance.numPlayers;
@@ -121,6 +134,11 @@ public class RoundController : NetworkBehaviour
     }
 
     [Server]
+    private void PlayerConnect(PlayerConnection connection) {
+        NextRoundTRPC(connection.connectionToClient, round);
+        DisplayRoundChangeTRPC(connection.connectionToClient, round);
+    }
+    [Server]
     public GameObject CreateZombie() {
         //spawn special zombie
         GameObject zombieObj = Instantiate(RandomChoice.ChooseRandom(zombieList));
@@ -144,13 +162,23 @@ public class RoundController : NetworkBehaviour
         //Debug.Log("Round: " + round.ToString());
     }
     [ClientRpc]
-    private void NextRoundRPC(int round) {
-        this.round = round;
+    private void NextRoundRPC(int newRound) {
+        this.round = newRound;
         hasShownRoundChange = false;
-        if (EventRoundChange != null) { EventRoundChange.Invoke(round); }
+        if (EventRoundChange != null) { EventRoundChange.Invoke(newRound); }
+    }
+    [TargetRpc]
+    private void NextRoundTRPC(NetworkConnection network, int newRound) {
+        this.round = newRound;
+        hasShownRoundChange = false;
+        if (EventRoundChange != null) { EventRoundChange.Invoke(newRound); }
     }
     [ClientRpc]
     private void DisplayRoundChangeRPC(int round) {
+        display.RoundChange(round);
+    }
+    [TargetRpc]
+    private void DisplayRoundChangeTRPC(NetworkConnection network, int round) {
         display.RoundChange(round);
     }
 
@@ -207,4 +235,5 @@ public class RoundController : NetworkBehaviour
         }
         return windows;
     }
+
 }
