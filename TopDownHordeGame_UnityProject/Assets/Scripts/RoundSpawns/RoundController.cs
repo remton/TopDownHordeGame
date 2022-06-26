@@ -129,6 +129,7 @@ public class RoundController : NetworkBehaviour
         return zombieObj;
     }
 
+    [Server]
     private void NextRound() {
         round++;
         zombiesToSpawn = GetMaxZombies();
