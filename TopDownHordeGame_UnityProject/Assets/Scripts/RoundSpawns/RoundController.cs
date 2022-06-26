@@ -14,7 +14,7 @@ public class RoundController : NetworkBehaviour
 
     [SerializeField] private RoundDisplay display;
 
-    public List<ZombieSpawn> startRoomWindows;
+    public List<ZombieSpawn> startRoomZombieSpawns;
     private List<ZombieSpawn> activeSpawns = new List<ZombieSpawn>();
     public List<GameObject> players;
 
@@ -75,7 +75,7 @@ public class RoundController : NetworkBehaviour
         //Debug.Log(numPlayers + " players");
         isWaitingForNextRound = true;
         timeUntilRoundStart = pauseBeforeGameStart;
-        ActivateSpawns(startRoomWindows);
+        ActivateSpawns(startRoomZombieSpawns);
     }
 
     private void Update() {

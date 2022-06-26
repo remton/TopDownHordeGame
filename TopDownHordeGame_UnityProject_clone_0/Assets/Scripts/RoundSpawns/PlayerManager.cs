@@ -7,9 +7,9 @@ using Mirror;
 
 public class PlayerManager : NetworkBehaviour
 {
+    [Scene]
     public string GameOverScene;
 
-    public GameObject playerPrefab;
     public GameObject spawnPoint;
     public GameObject deadPlayerLocation;
     private List<GameObject> localPlayers = new List<GameObject>();
