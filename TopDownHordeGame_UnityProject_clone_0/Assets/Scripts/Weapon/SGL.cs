@@ -18,7 +18,6 @@ public class SGL : Weapon
     {
         base.Fire(player, direction);
         FireGrenade(player, direction);
-        AudioManager.instance.PlaySound(shootSound);
     }
 
     [Command(requiresAuthority = false)]

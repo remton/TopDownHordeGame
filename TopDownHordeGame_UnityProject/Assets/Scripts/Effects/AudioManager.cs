@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class AudioManager : MonoBehaviour {
     public float masterVolume;
     public AudioSource sfxSource;
@@ -36,6 +35,7 @@ public class AudioManager : MonoBehaviour {
     public void PlaySound(AudioClip clip, float volumeMultiplier=1f) {
         sfxSource.PlayOneShot(clip, SaveData.instance.settings_volumeSFX * masterVolume * volumeMultiplier);
     }
+
     IEnumerator AnimateMusicCrossfade(float duration) {
         float percent = 0;
 

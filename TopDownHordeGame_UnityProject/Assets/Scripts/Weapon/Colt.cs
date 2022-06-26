@@ -58,7 +58,6 @@ public class Colt : Weapon{
         this.player = player;
         base.Fire(player, direction);
         CameraController.instance.Shake(shakeIntensity / 35);
-        AudioManager.instance.PlaySound(shootSound);
         Vector2 startPos = new Vector3(player.transform.position.x, player.transform.position.y, 0);
         FireRicochet(startPos, direction, 0);
     }

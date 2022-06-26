@@ -40,6 +40,9 @@ public class MyNetworkManager : NetworkManager
     public delegate void Server_AllClientsReady();
     public event Server_AllClientsReady ServerEvent_AllClientsReady;
 
+    //For a clip to be able to be played over the network it needs to be here
+    public List<AudioClip> networkClips;
+
     //--- Public Methods ---
     public void HostOffline() {
         useSteam = false;
@@ -72,7 +75,8 @@ public class MyNetworkManager : NetworkManager
         if (isNetworkActive)
             ServerChangeScene(sceneName);
     }
-    
+
+
     public int GetPrefabIndex(GameObject prefab) {
         for (int i = 0; i < spawnPrefabs.Count; i++) {
             if (prefab == spawnPrefabs[i])

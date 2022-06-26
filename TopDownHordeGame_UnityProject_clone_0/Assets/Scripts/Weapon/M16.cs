@@ -15,6 +15,7 @@ public class M16 : Weapon
     private GameObject currPlayer;
 
     protected override void Awake() {
+        base.Awake();
         fireDeley += burstTime;
         timebetweenShots = burstTime/burstCount;
     }
@@ -29,7 +30,7 @@ public class M16 : Weapon
             if(timeUntilNextShot <= 0) {
                 base.Fire(currPlayer, currPlayer.GetComponent<PlayerMovement>().GetCurrentLookDir());
                 FireShot(currPlayer, currPlayer.GetComponent<PlayerMovement>().GetCurrentLookDir(), spreadAngle);
-                AudioManager.instance.PlaySound(shootSound);
+                PlayShootSoundForAll();
                 currPlayer.GetComponent<PlayerWeaponControl>().UpdateVisuals();
                 shotsLeftInBurst--;
                 timeUntilNextShot = timebetweenShots;

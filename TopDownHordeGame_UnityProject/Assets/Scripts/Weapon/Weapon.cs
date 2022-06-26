@@ -146,6 +146,7 @@ public class Weapon : NetworkBehaviour
     /// (fireDeley is handled in PlayerWeaponControl script) </summary>
     public virtual void Fire(GameObject player, Vector2 direction) {
         inMag--;
+        PlayShootSoundForAll();
     }
 
     // ---- Utility methods not called in this base implementation ----
@@ -225,4 +226,18 @@ public class Weapon : NetworkBehaviour
         Vector2 fireDir = new Vector2(Mathf.Cos(baseAngle + angleDiff * Mathf.Deg2Rad), Mathf.Sin(baseAngle + angleDiff * Mathf.Deg2Rad));
         FireShot(player, fireDir);
     }
+
+    //Sound handling
+    public void PlayShootSoundForAll() {
+        PlayShootSoundCMD();
+    }
+    [Command(requiresAuthority = false)]
+    private void PlayShootSoundCMD() {
+        PlayShootSoundRPC();
+    }
+    [ClientRpc]
+    private void PlayShootSoundRPC() {
+        AudioManager.instance.PlaySound(shootSound);
+    }
+
 } 
