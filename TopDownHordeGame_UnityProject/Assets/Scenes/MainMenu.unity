@@ -3695,8 +3695,8 @@ MonoBehaviour:
   runInBackground: 1
   autoStartServerBuild: 1
   serverTickRate: 30
-  offlineScene: 
-  onlineScene: 
+  offlineScene: Assets/Scenes/MainMenu.unity
+  onlineScene: Assets/Scenes/Lobby.unity
   transport: {fileID: 1273725195}
   networkAddress: localhost
   maxConnections: 100
@@ -3734,6 +3734,7 @@ MonoBehaviour:
   steamDisabled: 1
   useSteam: 0
   steamLobby: {fileID: 64649069}
+  networkClips: []
 --- !u!4 &1273725197
 Transform:
   m_ObjectHideFlags: 0
