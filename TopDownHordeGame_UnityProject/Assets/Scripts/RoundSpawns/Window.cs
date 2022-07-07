@@ -150,5 +150,6 @@ public class Window : ZombieSpawn
     protected override void SpawnZombie() {
         GameObject zombie = RoundController.instance.CreateZombie();
         zombie.transform.position = new Vector3(spawnPoint.transform.position.x, spawnPoint.transform.position.y, spawnPoint.transform.position.z);
+        NetworkServer.Spawn(zombie);
     }
 }

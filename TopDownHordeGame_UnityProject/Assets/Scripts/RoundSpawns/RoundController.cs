@@ -143,7 +143,6 @@ public class RoundController : NetworkBehaviour
         //spawn special zombie
         GameObject zombieObj = Instantiate(RandomChoice.ChooseRandom(zombieList));
         zombieObj.GetComponent<ZombieAI>().SetValues(GetHealth(), GetSpeed(), GetDamage());
-        NetworkServer.Spawn(zombieObj);
         return zombieObj;
     }
 
