@@ -44,11 +44,11 @@ public class WeaponSpriteController : NetworkBehaviour
     }
 
     public void ActivateSprite() {
-        Debug.Log(gameObject.name + ": ACTIVATE SPRITE!!");
+        //Debug.Log(gameObject.name + ": ACTIVATE SPRITE!!");
         spriteObj.SetActive(true);
     }
     public void DeactivateSprite() {
-        Debug.Log(gameObject.name + ": DEACTIVATE SPRITE!!");
+        //Debug.Log(gameObject.name + ": DEACTIVATE SPRITE!!");
         spriteObj.SetActive(false);
     }
 

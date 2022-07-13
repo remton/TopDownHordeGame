@@ -79,7 +79,7 @@ public class Keypad : MonoBehaviour {
         player.GetComponent<PlayerActivate>().EventPlayerActivate += PlayerActivate;
     }
     private void PlayerActivate(GameObject player) {
-        UI.OpenUI();
+        UI.OpenUI(player);
     }
 
     private void OnPlayerExit(GameObject player) {

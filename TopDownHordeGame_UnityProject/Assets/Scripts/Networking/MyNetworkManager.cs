@@ -50,8 +50,7 @@ public class MyNetworkManager : NetworkManager
         StartHost();
     }
     public void HostGame(string code) {
-        Debug.Log("Hosting game");
-
+        //Debug.Log("Hosting game");
         if (useSteam) {
             steamLobby.GetLobbies(code);
             steamLobby.HostLobby();
@@ -109,7 +108,7 @@ public class MyNetworkManager : NetworkManager
 
     public override void OnServerReady(NetworkConnectionToClient conn) {
         base.OnServerReady(conn);
-
+        //Debug.Log("A client is ready");
         //Check if all clients are ready
         if(ServerEvent_AllClientsReady != null) {
             if (AllClientsReady()) {
@@ -119,13 +118,12 @@ public class MyNetworkManager : NetworkManager
     }
 
     public bool AllClientsReady() {
-        bool b = true;
         for (int i = 0; i < playerConnections.Count; i++) {
             if (!playerConnections[i].connectionToClient.isReady) {
-                b = false;
+                return false;
             }
         }
-        return b;
+        return true;
     }
     public bool AllPlayerCharactersSpawned() {
         for (int i = 0; i < playerConnections.Count; i++) {

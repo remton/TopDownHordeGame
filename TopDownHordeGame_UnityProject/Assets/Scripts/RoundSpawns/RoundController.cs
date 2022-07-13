@@ -5,6 +5,7 @@ using Mirror;
 
 public class RoundController : NetworkBehaviour
 {
+
     public delegate void RoundChange(int round);
     public event RoundChange EventRoundChange;
 
@@ -16,7 +17,6 @@ public class RoundController : NetworkBehaviour
 
     public List<ZombieSpawn> startRoomZombieSpawns;
     private List<ZombieSpawn> activeSpawns = new List<ZombieSpawn>();
-    public List<GameObject> players;
 
     bool isWaitingForNextRound = false;
     bool hasShownRoundChange = false;
@@ -48,10 +48,6 @@ public class RoundController : NetworkBehaviour
     }
 
     private void Awake() {
-        if (isServer) {
-            MyNetworkManager.instance.ServerEvent_PlayerConnectionAdded += PlayerConnect;
-            MyNetworkManager.instance.ServerEvent_AllClientsReady += StartGame;
-        }
         if (instance == null) {
             instance = this;
         }
@@ -67,6 +63,12 @@ public class RoundController : NetworkBehaviour
         }
     }
     private void Start() {
+        if (isServer) {
+            MyNetworkManager.instance.ServerEvent_PlayerConnectionAdded += PlayerConnect;
+            MyNetworkManager.instance.ServerEvent_AllClientsReady += StartGame;
+            if (MyNetworkManager.instance.AllClientsReady())
+                StartGame();
+        }
         if (!isServer) {
             activeSpawns.Clear();
             this.enabled = false;
@@ -74,8 +76,12 @@ public class RoundController : NetworkBehaviour
         }
     }
 
+    private bool gameStarted = false;
     private void StartGame() {
-
+        if (gameStarted)
+            return;
+        gameStarted = true;
+        Debug.Log("Game Started");
         //Initial round values
         numPlayers = GameSettings.instance.numPlayers;
         zombiesToSpawn = GetMaxZombies();

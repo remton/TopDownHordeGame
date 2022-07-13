@@ -19,6 +19,8 @@ public class KeypadUI : Menu
 
     public List<int> currGuess = new List<int>();
 
+    private GameObject interactingPlayer;
+
     public override void OnCancel() {
         base.OnCancel();
         if (EventCancelPressed != null) { EventCancelPressed.Invoke(); }
@@ -50,17 +52,31 @@ public class KeypadUI : Menu
         numDisplaySize = UINumTxt.text.Length - 1;
         UpdateUI(currGuess);
     }
-    public void OpenUI() {
+    public void SetInteractingPlayer(GameObject player) {
+        if(player == null) {
+            if (interactingPlayer != null)
+                interactingPlayer.GetComponent<Player>().EnablePlayer();
+            interactingPlayer = null;
+            return;
+        }
+        Debug.Log(player.name + " is interacting with keypad");
+        if (interactingPlayer != null)
+            interactingPlayer.GetComponent<Player>().EnablePlayer();
+        interactingPlayer = player;
+        interactingPlayer.GetComponent<Player>().DisablePlayer();
+    }
+
+    public void OpenUI(GameObject player) {
+        SetInteractingPlayer(player);
         if (isLockedOut) {
             AudioManager.instance.PlaySound(lockoutSound);
             return;
         }
         gameObject.SetActive(true);
-        PauseManager.instance.PauseTime();
     }
     public void CloseUI() {
+        SetInteractingPlayer(null);
         gameObject.SetActive(false);
-        PauseManager.instance.UnpauseTime();
     }
     public void UpdateUI(List<int> numPressed) {
         string newText = "";

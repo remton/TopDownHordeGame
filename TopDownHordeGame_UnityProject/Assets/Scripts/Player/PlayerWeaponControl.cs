@@ -79,7 +79,7 @@ public class PlayerWeaponControl : NetworkBehaviour {
 
     [Client]
     public void PickUpWeapon(GameObject weaponPrefab) {
-        Debug.Log("Picking up weapon " + weaponPrefab.name);
+        //Debug.Log("Picking up weapon " + weaponPrefab.name);
 
         if (isReloading)
             CancelReload();
@@ -93,7 +93,7 @@ public class PlayerWeaponControl : NetworkBehaviour {
     [Command(requiresAuthority = false)]
     private void CreateWeapon(int prefabIndex) {
         GameObject weaponPrefab = MyNetworkManager.instance.GetPrefab(prefabIndex);
-        Debug.Log("Creating weapon: " + weaponPrefab.name);
+        //Debug.Log("Creating weapon: " + weaponPrefab.name);
         GameObject weaponObj = Instantiate(weaponPrefab, transform.position, Quaternion.identity);
         weaponObj.GetComponent<Weapon>().SetOwner(GetComponent<Player>());
         NetworkServer.Spawn(weaponObj);
@@ -105,7 +105,7 @@ public class PlayerWeaponControl : NetworkBehaviour {
     }
     [Client]
     public void AddWeapon(Weapon weapon) {
-        Debug.Log("Adding weapon . . .");
+        //Debug.Log("Adding weapon . . .");
 
         weapon.AddReserveAmmo(Mathf.RoundToInt(weapon.GetReserveSize() * reserveMult));
         if (maxWeapons > weapons.Count) {

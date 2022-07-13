@@ -14,7 +14,7 @@ public class TimedDestroy : MonoBehaviour
     }
     // Start is called before the first frame update
     protected void Start(){
-        Debug.Log("Object is being destroyed in TimedDestroy Start() method.");
+        //Debug.Log("Object is being destroyed in TimedDestroy Start() method.");
         timerID = timer.CreateTimer(destroyTime, DestroyObj);
     }
     public void Cancel() {

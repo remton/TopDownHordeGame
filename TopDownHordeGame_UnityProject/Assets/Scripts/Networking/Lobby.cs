@@ -169,6 +169,7 @@ public class Lobby : NetworkBehaviour
 
     [Server]
     private void StartGame() {
+        //Debug.Log("Starting with " + numPlayers + " players");
         GameSettings.instance.numPlayers = numPlayers;
         GameSettings.instance.devices.Add(Keyboard.current);
         MyNetworkManager.instance.ChangeScene(gameSceneName);
