@@ -1,47 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-
-
-
-public class Nuke : MonoBehaviour
+public class Nuke : Magic
 {
-    public AudioClip pickupSound;
     public int time;
-    public MagicType type;
     public GameObject zombiePrefab;
-    private GameObject[] zombies;
-    private GameObject[] players;
 
-    private void Awake()
-    {
-        GetComponent<HitBoxController>().EventObjEnter += Touch;
-    }
-
-    //This is where the perk activates. Maybe it changes a stat value, maybe it subsribes to an event.
-    public virtual void Touch(GameObject player)
-    {
-        GetComponent<HitBoxController>().EventObjEnter -= Touch;
-        Debug.Log("Power Up: " + name + " spawned");
-        zombies = GameObject.FindGameObjectsWithTag("Zombie");
-        players = GameObject.FindGameObjectsWithTag("Player");
-        foreach (GameObject current in zombies)
-        {
-            current.GetComponent<ZombieHealth>().DamageCMD(500);
-        }
-        foreach (GameObject current in players)
+    [Command(requiresAuthority = false)]
+    protected override void PickupCMD(GameObject player) {
+        base.PickupCMD(player);
+        foreach (GameObject current in PlayerManager.instance.GetActiveLocalPlayers())
         {
             current.GetComponent<PlayerStats>().AddMoney(500);
         }
-        Stop();
-        AudioManager.instance.PlaySound(pickupSound);
+        foreach (GameObject current in GameObject.FindGameObjectsWithTag("Zombie"))
+        {
+            current.GetComponent<ZombieHealth>().DamageCMD(500);
+        }
     }
 
-    //This is where the perk deactivates. Maybe it changes a stat value, maybe it unsibscribes from an event.
-    public virtual void Stop()
-    {
-        Debug.Log("Power Up: " + name + " lost");
+    [ClientRpc]
+    public override void OnPickupRPC(GameObject player) {
+        base.OnPickupRPC(player);
         Destroy(gameObject);
     }
 }

@@ -124,14 +124,14 @@ public class ZombieHealth : NetworkBehaviour
     [Server]
     public void Kill()
     {
+        Vector3 myLocation = transform.position;
+        MagicController.instance.MagicDrop(myLocation);
+
         if (!gameObject.HasComponent<DoNotCount>())
             RoundController.instance.ZombieDies();
         if (gameObject.HasComponent<BiggestFanDeath>())
             GetComponent<BiggestFanDeath>().Explode();
         killed = true;
-
-        Vector3 myLocation = transform.position;
-        MagicController.instance.MagicDrop(myLocation);
 
         PlayDeathEffects();
 

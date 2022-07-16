@@ -45,7 +45,7 @@ public class PlayerStats : NetworkBehaviour
     private int score;
     public int GetScore() { return score; }
     public int GetTotalScore() {
-        return score + totalKills / 5 + totalMoneyEarned / 10 + (RoundController.instance.GetRound() - 1) * 50;
+        return score + totalKills / 5 + totalMoneyEarned / 10 + (RoundController.instance.round - 1) * 50;
     }
     private void OnScoreChange(int oldScore, int newScore) {
         score = newScore;

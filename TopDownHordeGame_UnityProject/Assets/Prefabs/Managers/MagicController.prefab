@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1245653503535305068}
   - component: {fileID: 1245653503535305071}
+  - component: {fileID: 2260623728002118392}
   m_Layer: 0
   m_Name: MagicController
   m_TagString: Untagged
@@ -43,14 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8354f4e111be1b541ae08a73b75aedde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammoPrefab: {fileID: 177272599253269483, guid: dad35b44912a3a941a1947d28e0771e1, type: 3}
-  carpenterPrefab: {fileID: 6069895156401686289, guid: 56470756366baca4c8fa7d7ea329918d, type: 3}
-  killPrefab: {fileID: 19701994243007283, guid: 07c9492da6f586e4eb7b63ff73f9b787, type: 3}
-  nukePrefab: {fileID: 7609820944762314030, guid: 79b5ba03f56338c408ab4555c56e8c35, type: 3}
-  salePrefab: {fileID: 5454472768016782365, guid: 06f2c5833a8041340bd3b4e3118ff664, type: 3}
+  syncMode: 0
+  syncInterval: 0.1
   dropList:
-  - weight: 2898
-    obj: {fileID: 8646388717053604558, guid: 81f897747ef5a5d43bc1b5f47206b69b, type: 3}
+  - weight: 1
+    obj: {fileID: 1584839167843198278, guid: 91d6317854e7c0946ac01ca5a1ae69dc, type: 3}
   - weight: 10
     obj: {fileID: 177272599253269483, guid: dad35b44912a3a941a1947d28e0771e1, type: 3}
   - weight: 8
@@ -61,7 +59,20 @@ MonoBehaviour:
     obj: {fileID: 7609820944762314030, guid: 79b5ba03f56338c408ab4555c56e8c35, type: 3}
   - weight: 8
     obj: {fileID: 5454472768016782365, guid: 06f2c5833a8041340bd3b4e3118ff664, type: 3}
-  selling: 0
-  startRoomWindows: []
-  players: []
-  maxActiveZombies: 0
+--- !u!114 &2260623728002118392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1245653503535305070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: d89f8a2ef4d61f64397e985dbdc4eecb
+  hasSpawned: 0

@@ -1,21 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class Carpenter : MonoBehaviour
+public class Carpenter : Magic
 {
-    public AudioClip pickupSound;
-    public MagicType type;
-    private void Awake(){
-        GetComponent<HitBoxController>().EventObjEnter += Touch;
-        GameObject.FindGameObjectsWithTag("Player");
-    }
-
-    //This is where the perk activates. Maybe it changes a stat value, maybe it subsribes to an event.
-    public virtual void Touch(GameObject player)
+    //The server boards the windows
+    [Command(requiresAuthority = false)]
+    protected override void PickupCMD(GameObject player)
     {
-        GetComponent<HitBoxController>().EventObjEnter -= Touch;
-        Debug.Log("Power Up: " + name + " spawned");
+        base.PickupCMD(player);
         foreach (Window current in RoundController.instance.GetActiveWindows())
         {
             current.GetComponent<Window>().FullRepair();
@@ -24,14 +18,10 @@ public class Carpenter : MonoBehaviour
         {
             current.GetComponent<PlayerStats>().AddMoney(1200);
         }
-        AudioManager.instance.PlaySound(pickupSound);
-        Stop();
     }
-
-    //This is where the perk deactivates. Maybe it changes a stat value, maybe it unsibscribes from an event.
-    public virtual void Stop()
-    {
-        Debug.Log("Power Up: " + name + " lost");
+    [ClientRpc]
+    public override void OnPickupRPC(GameObject player) {
+        base.OnPickupRPC(player);
         Destroy(gameObject);
     }
 }

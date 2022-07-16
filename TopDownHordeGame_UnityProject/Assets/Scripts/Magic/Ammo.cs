@@ -1,38 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class Ammo : MonoBehaviour
+public class Ammo : Magic
 {
-    public AudioClip pickupSound;
-
-    public int time;
-    public MagicType type;
     private List<GameObject> players;
 
-    private void Awake()
+    //Each client refills their own ammo
+    [ClientRpc]
+    public override void OnPickupRPC(GameObject player)
     {
-        GetComponent<HitBoxController>().EventObjEnter += Touch;
-    }
-
-    //This is where the perk activates. Maybe it changes a stat value, maybe it subsribes to an event.
-    public virtual void Touch(GameObject player)
-    {
-        GetComponent<HitBoxController>().EventObjEnter-= Touch;
-        Debug.Log("Power Up: " + name + " spawned");
+        base.OnPickupRPC(player);
+        Debug.Log("Ammo Refilled!");
         players = PlayerManager.instance.GetActiveLocalPlayers(); 
         foreach(GameObject current in players)
         {
             current.GetComponent<PlayerWeaponControl>().RefillWeaponReserve();
         }
-        AudioManager.instance.PlaySound(pickupSound);
-        Stop();
+        Destroy(gameObject);
     }
 
-    //This is where the perk deactivates. Maybe it changes a stat value, maybe it unsibscribes from an event.
-    public virtual void Stop()
-    {
-        Debug.Log("Power Up: " + name + " lost");
-        Destroy(gameObject); 
-    }
 }

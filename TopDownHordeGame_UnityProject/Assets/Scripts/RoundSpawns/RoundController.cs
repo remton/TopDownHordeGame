@@ -5,42 +5,41 @@ using Mirror;
 
 public class RoundController : NetworkBehaviour
 {
+    // ---- Instance Handling ----
+    public static RoundController instance;
 
+
+    // --- Round Changing ---
     public delegate void RoundChange(int round);
     public event RoundChange EventRoundChange;
 
-    [SerializeField] private GameObject zombiePrefab;
-    [SerializeField] private int round;
-    public int GetRound() { return round; }
-
+    public int round { get; internal set; }
     [SerializeField] private RoundDisplay display;
-
-    public List<ZombieSpawn> startRoomZombieSpawns;
-    private List<ZombieSpawn> activeSpawns = new List<ZombieSpawn>();
-
     bool isWaitingForNextRound = false;
     bool hasShownRoundChange = false;
     [SerializeField] private float pauseBeforeGameStart;
     [SerializeField] private float pauseBetweenRounds;
     private float timeUntilRoundStart;
 
-    int zombiesSpawnedThisRound;
-    int numberActiveZombies;
     int numPlayers;
 
+    // --- Zombie Spawning ---
+    public List<RandomChoice> zombieList;
+    [SerializeField] private List<ZombieSpawn> startRoomZombieSpawns;
+    private List<ZombieSpawn> activeSpawns = new List<ZombieSpawn>();
+    int zombiesSpawnedThisRound;
+    int numberActiveZombies;
     private float spawnDelay;
     private float timeUntilNextSpawn;
-
     int zombiesToSpawn;
     public int maxActiveZombies;
+
+    private int zombieI;
     float speed;
     float health;
     float damage;
 
-    private int zombieI;
-    public List<RandomChoice> zombieList;
 
-    public static RoundController instance;
     public void ZombieDies() {
         instance.numberActiveZombies--;
         if (instance.numberActiveZombies < 0)
