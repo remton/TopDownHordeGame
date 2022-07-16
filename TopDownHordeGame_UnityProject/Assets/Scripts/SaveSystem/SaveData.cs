@@ -5,13 +5,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SaveData : MonoBehaviour
-{
-    // ------ Data ------
+public class SaveData : MonoBehaviour {
+    // -------- Data --------
     [Header("Data loaded at Runtime")]
     [Header("Settings")]
-    public float settings_volumeSFX;
-    public float settings_volumeMusic;
+
+    //Not yet saved just always set to 1
+    private float internal_settings_volumeMaster;
+    public float settings_volumeMaster {
+        get { return internal_settings_volumeMaster; }
+        set { internal_settings_volumeMaster = value; if (EventSettingsChange != null) { EventSettingsChange.Invoke(this); } }
+    }
+
+    private float internal_settings_volumeSFX;
+    public float settings_volumeSFX {
+        get { return internal_settings_volumeSFX; }
+        set { internal_settings_volumeSFX = value; if (EventSettingsChange != null) { EventSettingsChange.Invoke(this); } }
+    }
+
+    private float internal_settings_volumeMusic;
+    public float settings_volumeMusic {
+        get { return internal_settings_volumeMusic; }
+        set { internal_settings_volumeMusic = value; if (EventSettingsChange != null) { EventSettingsChange.Invoke(this); } }
+    }
+
     [Header("CatCafe")]
     public int[] catCafe_code;
     public int catCafe_unlockedDigits;
@@ -29,6 +46,10 @@ public class SaveData : MonoBehaviour
         Load();
     }
 
+    // ---- On Change Events ----
+    public delegate void SettingsChange(SaveData data);
+    public event SettingsChange EventSettingsChange;
+
 
     // ----- Public Methods -----
     public static void Save() {
@@ -45,6 +66,7 @@ public class SaveData : MonoBehaviour
 
         // Copy all data to instance
         //Settings
+        instance.settings_volumeMaster = 1;
         instance.settings_volumeSFX = save.settings_volumeSFX;
         instance.settings_volumeMusic = save.settings_volumeMusic;
         //Cat Cafe

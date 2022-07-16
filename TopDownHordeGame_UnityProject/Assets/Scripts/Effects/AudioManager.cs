@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 public class AudioManager : MonoBehaviour {
     public float masterVolume;
+    public float musicVolume;
+    public float sfxVolume;
     public AudioSource sfxSource;
     AudioSource[] musicSources;
-    int activeMusicSourceIndex;
+    int activeMusicSource;
     public static AudioManager instance;
     void Awake() {
         if (instance == null) {
@@ -17,33 +19,70 @@ public class AudioManager : MonoBehaviour {
             Destroy(gameObject);
         }
 
-        musicSources  = new AudioSource[2];
+        musicSources = new AudioSource[2];
         for (int i = 0; i < 2; i++) {
-            GameObject newMusicSource = new GameObject ("Music source " + (i + 1));
-            musicSources[i] = newMusicSource.AddComponent<AudioSource>();            
+            GameObject newMusicSource = new GameObject("Music source " + (i + 1));
+            musicSources[i] = newMusicSource.AddComponent<AudioSource>();
             newMusicSource.transform.parent = transform;
         }
     }
 
-    public void PlayMusic(AudioClip clip, float fadeDuration = 1) {
-        activeMusicSourceIndex = 1 - activeMusicSourceIndex;
-        musicSources[activeMusicSourceIndex].clip = clip;
-        musicSources[activeMusicSourceIndex].Play();
-    
-        StartCoroutine(AnimateMusicCrossfade(fadeDuration));
+    private void Start() {
+        if (SaveData.instance != null) {
+            SettingsChange(SaveData.instance);
+            SaveData.instance.EventSettingsChange += SettingsChange;
+        }
     }
-    public void PlaySound(AudioClip clip, float volumeMultiplier=1f) {
-        sfxSource.PlayOneShot(clip, SaveData.instance.settings_volumeSFX * masterVolume * volumeMultiplier);
+    private void OnDestroy() {
+        SaveData.instance.EventSettingsChange -= SettingsChange;
     }
 
-    IEnumerator AnimateMusicCrossfade(float duration) {
-        float percent = 0;
+    public void SettingsChange(SaveData data) {
+        masterVolume = data.settings_volumeMaster;
+        musicVolume = data.settings_volumeMusic * masterVolume;
+        sfxVolume = data.settings_volumeSFX * masterVolume;
+        musicSources[activeMusicSource].volume = musicVolume;
+    }
 
-        while(percent < 1) {
-            percent += Time.deltaTime * 1/duration; 
-            musicSources[activeMusicSourceIndex].volume = Mathf.Lerp(0,SaveData.instance.settings_volumeMusic * masterVolume, percent);
-            musicSources[1-activeMusicSourceIndex].volume = Mathf.Lerp(SaveData.instance.settings_volumeMusic * masterVolume, 0, percent);
+    // SFX //
+
+    public void PlaySound(AudioClip clip, float volumeMultiplier = 1f) {
+        sfxSource.PlayOneShot(clip, sfxVolume * volumeMultiplier);
+    }
+
+
+    // MUSIC //
+    //Fades into new music track
+    public void PlayMusic(AudioClip clip, float fadeDuration = 2) {
+        int oldSource = activeMusicSource;
+        activeMusicSource = (activeMusicSource + 1) % musicSources.Length;
+        musicSources[activeMusicSource].loop = true;
+        musicSources[activeMusicSource].clip = clip;
+        musicSources[activeMusicSource].Play();
+        StartCoroutine(AnimateMusicCrossfade(activeMusicSource, oldSource, fadeDuration));
+    }
+    //Fades out music over the duration
+    public void FadeOutMusic(float fadeDuration = 2) {
+        int oldSource = activeMusicSource;
+        activeMusicSource = (activeMusicSource + 1) % musicSources.Length;
+        musicSources[activeMusicSource].Stop();
+        StartCoroutine(AnimateMusicCrossfade(activeMusicSource, oldSource, fadeDuration));
+    }
+    IEnumerator AnimateMusicCrossfade(int newIndex, int oldIndex, float duration) {
+        if (duration <= 0) {
+            Debug.Log("Instant music switch");
+            musicSources[oldIndex].volume = 0;
+            musicSources[newIndex].volume = musicVolume;
             yield return null;
+        }
+
+        float timeLeft = duration;
+        while (timeLeft > 0) {
+            float percent = timeLeft / duration;
+            timeLeft -= Time.deltaTime;
+            musicSources[oldIndex].volume = Mathf.Lerp(0, musicVolume, percent);
+            musicSources[newIndex].volume = Mathf.Lerp(musicVolume, 0, percent);
+            yield return new WaitForEndOfFrame();
         }
     }
 }

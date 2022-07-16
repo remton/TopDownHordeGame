@@ -3025,8 +3025,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8dd47cca4e39224081a3174a036e2a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settings_volumeSFX: 0
-  settings_volumeMusic: 0
   catCafe_code: 
   catCafe_unlockedDigits: 0
   catCafe_unlockedElevator: 0
@@ -5316,6 +5314,22 @@ PrefabInstance:
       propertyPath: networkClips.Array.data[34]
       value: 
       objectReference: {fileID: 8300000, guid: 2e6abc36b8693eb48911e44b97f3b3c6, type: 3}
+    - target: {fileID: 7324206027799971867, guid: d61c8ad0319c8144fb1345a50fb3efee, type: 3}
+      propertyPath: musicChance
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 7324206027799971867, guid: d61c8ad0319c8144fb1345a50fb3efee, type: 3}
+      propertyPath: fadeDuration
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7324206027799971867, guid: d61c8ad0319c8144fb1345a50fb3efee, type: 3}
+      propertyPath: musicUptimeMax
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7324206027799971867, guid: d61c8ad0319c8144fb1345a50fb3efee, type: 3}
+      propertyPath: musicUptimeMin
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7324206027799971869, guid: d61c8ad0319c8144fb1345a50fb3efee, type: 3}
       propertyPath: m_RootOrder
       value: 3

@@ -76,6 +76,7 @@ public class Timer : MonoBehaviour
         }
     }
 
+    [Serializable]
     private class SingleTimer {
         public Guid ID;
         public Action onEnd;
