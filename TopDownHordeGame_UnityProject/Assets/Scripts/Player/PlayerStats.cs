@@ -116,4 +116,14 @@ public class PlayerStats : NetworkBehaviour
         totalKills++;
     }
 
+    // ----- Editor buttons -----
+    [SerializeField] bool editor_addMoney = false;
+    [SerializeField] int editor_amount = 1000;
+    private void Update() {
+        if (editor_addMoney) {
+            editor_addMoney = false;
+            AddMoney(editor_amount);
+        }
+    }
+
 }

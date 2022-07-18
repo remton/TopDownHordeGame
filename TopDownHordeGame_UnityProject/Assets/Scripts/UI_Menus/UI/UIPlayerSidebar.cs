@@ -10,7 +10,6 @@ public class UIPlayerSidebar : MonoBehaviour
     public Text playerNameTxt;
     public static readonly string bankTxtDefault = "Bank ${bank}";
     public Text bankTxt;
-
     [SerializeField] private List<GameObject> perkIconObjects;
 
     // {var} is replaced with the variables in each update method 
@@ -32,11 +31,12 @@ public class UIPlayerSidebar : MonoBehaviour
     public void UpdatePerkImages(List<Perk> perks) {
         for (int i = 0; i < perkIconObjects.Count; i++) {
             if (i < perks.Count) {
-                perkIconObjects[i].SetActive(true);
+                perkIconObjects[i].GetComponent<Image>().color = Color.white;
                 perkIconObjects[i].GetComponent<Image>().sprite = perks[i].icon;
+                perkIconObjects[i].GetComponent<Image>().type = Image.Type.Sliced;
             }
             else {
-                perkIconObjects[i].SetActive(false);
+                perkIconObjects[i].GetComponent<Image>().color = new Color(0.1f,0.1f,0.1f);
             }
         }
     }

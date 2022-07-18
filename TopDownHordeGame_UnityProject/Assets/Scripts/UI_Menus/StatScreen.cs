@@ -77,6 +77,7 @@ public class StatScreen : NetworkBehaviour
             statHolders[i].Activate(true);
             statHolders[i].UpdateBankTxt(stats[i].GetBank());
             statHolders[i].SetPlayerName(stats[i].GetName());
+            statHolders[i].UpdatePerkImages(stats[i].GetComponent<PlayerPerkHolder>().GetPerks());
         }
     }
 
