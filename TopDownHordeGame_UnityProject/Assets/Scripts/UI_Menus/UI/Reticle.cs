@@ -1,9 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
+[RequireComponent(typeof(Timer))]
 public class Reticle : MonoBehaviour
 {
+    [SerializeField] private GameObject ammoTxtObj;
+    private Text ammoTxt;
+    public float ammoUptime; //time before ammo text disappears after ammo is changed
+    private Timer timer;
+    private System.Guid ammoTimer = System.Guid.Empty; 
+
     private Animator animator;
     private SpriteRenderer sprite;
     /// <summary> reload animation of the reticle (used only to get the length of the anim) </summary>
@@ -12,10 +20,24 @@ public class Reticle : MonoBehaviour
     private GameObject player;
     public void Init(GameObject newPlayer) {
         player = newPlayer;
+        timer = GetComponent<Timer>();
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
-        player.GetComponent<PlayerWeaponControl>().EventReloadCalled += PlayReloadAnim;
-        player.GetComponent<PlayerWeaponControl>().EventSwapCalled += PlayReloadAnim;
+        ammoTxt = ammoTxtObj.GetComponentInChildren<Text>();
+        PlayerWeaponControl weaponControl = player.GetComponent<PlayerWeaponControl>();
+        weaponControl.EventReloadCalled += PlayReloadAnim;
+        weaponControl.EventSwapCalled += PlayReloadAnim;
+        weaponControl.EventAmmoChanged += AmmoChange;
+    }
+
+    public void AmmoChange(int mag, int reserve) {
+        ammoTxt.text = mag.ToString() + " / " + (reserve==-1 ? "inf" : reserve.ToString());
+        ammoTxtObj.SetActive(true);
+        timer.KillTimer(ammoTimer);
+        ammoTimer = timer.CreateTimer(ammoUptime, HideAmmoText);
+    }
+    public void HideAmmoText() {
+        ammoTxtObj.SetActive(false);
     }
 
     public void Activate(bool b) {
@@ -24,6 +46,8 @@ public class Reticle : MonoBehaviour
 
     //plays the reload animation over so many seconds
     public void PlayReloadAnim(float secondsForReload) {
+        timer.KillTimer(ammoTimer);
+        HideAmmoText();
         float reloadSpeedMult = reloadAnim.length / secondsForReload;
         animator.SetFloat("ReloadSpeedMult", reloadSpeedMult);
         animator.SetTrigger("Reload");
@@ -31,8 +55,10 @@ public class Reticle : MonoBehaviour
 
     private void OnDestroy() {
         if (player) {
-            player.GetComponent<PlayerWeaponControl>().EventReloadCalled -= PlayReloadAnim;
-            player.GetComponent<PlayerWeaponControl>().EventSwapCalled -= PlayReloadAnim;
+            PlayerWeaponControl weaponControl = player.GetComponent<PlayerWeaponControl>();
+            weaponControl.EventReloadCalled -= PlayReloadAnim;
+            weaponControl.EventSwapCalled -= PlayReloadAnim;
+            weaponControl.EventAmmoChanged -= AmmoChange;
         }
     }
 }

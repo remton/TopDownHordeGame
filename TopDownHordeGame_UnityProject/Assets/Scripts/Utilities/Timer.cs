@@ -36,6 +36,17 @@ public class Timer : MonoBehaviour
             }
         }
     }
+    public bool HasTimer(Guid timerID) {
+        if (timerID == Guid.Empty)
+            return false;
+
+        foreach (SingleTimer timer in timers) {
+            if (timer.ID == timerID) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /// <summary> Saves which timers are running in th current moment into a local pause state </summary>
     public void SavePauseState() {

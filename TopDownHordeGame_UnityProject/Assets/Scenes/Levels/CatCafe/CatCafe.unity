@@ -11707,9 +11707,9 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   cam: {fileID: 519420031}
-  edgeBufferSize: 8
-  minSize: 8
-  maxSize: 25
+  edgeBufferSize: 6
+  minSize: 6
+  maxSize: 20
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
