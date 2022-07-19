@@ -5320,12 +5320,32 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 2e6abc36b8693eb48911e44b97f3b3c6, type: 3}
     - target: {fileID: 7324206027799971867, guid: d61c8ad0319c8144fb1345a50fb3efee, type: 3}
+      propertyPath: labScene
+      value: Assets/Scenes/Levels/Testing/TestLevel.unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 7324206027799971867, guid: d61c8ad0319c8144fb1345a50fb3efee, type: 3}
+      propertyPath: menuScene
+      value: Assets/Scenes/MainMenu.unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 7324206027799971867, guid: d61c8ad0319c8144fb1345a50fb3efee, type: 3}
+      propertyPath: lobbyScene
+      value: Assets/Scenes/Lobby.unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 7324206027799971867, guid: d61c8ad0319c8144fb1345a50fb3efee, type: 3}
       propertyPath: musicChance
-      value: 70
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7324206027799971867, guid: d61c8ad0319c8144fb1345a50fb3efee, type: 3}
+      propertyPath: catcafeScene
+      value: Assets/Scenes/Levels/CatCafe/CatCafe.unity
       objectReference: {fileID: 0}
     - target: {fileID: 7324206027799971867, guid: d61c8ad0319c8144fb1345a50fb3efee, type: 3}
       propertyPath: fadeDuration
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7324206027799971867, guid: d61c8ad0319c8144fb1345a50fb3efee, type: 3}
+      propertyPath: gameoverScene
+      value: Assets/Scenes/GameOver.unity
       objectReference: {fileID: 0}
     - target: {fileID: 7324206027799971867, guid: d61c8ad0319c8144fb1345a50fb3efee, type: 3}
       propertyPath: musicUptimeMax
@@ -5335,6 +5355,54 @@ PrefabInstance:
       propertyPath: musicUptimeMin
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7324206027799971867, guid: d61c8ad0319c8144fb1345a50fb3efee, type: 3}
+      propertyPath: labMusics.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7324206027799971867, guid: d61c8ad0319c8144fb1345a50fb3efee, type: 3}
+      propertyPath: menuMusics.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7324206027799971867, guid: d61c8ad0319c8144fb1345a50fb3efee, type: 3}
+      propertyPath: lobbyMusics.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7324206027799971867, guid: d61c8ad0319c8144fb1345a50fb3efee, type: 3}
+      propertyPath: labMusics.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 656b57f1246085641b6e4e7f3b8b5a79, type: 3}
+    - target: {fileID: 7324206027799971867, guid: d61c8ad0319c8144fb1345a50fb3efee, type: 3}
+      propertyPath: labMusics.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 64b1924e79138e048b2498036e4c6a4d, type: 3}
+    - target: {fileID: 7324206027799971867, guid: d61c8ad0319c8144fb1345a50fb3efee, type: 3}
+      propertyPath: catcafeMusics.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7324206027799971867, guid: d61c8ad0319c8144fb1345a50fb3efee, type: 3}
+      propertyPath: menuMusics.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: f623192ae3846d34d99b3a7f4e87cf71, type: 3}
+    - target: {fileID: 7324206027799971867, guid: d61c8ad0319c8144fb1345a50fb3efee, type: 3}
+      propertyPath: gameoverMusics.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7324206027799971867, guid: d61c8ad0319c8144fb1345a50fb3efee, type: 3}
+      propertyPath: lobbyMusics.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: f623192ae3846d34d99b3a7f4e87cf71, type: 3}
+    - target: {fileID: 7324206027799971867, guid: d61c8ad0319c8144fb1345a50fb3efee, type: 3}
+      propertyPath: catcafeMusics.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: df4de93bc46a9744eaa6a7faccdef03f, type: 3}
+    - target: {fileID: 7324206027799971867, guid: d61c8ad0319c8144fb1345a50fb3efee, type: 3}
+      propertyPath: catcafeMusics.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: b4529142a084ae247a6252b940f95b99, type: 3}
+    - target: {fileID: 7324206027799971867, guid: d61c8ad0319c8144fb1345a50fb3efee, type: 3}
+      propertyPath: gameoverMusics.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: df4de93bc46a9744eaa6a7faccdef03f, type: 3}
     - target: {fileID: 7324206027799971869, guid: d61c8ad0319c8144fb1345a50fb3efee, type: 3}
       propertyPath: m_RootOrder
       value: 3
