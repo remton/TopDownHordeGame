@@ -11,8 +11,8 @@ public class LobbyMenu : Menu
     const string NOT_READY_TEXT = "Not Ready";
     const string READY_TEXT = "Ready";
 
-    const string EVERYONE_READY_TEXT = "Waiting on host . . .";
-    const string NOT_EVERYONE_READY_TEXT = "Ready Up!";
+    const string INFOBOX_ALL_READY_TEXT = "Waiting on host...";
+    const string INFOBOX_NOT_READY_TEXT = "Waiting for players to ready up...";
 
     [SerializeField]
     private GameObject StartGameButton;
@@ -22,6 +22,8 @@ public class LobbyMenu : Menu
     private List<GameObject> readyButtons;
     [SerializeField]
     private Text titleText;
+    [SerializeField]
+    private Text InfoBoxText;
     [SerializeField]
     private Lobby lobby;
 
@@ -112,6 +114,16 @@ public class LobbyMenu : Menu
             readyButtons[slotIndex].GetComponentInChildren<Text>().text = EMPTY_READY_TEXT;
             ActivateReadyButton(slotIndex, false);
         }
+
+        //Handle Infobox and gameoptions menu
+        if (allReady) {
+            InfoBoxText.text = INFOBOX_ALL_READY_TEXT;
+        }
+        else {
+            InfoBoxText.text = INFOBOX_NOT_READY_TEXT;
+            gameOptionsMenu.Close();
+        }
+
     }
 
     //Activates the button at the given index and deativates all others

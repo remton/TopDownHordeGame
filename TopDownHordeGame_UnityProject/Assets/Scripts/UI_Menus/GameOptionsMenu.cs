@@ -30,8 +30,10 @@ public class GameOptionsMenu : Menu
     }
 
     public override void Close() {
-        base.Close();
-        menuToOpenOnClose.Open();
+        if (gameObject.activeSelf) {
+            base.Close();
+            menuToOpenOnClose.Open();
+        }
     }
 
     public void Button_MapLeft() {

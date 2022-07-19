@@ -146,7 +146,7 @@ public class Lobby : NetworkBehaviour
         newDetails.netID = oldDetails.netID;
         newDetails.hasDevice = oldDetails.hasDevice;
         newDetails.numLocalPlayers = oldDetails.numLocalPlayers;
-        newDetails.isReady = true;
+        newDetails.isReady = !oldDetails.isReady; //Toggle Ready
         playerDetails[detailsIndex] = newDetails;
     }
 
