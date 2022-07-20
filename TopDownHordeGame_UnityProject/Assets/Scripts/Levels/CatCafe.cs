@@ -8,6 +8,8 @@ public class CatCafe : NetworkBehaviour
 {
     public static string LevelName = "CatCafe";
     public static int codeLength = 4;
+    [TextArea]
+    public string unlockDigitMessage;
 
     public GameObject elavatorCover;
     public Keypad keypad;
@@ -18,6 +20,8 @@ public class CatCafe : NetworkBehaviour
 
     public List<Pickup> codePickups;
     private List<Pickup> availablePickups;
+
+    [SerializeField] private UnlockPopup unlockPopup;
 
     private void Start() {
         RoundController.instance.EventRoundChange += OnRoundChange;
@@ -77,6 +81,7 @@ public class CatCafe : NetworkBehaviour
 
     [Server]
     public void UnlockDigit() {
+        unlockPopup.Activate(unlockDigitMessage);
         unlockedDigits++;
         SaveData.instance.catCafe_unlockedDigits = unlockedDigits;
         keypad.SetUnlockedDigits(unlockedDigits);

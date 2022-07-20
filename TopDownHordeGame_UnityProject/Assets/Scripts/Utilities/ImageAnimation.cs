@@ -12,24 +12,40 @@ public class ImageAnimation : MonoBehaviour {
 	public bool loop = true;
 	public bool destroyOnEnd = false;
 	public bool reverse = false;
+	public bool playOnAwake = true;
+
+	////Event called when animation ends. 
+	//public delegate void OnEnd();
+	//public event OnEnd EventOnEnd;
 
 	private int index = 0;
 	private Image image;
-
+	private bool isPlaying;
 	void Awake() {
-		image = GetComponent<Image>();
-		frameTime = 1f/framesPerSec;
-		timeUntilNextFrame = frameTime;
+		if (playOnAwake)
+			Play();
 	}
 
 	private float timeUntilNextFrame;
 	private float frameTime;
 
+	public void Play() {
+		image = GetComponent<Image>();
+		frameTime = 1f / framesPerSec;
+		timeUntilNextFrame = frameTime;
+		isPlaying = true;
+    }
+
 	/// Updates the animation
 	void Update() {
+		if (!isPlaying)
+			return;
 		
 		// Prevents run if not looping at end
-		if (CheckAnimationEnded()) { return; }
+		if (CheckAnimationEnded()) {
+            //if (EventOnEnd != null) { EventOnEnd.Invoke(); }
+			return; 
+		}
 		
 		//Wait for more time to pass
 		if (!(timeUntilNextFrame <= 0)) {

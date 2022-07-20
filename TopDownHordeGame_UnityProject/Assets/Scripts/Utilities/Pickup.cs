@@ -30,7 +30,15 @@ public class Pickup : NetworkBehaviour
     }
 
     public void Collect(GameObject player) {
-        CollectCMD();
+        if (NetworkClient.active) {
+            CollectCMD();
+        }
+        else if(NetworkServer.active) {
+            CollectRPC();
+        }
+        else {
+            Debug.LogWarning("Client and Server both inactive");
+        }
     }
     [Command(requiresAuthority = false)]
     private void CollectCMD() {

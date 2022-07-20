@@ -13,6 +13,7 @@ public class RoundController : NetworkBehaviour
     public delegate void RoundChange(int round);
     public event RoundChange EventRoundChange;
 
+    public int startRound;
     public int round { get; internal set; }
     [SerializeField] private RoundDisplay display;
     bool isWaitingForNextRound = false;
@@ -91,6 +92,7 @@ public class RoundController : NetworkBehaviour
         spawnDelay = GetSpawnDeley();
         //Debug.Log("Round: " + round.ToString());
         //Debug.Log(numPlayers + " players");
+        round = startRound - 1;
         isWaitingForNextRound = true;
         timeUntilRoundStart = pauseBeforeGameStart;
         ActivateSpawns(startRoomZombieSpawns);
