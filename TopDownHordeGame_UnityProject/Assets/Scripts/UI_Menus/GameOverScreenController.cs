@@ -45,8 +45,10 @@ public class GameOverScreenController : MonoBehaviour
     public void LoadNextScene() {
         //this is an online game
         if (MyNetworkManager.instance.isNetworkActive) {
-            if(PlayerConnection.myConnection.isServer)
+            if (PlayerConnection.myConnection.isServer) {
+                MyNetworkManager.instance.EndGame();
                 MyNetworkManager.instance.ChangeScene(lobbyScene);
+            }
         }
         else {
             //this is an offline game

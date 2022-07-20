@@ -27,6 +27,8 @@ public class MyNetworkManager : NetworkManager
     protected Transport steamTransport;
     protected Transport kcpTransport;
 
+    private bool gameStarted = false;
+
     private List<PlayerConnection> playerConnections = new List<PlayerConnection>();
     public List<PlayerConnection> GetPlayerConnections() { return playerConnections; }
 
@@ -74,7 +76,6 @@ public class MyNetworkManager : NetworkManager
         if (isNetworkActive)
             ServerChangeScene(sceneName);
     }
-
 
     public int GetPrefabIndex(GameObject prefab) {
         for (int i = 0; i < spawnPrefabs.Count; i++) {
@@ -133,8 +134,31 @@ public class MyNetworkManager : NetworkManager
         return true;
     }
 
+    /// <summary>
+    /// Stops people from joining the game
+    /// </summary>
+    public void StartGame() {
+        gameStarted = true;
+        maxConnections = numPlayers;
+    }
+    /// <summary>
+    /// Allows people to join the lobby
+    /// </summary>
+    public void EndGame() {
+        maxConnections = 4;
+        gameStarted = false;
+    }
+
     //--- Handle PlayerConnection components ---
     public override void OnServerAddPlayer(NetworkConnectionToClient conn) {
+
+        //------- Addition for MyNetworkManager -------
+        if (gameStarted) {
+            Debug.Log("Can't join a game in progress");
+            conn.Disconnect();
+        }
+        //------- Addition for MyNetworkManager -------
+
         // ------- Normal Networkmanager -------
         Transform startPos = GetStartPosition();
         GameObject player = startPos != null
