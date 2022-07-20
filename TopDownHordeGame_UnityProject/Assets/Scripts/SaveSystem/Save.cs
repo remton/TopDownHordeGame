@@ -10,7 +10,7 @@ public class Save{
 
     //Leaderboard
     public int leaderboard_totalKills;
-    public int leaderboard_mostKills;
+    public int leaderboard_mostKills; 
     public int leaderboard_totalMoneyEarned;
     public int leaderboard_mostMoneyEarned;
     public int leaderboard_totalScore;

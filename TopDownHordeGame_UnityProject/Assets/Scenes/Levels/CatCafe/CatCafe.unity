@@ -29723,6 +29723,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numPlayers: 0
+  round: 0
   playerNames: []
   scores: 
   kills: 
@@ -104428,6 +104429,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MagicController
       objectReference: {fileID: 0}
+    - target: {fileID: 1245653503535305071, guid: d89f8a2ef4d61f64397e985dbdc4eecb, type: 3}
+      propertyPath: dropList.Array.data[0].weight
+      value: 2750
+      objectReference: {fileID: 0}
     - target: {fileID: 2260623728002118392, guid: d89f8a2ef4d61f64397e985dbdc4eecb, type: 3}
       propertyPath: sceneId
       value: 3559928324
@@ -104526,7 +104531,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9081023154583571780, guid: 1545cb196d2ebc847826b12325a7b858, type: 3}
       propertyPath: startRound
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9081023154583571780, guid: 1545cb196d2ebc847826b12325a7b858, type: 3}
       propertyPath: startRoomWindows.Array.size
