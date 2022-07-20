@@ -87,6 +87,7 @@ public class ZombieHealth : NetworkBehaviour
                 damager.GetComponent<PlayerStats>().AddMoney(payForHit);
                 if (health <= 0) {
                     damager.GetComponent<PlayerStats>().AddMoney(payForKill);
+                    damager.GetComponent<PlayerStats>().AddKill();
                 }
             }
         }

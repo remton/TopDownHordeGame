@@ -9,6 +9,7 @@ public class GameOverScreenController : MonoBehaviour
     private GameOverData data;
     public float timeUntilLoadNextScene;
 
+
     [Mirror.Scene]
     public string mainMenuScene = "";
     [Mirror.Scene]
@@ -19,6 +20,7 @@ public class GameOverScreenController : MonoBehaviour
     public List<Text> scoreTxts;
     public List<Text> killTxts;
     public List<Text> moneyTxts;
+    public Text roundTxt;
 
     private void Start() {
         timer = GetComponent<Timer>();
@@ -39,6 +41,7 @@ public class GameOverScreenController : MonoBehaviour
             killTxts[i].text = "Kills: " + data.kills[i].ToString();
             moneyTxts[i].text = "Money Earned: $" + data.moneys[i].ToString();
         }
+        roundTxt.text = "Round " + data.round.ToString();
         timer.CreateTimer(timeUntilLoadNextScene, LoadNextScene);
     }
 

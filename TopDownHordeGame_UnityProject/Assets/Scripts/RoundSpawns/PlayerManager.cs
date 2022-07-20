@@ -174,7 +174,7 @@ public class PlayerManager : NetworkBehaviour
         }
 
         //Everyone died
-        GameOverData.instance.SetData(localPlayers);
+        GameOverData.instance.SetData(localPlayers, RoundController.instance.round);
         SaveData.Save();
         MyNetworkManager.instance.ChangeScene(GameOverScene);
     }
