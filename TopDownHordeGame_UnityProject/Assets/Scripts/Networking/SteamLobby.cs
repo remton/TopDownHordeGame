@@ -23,13 +23,16 @@ public class SteamLobby : MonoBehaviour
 
     // --- Events called by this script ---
     public struct JoinLobbyData {
+        public string info;
         public bool successful;
         public CSteamID userSteamID;
     }
     public delegate void OnJoinGame(JoinLobbyData data);
-    public event OnJoinGame EventOnJoinGame;
+    public event OnJoinGame EventOnJoinLobby;
 
     public struct CreateLobbyData {
+        public string info;
+        public bool successful;
         public CSteamID lobbySteamID;
     }
     public delegate void OnCreateLobby(CreateLobbyData data);
@@ -90,7 +93,11 @@ public class SteamLobby : MonoBehaviour
             //Join lobby triggers a callback (OnLobbyEntered) when it is done
         }
         else {
-            CallJoinLobbyEvent(false);
+            JoinLobbyData data;
+            data.successful = false;
+            data.userSteamID = SteamUser.GetSteamID();
+            data.info = "Lobby code not found";
+            CallJoinLobbyEvent(data);
             Debug.Log("No lobbies with code:" + lobbyCode);
         }
     }
@@ -108,31 +115,35 @@ public class SteamLobby : MonoBehaviour
     }
 
     //Event Call methods
-    private void CallJoinLobbyEvent(bool joined) {
-        if (EventOnJoinGame != null) {
-            JoinLobbyData data;
-            data.successful = joined;
-            data.userSteamID = SteamUser.GetSteamID();
-            EventOnJoinGame.Invoke(data);
+    private void CallJoinLobbyEvent(JoinLobbyData data) {
+        if (EventOnJoinLobby != null) {
+            EventOnJoinLobby.Invoke(data);
         }
     }
-    private void CallCreateLobbyEvent(CSteamID lobbyID) {
+    private void CallCreateLobbyEvent(CreateLobbyData data) {
         if(EventOnCreateLobby != null) {
-            CreateLobbyData data;
-            data.lobbySteamID = lobbyID;
             EventOnCreateLobby.Invoke(data);
         }
     }
 
     //callback called when steam finishes creating the lobby
     private void OnLobbyCreated(LobbyCreated_t callback) {
-
+        CreateLobbyData createData;
         //if the lobby wasnt created
         if (callback.m_eResult == EResult.k_EResultAccessDenied) {
-            Debug.LogError("Could not create lobby: Access Denied!");
+            //Debug.LogError("Could not create lobby: Access Denied!");
+            createData.lobbySteamID = CSteamID.Nil;
+            createData.info = "Could not create lobby: Access Denied!";
+            createData.successful = false;
+            CallCreateLobbyEvent(createData);
+            return;
         }
         if(callback.m_eResult != EResult.k_EResultOK) {
-            Debug.LogError("Could not create lobby: " + callback.m_eResult.ToString());
+            //Debug.LogError("Could not create lobby: " + callback.m_eResult.ToString());
+            createData.lobbySteamID = CSteamID.Nil;
+            createData.info = "Could not create lobby: " + callback.m_eResult.ToString();
+            createData.successful = false;
+            CallCreateLobbyEvent(createData);
             return;
         }
 
@@ -152,8 +163,16 @@ public class SteamLobby : MonoBehaviour
         Debug.Log("Created lobby with code: " + lobbyCode);
         MyNetworkManager.instance.StartHost();
 
-        CallCreateLobbyEvent(new CSteamID(callback.m_ulSteamIDLobby));
-        CallJoinLobbyEvent(true);
+        createData.lobbySteamID = new CSteamID(callback.m_ulSteamIDLobby);
+        createData.info = "Created Lobby";
+        createData.successful = true;
+        CallCreateLobbyEvent(createData); 
+
+        JoinLobbyData joinData;
+        joinData.successful = true;
+        joinData.userSteamID = SteamUser.GetSteamID();
+        joinData.info = "Joined Lobby";
+        CallJoinLobbyEvent(joinData);
     }
 
     //Callback when a user tries to join via steam
@@ -175,16 +194,23 @@ public class SteamLobby : MonoBehaviour
             HOSTADDRESS_KEY);
 
         //Check if we are trying to join a lobby we are hosting in
+        JoinLobbyData data; 
         CSteamID lobby = new CSteamID(callback.m_ulSteamIDLobby);
         if(SteamMatchmaking.GetLobbyData(lobby, HOSTADDRESS_KEY) == SteamUser.GetSteamID().ToString()) {
-            Debug.LogWarning("Steamaccount: " + SteamFriends.GetFriendPersonaName(SteamUser.GetSteamID()) + " already in lobby");
-            CallJoinLobbyEvent(false);
+            //Debug.LogWarning("Steamaccount: " + SteamFriends.GetFriendPersonaName(SteamUser.GetSteamID()) + " already in lobby");
+            data.successful = false;
+            data.userSteamID = SteamUser.GetSteamID();
+            data.info = "Steam Account: " + SteamFriends.GetFriendPersonaName(SteamUser.GetSteamID()) + " already in lobby";
+            CallJoinLobbyEvent(data);
             return;
         }
         MyNetworkManager.instance.networkAddress = hostAddress;
-        Debug.Log("Starting client!!!");
-        MyNetworkManager.instance.StartClient();
-        CallJoinLobbyEvent(true);
+        //Debug.Log("Starting client!!!");
+        MyNetworkManager.instance.StartClient(); 
+        data.successful = true;
+        data.userSteamID = SteamUser.GetSteamID();
+        data.info = "Joined Lobby";
+        CallJoinLobbyEvent(data);
     }
 
     //Callback when steam finishes lobby list request

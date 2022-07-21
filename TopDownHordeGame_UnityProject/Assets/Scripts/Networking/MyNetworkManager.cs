@@ -42,6 +42,12 @@ public class MyNetworkManager : NetworkManager
     public delegate void Server_AllClientsReady();
     public event Server_AllClientsReady ServerEvent_AllClientsReady;
 
+    public delegate void FailedToCreateLobby(string info);
+    public event FailedToCreateLobby Event_FailedToCreateLobby;
+    
+    public delegate void FailedToJoinLobby(string info);
+    public event FailedToJoinLobby Event_FailedToJoinLobby;
+
     //For a clip to be able to be played over the network it needs to be here
     public List<AudioClip> networkClips;
 
@@ -210,12 +216,13 @@ public class MyNetworkManager : NetworkManager
 
         kcpTransport = GetComponent<kcp2k.KcpTransport>();
         steamTransport = gameObject.GetComponent<FizzySteamworks>();
+        steamLobby.EventOnCreateLobby += SteamCreateLobby;
+        steamLobby.EventOnJoinLobby += SteamJoinLobby;
 
         if(steamDisabled || !useSteam || !SetSteamTransport()) {
             DisableSteam();
             SetKcpTransport();
         }
-
     }
     public override void Start() {
         base.Start();
@@ -226,6 +233,16 @@ public class MyNetworkManager : NetworkManager
             Destroy(steamLobby.gameObject);
         base.OnDestroy();
     }
+    //--- SteamLobby Wrapper Events---
+    private void SteamJoinLobby(SteamLobby.JoinLobbyData data) {
+        if(!data.successful)
+            if (Event_FailedToJoinLobby != null) { Event_FailedToJoinLobby.Invoke(data.info); }
+    }
+    private void SteamCreateLobby(SteamLobby.CreateLobbyData data) {
+        if (!data.successful)
+            if (Event_FailedToCreateLobby != null) { Event_FailedToCreateLobby.Invoke(data.info); }
+    }
+
 
     //--- Set network transports ---
     private bool SetSteamTransport() {

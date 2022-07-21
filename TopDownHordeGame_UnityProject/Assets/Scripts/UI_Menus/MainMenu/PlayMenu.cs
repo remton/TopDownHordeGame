@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayMenu : Menu
 {
-    const string STEAM_TEXT = "Connected to Steam";
+    const string STEAM_TEXT = "Enter a game code";
     const string NO_STEAM_TEXT = "Please start Steam for online play";
 
     public MainMenuController mainMenu;
@@ -55,6 +55,9 @@ public class PlayMenu : Menu
         code.interactable = false;
         connectedTxt.text = NO_STEAM_TEXT;
     }
+    public void FailedToJoin(string info) {
+        connectedTxt.text = info;
+    }
 
     //Buttons in this menu
     public void Button_Host() {
@@ -75,5 +78,11 @@ public class PlayMenu : Menu
 
     private void Start() {
         MyNetworkManager.instance.onlineScene = lobbyScene;
+        MyNetworkManager.instance.Event_FailedToCreateLobby += FailedToJoin;
+        MyNetworkManager.instance.Event_FailedToJoinLobby += FailedToJoin;
+    }
+    private void OnDestroy() {
+        MyNetworkManager.instance.Event_FailedToCreateLobby -= FailedToJoin;
+        MyNetworkManager.instance.Event_FailedToJoinLobby -= FailedToJoin;
     }
 }
