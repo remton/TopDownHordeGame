@@ -7,28 +7,36 @@ using UnityEngine.EventSystems;
 public class SettingsController : Menu
 {
     public Menu mainMenu;
-    public Slider SFXSlider;
-    public Slider MusicSlider;
+    public Slider masterSlider;
+    public Slider sfxSlider;
+    public Slider musicSlider;
     public AudioClip sfxDemoClip;
+    public AudioClip masterDemoClip;
 
     public void OpenMenu() {
         gameObject.SetActive(true);
-        SFXSlider.normalizedValue = SaveData.instance.settings_volumeSFX;
-        MusicSlider.normalizedValue = SaveData.instance.settings_volumeMusic;
+        sfxSlider.normalizedValue = SaveData.instance.settings_volumeSFX;
+        musicSlider.normalizedValue = SaveData.instance.settings_volumeMusic;
     }
     public void CloseMenu() {
         gameObject.SetActive(false);
         SaveData.Save();
         EventSystem.current.SetSelectedGameObject(mainMenu.defaultSelectedObject);
     }
+    public void UpdateMasterVolume() {
+        SaveData.instance.settings_volumeMaster = masterSlider.normalizedValue;
+    }
+    public void MasterSliderRelease(float value) {
+        AudioManager.instance.PlaySound(masterDemoClip);
+    }
+    public void UpdateSFXVolume() {
+        SaveData.instance.settings_volumeSFX = sfxSlider.normalizedValue;
+    }
     public void SFXSliderRelease(float value) {
         AudioManager.instance.PlaySound(sfxDemoClip);
     }
-    public void UpdateSFXVolume() {
-        SaveData.instance.settings_volumeSFX = SFXSlider.normalizedValue;
-    }
     public void UpdateMusicVolume() {
-        SaveData.instance.settings_volumeMusic = MusicSlider.normalizedValue;
+        SaveData.instance.settings_volumeMusic = musicSlider.normalizedValue;
     }
     public void ResetSaveData() {
         SaveData.DeleteSave();
@@ -40,9 +48,11 @@ public class SettingsController : Menu
     }
 
     private void Awake() {
-        SFXSlider.gameObject.GetComponent<SliderRelease>().EventOnRelease += SFXSliderRelease;
+        sfxSlider.gameObject.GetComponent<SliderRelease>().EventOnRelease += SFXSliderRelease;
+        masterSlider.gameObject.GetComponent<SliderRelease>().EventOnRelease += MasterSliderRelease;
     }
     private void OnDestroy() {
-        SFXSlider.gameObject.GetComponent<SliderRelease>().EventOnRelease -= SFXSliderRelease;
+        sfxSlider.gameObject.GetComponent<SliderRelease>().EventOnRelease -= SFXSliderRelease;
+        masterSlider.gameObject.GetComponent<SliderRelease>().EventOnRelease -= MasterSliderRelease;
     }
 }

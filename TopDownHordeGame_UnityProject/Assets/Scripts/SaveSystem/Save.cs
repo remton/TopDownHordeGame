@@ -5,6 +5,7 @@
 public class Save{
 
     //Settings
+    public float settings_volumeMaster;
     public float settings_volumeSFX;
     public float settings_volumeMusic;
 
@@ -25,6 +26,7 @@ public class Save{
 
     public Save(SaveData data) {
         //Settings
+        settings_volumeMaster = data.settings_volumeMaster;
         settings_volumeSFX = data.settings_volumeSFX;
         settings_volumeMusic = data.settings_volumeMusic;
         //LeaderBoard

@@ -10,7 +10,6 @@ public class SaveData : MonoBehaviour {
     [Header("Data loaded at Runtime")]
     [Header("Settings")]
 
-    //Not yet saved just always set to 1
     private float internal_settings_volumeMaster;
     public float settings_volumeMaster {
         get { return internal_settings_volumeMaster; }
@@ -75,7 +74,7 @@ public class SaveData : MonoBehaviour {
 
         // Copy all data to instance
         //Settings
-        instance.settings_volumeMaster = 1;
+        instance.settings_volumeMaster = save.settings_volumeMaster;
         instance.settings_volumeSFX = save.settings_volumeSFX;
         instance.settings_volumeMusic = save.settings_volumeMusic;
         //Leaderboard
@@ -95,6 +94,7 @@ public class SaveData : MonoBehaviour {
     }
     public static void ClearData() {
         //settings
+        instance.settings_volumeMaster = 0.5f;
         instance.settings_volumeSFX = 0.5f;
         instance.settings_volumeMusic = 0.5f;
         //Leaderboard
