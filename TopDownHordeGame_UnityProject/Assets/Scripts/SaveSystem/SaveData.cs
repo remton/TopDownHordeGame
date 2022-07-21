@@ -48,6 +48,7 @@ public class SaveData : MonoBehaviour {
     private void Awake() {
         if (instance != null && instance != this) {
             Destroy(gameObject);
+            return;
         }
         DontDestroyOnLoad(this.gameObject);
         instance = this;
