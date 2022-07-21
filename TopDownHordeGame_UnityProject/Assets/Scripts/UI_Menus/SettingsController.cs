@@ -9,6 +9,7 @@ public class SettingsController : Menu
     public Menu mainMenu;
     public Slider SFXSlider;
     public Slider MusicSlider;
+    public AudioClip sfxDemoClip;
 
     public void OpenMenu() {
         gameObject.SetActive(true);
@@ -20,9 +21,13 @@ public class SettingsController : Menu
         SaveData.Save();
         EventSystem.current.SetSelectedGameObject(mainMenu.defaultSelectedObject);
     }
+    public void SFXSliderRelease(float value) {
+        AudioManager.instance.PlaySound(sfxDemoClip);
+    }
     public void UpdateSFXVolume() {
         SaveData.instance.settings_volumeSFX = SFXSlider.normalizedValue;
-    }    public void UpdateMusicVolume() {
+    }
+    public void UpdateMusicVolume() {
         SaveData.instance.settings_volumeMusic = MusicSlider.normalizedValue;
     }
     public void ResetSaveData() {
@@ -32,5 +37,12 @@ public class SettingsController : Menu
     }
     public override void OnCancel() {
         CloseMenu();
+    }
+
+    private void Awake() {
+        SFXSlider.gameObject.GetComponent<SliderRelease>().EventOnRelease += SFXSliderRelease;
+    }
+    private void OnDestroy() {
+        SFXSlider.gameObject.GetComponent<SliderRelease>().EventOnRelease -= SFXSliderRelease;
     }
 }
