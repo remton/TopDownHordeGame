@@ -20,7 +20,6 @@ public class StaminaMeter : MonoBehaviour
             transform.localScale = new Vector3(-1 * awakeScaleX, transform.localScale.y, transform.localScale.z);
         else 
             transform.localScale = new Vector3(awakeScaleX, transform.localScale.y, transform.localScale.z);
-
     }
 
     private void UpdateValue(float newStamina, float newMax) {

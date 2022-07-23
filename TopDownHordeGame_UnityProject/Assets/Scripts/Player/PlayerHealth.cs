@@ -13,7 +13,6 @@ public class PlayerHealth : NetworkBehaviour {
 
     [SerializeField] private float reviveTime;
     [SerializeField] private HitBoxController reviveTrigger;
-    public RevivePrompt revivePrompt;
     private Guid reviveTimerID = Guid.Empty;
 
 
@@ -24,6 +23,9 @@ public class PlayerHealth : NetworkBehaviour {
     [SyncVar]
     private float timeUntilDeath;
 
+    private bool hasRevivePrompt;
+
+    public BleedOutMeter bleedOutMeter;
 
     private float regenAmount = 1;
     private float regenHitDelay = 10; 
@@ -56,7 +58,8 @@ public class PlayerHealth : NetworkBehaviour {
     }
     [TargetRpc]
     private void OnPlayerEnterReviveTrigger_TargetRPC(NetworkConnection connection, GameObject otherPlayer) {
-        revivePrompt.Activate();
+        hasRevivePrompt = true;
+        bleedOutMeter.UpdateValues(isBleedingOut, hasRevivePrompt, isBeingRevived);
         otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivate += OnReviveActivateDown;
         otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivateRelease += OnReviveActivateRelease;
     }
@@ -67,14 +70,14 @@ public class PlayerHealth : NetworkBehaviour {
     }
     [TargetRpc]
     private void OnPlayerExitReviveTrigger_TargetRPC(NetworkConnection connection, GameObject otherPlayer) {
-        revivePrompt.Deactivate();
+        hasRevivePrompt = false;
         otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivate -= OnReviveActivateDown;
         otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivateRelease -= OnReviveActivateRelease;
         if (reviveTimerID != Guid.Empty) {
             timer.KillTimer(reviveTimerID);
             isBeingRevived = false;
         }
-        
+        bleedOutMeter.UpdateValues(isBleedingOut, hasRevivePrompt, isBeingRevived);
     }
     private void Awake() {
         timer = GetComponent<Timer>();
@@ -94,6 +97,7 @@ public class PlayerHealth : NetworkBehaviour {
             reviveTimerID = timer.CreateTimer(reviveTime, Revive);
             reviver = otherPlayer;
             isBeingRevived = true;
+            bleedOutMeter.UpdateValues(isBleedingOut, hasRevivePrompt, isBeingRevived);
         }
     }
     private void OnReviveActivateRelease(GameObject otherPlayer) {
@@ -102,6 +106,7 @@ public class PlayerHealth : NetworkBehaviour {
             timer.KillTimer(reviveTimerID);
             isBeingRevived = false;
             reviveTimerID = Guid.Empty;
+            bleedOutMeter.UpdateValues(isBleedingOut, hasRevivePrompt, isBeingRevived);
         }
     }
 
@@ -213,19 +218,17 @@ public class PlayerHealth : NetworkBehaviour {
     [ClientRpc]
     private void ReviveRPC() {
         if (reviver == null || !reviver.GetComponent<PlayerHealth>().GetIsBleedingOut()) {
-            revivePrompt.Deactivate();
-            //SoundPlayer.Play(reviveSound, transform.position);
             AudioManager.instance.PlaySound(reviveSound);
             reviveTrigger.EventObjEnter -= OnPlayerEnterReviveTrigger;
             reviveTrigger.EventObjExit -= OnPlayerExitReviveTrigger;
             isBleedingOut = false;
             isBeingRevived = false;
             health = maxHealth;
+            bleedOutMeter.UpdateValues(isBleedingOut, hasRevivePrompt, isBeingRevived);
             GetComponent<PlayerMovement>().EnableMovement();
             //Debug.Log("Revived!");
             if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
         }
-        //    reviver.GetComponent<PlayerHealth>().OnReviveActivateRelease(gameObject);
         OnReviveActivateRelease(reviver);
         reviver = null;
     }
@@ -237,6 +240,7 @@ public class PlayerHealth : NetworkBehaviour {
         reviveTrigger.ForceEntry();
         timeUntilDeath = bleedOutTime;
         isBleedingOut = true;
+        bleedOutMeter.UpdateValues(isBleedingOut, hasRevivePrompt, isBeingRevived);
         GetComponent<PlayerMovement>().DisableMovement();
         //foreach (GameObject obj in reviveTrigger.Hits()) {
         //    Debug.Log("OBJ tag: " + obj.tag);
@@ -261,6 +265,7 @@ public class PlayerHealth : NetworkBehaviour {
         reviveTrigger.EventObjExit -= OnPlayerExitReviveTrigger;
         isBleedingOut = false;
         isDead = true;
+        bleedOutMeter.UpdateValues(isBleedingOut, hasRevivePrompt, isBeingRevived);
     }
 
     public void Respawn()
@@ -268,14 +273,12 @@ public class PlayerHealth : NetworkBehaviour {
         health = maxHealth;
         isDead = false;
         isBeingRevived = false;
+        bleedOutMeter.UpdateValues(isBleedingOut, hasRevivePrompt, isBeingRevived);
         reviveTimerID = Guid.Empty;
         GetComponent<PlayerMovement>().EnableMovement();
         //GetComponent<PlayerWeaponControl>().ResetWeapons();
         //Debug.Log("Revived!");
         if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
-    }
-    public bool IsBleedingOut() {
-        return isBleedingOut;
     }
     public float GetBleedOutTimeRatio() {
         return timeUntilDeath/bleedOutTime;
