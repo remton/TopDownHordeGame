@@ -6,22 +6,23 @@ using UnityEngine.EventSystems;
 
 public class SettingsController : Menu
 {
-    public Menu mainMenu;
+    public Menu parentMenu;
     public Slider masterSlider;
     public Slider sfxSlider;
     public Slider musicSlider;
     public AudioClip sfxDemoClip;
     public AudioClip masterDemoClip;
 
-    public void OpenMenu() {
-        gameObject.SetActive(true);
+    public override void Open() {
+        base.Open();
+        masterSlider.normalizedValue = SaveData.instance.settings_volumeMaster;
         sfxSlider.normalizedValue = SaveData.instance.settings_volumeSFX;
         musicSlider.normalizedValue = SaveData.instance.settings_volumeMusic;
     }
-    public void CloseMenu() {
-        gameObject.SetActive(false);
+    public override void Close() {
+        base.Close();
         SaveData.Save();
-        EventSystem.current.SetSelectedGameObject(mainMenu.defaultSelectedObject);
+        EventSystem.current.SetSelectedGameObject(parentMenu.defaultSelectedObject);
     }
     public void UpdateMasterVolume() {
         SaveData.instance.settings_volumeMaster = masterSlider.normalizedValue;
@@ -41,10 +42,13 @@ public class SettingsController : Menu
     public void ResetSaveData() {
         SaveData.DeleteSave();
         SaveData.ClearData();
+        UpdateMasterVolume();
+        UpdateSFXVolume();
+        UpdateMusicVolume();
         SaveData.Save();
     }
     public override void OnCancel() {
-        CloseMenu();
+        Close();
     }
 
     private void Awake() {

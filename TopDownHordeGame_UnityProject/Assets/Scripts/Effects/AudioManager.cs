@@ -54,6 +54,9 @@ public class AudioManager : MonoBehaviour {
     // MUSIC //
     //Fades into new music track
     public void PlayMusic(AudioClip clip, float fadeDuration = 2) {
+        if (clip == musicSources[activeMusicSource].clip)
+            return;
+
         int oldSource = activeMusicSource;
         activeMusicSource = (activeMusicSource + 1) % musicSources.Length;
         musicSources[activeMusicSource].loop = true;
@@ -73,14 +76,23 @@ public class AudioManager : MonoBehaviour {
             Debug.Log("Instant music switch");
             musicSources[oldIndex].volume = 0;
             musicSources[newIndex].volume = musicVolume;
-            yield return null;
+            yield break;
         }
-
-        float timeLeft = duration;
+        //Fade out old
+        float timeLeft = duration/2;
+        musicSources[newIndex].volume = 0;
         while (timeLeft > 0) {
             float percent = timeLeft / duration;
             timeLeft -= Time.deltaTime;
             musicSources[oldIndex].volume = Mathf.Lerp(0, musicVolume, percent);
+            yield return new WaitForEndOfFrame();
+        }
+        //Fade in new
+        timeLeft = duration / 2;
+        musicSources[oldIndex].volume = 0;
+        while (timeLeft > 0) {
+            float percent = timeLeft / duration;
+            timeLeft -= Time.deltaTime;
             musicSources[newIndex].volume = Mathf.Lerp(musicVolume, 0, percent);
             yield return new WaitForEndOfFrame();
         }

@@ -6,44 +6,35 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(Timer))]
 public class MusicsManager : MonoBehaviour {
 
-    private List<AudioClip> activeMusics = new List<AudioClip>();
-
-    // ---- SCENES AND THEIR MUSIC ----
-    //dont forget to add the scenes to the set scene method as well
-    //Clips arranged low intensity -> high intensity
-    [Mirror.Scene] 
-    public string menuScene; 
-    public List<AudioClip> menuMusics = new List<AudioClip>();
+    [System.Serializable]
+    private struct MusicScene {
+        [Mirror.Scene]
+        public string scene;
+        [Tooltip("Clips arranged low intensity -> high intensity")]
+        public List<AudioClip> musics; 
+        [Tooltip("percent chance 0% to 100% that music will play")]
+        public float musicChance;
+        [Header("Music Uptime range in minutes before changing tracks")]
+        public float musicUptimeMin;
+        public float musicUptimeMax;
+        public float silenceUptimeMin;
+        public float silenceUptimeMax;
+    }
     
-    [Mirror.Scene] 
-    public string lobbyScene; 
-    public List<AudioClip> lobbyMusics = new List<AudioClip>();
-
-    [Mirror.Scene]
-    public string gameoverScene;
-    public List<AudioClip> gameoverMusics = new List<AudioClip>();
-
-    [Mirror.Scene] 
-    public string catcafeScene;
-    public List<AudioClip> catcafeMusics = new List<AudioClip>();
-
-    [Mirror.Scene] 
-    public string labScene;
-    public List<AudioClip> labMusics = new List<AudioClip>();
-
-    private Timer timer;
-    System.Guid uptimeTimer;
-
-    [Header("percent chance 0% to 100% that music will play")]
-    public int musicChance;
-    [Header("Music Uptime range before changing tracks")]
-    public float musicUptimeMin;
-    public float musicUptimeMax;
-    private float uptime;
     [Header("How long fading between tracks takes in seconds")]
     public float fadeDuration;
 
+    [SerializeField][Header("Add each scene with its own music here")]
+    private List<MusicScene> scenes;
 
+    [SerializeField][Header("The default values if a scene is not in scenes")]
+    private MusicScene defaultScene;
+
+    private MusicScene currScene;
+    private List<AudioClip> activeMusics = new List<AudioClip>();
+    private Timer timer;
+    System.Guid uptimeTimer;
+    private float uptime;
 
     private void Awake() {
         timer = GetComponent<Timer>();
@@ -54,54 +45,44 @@ public class MusicsManager : MonoBehaviour {
     }
 
     public void SceneChanged(Scene current, Scene next) {
-        Debug.Log("Scene changed");
-        StartCoroutine(SetScene(next));
+        //Debug.Log("Scene changed");
+        currScene = defaultScene;
+        foreach (MusicScene scene in scenes) {
+            if (scene.scene == next.path)
+            currScene = scene;
+        }
+        StartCoroutine(SetScene(currScene));
     }
-    // --- ADD NEW SCENES TO THIS METHOD ----
-    IEnumerator SetScene(Scene next) {
+    //Waiting for a frame fixed an issue with loading the scene
+    IEnumerator SetScene(MusicScene scene) {
         yield return new WaitForEndOfFrame();
-        if (next.path == menuScene) {
-            activeMusics = menuMusics;
+        List<AudioClip> newMusics = scene.musics;
+        //Dont restart music if it is the same music as before
+        if (newMusics != activeMusics && newMusics.Count != 0) {
+            activeMusics = newMusics;
+            StartMusic();
         }
-        else if (next.path == lobbyScene) {
-            activeMusics = menuMusics;
-        }
-        else if (next.path == gameoverScene) {
-            activeMusics = gameoverMusics;
-        }
-        else if (next.path == catcafeScene) {
-            activeMusics = catcafeMusics;
-        }
-        else if (next.path == labScene) {
-            activeMusics = labMusics;
-        }
-        else {
-            Debug.LogWarning("No music registered for scene, " + next.path);
-            Debug.LogWarning("CatCafe: " + catcafeScene);
-        }
-        StopMusic();
-        StartMusic();
     }
-
 
     public void StopMusic() {
         timer.KillTimer(uptimeTimer);
-        AudioManager.instance.FadeOutMusic(0);
+        AudioManager.instance.FadeOutMusic(fadeDuration);
     }
 
     public void StartMusic() {
         if (activeMusics.Count > 0) {
             int rand = Random.Range(0, 100);
-            if (rand < musicChance) {
+            if (rand < currScene.musicChance) {
                 rand = Random.Range(0, activeMusics.Count);
                 AudioClip clip = activeMusics[rand];
                 AudioManager.instance.PlayMusic(clip, fadeDuration);
+                uptime = Random.Range(currScene.musicUptimeMin, currScene.musicUptimeMax);
                 //Debug.Log("PLAYING CLIP: " + clip.name);
             }
             else {
                 AudioManager.instance.FadeOutMusic(fadeDuration);
+                uptime = Random.Range(currScene.silenceUptimeMin, currScene.silenceUptimeMax);
             }
-            uptime = Random.Range(musicUptimeMin, musicUptimeMax);
             uptimeTimer = timer.CreateTimer(uptime * 60, StartMusic);
         }
         else {
