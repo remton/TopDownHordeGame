@@ -103,8 +103,8 @@ public class RoundController : NetworkBehaviour
         if (isWaitingForNextRound) {
             if (!hasShownRoundChange) { 
                 DisplayRoundChangeRPC(round + 1); //display before the zombies start spawning
-                PlayerManager.instance.ReviveDownedPlayers();
-                PlayerManager.instance.RespawnDeadPlayers();
+                PlayerManager.instance.ReviveDownedPlayersRPC();
+                PlayerManager.instance.RespawnDeadPlayersRPC();
                 hasShownRoundChange = true;
             }
             if (timeUntilRoundStart <= Time.deltaTime) {

@@ -7,20 +7,28 @@ using Mirror;
 
 public class PlayerManager : NetworkBehaviour
 {
-    [Scene]
-    public string GameOverScene;
-
+    //Public vars
+    public static PlayerManager instance;
+    [Scene] public string GameOverScene;
     public GameObject spawnPoint;
     public GameObject deadPlayerLocation;
-    private List<GameObject> localPlayers = new List<GameObject>();
-    private readonly SyncList<GameObject> allPlayers = new SyncList<GameObject>();
 
-    private void OnAllPlayersChange(SyncList<GameObject>.Operation op, int index, GameObject oldObj, GameObject newObj) {
-        if (EventActivePlayersChange != null) { EventActivePlayersChange.Invoke(GetActivePlayers()); }
-    }
-    
+    //Public events
+    public delegate void OnPlayersChanged(List<GameObject> players);
+    public event OnPlayersChanged EventActiveLocalPlayersChange;
+    public event OnPlayersChanged EventActivePlayersChange;
+
+    //Private vars
+    private List<GameObject> localPlayers = new List<GameObject>(); //Holds only the local players to this client
+    private List<GameObject> allPlayers = new List<GameObject>(); //Holds all players in game
+
+
+    //--- Public Methods ---
+
+    //Returns the playercharacter with the given ID
     public static Player FindPlayerWithID(System.Guid id) {
-        foreach (GameObject player in instance.allPlayers) {
+        for (int i = 0; i < instance.allPlayers.Count; i++) {
+            GameObject player = instance.allPlayers[i];
             if (player.GetComponent<Player>().GetPlayerID() == id)
                 return player.GetComponent<Player>();
         }
@@ -28,6 +36,7 @@ public class PlayerManager : NetworkBehaviour
         return null;
     }
 
+    //Returns living local players
     public List<GameObject> GetActiveLocalPlayers() {
         List<GameObject> localPlayers = new List<GameObject>();
         foreach (GameObject player in this.localPlayers) {
@@ -37,93 +46,23 @@ public class PlayerManager : NetworkBehaviour
         return localPlayers;
     }
 
+    //Returns all living players
     public List<GameObject> GetActivePlayers() {
         List<GameObject> activePlayers = new List<GameObject>();
-        foreach (GameObject player in allPlayers) {
+        for (int i = 0; i < allPlayers.Count; i++) {
+            GameObject player = allPlayers[i];
             if (!player.GetComponent<PlayerHealth>().GetIsDead())
-                activePlayers.Add(player);
+                activePlayers.Add(allPlayers[i]);
         }
         return activePlayers;
     }
 
-    public delegate void OnPlayersChanged(List<GameObject> players);
-    public event OnPlayersChanged EventActiveLocalPlayersChange;
-    public event OnPlayersChanged EventActivePlayersChange;
-
-    public static PlayerManager instance;
-    private void Awake() {
-        if (instance == null) { instance = this; }
-        else { Debug.Log("Two playerManagers active. Destroying one..."); }
-
-        //Set up events from MyNetworkManager
-        MyNetworkManager.instance.ServerEvent_PlayerConnectionRemoved += OnPlayerLeft;
-        allPlayers.Callback += OnAllPlayersChange;
-    }
-
-    private void Start() {
-        CreatePlayers();
-    }
-
-    public override void OnStartClient() {
-        base.OnStartClient();
-        localPlayers.Clear();
-        if (EventActivePlayersChange != null) { EventActivePlayersChange.Invoke(GetActivePlayers()); }
-    }
-
-    [Server]
-    private void OnPlayerLeft(PlayerConnection connection) {
-        List<GameObject> charas = connection.GetPlayerCharacters();
-        for (int i = 0; i < allPlayers.Count; i++) {
-            if (allPlayers[i] == null)
-                allPlayers.RemoveAt(i);
-        }
-        for (int i = 0; i < charas.Count; i++) {
-            allPlayers.Remove(charas[i]);
-        }
-        if (EventActivePlayersChange != null) { EventActivePlayersChange.Invoke(GetActivePlayers()); }
-    }
-
-    [Server]
-    public void CreatePlayers() {
-        //This is an online game
-        List<PlayerConnection> connections = MyNetworkManager.instance.GetPlayerConnections();
-        if (MyNetworkManager.instance.isNetworkActive) {
-            for (int i = 0; i < connections.Count; i++) {
-                connections[i].SpawnPlayers(connections[i].connectionToClient, spawnPoint.transform.position);
-            }
-        }
-        else {
-            Debug.LogError("NetworkServer is inactive");
-        }
-    }
-
-
-    [TargetRpc]
-    public void AddLocalPlayerCharacter(NetworkConnection network, GameObject player) {
-        localPlayers.Add(player);
-        if (EventActiveLocalPlayersChange != null) { EventActiveLocalPlayersChange.Invoke(GetActiveLocalPlayers()); }
-    }
-    [TargetRpc]
-    public void RemoveLocalPlayerCharacter(NetworkConnection network, GameObject player) {
-        localPlayers.Remove(player);
-        if (EventActiveLocalPlayersChange != null) { EventActiveLocalPlayersChange.Invoke(GetActiveLocalPlayers()); }
-    }
-
-    [Server]
-    public void AddPlayerCharacter(GameObject player, PlayerConnection connection) {
-        AddLocalPlayerCharacter(connection.connectionToClient, player);
-        allPlayers.Add(player);
-    }
-    [Server]
-    public void RemovePlayerCharacter(GameObject player, PlayerConnection connection) {
-        RemoveLocalPlayerCharacter(connection.connectionToClient, player);
-        allPlayers.Remove(player);
-    }
-
+    /// <summary> [ClientRPC] Respawns all dead players </summary>
     [ClientRpc]
-    public void RespawnDeadPlayers() {
+    public void RespawnDeadPlayersRPC() {
         //Clients respawn all dead players since respawn does not auto update the server
-        foreach (GameObject player in allPlayers) {
+        for (int i = 0; i < allPlayers.Count; i++) {
+            GameObject player = allPlayers[i];
             if (player == null)
                 continue;
 
@@ -138,10 +77,12 @@ public class PlayerManager : NetworkBehaviour
         if (EventActivePlayersChange != null) { EventActivePlayersChange.Invoke(GetActivePlayers()); }
     }
 
+    /// <summary> [ClientRPC] Revives all downed players </summary>
     [ClientRpc]
-    public void ReviveDownedPlayers() {
+    public void ReviveDownedPlayersRPC() {
         //Each client revives their own local players Revive auto updates the server
-        foreach (GameObject player in localPlayers) {
+        for (int i = 0; i < localPlayers.Count; i++) {
+            GameObject player = localPlayers[i];
             if (player == null)
                 continue;
 
@@ -153,17 +94,110 @@ public class PlayerManager : NetworkBehaviour
         }
     }
 
+    /// <summary> [ClientRPC] Called on all clients when a player dies </summary>
     [ClientRpc]
-    public void OnPlayerDie(GameObject player) {
+    public void OnPlayerDieRPC(GameObject player) {
         player.GetComponent<Player>().DisablePlayer();
         player.transform.position = deadPlayerLocation.transform.position;
-        CheckGameOver();
+        CheckGameOverCMD();
         if (EventActiveLocalPlayersChange != null) { EventActiveLocalPlayersChange.Invoke(GetActiveLocalPlayers()); }
     }
 
+    /// <summary> [Server] Adds the given player character </summary>
+    [Server]
+    public void AddPlayerCharacter(GameObject player, PlayerConnection connection) {
+        AddLocalPlayerCharacterTRPC(connection.connectionToClient, player);
+        allPlayers.Add(player);
+        SetAllPlayersRPC(allPlayers.ToArray());
+    }
+
+    /// <summary> [Server] Removes given player character </summary>
+    [Server]
+    public void RemovePlayerCharacter(GameObject player, PlayerConnection connection) {
+        RemoveLocalPlayerCharacterTRPC(connection.connectionToClient, player);
+        allPlayers.Remove(player);
+        SetAllPlayersRPC(allPlayers.ToArray());
+    }
+
+
+    // --- Private Methods ---
+
+    // Called immediatly when creating this script object
+    private void Awake() {
+        //Handle instance
+        if (instance == null) { instance = this; }
+        else { Debug.Log("Two playerManagers active. Destroying one..."); }
+        //Set up events from MyNetworkManager
+        MyNetworkManager.instance.ServerEvent_PlayerConnectionRemoved += OnPlayerLeft;
+    }
+
+    // called on first frame in scene
+    private void Start() {
+        CreatePlayers();
+    }
+
+    // called on first frame in scene only on clients
+    public override void OnStartClient() {
+        base.OnStartClient();
+        localPlayers.Clear();
+        if (EventActivePlayersChange != null) { EventActivePlayersChange.Invoke(GetActivePlayers()); }
+    }
+
+    /// <summary> [Server] call when a player leaves </summary>
+    [Server]
+    private void OnPlayerLeft(PlayerConnection connection) {
+        List<GameObject> charas = connection.GetPlayerCharacters();
+        for (int i = 0; i < allPlayers.Count; i++) {
+            if (allPlayers[i] == null)
+                allPlayers.RemoveAt(i);
+        }
+        for (int i = 0; i < charas.Count; i++) {
+            allPlayers.Remove(charas[i]);
+        }
+        SetAllPlayersRPC(allPlayers.ToArray());
+        if (EventActivePlayersChange != null) { EventActivePlayersChange.Invoke(GetActivePlayers()); }
+    }
+
+    /// <summary> [Server] Creates player characters for all player connections </summary>
+    [Server]
+    private void CreatePlayers() {
+        //This is an online game
+        List<PlayerConnection> connections = MyNetworkManager.instance.GetPlayerConnections();
+        if (MyNetworkManager.instance.isNetworkActive) {
+            for (int i = 0; i < connections.Count; i++) {
+                connections[i].SpawnPlayers(connections[i].connectionToClient, spawnPoint.transform.position);
+            }
+        }
+        else {
+            Debug.LogError("NetworkServer is inactive");
+        }
+    }
+
+    /// <summary> [ClientRpc] Updates allplayers list for every client </summary>
+    [ClientRpc]
+    private void SetAllPlayersRPC(GameObject[] allPlayers) {
+        this.allPlayers = new List<GameObject>(allPlayers); 
+        if (EventActivePlayersChange != null) { EventActivePlayersChange.Invoke(GetActivePlayers()); }
+    }
+
+    /// <summary> [TargetRpc] Adds local player character to localPlayers list </summary>
+    [TargetRpc]
+    private void AddLocalPlayerCharacterTRPC(NetworkConnection network, GameObject player) {
+        localPlayers.Add(player);
+        if (EventActiveLocalPlayersChange != null) { EventActiveLocalPlayersChange.Invoke(GetActiveLocalPlayers()); }
+    }
+
+    /// <summary> [TargetRpc] Removes local player character to localPlayers list </summary>
+    [TargetRpc]
+    private void RemoveLocalPlayerCharacterTRPC(NetworkConnection network, GameObject player) {
+        localPlayers.Remove(player);
+        if (EventActiveLocalPlayersChange != null) { EventActiveLocalPlayersChange.Invoke(GetActiveLocalPlayers()); }
+    }
+
+    /// <summary> [Command] Checks if game should end, and ends it accordingly </summary>
 
     [Command(requiresAuthority = false)]
-    private void CheckGameOver() {
+    private void CheckGameOverCMD() {
         List<PlayerConnection> connections = MyNetworkManager.instance.GetPlayerConnections();
         for (int i = 0; i < connections.Count; i++) {
             List<GameObject> localCharacters = connections[i].GetPlayerCharacters();
@@ -173,8 +207,7 @@ public class PlayerManager : NetworkBehaviour
                     return;
             }
         }
-
-        //Everyone died
+        //Everyone died so end game
         GameOverData.instance.SetData(localPlayers, RoundController.instance.round);
         SaveData.Save();
         MyNetworkManager.instance.ChangeScene(GameOverScene);

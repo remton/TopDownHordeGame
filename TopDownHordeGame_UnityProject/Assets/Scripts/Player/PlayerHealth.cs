@@ -112,7 +112,7 @@ public class PlayerHealth : NetworkBehaviour {
 
 
 
-    [SyncVar] private bool isDead = false;
+    private bool isDead = false;
     public bool GetIsDead() { return isDead; }
 
     public bool GetIsBleedingOut() { return isBleedingOut; }
@@ -257,7 +257,7 @@ public class PlayerHealth : NetworkBehaviour {
     private void Die() {
         DieRPC();
         //The player who owns this needs to call this method since they are the authority for this object
-        PlayerManager.instance.OnPlayerDie(gameObject);
+        PlayerManager.instance.OnPlayerDieRPC(gameObject);
     }
     [ClientRpc]
     private void DieRPC() {
