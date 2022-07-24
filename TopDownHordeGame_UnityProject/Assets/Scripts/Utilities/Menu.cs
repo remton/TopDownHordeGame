@@ -5,9 +5,11 @@ using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
+    public Menu parentMenu;
     public GameObject defaultSelectedObject;
     private bool isUsingGamepad = false;
 
@@ -42,11 +44,25 @@ public class Menu : MonoBehaviour
     }
 
     public virtual void Open() {
+        if (parentMenu != null) {
+            parentMenu.SetInteractable(false);
+        }
         gameObject.SetActive(true);
         EventSystem.current.SetSelectedGameObject(defaultSelectedObject);
     }
     public virtual void Close() {
+        if (parentMenu != null) {
+            parentMenu.SetInteractable(true);
+        }
         gameObject.SetActive(false);
+        if(parentMenu!=null)
+            EventSystem.current.SetSelectedGameObject(parentMenu.defaultSelectedObject);
+    }
+    public virtual void SetInteractable(bool interactable) {
+        Selectable[] selects = gameObject.GetComponentsInChildren<Selectable>();
+        foreach (Selectable select in selects) {
+            select.interactable = interactable;
+        }
     }
 
     protected virtual void OnUseGamepad() {

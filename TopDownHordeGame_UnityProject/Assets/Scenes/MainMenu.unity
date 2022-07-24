@@ -175,6 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90476d528e2c5c14091d70fc4b8f94b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentMenu: {fileID: 0}
   defaultSelectedObject: {fileID: 78034636}
   helpScene: Assets/Scenes/HelpMenu.unity
 --- !u!114 &35172221
@@ -3348,6 +3349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51e5f37ef26df904db23f4b71545829d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentMenu: {fileID: 35172220}
   defaultSelectedObject: {fileID: 1855658809}
   mostKills: {fileID: 911319505}
   totalKills: {fileID: 901223050}
@@ -3356,7 +3358,6 @@ MonoBehaviour:
   mostScore: {fileID: 594225733}
   totalScore: {fileID: 111750493}
   highestRound: {fileID: 537064581}
-  mainMenu: {fileID: 35172220}
 --- !u!114 &1322999307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3563,8 +3564,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca736f30ae1b75c4a807e5926433e35a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentMenu: {fileID: 35172220}
   defaultSelectedObject: {fileID: 860807189}
-  mainMenu: {fileID: 35172220}
   code: {fileID: 743569217}
   hostButton: {fileID: 393460656}
   joinButton: {fileID: 1905792007}

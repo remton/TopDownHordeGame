@@ -6,7 +6,6 @@ using UnityEngine.EventSystems;
 
 public class SettingsController : Menu
 {
-    public Menu parentMenu;
     public Slider masterSlider;
     public Slider sfxSlider;
     public Slider musicSlider;
@@ -22,7 +21,6 @@ public class SettingsController : Menu
     public override void Close() {
         base.Close();
         SaveData.Save();
-        EventSystem.current.SetSelectedGameObject(parentMenu.defaultSelectedObject);
     }
     public void UpdateMasterVolume() {
         SaveData.instance.settings_volumeMaster = masterSlider.normalizedValue;

@@ -10,7 +10,6 @@ public class PlayMenu : Menu
     const string STEAM_TEXT = "Enter a game code";
     const string NO_STEAM_TEXT = "Please start Steam for online play";
 
-    public MainMenuController mainMenu;
     public InputField code;
     public Button hostButton;
     public Button joinButton;
@@ -25,14 +24,8 @@ public class PlayMenu : Menu
     private bool kcpEnabled;
 
     public override void Open() {
-        mainMenu.Close();
         base.Open();
         ConnectToSteam(MyNetworkManager.instance.useSteam);
-    }
-
-    public void CloseMenu() {
-        base.Close();
-        mainMenu.Open();
     }
 
     public void ConnectToSteam(bool connected) {
@@ -73,7 +66,7 @@ public class PlayMenu : Menu
     }
 
     public void Button_Close() {
-        CloseMenu();
+        Close();
     }
 
     private void Start() {

@@ -13,14 +13,9 @@ public class StatMenu : Menu
     public Text totalScore;
     public Text highestRound;
 
-    public Menu mainMenu;
     public override void Open() {
         base.Open();
         UpdateText();
-    }
-    public override void Close() {
-        base.Close();
-        mainMenu.Open();
     }
     private void UpdateText() {
         SaveData data = SaveData.instance;
