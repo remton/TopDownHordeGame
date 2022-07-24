@@ -67,6 +67,7 @@ public class Keypad : MonoBehaviour {
         hitBox.EventObjEnter += OnPlayerEnter;
         hitBox.EventObjExit += OnPlayerExit;
         UI.EventSubmitPressed += OnSubmit;
+        SetUnlockedDigits(unlockedDigits);
     }
 
     private void OnDestroy() {

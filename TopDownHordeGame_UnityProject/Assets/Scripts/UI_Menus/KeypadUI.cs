@@ -54,16 +54,31 @@ public class KeypadUI : Menu
     }
     public void SetInteractingPlayer(GameObject player) {
         if(player == null) {
-            if (interactingPlayer != null)
+            if (interactingPlayer != null) {
+                //Remove interacting player and reenable them
                 interactingPlayer.GetComponent<Player>().EnablePlayer();
+                interactingPlayer.GetComponent<PlayerPauseControl>().EnablePause();
+            }
             interactingPlayer = null;
             return;
         }
         Debug.Log(player.name + " is interacting with keypad");
-        if (interactingPlayer != null)
+        if (interactingPlayer != null) {
+            //Remove interacting player and reenable them
             interactingPlayer.GetComponent<Player>().EnablePlayer();
+            interactingPlayer.GetComponent<PlayerPauseControl>().EnablePause();
+        }
+        //Set new interacting player and disable them
         interactingPlayer = player;
         interactingPlayer.GetComponent<Player>().DisablePlayer();
+        interactingPlayer.GetComponent<PlayerPauseControl>().DisablePause();
+    }
+
+    public override void Open() {
+        Debug.LogError("Do not use Open for keypad UI, use OpenUI instead");
+    }
+    public override void Close() {
+        CloseUI();
     }
 
     public void OpenUI(GameObject player) {
@@ -73,10 +88,12 @@ public class KeypadUI : Menu
             return;
         }
         gameObject.SetActive(true);
+        Cursor.visible = true;
     }
     public void CloseUI() {
         SetInteractingPlayer(null);
         gameObject.SetActive(false);
+        Cursor.visible = false;
     }
     public void UpdateUI(List<int> numPressed) {
         string newText = "";

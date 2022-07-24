@@ -3200,8 +3200,8 @@ MonoBehaviour:
   - {fileID: 19701994243007283, guid: 07c9492da6f586e4eb7b63ff73f9b787, type: 3}
   - {fileID: 7609820944762314030, guid: 79b5ba03f56338c408ab4555c56e8c35, type: 3}
   - {fileID: 5454472768016782365, guid: 06f2c5833a8041340bd3b4e3118ff664, type: 3}
-  steamDisabled: 0
-  useSteam: 1
+  steamDisabled: 1
+  useSteam: 0
   steamLobby: {fileID: 64649069}
   networkClips: []
 --- !u!4 &1273725197

@@ -10,6 +10,8 @@ public class PlayerPauseControl : MonoBehaviour
     PlayerActivate activate;
     Timer timer;
 
+    private bool canPause = true;
+    
     private void Awake() {
         movement = GetComponent<PlayerMovement>();
         weapon = GetComponent<PlayerWeaponControl>();
@@ -33,9 +35,18 @@ public class PlayerPauseControl : MonoBehaviour
     }
 
     public void OnPauseButton(InputAction.CallbackContext context) {
+        if (!canPause)
+            return;
         if (context.action.triggered == true) {
             PauseManager.instance.PauseButtonPress();
         }
+    }
+
+    public void DisablePause() {
+        canPause = false;
+    }
+    public void EnablePause() {
+        canPause = true;
     }
 
     private void PausePlayer() {
