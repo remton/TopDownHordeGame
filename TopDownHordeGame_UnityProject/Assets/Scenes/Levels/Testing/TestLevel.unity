@@ -8493,9 +8493,16 @@ GameObject:
   - component: {fileID: 405481615}
   - component: {fileID: 405481614}
   - component: {fileID: 405481613}
+  - component: {fileID: 405481626}
+  - component: {fileID: 405481625}
+  - component: {fileID: 405481624}
+  - component: {fileID: 405481623}
+  - component: {fileID: 405481622}
+  - component: {fileID: 405481621}
+  - component: {fileID: 405481620}
   m_Layer: 9
   m_Name: Catwalk_Walls
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8696,6 +8703,118 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.2654533, y: 4.2725315}
   m_EdgeRadius: 0
+--- !u!114 &405481620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405481611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35e95dc5ff2b64380880dd7ac5922847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Size: {x: 3.563921, y: 1.7699337, z: 1}
+  m_Center: {x: 4.3043203, y: 0.45192623, z: 0}
+  m_Area: 1
+  m_AffectedAgents: ffffffff
+--- !u!114 &405481621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405481611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35e95dc5ff2b64380880dd7ac5922847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Size: {x: 3.9675426, y: 0.77889633, z: 1}
+  m_Center: {x: 6.788842, y: -2.0476913, z: 0}
+  m_Area: 1
+  m_AffectedAgents: ffffffff
+--- !u!114 &405481622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405481611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35e95dc5ff2b64380880dd7ac5922847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Size: {x: 6.00848, y: 0.77889633, z: 1}
+  m_Center: {x: 0.79164314, y: -2.0476913, z: 0}
+  m_Area: 1
+  m_AffectedAgents: ffffffff
+--- !u!114 &405481623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405481611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35e95dc5ff2b64380880dd7ac5922847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Size: {x: 3.9926834, y: 0.3202114, z: 1}
+  m_Center: {x: 6.793104, y: 2.1722097, z: 0}
+  m_Area: 1
+  m_AffectedAgents: ffffffff
+--- !u!114 &405481624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405481611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35e95dc5ff2b64380880dd7ac5922847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Size: {x: 6.00848, y: 0.3202114, z: 1}
+  m_Center: {x: 0.79164314, y: 2.1722097, z: 0}
+  m_Area: 1
+  m_AffectedAgents: ffffffff
+--- !u!114 &405481625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405481611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35e95dc5ff2b64380880dd7ac5922847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Size: {x: 1.2645988, y: 4.774042, z: 1}
+  m_Center: {x: 8.16753, y: -0.05470562, z: 0}
+  m_Area: 1
+  m_AffectedAgents: ffffffff
+--- !u!114 &405481626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405481611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35e95dc5ff2b64380880dd7ac5922847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Size: {x: 3.2441063, y: 4.774042, z: 1}
+  m_Center: {x: -0.59054375, y: -0.05470562, z: 0}
+  m_Area: 1
+  m_AffectedAgents: ffffffff
 --- !u!4 &424630998 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2158408830413636532, guid: b764cf3288245604898f02a083e1e4a9, type: 3}
@@ -29032,6 +29151,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2001273660}
   - component: {fileID: 2001273661}
+  - component: {fileID: 2001273662}
   m_Layer: 0
   m_Name: TestTubes
   m_TagString: Untagged
@@ -29066,7 +29186,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.13261414, y: -0.42999697}
+  m_Offset: {x: 0.13261414, y: -0.53564787}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -29077,8 +29197,24 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.6121292, y: 0.8955145}
+  m_Size: {x: 2.780498, y: 0.6842127}
   m_EdgeRadius: 0
+--- !u!114 &2001273662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001273659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35e95dc5ff2b64380880dd7ac5922847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Size: {x: 2.902834, y: 0.7405548, z: 1}
+  m_Center: {x: 0.12067127, y: -0.5523815, z: 0}
+  m_Area: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &2001479851
 GameObject:
   m_ObjectHideFlags: 0
