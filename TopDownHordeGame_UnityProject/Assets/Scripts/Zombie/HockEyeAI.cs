@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HockEyeAI : ZombieAI
 {
-    Animator animator;
+    [SerializeField] private Animator animator;
     private HockEyeThrow hockEyeThrow;
     public float playerDistForThrow;
     private bool canMove = true;
@@ -14,7 +14,6 @@ public class HockEyeAI : ZombieAI
     protected override void Awake()
     {
         base.Awake();
-        animator = GetComponent<Animator>();
         hockEyeThrow = GetComponent<HockEyeThrow>();
         hockEyeThrow.EventOnThrow += OnThrow;
     }

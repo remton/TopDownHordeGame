@@ -6,7 +6,7 @@ using Mirror;
 [RequireComponent(typeof(ZombieLunge))]
 public class ZathrakAI : ZombieAI
 {
-    private Animator animator;
+    [SerializeField] private Animator animator;
     private ZombieLunge zombieLunge;
 
     [SerializeField] private GameObject spawn; 
@@ -31,7 +31,6 @@ public class ZathrakAI : ZombieAI
         zombieLunge = GetComponent<ZombieLunge>();
         zombieLunge.EventPrelungeEnd += OnPrelungeEnd;
         zombieLunge.EventLungeEnd += OnLungeEnd;
-        animator = GetComponent<Animator>();
         timeUntilSpawn = timeBetweenSpawns;
     }
 

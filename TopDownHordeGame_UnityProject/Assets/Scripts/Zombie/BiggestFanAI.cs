@@ -5,7 +5,7 @@ using Mirror;
 
 public class BiggestFanAI : ZombieAI
 {
-    private Animator animator;
+    [SerializeField] private Animator animator;
     private ZombieLunge zombieLunge;
     [SerializeField] private GameObject explosionObj;
     [SerializeField] private float knockbackStrength;
@@ -13,9 +13,7 @@ public class BiggestFanAI : ZombieAI
 
     protected override void Awake() {
         base.Awake();
-        animator = GetComponent<Animator>();
         zombieLunge = GetComponent<ZombieLunge>();
-
     }
 
     protected override void Start() {

@@ -9209,6 +9209,8 @@ GameObject:
   m_Component:
   - component: {fileID: 593804363}
   - component: {fileID: 593804364}
+  - component: {fileID: 593804366}
+  - component: {fileID: 593804365}
   m_Layer: 0
   m_Name: Navmesh
   m_TagString: Untagged
@@ -9254,7 +9256,7 @@ MonoBehaviour:
   m_UseMeshPrefab: {fileID: 0}
   m_CompressBounds: 0
   m_OverrideVector: {x: 1, y: 1, z: 1}
-  m_DefaultArea: 1
+  m_DefaultArea: 0
   m_IgnoreNavMeshAgent: 1
   m_IgnoreNavMeshObstacle: 1
   m_OverrideTileSize: 0
@@ -9263,7 +9265,75 @@ MonoBehaviour:
   m_VoxelSize: 0.060000002
   m_BuildHeightMesh: 0
   m_HideEditorLogs: 0
-  m_NavMeshData: {fileID: 23800000, guid: d7c60842799dbbb4d8b6b26cd7f21a0e, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 2758b51fe38d087468ce36d26665673b, type: 2}
+--- !u!114 &593804365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 593804362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 148387606d0ccd84fa326ca211f274ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 287145453
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_OverrideByGrid: 0
+  m_UseMeshPrefab: {fileID: 0}
+  m_CompressBounds: 0
+  m_OverrideVector: {x: 1, y: 1, z: 1}
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.05
+  m_BuildHeightMesh: 0
+  m_HideEditorLogs: 0
+  m_NavMeshData: {fileID: 23800000, guid: 1baef1bb990527e41804ac7c70384cda, type: 2}
+--- !u!114 &593804366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 593804362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 148387606d0ccd84fa326ca211f274ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: -902729914
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_OverrideByGrid: 0
+  m_UseMeshPrefab: {fileID: 0}
+  m_CompressBounds: 0
+  m_OverrideVector: {x: 1, y: 1, z: 1}
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.07333333
+  m_BuildHeightMesh: 0
+  m_HideEditorLogs: 0
+  m_NavMeshData: {fileID: 23800000, guid: f670fd14cec768545afbe9c1f1a45f04, type: 2}
 --- !u!1 &702820148
 GameObject:
   m_ObjectHideFlags: 0
@@ -26541,11 +26611,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6888804239098574880, guid: 32896fd3ccd10c642bc00c73c5d8e1d1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.17
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 6888804239098574880, guid: 32896fd3ccd10c642bc00c73c5d8e1d1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.53
+      value: -2.23
       objectReference: {fileID: 0}
     - target: {fileID: 7464690982596689811, guid: 32896fd3ccd10c642bc00c73c5d8e1d1, type: 3}
       propertyPath: m_Sprite
@@ -29660,6 +29730,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MagicController
       objectReference: {fileID: 0}
+    - target: {fileID: 1245653503535305071, guid: d89f8a2ef4d61f64397e985dbdc4eecb, type: 3}
+      propertyPath: dropList.Array.data[0].weight
+      value: 2750
+      objectReference: {fileID: 0}
     - target: {fileID: 2260623728002118392, guid: d89f8a2ef4d61f64397e985dbdc4eecb, type: 3}
       propertyPath: sceneId
       value: 2965426909
@@ -29964,6 +30038,10 @@ PrefabInstance:
     - target: {fileID: 3879570095317555423, guid: cf20ec2de5c0f784a9a74476ef9d2313, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4065438507333078422, guid: cf20ec2de5c0f784a9a74476ef9d2313, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.2128448
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf20ec2de5c0f784a9a74476ef9d2313, type: 3}
