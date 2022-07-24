@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class BasicZombieAI : ZombieAI
 {
-    private Animator animator;
+    [SerializeField] private Animator animator;
     private ZombieLunge zombieLunge;
     public float playerDistForLunge;
     [SerializeField] private float lungeCooldown;
@@ -14,7 +14,6 @@ public class BasicZombieAI : ZombieAI
 
     protected override void Awake() {
         base.Awake();
-        animator = GetComponent<Animator>();
         zombieLunge = GetComponent<ZombieLunge>();
         zombieLunge.EventLungeEnd += OnLungeEnd;
         zombieLunge.EventPrelungeEnd += OnPrelungeEnd;
