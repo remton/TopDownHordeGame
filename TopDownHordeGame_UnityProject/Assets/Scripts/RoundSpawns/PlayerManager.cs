@@ -128,7 +128,7 @@ public class PlayerManager : NetworkBehaviour
                 continue;
 
             if (player.GetComponent<PlayerHealth>().GetIsDead()) {
-                player.SetActive(true);
+                player.GetComponent<Player>().EnablePlayer();
                 player.transform.position = spawnPoint.transform.position;
                 player.GetComponent<PlayerHealth>().Respawn();
                 //Debug.Log("Player respawned");
@@ -147,6 +147,7 @@ public class PlayerManager : NetworkBehaviour
 
             if (player.GetComponent<PlayerHealth>().GetIsBleedingOut()) {
                 player.GetComponent<PlayerHealth>().Revive();
+                player.GetComponent<Player>().EnablePlayer();
                 //Debug.Log("Player revived.");
             }
         }
@@ -154,7 +155,7 @@ public class PlayerManager : NetworkBehaviour
 
     [ClientRpc]
     public void OnPlayerDie(GameObject player) {
-        player.SetActive(false);
+        player.GetComponent<Player>().DisablePlayer();
         player.transform.position = deadPlayerLocation.transform.position;
         CheckGameOver();
         if (EventActiveLocalPlayersChange != null) { EventActiveLocalPlayersChange.Invoke(GetActiveLocalPlayers()); }

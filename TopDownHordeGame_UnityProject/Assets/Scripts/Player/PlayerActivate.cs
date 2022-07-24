@@ -12,6 +12,8 @@ public class PlayerActivate : MonoBehaviour
     public event Activate EventPlayerActivateRelease; // button is released
 
     public void OnActivateButton(InputAction.CallbackContext context) {
+        if (!doInput)
+            return;
         if (isPaused)
             return;
 
@@ -32,5 +34,14 @@ public class PlayerActivate : MonoBehaviour
         else {
             StatScreen.CloseMenu();
         }
+    }
+
+    private void Awake() {
+        GetComponent<Player>().EventDoInputChange += DoInputChange;
+    }
+
+    private bool doInput = true;
+    private void DoInputChange(bool b) {
+        doInput = b;
     }
 }

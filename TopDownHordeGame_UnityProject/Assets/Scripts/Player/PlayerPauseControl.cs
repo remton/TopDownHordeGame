@@ -37,6 +37,7 @@ public class PlayerPauseControl : MonoBehaviour
             PauseManager.instance.PauseButtonPress();
         }
     }
+
     private void PausePlayer() {
         movement.isPaused = true;
         activate.isPaused = true;

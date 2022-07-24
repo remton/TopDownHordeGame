@@ -79,6 +79,7 @@ public class PlayerMovement : NetworkBehaviour {
         animator = GetComponent<Animator>();
         timer = GetComponent<Timer>();
         staminaThreshold = staminaMaximum * 0.2F;
+        GetComponent<Player>().EventDoInputChange += DoInputChange;
     }
     private void Start() {
         CallStaminaChangeEvent(staminaRemaining, staminaMaximum);
@@ -150,6 +151,9 @@ public class PlayerMovement : NetworkBehaviour {
     // Called whenever a change in movement input. Moves the player based in walk and run speed
     public void OnMove(InputAction.CallbackContext context)
     {
+        if (!doInput)
+            return;
+
         //Debug.Log("PlayerCon [" + GetComponent<Player>().GetConnection().netId + "] moving . . .");
         //Debug.Log("Con [" + netId + "] moving . . .");
         Vector2 moveInput = context.ReadValue<Vector2>();
@@ -187,6 +191,9 @@ public class PlayerMovement : NetworkBehaviour {
     // called whenever mouse position input event is called (Keyboard inputs only)
     public void OnMousePos(InputAction.CallbackContext context)
     {
+        if (!doInput)
+            return;
+
         if (Camera.main == null)
         {
             //Debug.Log("Camera gone?! \\o_0/");
@@ -201,6 +208,9 @@ public class PlayerMovement : NetworkBehaviour {
     // called whenever a change in look direction input event is called (gamepad inputs only)
     public void OnLook(InputAction.CallbackContext context)
     {
+        if (!doInput)
+            return;
+
         useMouseToLook = false;
         if (context.ReadValue<Vector2>() == Vector2.zero)
             return;
@@ -210,6 +220,9 @@ public class PlayerMovement : NetworkBehaviour {
     // called whenever run input event is called
     public void OnRun(InputAction.CallbackContext context)
     {
+        if (!doInput)
+            return;
+
         isRunning = context.action.triggered;
     }
 
@@ -305,6 +318,11 @@ public class PlayerMovement : NetworkBehaviour {
         staminaMaximum = staminaMaximum * maximumStaminaMultiplier;
         staminaThreshold = staminaThreshold * maximumStaminaMultiplier;
         CallStaminaChangeEvent(staminaRemaining, staminaMaximum);
+    }
+
+    private bool doInput = true;
+    private void DoInputChange(bool b) {
+        doInput = b;
     }
 }
 

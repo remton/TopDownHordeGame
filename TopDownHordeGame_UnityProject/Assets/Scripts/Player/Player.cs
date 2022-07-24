@@ -7,6 +7,9 @@ using Steamworks;
 
 public class Player : NetworkBehaviour
 {
+    public delegate void InputEnabled(bool enabled);
+    public event InputEnabled EventDoInputChange;
+
     // --- Player connection and Input Setup --- 
     [SyncVar]
     private PlayerConnection connection;
@@ -62,20 +65,24 @@ public class Player : NetworkBehaviour
         if (EventControlsChanged != null) { EventControlsChanged.Invoke(scheme); }
     }
 
-    //We use this to disable input to prevent the edge case where input is disabled in the callback called by the input itself
-    IEnumerator SetInputActive(bool active) {
-        yield return new WaitForEndOfFrame();
-        if (active)
-            GetComponent<PlayerInput>().ActivateInput();
-        else
-            GetComponent<PlayerInput>().DeactivateInput();
-    }
     //Enables the player to move, shoot etc.
     public void EnablePlayer() {
-        StartCoroutine(SetInputActive(true));
+        if(EventDoInputChange != null) { EventDoInputChange.Invoke(true); }
+        //StartCoroutine(SetInputActive(true));
     }
     //Stops the player from moving, shooting etc.
     public void DisablePlayer() {
-        StartCoroutine(SetInputActive(false));
+        if (EventDoInputChange != null) { EventDoInputChange.Invoke(false); }
+        //StartCoroutine(SetInputActive(false));
     }
+
+
+    //We use this to disable input to prevent the edge case where input is disabled in the callback called by the input itself
+    //IEnumerator SetInputActive(bool active) {
+    //    yield return new WaitForEndOfFrame();
+    //    if (active)
+    //        GetComponent<PlayerInput>().ActivateInput();
+    //    else
+    //        GetComponent<PlayerInput>().DeactivateInput();
+    //}
 }

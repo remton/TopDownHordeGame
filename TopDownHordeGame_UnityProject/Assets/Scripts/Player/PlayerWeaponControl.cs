@@ -140,6 +140,7 @@ public class PlayerWeaponControl : NetworkBehaviour {
     private void Awake() {
         playerMovement = GetComponent<PlayerMovement>();
         timer = GetComponent<Timer>();
+        GetComponent<Player>().EventDoInputChange += DoInputChange;
     }
 
     private void Start() {
@@ -180,6 +181,9 @@ public class PlayerWeaponControl : NetworkBehaviour {
     // ------------- LASER CONTROL -------------
     [Client]
     public void OnLaserButton(InputAction.CallbackContext context) {
+        if (!doInput)
+            return;
+
         if (context.action.triggered == true) {
             laserSightEnabled = !laserSightEnabled;
             equippedWeapon.spriteControl.SetLaser(laserSightEnabled);
@@ -191,6 +195,8 @@ public class PlayerWeaponControl : NetworkBehaviour {
     // Swap Weapon control
     /// <summary> called when swap weapon button is pressed</summary>
     public void OnSwapWeapon(InputAction.CallbackContext context) {
+        if (!doInput)
+            return;
         if (isPaused)
             return;
         // Make sure this input is pressing down, not pulling off
@@ -224,6 +230,8 @@ public class PlayerWeaponControl : NetworkBehaviour {
     // Reload weapon control
     /// <summary> called when reload button is pressed </summary>
     public void OnReload(InputAction.CallbackContext context) {
+        if (!doInput)
+            return;
         if (isPaused)
             return;
         // Make sure this input is pressing down, not pulling off
@@ -272,6 +280,8 @@ public class PlayerWeaponControl : NetworkBehaviour {
     // Shoot weapon control
     /// <summary> Called when shoot button state changes </summary>
     public void OnShoot(InputAction.CallbackContext context) {
+        if (!doInput)
+            return;
         if (isPaused)
             return;
 
@@ -378,5 +388,10 @@ public class PlayerWeaponControl : NetworkBehaviour {
         SetWeaponCount(0);
         SetWeaponCount(2);
         PickUpWeapon(starterWeaponPrefab);
+    }
+
+    private bool doInput = true;
+    private void DoInputChange(bool b) {
+        doInput = b;
     }
 }
