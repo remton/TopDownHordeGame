@@ -129,7 +129,7 @@ public class ZombieHealth : NetworkBehaviour
         MagicController.instance.MagicDrop(myLocation);
 
         if (!gameObject.HasComponent<DoNotCount>())
-            RoundController.instance.ZombieDies();
+            RoundController.instance.OnZombieDies();
         if (gameObject.HasComponent<BiggestFanDeath>())
             GetComponent<BiggestFanDeath>().Explode();
         killed = true;
