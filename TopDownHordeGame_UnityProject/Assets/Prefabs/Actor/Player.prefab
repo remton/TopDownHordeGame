@@ -830,19 +830,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  isBeingRevived: 0
+  health: 10
+  maxHealth: 10
+  reviveTime: 3
+  iFrameTime: 0.25
+  bleedOutTime: 20
+  regenAmount: 1
+  regenHitDelay: 10
+  regenInterval: 4
+  bleedOutMeter: {fileID: 557204805366498426}
+  reviveTrigger: {fileID: 3654527221107561917}
   reviveSound: {fileID: 8300000, guid: f6e87a164e2f7794eb10ea1f1ecbc7f3, type: 3}
   hurtsounds:
   - {fileID: 8300000, guid: 100e57f7040bfc44093b20efad576b31, type: 3}
   - {fileID: 8300000, guid: 3530d1c1f1dc04f4690ab89e9cdc293a, type: 3}
   - {fileID: 8300000, guid: 9cfe3463dc6f7de49bf0b828962e884a, type: 3}
-  reviveTime: 3
-  reviveTrigger: {fileID: 3654527221107561917}
-  bleedOutTime: 20
-  bleedOutMeter: {fileID: 557204805366498426}
   hitEffectPrefab: {fileID: 2408408245422526199, guid: 89d497461da91eb42910b9e873abe67f, type: 3}
-  iFrameTime: 0.25
-  maxHealth: 10
 --- !u!114 &1620798982028091914
 MonoBehaviour:
   m_ObjectHideFlags: 0

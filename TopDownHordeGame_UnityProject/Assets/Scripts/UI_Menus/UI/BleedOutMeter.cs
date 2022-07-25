@@ -41,8 +41,9 @@ public class BleedOutMeter : MonoBehaviour
         else
             transform.localScale = new Vector3(awakeScaleX, transform.localScale.y, transform.localScale.z);
 
-        if (isDying)
+        if (isDying) {
             UpdateMeter();
+        }
     }
     private void UpdateMeter() {
         float bleedOutRatio = health.GetBleedOutTimeRatio();

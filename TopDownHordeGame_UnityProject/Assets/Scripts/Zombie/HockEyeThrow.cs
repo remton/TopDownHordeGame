@@ -27,7 +27,7 @@ public class HockEyeThrow : NetworkBehaviour
     }
     private void Damage(GameObject player)
     {
-        player.GetComponent<PlayerHealth>().Damage(damage);
+        player.GetComponent<PlayerHealth>().DamageCMD(damage);
     }
     public void SetDamage(float newDamage)
     {

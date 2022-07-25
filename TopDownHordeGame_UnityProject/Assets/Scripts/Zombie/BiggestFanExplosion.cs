@@ -28,7 +28,7 @@ public class BiggestFanExplosion : MonoBehaviour
     {
         if (actor.CompareTag("Player"))
         {
-            actor.GetComponent<PlayerHealth>().Damage(balanceDamage);
+            actor.GetComponent<PlayerHealth>().DamageCMD(balanceDamage);
         }
     }
     public void Knockback(GameObject creature)

@@ -49,7 +49,7 @@ public class ZombieLunge : NetworkBehaviour
     [Server]
     private void Damage(GameObject playerHitbox) {
         GameObject player = playerHitbox.GetComponent<DamageHitbox>().owner;
-        player.GetComponent<PlayerHealth>().Damage(damage);
+        player.GetComponent<PlayerHealth>().DamageCMD(damage);
     }
 
     public void SetDamage(float newDamage){

@@ -40,7 +40,7 @@ public class HockEyeEye : NetworkBehaviour
         {
             //Debug.Log("Hurting player.");
             GetComponent<HitBoxController>().EventObjEnter -= Impact;
-            player.GetComponent<PlayerHealth>().Damage(balanceDamage);
+            player.GetComponent<PlayerHealth>().DamageCMD(balanceDamage);
         }
         NetworkServer.Destroy(gameObject);
     }
