@@ -53,6 +53,9 @@ MonoBehaviour:
   syncInterval: 0.1
   type: 0
   pickupSound: {fileID: 8300000, guid: f6e87a164e2f7794eb10ea1f1ecbc7f3, type: 3}
+  useTimer: 0
+  time: 0
+  icon: {fileID: 3921441551649640537, guid: f9e2c26d3d4de4c42b7b1e5c158badc5, type: 3}
 --- !u!212 &-2364473678390644116
 SpriteRenderer:
   m_ObjectHideFlags: 0

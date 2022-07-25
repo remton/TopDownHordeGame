@@ -5,7 +5,6 @@ using Mirror;
 
 public class Nuke : Magic
 {
-    public int time;
     public GameObject zombiePrefab;
 
     [Command(requiresAuthority = false)]

@@ -6,8 +6,6 @@ using Mirror;
 [RequireComponent(typeof(Timer))]
 public class Kill : Magic
 {
-    public int time;
-    private float balanceTime = 20.0F; 
     private List<GameObject> players;
     private Timer timer;
 
@@ -28,7 +26,7 @@ public class Kill : Magic
             current.GetComponent<PlayerWeaponControl>().KillDamage(5000);
         }
         transform.position = holdingRoom;
-        timer.CreateTimer(balanceTime, Stop);
+        timer.CreateTimer(time, Stop);
     }
 
     //This is where the perk deactivates. Maybe it changes a stat value, maybe it unsibscribes from an event.

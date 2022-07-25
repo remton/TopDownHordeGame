@@ -30087,6 +30087,7 @@ RectTransform:
   - {fileID: 20426572}
   - {fileID: 334833222}
   - {fileID: 673854175}
+  - {fileID: 1295016641}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -30566,6 +30567,77 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 72847968915284565, guid: d865bf9d81bc1bf4486c485a9036d014, type: 3}
   m_PrefabInstance: {fileID: 1247621735}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1295016638
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1295016641}
+  - component: {fileID: 1295016640}
+  - component: {fileID: 1295016639}
+  m_Layer: 5
+  m_Name: MagicTimers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1295016639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295016638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 2
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
+--- !u!222 &1295016640
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295016638}
+  m_CullTransparentMesh: 1
+--- !u!224 &1295016641
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295016638}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1188416777}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.839889}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0.04937744, y: -0.595459}
+  m_SizeDelta: {x: 0.099975586, y: 1.1869965}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1306460550
 GameObject:
   m_ObjectHideFlags: 0
@@ -104527,6 +104599,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MagicController
       objectReference: {fileID: 0}
+    - target: {fileID: 1245653503535305071, guid: d89f8a2ef4d61f64397e985dbdc4eecb, type: 3}
+      propertyPath: magicTimerUIHolder
+      value: 
+      objectReference: {fileID: 1295016638}
     - target: {fileID: 1245653503535305071, guid: d89f8a2ef4d61f64397e985dbdc4eecb, type: 3}
       propertyPath: dropList.Array.data[0].weight
       value: 2750

@@ -5,8 +5,6 @@ using UnityEngine.InputSystem;
 using UnityEngine.Events;
 using Mirror;
 
-//TODO:
-// Update movement penalty when we equip a weapon
 
 public class PlayerWeaponControl : NetworkBehaviour {
     public bool isPaused = false;

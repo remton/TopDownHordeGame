@@ -8,7 +8,6 @@ public class Sale : Magic
 {
     private Timer timer;
     [SerializeField] private float balanceCost = .2F; // multpilier to normal costs
-    [SerializeField] private float balanceTime = 30.0F;
     private GameObject[] perks;
     private GameObject[] weapons;
 
@@ -33,7 +32,7 @@ public class Sale : Magic
             current.GetComponent<WeaponShop>().SaleStart(balanceCost);
         }
         transform.position = holdingRoom;
-        timer.CreateTimer(balanceTime, Stop);
+        timer.CreateTimer(time, Stop);
     }
 
     //This is where the perk deactivates. 

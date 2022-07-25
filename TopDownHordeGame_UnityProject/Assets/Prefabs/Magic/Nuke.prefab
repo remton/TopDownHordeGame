@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2339984714269658946}
   - component: {fileID: 5054007048118851707}
   - component: {fileID: 7101132286476013853}
+  - component: {fileID: 627028912683446587}
   m_Layer: 0
   m_Name: Nuke
   m_TagString: Untagged
@@ -53,6 +54,9 @@ MonoBehaviour:
   syncInterval: 0.1
   type: 3
   pickupSound: {fileID: 8300000, guid: 92603e07f4d5bf54ea4d51f1eb34ba12, type: 3}
+  useTimer: 0
+  time: 0
+  icon: {fileID: -1242187556347939975, guid: b6f35570a2c090842b5ad55439900e7b, type: 3}
   time: 0
   zombiePrefab: {fileID: 0}
 --- !u!212 &-4832033588556187626
@@ -191,3 +195,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.91583765, y: 1.1475182}
   m_EdgeRadius: 0
+--- !u!114 &627028912683446587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7609820944762314030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 79b5ba03f56338c408ab4555c56e8c35
+  hasSpawned: 0

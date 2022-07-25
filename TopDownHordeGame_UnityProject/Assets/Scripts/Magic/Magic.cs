@@ -15,8 +15,10 @@ public abstract class Magic : NetworkBehaviour
 
     public MagicType type;
     public AudioClip pickupSound;
+    public bool useTimer;
+    public float time;
+    public Sprite icon;
     protected HitBoxController trigger;
-
     protected bool pickedUp;
 
     protected virtual void Awake() {
@@ -53,8 +55,10 @@ public abstract class Magic : NetworkBehaviour
     [ClientRpc]
     public virtual void OnPickupRPC(GameObject player)
     {
-        Debug.Log("Power Up: " + name + " picked up");
+        //Debug.Log("Power Up: " + name + " picked up");
         AudioManager.instance.PlaySound(pickupSound);
+        if (useTimer)
+            MagicController.instance.CreateTimer(this);
     }
 
 }

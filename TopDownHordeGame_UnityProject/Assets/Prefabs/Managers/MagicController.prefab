@@ -46,6 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  magicTimerUIHolder: {fileID: 0}
+  magicTimerUIPrefab: {fileID: 3254687918418978234, guid: de12d5e837a41e64f943e488638acda3, type: 3}
   dropList:
   - weight: 1
     obj: {fileID: 1584839167843198278, guid: 91d6317854e7c0946ac01ca5a1ae69dc, type: 3}

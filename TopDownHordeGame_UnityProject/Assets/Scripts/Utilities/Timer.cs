@@ -36,6 +36,21 @@ public class Timer : MonoBehaviour
             }
         }
     }
+    public void UnpauseTimer(Guid timerID) {
+        foreach (SingleTimer timer in timers) {
+            if (timer.ID == timerID) {
+                timer.isTimerRunning = false;
+            }
+        }
+    }
+    public float TimeLeft(Guid timerID) {
+        foreach (SingleTimer timer in timers) {
+            if (timer.ID == timerID) {
+                return timer.timeLeft;
+            }
+        }
+        return 0;
+    }
     public bool HasTimer(Guid timerID) {
         if (timerID == Guid.Empty)
             return false;
@@ -72,13 +87,6 @@ public class Timer : MonoBehaviour
         }
     }
 
-    public void UnPauseTimer(Guid timerID) {
-        foreach (SingleTimer timer in timers) {
-            if (timer.ID == timerID) {
-                timer.isTimerRunning = false;
-            }
-        }
-    }
     public void KillTimer(Guid timerID) {
         for (int i = 0; i < timers.Count; i++) {
             if (timers[i].ID == timerID) {
