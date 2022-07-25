@@ -30,8 +30,38 @@ public class LobbyMenu : Menu
     [SerializeField]
     private GameOptionsMenu gameOptionsMenu;
 
+    private List<bool> readyGameButtonInteractable = new List<bool>();
+    private bool startGameButtonInteractable;
+    private bool hasSavedInteractable = false;
+
     public override void OnCancel() {
         //Do nothing
+    }
+    public override void SetInteractable(bool interactable) {
+        if (!interactable) {
+            hasSavedInteractable = true;
+            readyGameButtonInteractable.Clear();
+            foreach (var button in readyButtons) {
+                readyGameButtonInteractable.Add(button.GetComponent<Button>().interactable);
+            }
+            startGameButtonInteractable = StartGameButton.GetComponent<Button>().interactable;
+        }
+
+        Selectable[] selects = gameObject.GetComponentsInChildren<Selectable>();
+        foreach (Selectable select in selects) {
+            if(!readyButtons.Contains(select.gameObject) && select.gameObject != StartGameButton)
+                select.interactable = interactable;
+        }
+
+        if (interactable) {
+            if (hasSavedInteractable) {
+                hasSavedInteractable = false;
+                for (int i = 0; i < readyButtons.Count; i++) {
+                    readyButtons[i].GetComponent<Button>().interactable = readyGameButtonInteractable[i];
+                }
+                StartGameButton.GetComponent<Button>().interactable = startGameButtonInteractable;
+            }
+        }
     }
 
     //Buttons
