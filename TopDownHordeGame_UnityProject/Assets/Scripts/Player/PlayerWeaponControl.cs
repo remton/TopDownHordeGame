@@ -144,7 +144,7 @@ public class PlayerWeaponControl : NetworkBehaviour {
     }
 
     private void Start() {
-        Debug.Log("START player weapon control. local? " + GetComponent<Player>().isLocalPlayer + " Netid:" + netId);
+        //Debug.Log("START player weapon control. local? " + GetComponent<Player>().isLocalPlayer + " Netid:" + netId);
 
         if (GetComponent<Player>().IsLocalCharacter()) {
             ResetWeapons();

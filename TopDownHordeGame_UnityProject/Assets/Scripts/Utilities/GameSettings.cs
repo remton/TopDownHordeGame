@@ -8,7 +8,6 @@ public class GameSettings : MonoBehaviour
     public static GameSettings instance;
     public int numPlayers = 1;
     public bool modifier_fanClub = false;
-
     public List<InputDevice> devices = new List<InputDevice>();
 
     public void ResetSettings() {
