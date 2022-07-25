@@ -17,23 +17,16 @@ public class GameOptionsMenu : Menu
     private int mapIndex = 0;
     [SerializeField] private Text mapNameTxt;
     [SerializeField] private Text mapDescriptionTxt;
+    [SerializeField] private Text modifierListTxt;
     [SerializeField] private Image mapPreview;
 
     [SerializeField]
     private Lobby lobby;
-    [SerializeField]
-    private Menu menuToOpenOnClose;
 
     public override void Open() {
         base.Open();
         UpdateMapDisplay();
-    }
-
-    public override void Close() {
-        if (gameObject.activeSelf) {
-            base.Close();
-            menuToOpenOnClose.Open();
-        }
+        UpdateModifierList();
     }
 
     public void Button_MapLeft() {
@@ -52,7 +45,7 @@ public class GameOptionsMenu : Menu
         lobby.TryStartGame();
     }
 
-    private void UpdateMapDisplay() {
+    public void UpdateMapDisplay() {
         Map map = maps[mapIndex];
         mapNameTxt.text = map.Name;
         mapNameTxt.resizeTextForBestFit = true;
@@ -60,4 +53,19 @@ public class GameOptionsMenu : Menu
         mapDescriptionTxt.resizeTextForBestFit = true;
         mapPreview.sprite = map.preview;
     }
+    public void UpdateModifierList() {
+        string list = "Modifiers: ";
+        bool modifierInList = false;
+        if (GameSettings.instance.modifier_fanClub) {
+            if (modifierInList)
+                list += ", ";
+            list += "Fan Club";
+            modifierInList = true;
+        }
+
+        if (!modifierInList)
+            list = "No Modifiers";
+        modifierListTxt.text = list;
+    }
+
 }

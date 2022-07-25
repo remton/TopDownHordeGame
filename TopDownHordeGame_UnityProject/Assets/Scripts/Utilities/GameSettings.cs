@@ -5,9 +5,17 @@ using UnityEngine.InputSystem;
 
 public class GameSettings : MonoBehaviour
 {
-    public int numPlayers;
-    public List<InputDevice> devices = new List<InputDevice>();
     public static GameSettings instance;
+    public int numPlayers = 1;
+    public bool modifier_fanClub = false;
+
+    public List<InputDevice> devices = new List<InputDevice>();
+
+    public void ResetSettings() {
+        numPlayers = 1;
+        modifier_fanClub = false;
+    }
+
     private void Awake() {
         if(instance == null) {
             instance = this;

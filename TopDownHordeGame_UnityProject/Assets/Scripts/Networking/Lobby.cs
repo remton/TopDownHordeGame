@@ -32,7 +32,7 @@ public class Lobby : NetworkBehaviour
 
     private void Start() {
         Cursor.visible = true;
-
+        GameSettings.instance.ResetSettings();
         if (isServer) {
             //Subscribe to server events 
             MyNetworkManager.instance.ServerEvent_PlayerConnectionAdded += AddConnection;

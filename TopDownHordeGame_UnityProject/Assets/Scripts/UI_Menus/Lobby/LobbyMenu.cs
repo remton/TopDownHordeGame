@@ -41,10 +41,6 @@ public class LobbyMenu : Menu
     public void LeaveLobby() {
         lobby.LeaveLobby();
     }
-    public void StartGame() {
-        gameOptionsMenu.Open();
-        Close();
-    }
 
     //Updates UI with the correct details
     public void UpdateUI(List<Lobby.PlayerLobbyDetails> playerDetails) {
