@@ -38,12 +38,11 @@ public class HitBoxController : MonoBehaviour {
     }
     /// <summary> Returns all current objects in the hitbox with tags </summary>
     public List<GameObject> Hits() {
+        CleanObjs();
         List<GameObject> returnList = new List<GameObject>();
         foreach (GameObject obj in objsInBox) {
-            foreach (string tag in triggerTags) {
-                if (obj.tag == tag)
-                    returnList.Add(obj);
-            }
+            if(Utilities.CompareTags(obj, triggerTags))
+                returnList.Add(obj);
         }
         return returnList;
     }
@@ -57,16 +56,23 @@ public class HitBoxController : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
         objsInBox.Add(collision.gameObject);
         if (!active) return;
-        if (Utilities.CompareTags(collision.gameObject, triggerTags))
+        if (Utilities.CompareTags(collision.gameObject, triggerTags)) {
             if (EventObjEnter != null) { EventObjEnter.Invoke(collision.gameObject); }
+        }
     }
     private void OnTriggerExit2D(Collider2D collision) {
         objsInBox.Remove(collision.gameObject);
         if (!active) return;
-        for (int i = 0; i < triggerTags.Count; i++) {
-            if (collision.CompareTag(triggerTags[i])) {
-                if (EventObjExit != null) { EventObjExit.Invoke(collision.gameObject); }
-            }
+        if(Utilities.CompareTags(collision.gameObject, triggerTags)) {
+            if (EventObjExit != null) { EventObjExit.Invoke(collision.gameObject); }
+        }
+    }
+
+    //Removes all null objects from list
+    private void CleanObjs() {
+        for (int i = objsInBox.Count-1; i >= 0; i--) {
+            if (objsInBox[i] == null)
+                objsInBox.RemoveAt(i);
         }
     }
 }

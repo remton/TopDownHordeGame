@@ -111,7 +111,6 @@ public class PlayerHealth : NetworkBehaviour {
     }
 
 
-
     private bool isDead = false;
     public bool GetIsDead() { return isDead; }
 
