@@ -13,20 +13,36 @@ public class PlayerConnection : NetworkBehaviour
 
     public string sceneToLoadOnDisconnect;
 
-    [SyncVar]
-    private int numLocalPlayers = 0;
-    public int GetNumLocalPlayers() { return numLocalPlayers; }
-    [Command]
-    public void SetNumLocalPlayers(int num) { numLocalPlayers = num; }
-
-
-    public List<InputDevice> devices = new List<InputDevice>();
-
-
     [SerializeField]
     private GameObject playerPrefab;
+    [SerializeField]
+    private InputActionAsset playerInputActions;
 
+    private int numLocalPlayers = 0;
+    public int GetNumLocalPlayers() { return numLocalPlayers; }
+
+    private List<string> controlSchemes = new List<string>();
     private readonly SyncList<GameObject> playerCharacters = new SyncList<GameObject>();
+
+    public void AddLocalPlayer(InputDevice device) {
+        string scheme = "null";
+        InputControlScheme[] schemes = playerInputActions.controlSchemes.ToArray();
+        for (int i = 0; i < schemes.Length; i++) {
+            if (schemes[i].SupportsDevice(device))
+                scheme = schemes[i].name;
+        }
+        if(scheme == "null") {
+            Debug.Log("No control scheme found for device: " + device.name);
+            scheme = schemes[0].name;
+        }
+        controlSchemes.Add(scheme);
+        Debug.Log("Added control scheme: " + scheme);
+        numLocalPlayers++;
+        SetNumLocalPlayersCMD(numLocalPlayers);
+    }
+
+    [Command]
+    private void SetNumLocalPlayersCMD(int num) { numLocalPlayers = num; }
 
     public List<GameObject> GetPlayerCharacters() {
         List<GameObject> players = new List<GameObject>();
@@ -65,7 +81,7 @@ public class PlayerConnection : NetworkBehaviour
     [ClientRpc(includeOwner = true)]
     public void Init() {
         numLocalPlayers = 0;
-        devices.Clear();
+        controlSchemes.Clear();
         DontDestroyOnLoad(gameObject);
         if(myConnection == null) {
             //Debug.Log("My netID: " + netId);
@@ -84,7 +100,7 @@ public class PlayerConnection : NetworkBehaviour
     public void SpawnPlayers(NetworkConnection network, Vector3 location) {
         SetNumSpawnedPlayers(0);
         for (int i = 0; i < numLocalPlayers; i++) {
-            SpawnPlayerCommand(location, this, i);
+            SpawnPlayerCommand(location, this, controlSchemes[i]);
         }
     }
 
@@ -94,9 +110,12 @@ public class PlayerConnection : NetworkBehaviour
     private void SetNumSpawnedPlayers(int num) { numSpawnedPlayers = num; }
 
     [Command]
-    private void SpawnPlayerCommand(Vector3 location, PlayerConnection conn, int deviceIndex) {
+    private void SpawnPlayerCommand(Vector3 location, PlayerConnection conn, string controlScheme) {
         GameObject character = Instantiate(conn.playerPrefab, location, Quaternion.identity);
         character.GetComponent<Player>().SetConnection(conn);
+        character.GetComponent<PlayerInput>().neverAutoSwitchControlSchemes = true;
+        character.GetComponent<PlayerInput>().defaultControlScheme = controlScheme;
+        character.GetComponent<PlayerInput>().SwitchCurrentControlScheme(controlScheme);
         NetworkServer.Spawn(character, conn.connectionToClient);
         character.GetComponent<NetworkIdentity>().AssignClientAuthority(conn.connectionToClient);
 

@@ -759,8 +759,8 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 1a33f5b5-2c54-48af-820d-c039f8b88b5a
     m_ActionName: Player/OpenStatMenu[/Keyboard/tab]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard
+  m_NeverAutoSwitchControlSchemes: 1
+  m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}

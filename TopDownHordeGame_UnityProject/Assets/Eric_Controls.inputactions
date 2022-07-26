@@ -1,5 +1,5 @@
 {
-    "name": "PlayerControls",
+    "name": "Eric_Controls",
     "maps": [
         {
             "name": "Player",
@@ -101,7 +101,7 @@
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "",
                     "action": "Shoot",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -123,7 +123,7 @@
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Eric keyboard",
+                    "groups": "Keyboard 2",
                     "action": "Shoot",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -145,7 +145,7 @@
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -156,7 +156,7 @@
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -167,7 +167,7 @@
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -178,7 +178,7 @@
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -211,7 +211,7 @@
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Eric keyboard",
+                    "groups": "Keyboard 2",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -222,7 +222,7 @@
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Eric keyboard",
+                    "groups": "Keyboard 2",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -233,7 +233,7 @@
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Eric keyboard",
+                    "groups": "Keyboard 2",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -244,7 +244,7 @@
                     "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Eric keyboard",
+                    "groups": "Keyboard 2",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -266,7 +266,7 @@
                     "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "",
                     "action": "MousePos",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -277,7 +277,7 @@
                     "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Eric keyboard",
+                    "groups": "Keyboard 2",
                     "action": "MousePos",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -288,7 +288,7 @@
                     "path": "<Keyboard>/shift",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "",
                     "action": "Run",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -310,7 +310,7 @@
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Eric keyboard",
+                    "groups": "Keyboard 2",
                     "action": "Run",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -321,7 +321,7 @@
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "",
                     "action": "SwapWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -343,7 +343,7 @@
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Eric keyboard",
+                    "groups": "Keyboard 2",
                     "action": "SwapWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -354,7 +354,7 @@
                     "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "",
                     "action": "Reload",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -376,7 +376,7 @@
                     "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Eric keyboard",
+                    "groups": "Keyboard 2",
                     "action": "Reload",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -398,7 +398,7 @@
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "",
                     "action": "Activate",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -409,7 +409,7 @@
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Eric keyboard",
+                    "groups": "Keyboard 2",
                     "action": "Activate",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -431,7 +431,7 @@
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard;Eric keyboard",
+                    "groups": "Keyboard 2",
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -453,7 +453,7 @@
                     "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": "",
                     "action": "ToggleLaser",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -464,7 +464,7 @@
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Eric keyboard",
+                    "groups": "Keyboard 2",
                     "action": "ToggleLaser",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -475,7 +475,7 @@
                     "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard;Eric keyboard",
+                    "groups": "Keyboard 2",
                     "action": "OpenStatMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -496,22 +496,6 @@
     ],
     "controlSchemes": [
         {
-            "name": "Keyboard",
-            "bindingGroup": "Keyboard",
-            "devices": [
-                {
-                    "devicePath": "<Keyboard>",
-                    "isOptional": false,
-                    "isOR": false
-                },
-                {
-                    "devicePath": "<Mouse>",
-                    "isOptional": false,
-                    "isOR": false
-                }
-            ]
-        },
-        {
             "name": "Gamepad",
             "bindingGroup": "Gamepad",
             "devices": [
@@ -523,8 +507,8 @@
             ]
         },
         {
-            "name": "Eric keyboard",
-            "bindingGroup": "Eric keyboard",
+            "name": "Keyboard 2",
+            "bindingGroup": "Keyboard 2",
             "devices": [
                 {
                     "devicePath": "<Keyboard>",

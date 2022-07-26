@@ -102,8 +102,7 @@ public class Lobby : NetworkBehaviour
         }
         //Add a local player
         JoinLocalPlayerCommand(PlayerConnection.myConnection.netId);
-        PlayerConnection.myConnection.devices.Add(device);
-        PlayerConnection.myConnection.SetNumLocalPlayers(PlayerConnection.myConnection.GetNumLocalPlayers() + 1);
+        PlayerConnection.myConnection.AddLocalPlayer(device);
         return true;
     }
     //In update, adds a device if a button is pressed
@@ -144,7 +143,6 @@ public class Lobby : NetworkBehaviour
         PlayerLobbyDetails newDetails;
         newDetails.name = oldDetails.name;
         newDetails.netID = oldDetails.netID;
-        newDetails.hasDevice = oldDetails.hasDevice;
         newDetails.numLocalPlayers = oldDetails.numLocalPlayers;
         newDetails.isReady = !oldDetails.isReady; //Toggle Ready
         playerDetails[detailsIndex] = newDetails;
@@ -188,7 +186,6 @@ public class Lobby : NetworkBehaviour
         PlayerLobbyDetails details;
         details.netID = connection.netId;
         details.name = PlayerConnection.GetName(connection);
-        details.hasDevice = connection.devices.Count > 0;
         details.isReady = false;
         details.numLocalPlayers = connection.GetNumLocalPlayers();
         playerDetails.Add(details);
@@ -204,7 +201,6 @@ public class Lobby : NetworkBehaviour
         newDetails.name = oldDetails.name;
         newDetails.isReady = oldDetails.isReady;
         newDetails.numLocalPlayers = oldDetails.numLocalPlayers + 1;
-        newDetails.hasDevice = true;
         playerDetails[detailsIndex] = newDetails;
     }
 
@@ -232,7 +228,6 @@ public class Lobby : NetworkBehaviour
         public uint netID;
         public string name;
         public bool isReady;
-        public bool hasDevice;
     }
 }
 

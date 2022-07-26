@@ -116,7 +116,7 @@ public class LobbyMenu : Menu
                     }
 
                     //If these are my details, set this as my button
-                    if (playerDetails[detailsIndex].netID == PlayerConnection.myConnection.netId && playerDetails[detailsIndex].hasDevice)
+                    if (playerDetails[detailsIndex].netID == PlayerConnection.myConnection.netId && playerDetails[detailsIndex].numLocalPlayers > 0)
                         ActivateReadyButton(slotIndex, true);
                     else
                         ActivateReadyButton(slotIndex, false);
