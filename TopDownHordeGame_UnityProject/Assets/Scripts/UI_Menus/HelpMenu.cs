@@ -33,26 +33,18 @@ public class HelpMenu : Menu
         currOverlay = null;
         currButton = null;
     }
-    public void LoadMainMenu() {
-        //MainMenu scene should be index 0
-        SceneManager.LoadScene("MainMenu");
-    }
-
     
     protected override void OnUseGamepad() {
         if(currOverlay == null && EventSystem.current.currentSelectedGameObject == null) {
             EventSystem.current.SetSelectedGameObject(defaultSelectedObject);
         }
     }
-    protected override void OnUseKeyboard() {
-        EventSystem.current.SetSelectedGameObject(null);
-    }
 
     public override void OnCancel() {
         if (currOverlay != null)
             DisableOverlay();
         else
-            LoadMainMenu();
+            Close();
     }
 
 }
