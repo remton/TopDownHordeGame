@@ -32,6 +32,8 @@ public class Weapon : NetworkBehaviour
     [SyncVar]
     protected GameObject owner;
 
+    public delegate void WeaponFired(GameObject Owner, List<GameObject> Victims, Vector3 startPos, Vector3 endPos);
+    public WeaponFired EventWeaponFired;
 
     protected virtual void Awake() {
         spriteControl = GetComponent<WeaponSpriteController>();
@@ -154,8 +156,6 @@ public class Weapon : NetworkBehaviour
     // This is NOT called by playerWeaponControl and is just a utility for overriding Fire() in derived Weapon classes
     /// <summary> Fires a shot in the given direction </summary>
     protected void FireShot(GameObject player, Vector2 direction) {
-        bool hasCreatedTrail = false;
-
         // Raycast in direction and get all collisions with mask
         string[] mask = { "BulletCollider", "ZombieHitbox", "Door", "Prop"};
         RaycastHit2D[] hitInfos = Physics2D.RaycastAll(player.transform.position, direction, Mathf.Infinity, LayerMask.GetMask(mask));
@@ -163,11 +163,8 @@ public class Weapon : NetworkBehaviour
         int penetrated = 0; //Used to count how many zombies we collided with and not hit more than weapon's penetration
 
         Vector2 startPos = spriteControl.BarrelEndPosition();
-        if(hitInfos.Length == 0) {
-            Vector2 trailEnd = startPos + (direction.normalized * effectController.maxDistance);
-            effectController.CreateTrail(startPos, trailEnd);
-            hasCreatedTrail = true;
-        }
+        Vector2 trailEnd = startPos;
+        List<GameObject> victims = new List<GameObject>();
         //Loop through all collisions
         for (int i = 0; i < hitInfos.Length; i++)
         {
@@ -178,20 +175,17 @@ public class Weapon : NetworkBehaviour
                 hitObj = hitObj.GetComponent<DamageHitbox>().owner;
                 penetrated++;
                 hitObj.GetComponent<ZombieHealth>().DamageCMD(damage, owner);
+                victims.Add(hitObj);
 
                 //We have hit our max number of zombies in one shot so we create the trail and break;
                 if (penetrated >= penatration){
-                    Vector2 hitPoint = hitInfos[i].point; 
-                    hasCreatedTrail = true;
-                    effectController.CreateTrail(startPos, hitPoint);
+                    trailEnd = hitInfos[i].point; 
                     break;
                 }
             }
             else if (hitObj.CompareTag("BulletCollision") || hitObj.CompareTag("Door"))
             {
-                Vector2 hitPoint = hitInfos[i].point;
-                hasCreatedTrail = true;
-                effectController.CreateTrail(startPos, hitPoint);
+                trailEnd = hitInfos[i].point;
                 break;
             }
             else if (hitObj.CompareTag("Prop") && hitObj.GetComponent<Prop>().canBeShot) {
@@ -199,23 +193,19 @@ public class Weapon : NetworkBehaviour
                 prop.ShootCMD();
                 penetrated += prop.hardness;
                 if (penetrated >= penatration) {
-                    Vector2 hitPoint = hitInfos[i].point;
-                    hasCreatedTrail = true;
-                    effectController.CreateTrail(startPos, hitPoint);
+                    trailEnd = hitInfos[i].point;
                     break;
                 }
             }
             else {
-                Vector2 trailEnd = startPos + (direction.normalized * effectController.maxDistance);
-                hasCreatedTrail = true;
-                effectController.CreateTrail(startPos, trailEnd);
+                trailEnd = startPos + (direction.normalized * effectController.maxDistance);
             }
         }
+        if(trailEnd == startPos)
+            trailEnd = startPos + (direction.normalized * effectController.maxDistance);
 
-        if (!hasCreatedTrail) {
-            Vector2 trailEnd = startPos + (direction.normalized * effectController.maxDistance);
-            effectController.CreateTrail(startPos, trailEnd);
-        }
+        if (EventWeaponFired != null) { EventWeaponFired.Invoke(owner, victims, startPos, trailEnd); }
+        effectController.CreateTrail(startPos, trailEnd);
         CameraController.instance.Shake(shakeIntensity);
     }
     /// <summary> Fires a shot within the spreadAngle in the given direction </summary>
