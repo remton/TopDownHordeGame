@@ -51,6 +51,12 @@ public class PlayerConnection : NetworkBehaviour
         }
         return players; 
     }
+    public string GetControlSchemeForPlayer(int playerIndex) {
+        if (playerIndex > controlSchemes.Count)
+            return "";
+        return controlSchemes[playerIndex];
+    }
+
 
     public static string GetName(PlayerConnection connection) {
         return "Con [" + connection.netId + "]";
@@ -100,7 +106,7 @@ public class PlayerConnection : NetworkBehaviour
     public void SpawnPlayers(NetworkConnection network, Vector3 location) {
         SetNumSpawnedPlayers(0);
         for (int i = 0; i < numLocalPlayers; i++) {
-            SpawnPlayerCommand(location, this, controlSchemes[i]);
+            SpawnPlayerCommand(location, this, i);
         }
     }
 
@@ -110,12 +116,10 @@ public class PlayerConnection : NetworkBehaviour
     private void SetNumSpawnedPlayers(int num) { numSpawnedPlayers = num; }
 
     [Command]
-    private void SpawnPlayerCommand(Vector3 location, PlayerConnection conn, string controlScheme) {
+    private void SpawnPlayerCommand(Vector3 location, PlayerConnection conn, int playerIndex) {
         GameObject character = Instantiate(conn.playerPrefab, location, Quaternion.identity);
         character.GetComponent<Player>().SetConnection(conn);
-        character.GetComponent<PlayerInput>().neverAutoSwitchControlSchemes = true;
-        character.GetComponent<PlayerInput>().defaultControlScheme = controlScheme;
-        character.GetComponent<PlayerInput>().SwitchCurrentControlScheme(controlScheme);
+        character.GetComponent<Player>().playerIndex = playerIndex;
         NetworkServer.Spawn(character, conn.connectionToClient);
         character.GetComponent<NetworkIdentity>().AssignClientAuthority(conn.connectionToClient);
 
@@ -127,6 +131,7 @@ public class PlayerConnection : NetworkBehaviour
         numSpawnedPlayers++;
         Debug.Log("Confirmed spawn: " + numSpawnedPlayers + " spawned for con [" + netId + "]");
     }
+
     public bool AllLocalPlayersSpawned() {
         return numSpawnedPlayers == numLocalPlayers;
     }

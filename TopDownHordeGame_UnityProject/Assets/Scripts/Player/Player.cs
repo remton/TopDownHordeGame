@@ -7,6 +7,8 @@ using Steamworks;
 
 public class Player : NetworkBehaviour
 {
+    public int playerIndex;
+
     public delegate void InputEnabled(bool enabled);
     public event InputEnabled EventDoInputChange;
 
@@ -41,11 +43,18 @@ public class Player : NetworkBehaviour
         SetUpPlayerOnClient();
     }
 
+
     [Client]
     private void SetUpPlayerOnClient() {
         bool isLocalCharacter = (connection == PlayerConnection.myConnection);
-        if(isLocalCharacter)
+        if (isLocalCharacter) {
             connection.PlayerSpawnConfirm();
+            string controlScheme = PlayerConnection.myConnection.GetControlSchemeForPlayer(playerIndex);
+            GetComponent<PlayerInput>().neverAutoSwitchControlSchemes = true;
+            GetComponent<PlayerInput>().defaultControlScheme = controlScheme;
+            GetComponent<PlayerInput>().SwitchCurrentControlScheme(controlScheme);
+            Debug.Log("Set Control Scheme to: " + controlScheme);
+        }
 
         GetComponent<PlayerInput>().enabled = isLocalCharacter;
         GetComponent<PlayerMovement>().enabled = isLocalCharacter;
