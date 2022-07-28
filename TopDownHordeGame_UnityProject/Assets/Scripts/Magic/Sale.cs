@@ -6,7 +6,8 @@ using Mirror;
 [RequireComponent(typeof(Timer))]
 public class Sale : Magic
 {
-    private Timer timer;
+    private static Sale activeSale = null;
+
     [SerializeField] private float balanceCost = .2F; // multpilier to normal costs
     private GameObject[] perks;
     private GameObject[] weapons;
@@ -21,7 +22,6 @@ public class Sale : Magic
     [ClientRpc]
     public override void OnPickupRPC(GameObject player)
     {
-        base.OnPickupRPC(player);
         GetComponent<TimedDestroy>().Cancel(); 
         perks = GameObject.FindGameObjectsWithTag("PerkShop");
         foreach (GameObject current in perks){
@@ -31,19 +31,34 @@ public class Sale : Magic
         foreach (GameObject current in weapons){
             current.GetComponent<WeaponShop>().SaleStart(balanceCost);
         }
-        transform.position = holdingRoom;
-        timer.CreateTimer(time, Stop);
+        base.OnPickupRPC(player);
     }
 
-    //This is where the perk deactivates. 
-    public void Stop()
-    {
-        foreach (GameObject current in perks){
+    protected override void StartTimer() {
+        if (activeSale == null) {
+            activeSale = this;
+            transform.position = holdingRoom;
+            timerID = timer.CreateTimer(time, OnTimerEnd);
+            MagicController.instance.CreateTimer(this, timerID);
+        }
+        else {
+            activeSale.ResetTimer();
+            Destroy(gameObject);
+        }
+    }
+
+    protected override void OnTimerEnd() {
+        base.OnTimerEnd();
+        foreach (GameObject current in perks) {
             current.GetComponent<PerkShop>().SaleEnd();
         }
         foreach (GameObject current in weapons) {
             current.GetComponent<WeaponShop>().SaleEnd();
         }
+        activeSale = null;
         Destroy(gameObject);
+    }
+    private void ResetTimer() {
+        timer.SetTimer(timerID, time, OnTimerEnd);
     }
 }

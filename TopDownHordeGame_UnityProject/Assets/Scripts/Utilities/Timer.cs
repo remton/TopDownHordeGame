@@ -29,6 +29,15 @@ public class Timer : MonoBehaviour
         pauseState.Add(true);
         return newTimer.ID;
     }
+    public void SetTimer(Guid timerID, float newTime, Action newOnEnd) {
+        foreach (SingleTimer timer in timers) {
+            if (timer.ID == timerID) {
+                timer.timeLeft = newTime;
+                timer.onEnd = newOnEnd;
+                return;
+            }
+        }
+    }
     public void PauseTimer(Guid timerID) {
         foreach (SingleTimer timer in timers) {
             if(timer.ID == timerID) {

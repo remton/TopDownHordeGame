@@ -6,36 +6,53 @@ using Mirror;
 [RequireComponent(typeof(Timer))]
 public class Kill : Magic
 {
-    private List<GameObject> players;
-    private Timer timer;
+    static Kill activeKill = null;
+    private static List<Weapon> effectedWeapons = new List<Weapon>();
 
-    protected override void Awake() {
-        base.Awake();
-        timer = GetComponent<Timer>();
-    }
+    public float damageMult;
+    private List<GameObject> players;
 
     //This is where the perk activates. Maybe it changes a stat value, maybe it subsribes to an event.
     [ClientRpc]
-    public override void OnPickupRPC(GameObject player)
+    public override void OnPickupRPC(GameObject player) 
     {
-        base.OnPickupRPC(player);
         GetComponent<TimedDestroy>().Cancel();
         players = PlayerManager.instance.GetActiveLocalPlayers();
         foreach (GameObject current in players)
         {
-            current.GetComponent<PlayerWeaponControl>().KillDamage(5000);
+            List<Weapon> weapons = current.GetComponent<PlayerWeaponControl>().GetWeapons();
+            foreach (Weapon weapon in weapons) {
+                if (!effectedWeapons.Contains(weapon)) {
+                    weapon.SetDamage(weapon.GetDamage() * damageMult);
+                    effectedWeapons.Add(weapon);
+                }
+            }
         }
-        transform.position = holdingRoom;
-        timer.CreateTimer(time, Stop);
+        base.OnPickupRPC(player);
+    }
+    protected override void StartTimer() {
+        if (activeKill == null) {
+            activeKill = this;
+            transform.position = holdingRoom;
+            timerID = timer.CreateTimer(time, OnTimerEnd);
+            MagicController.instance.CreateTimer(this, timerID);
+        }
+        else {
+            activeKill.ResetTimer();
+            Destroy(gameObject);
+        }
     }
 
-    //This is where the perk deactivates. Maybe it changes a stat value, maybe it unsibscribes from an event.
-    public void Stop()
-    {
-        foreach (GameObject current in players)
-        {
-            current.GetComponent<PlayerWeaponControl>().ResetKillDamage();
+    protected override void OnTimerEnd() {
+        base.OnTimerEnd();
+        foreach (Weapon weapon in effectedWeapons) {
+            weapon.ResetDamage();
         }
+        effectedWeapons.Clear();
+        activeKill = null;
         Destroy(gameObject);
+    }
+    private void ResetTimer() {
+        timer.SetTimer(timerID, time, OnTimerEnd);
     }
 }

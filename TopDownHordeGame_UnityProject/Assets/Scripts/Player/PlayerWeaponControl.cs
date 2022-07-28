@@ -23,7 +23,7 @@ public class PlayerWeaponControl : NetworkBehaviour {
 
     private int equippedIndex;
 
-    public List<Weapon> weapons;
+    private List<Weapon> weapons = new List<Weapon>();
     [SerializeField] private int maxWeapons;
 
     // Electric perk vars
@@ -46,8 +46,11 @@ public class PlayerWeaponControl : NetworkBehaviour {
     public event AmmoChanged EventAmmoChanged;
     public delegate void WeaponChanged(string weaponName);
     public event WeaponChanged EventWeaponChanged;
+    public delegate void OwnedWeaponsChanged(List<Weapon> oldWeapon, List<Weapon> newWeapons);
+    public event OwnedWeaponsChanged EventOwnedWeaponsChange;
     public delegate void SwapWeaponCalled(float swapTimeSec);
-    public event SwapWeaponCalled EventSwapCalled;
+    public event SwapWeaponCalled EventStartSwapWeapon;
+
     //Whenever ammo is changed add this code:
     //if (EventAmmoChanged != null) EventAmmoChanged.Invoke(weapons[equippedIndex].GetInMag(), weapons[equippedIndex].GetInReserve());
 
@@ -55,6 +58,8 @@ public class PlayerWeaponControl : NetworkBehaviour {
     [SyncVar(hook = nameof(OnEquippedWeaponChange))] 
     private Weapon equippedWeapon;
     public Weapon GetEquippedWeapon() { return equippedWeapon; }
+    public List<Weapon> GetWeapons() { return weapons; }
+
 
     private void OnEquippedWeaponChange(Weapon oldWeapon, Weapon newWeapon) {
         if(oldWeapon != null)
@@ -105,6 +110,7 @@ public class PlayerWeaponControl : NetworkBehaviour {
     public void AddWeapon(Weapon weapon) {
         //Debug.Log("Adding weapon . . .");
 
+        List<Weapon> oldWeapons = weapons;
         weapon.AddReserveAmmo(Mathf.RoundToInt(weapon.GetReserveSize() * reserveMult));
         if (maxWeapons > weapons.Count) {
             //Add a new weapon to list
@@ -122,6 +128,7 @@ public class PlayerWeaponControl : NetworkBehaviour {
             }
         }
         UpdateVisuals();
+        if(EventOwnedWeaponsChange != null) { EventOwnedWeaponsChange.Invoke(oldWeapons, weapons); }
     }
 
     private void DeactivateWeapon(Weapon weapon) {
@@ -211,7 +218,7 @@ public class PlayerWeaponControl : NetworkBehaviour {
         isSwapping = true;
         float timeUntilSwap = weapons[NextWeaponIndex()].GetSwapTime();
         timer.CreateTimer(timeUntilSwap, Swap);
-        if (EventSwapCalled != null) EventSwapCalled.Invoke(timeUntilSwap);
+        if (EventStartSwapWeapon != null) EventStartSwapWeapon.Invoke(timeUntilSwap);
     }
     private void Swap() {
         isSwapping = false;
@@ -358,7 +365,6 @@ public class PlayerWeaponControl : NetworkBehaviour {
         equippedWeapon.spriteControl.SetLaser(laserSightEnabled);
     }
 
-
     public void RefillWeaponReserve()
     {
         foreach(Weapon current in weapons)
@@ -367,20 +373,20 @@ public class PlayerWeaponControl : NetworkBehaviour {
             UpdateVisuals();
         }
     }
-    public void KillDamage(int killDamage)
-    {
-//        Debug.Log("Damage should be changed");
-        foreach (Weapon current in weapons)
-            current.SetKillDamage(killDamage);
-        UpdateVisuals();
-    }
-    public void ResetKillDamage()
-    {
-//        Debug.Log("Damage should be reset");
-        foreach (Weapon current in weapons)
-            current.ResetDamage();
-        UpdateVisuals();
-    }
+//    public void KillDamage(int killDamage)
+//    {
+////        Debug.Log("Damage should be changed");
+//        foreach (Weapon current in weapons)
+//            current.SetDamage(killDamage);
+//        UpdateVisuals();
+//    }
+//    public void ResetKillDamage()
+//    {
+////        Debug.Log("Damage should be reset");
+//        foreach (Weapon current in weapons)
+//            current.ResetDamage();
+//        UpdateVisuals();
+//    }
     public void ResetWeapons()
     {
         SetWeaponCount(0);

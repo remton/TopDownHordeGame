@@ -26,7 +26,7 @@ public class Reticle : MonoBehaviour
         ammoTxt = ammoTxtObj.GetComponentInChildren<Text>();
         PlayerWeaponControl weaponControl = player.GetComponent<PlayerWeaponControl>();
         weaponControl.EventReloadCalled += PlayReloadAnim;
-        weaponControl.EventSwapCalled += PlayReloadAnim;
+        weaponControl.EventStartSwapWeapon += PlayReloadAnim;
         weaponControl.EventAmmoChanged += AmmoChange;
     }
 
@@ -57,7 +57,7 @@ public class Reticle : MonoBehaviour
         if (player) {
             PlayerWeaponControl weaponControl = player.GetComponent<PlayerWeaponControl>();
             weaponControl.EventReloadCalled -= PlayReloadAnim;
-            weaponControl.EventSwapCalled -= PlayReloadAnim;
+            weaponControl.EventStartSwapWeapon -= PlayReloadAnim;
             weaponControl.EventAmmoChanged -= AmmoChange;
         }
     }

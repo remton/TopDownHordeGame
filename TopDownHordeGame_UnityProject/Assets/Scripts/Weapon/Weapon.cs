@@ -29,11 +29,16 @@ public class Weapon : NetworkBehaviour
     protected int inMag = 0;    // bullets in magazine
     protected int inReserve = 0;// bullets in reserve
 
-    [SyncVar]
     protected GameObject owner;
 
+    /// <summary> Called whenever the this weapon is fired </summary>
+    public event WeaponFired EventWeaponFired;
     public delegate void WeaponFired(GameObject Owner, List<GameObject> Victims, Vector3 startPos, Vector3 endPos);
-    public WeaponFired EventWeaponFired;
+
+    /// <summary> Called whenever the this weapon is reloaded </summary>
+    public event WeaponReloaded EventWeaponReloaded;
+    public delegate void WeaponReloaded(GameObject owner, int oldAmmo, int newAmmo);
+
 
     protected virtual void Awake() {
         spriteControl = GetComponent<WeaponSpriteController>();
@@ -66,6 +71,12 @@ public class Weapon : NetworkBehaviour
     public void SetOwner(Player player) {
         if (player != null)
             owner = player.gameObject;
+        SetOwnerRPC(player);
+    }
+    [ClientRpc]
+    private void SetOwnerRPC(Player player) {
+        if (player != null)
+            owner = player.gameObject;
     }
 
     // ---- Getters and Setters ----
@@ -82,7 +93,7 @@ public class Weapon : NetworkBehaviour
     public void SetReloadTime(float newTime) { reloadTime = newTime; }
     public float GetDamage() { return damage; }
     public void ResetDamage() { damage = baseDamage;} 
-    public void SetKillDamage(float killDamage) { damage = killDamage; }
+    public void SetDamage(float killDamage) { damage = killDamage; }
     public float GetReloadTime() { return reloadTime; }
     public float GetFireDeley() { return fireDeley; }
     public float GetSwapTime() { return swapTime; }
@@ -107,6 +118,7 @@ public class Weapon : NetworkBehaviour
     /// <summary> Reloads weapon instantly (reloadTime is handled in PlayerWeaponControl script) </summary>
     public virtual void Reload() {
         // Check to make sure total of current mag and reserve is more than a full mag 
+        int oldAmmo = inMag;
         if (inReserve + inMag >= magSize) {
             inReserve -= magSize - inMag;
             inMag = magSize;
@@ -115,13 +127,14 @@ public class Weapon : NetworkBehaviour
             inMag = inReserve + inMag;  
             inReserve = 0;
         }
+        if (EventWeaponReloaded != null) { EventWeaponReloaded.Invoke(owner, oldAmmo, inMag); }
     }
     public void Reload(int magSize) {
+        int oldAmmo = inMag;
         if (infiniteReserve) {
             inMag = magSize;
             return;
         }
-
         int newReloadAmount = (reloadAmount==0)?magSize:reloadAmount;
         int bulletsToReload = ((magSize-inMag) < newReloadAmount) ?(magSize-inMag): newReloadAmount;
         if(inReserve >= bulletsToReload) {
@@ -134,6 +147,8 @@ public class Weapon : NetworkBehaviour
         }
         if (infiniteReserve)
             inReserve = -1;
+
+        if(EventWeaponReloaded != null) { EventWeaponReloaded.Invoke(owner, oldAmmo, inMag); }
     }
     /// <summary> adds the given amount of bullets to the reserve</summary>
     public void AddReserveAmmo(int amount) {
