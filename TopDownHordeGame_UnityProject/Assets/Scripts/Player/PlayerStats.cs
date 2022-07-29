@@ -86,7 +86,6 @@ public class PlayerStats : NetworkBehaviour
     }
     #endregion
 
-
     // -------- METHODS --------
 
     [Server]

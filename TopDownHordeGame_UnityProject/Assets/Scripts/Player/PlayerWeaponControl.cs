@@ -98,8 +98,8 @@ public class PlayerWeaponControl : NetworkBehaviour {
         GameObject weaponPrefab = MyNetworkManager.instance.GetPrefab(prefabIndex);
         //Debug.Log("Creating weapon: " + weaponPrefab.name);
         GameObject weaponObj = Instantiate(weaponPrefab, transform.position, Quaternion.identity);
-        weaponObj.GetComponent<Weapon>().SetOwner(GetComponent<Player>());
         NetworkServer.Spawn(weaponObj);
+        weaponObj.GetComponent<Weapon>().SetOwner(GetComponent<Player>());
         weaponObj.GetComponent<NetworkIdentity>().AssignClientAuthority(connectionToClient);
     }
     [Command]

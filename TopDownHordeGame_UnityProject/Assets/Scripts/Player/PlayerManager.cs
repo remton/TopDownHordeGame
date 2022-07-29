@@ -56,6 +56,10 @@ public class PlayerManager : NetworkBehaviour
         }
         return activePlayers;
     }
+    //Returns all players in game
+    public List<GameObject> GetAllPlayers() {
+        return allPlayers;
+    }
 
     /// <summary> [ClientRPC] Respawns all dead players </summary>
     [ClientRpc]

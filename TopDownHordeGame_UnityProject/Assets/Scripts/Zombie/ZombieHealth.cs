@@ -5,9 +5,10 @@ using Mirror;
 
 public class ZombieHealth : NetworkBehaviour
 {
-    public GameObject deathEffectObj;
     [SerializeField] private ParticleSystem hitParticles;
     [SerializeField] private ParticleSystem dieParticles;
+    [SerializeField] private float moneyEffectVerticalOffset;
+
     public bool givesMoney;
 
     public delegate void onDeath();
@@ -73,23 +74,26 @@ public class ZombieHealth : NetworkBehaviour
     [Command(requiresAuthority = false)]
     public void DamageCMD(float amount, GameObject damager) {
         if (killed)
-            return; health -= amount;
-
-        if (health <= 0) {
-            Kill();
-        }
+            return; 
+        health -= amount;
         PlayDamageEffects();
 
         if (damager != null) {
             if (damager.HasComponent<Player>()) {
                 int payForHit = GetComponent<ZombieAI>().payForHit;
                 int payForKill = GetComponent<ZombieAI>().payForKill;
+                int payAmount = payForHit;
                 damager.GetComponent<PlayerStats>().AddMoney(payForHit);
                 if (health <= 0) {
                     damager.GetComponent<PlayerStats>().AddMoney(payForKill);
+                    payAmount += payForKill;
                     damager.GetComponent<PlayerStats>().AddKill();
                 }
+                MoneyEffectManager.instance.CreateEffect(damager, transform.position + new Vector3(0, moneyEffectVerticalOffset, 0), payAmount);
             }
+        }
+        if (health <= 0) {
+            Kill();
         }
     }
 
@@ -111,7 +115,6 @@ public class ZombieHealth : NetworkBehaviour
     }
     [ClientRpc]
     private void PlayDeathEffectRPC() {
-        //Server runs this before calling the rpc
         if (isServer)
             return;
 

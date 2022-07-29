@@ -5434,9 +5434,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  deathEffectObj: {fileID: 0}
   hitParticles: {fileID: 4372391901890484816}
   dieParticles: {fileID: 2625950378744035311}
+  moneyEffect: {fileID: 3078305918877377745, guid: fec51dc1c354e004dbdff7a5657edba2, type: 3}
+  moneyEffectVerticalOffset: 0.5
   givesMoney: 1
   DontDestroyOnDeath: 0
   hurtsounds:
