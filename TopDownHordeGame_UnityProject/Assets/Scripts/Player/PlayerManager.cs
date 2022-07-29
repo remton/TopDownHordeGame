@@ -135,9 +135,15 @@ public class PlayerManager : NetworkBehaviour
         MyNetworkManager.instance.ServerEvent_PlayerConnectionRemoved += OnPlayerLeft;
     }
 
-    // called on first frame in scene
-    private void Start() {
-        CreatePlayers();
+
+    // called on first frame in scene only on server
+    public override void OnStartServer() {
+        base.OnStartServer();
+        if (MyNetworkManager.instance.AllClientsReady())
+            OnAllClientsLoaded();
+        else {
+            MyNetworkManager.instance.ServerEvent_AllClientsReady += OnAllClientsLoaded;
+        }
     }
 
     // called on first frame in scene only on clients
@@ -145,6 +151,11 @@ public class PlayerManager : NetworkBehaviour
         base.OnStartClient();
         localPlayers.Clear();
         if (EventActivePlayersChange != null) { EventActivePlayersChange.Invoke(GetActivePlayers()); }
+    }
+
+    [Server]
+    private void OnAllClientsLoaded() {
+        CreatePlayers();
     }
 
     /// <summary> [Server] call when a player leaves </summary>
