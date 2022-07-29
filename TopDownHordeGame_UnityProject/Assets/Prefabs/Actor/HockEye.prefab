@@ -5469,7 +5469,7 @@ MonoBehaviour:
   timeBetweenTargetChecks: 0.5
   playerDistForThrow: 3.5
   throwCooldown: 1.2
-  throwForce: 10
+  throwForce: 8
   eyePrefab: {fileID: 8087499198492442456, guid: 112a6939347ff754eac966a681930a17, type: 3}
   animator: {fileID: 6786400491849979149}
 --- !u!114 &2389574174256334623

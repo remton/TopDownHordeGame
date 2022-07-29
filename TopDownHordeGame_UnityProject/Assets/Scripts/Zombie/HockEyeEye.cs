@@ -5,6 +5,7 @@ using Mirror;
 
 public class HockEyeEye : NetworkBehaviour
 {
+    [SerializeField] private Rigidbody2D rb;
     private float balanceDamage;
     private float flySpeed;
     private Vector3 rotationTemp;
@@ -14,24 +15,19 @@ public class HockEyeEye : NetworkBehaviour
     [ClientRpc]
     public void Init(Vector2 movementDir, float damage, float speed)
     {
+        moveDir = movementDir;
+        balanceDamage = damage;
+        flySpeed = speed;
+        rb.velocity = moveDir * flySpeed;
         if (!isServer) {
             this.enabled = false;
             return;
         }
-
         rotationTemp.z += Random.Range(0, 360);
         transform.rotation = Quaternion.Euler(rotationTemp);
-        moveDir = movementDir;
-        balanceDamage = damage;
-        flySpeed = speed;
         GetComponent<HitBoxController>().EventObjEnter += Impact;
     }
-    private void FixedUpdate()
-    {
-        if (PauseManager.instance.IsPaused())
-            return;
-        Move(moveDir);
-    }
+
     [Server]
     public void Impact(GameObject player)
     {
@@ -45,11 +41,20 @@ public class HockEyeEye : NetworkBehaviour
         NetworkServer.Destroy(gameObject);
     }
 
-    [SerializeField] private Rigidbody2D rb;
-    private void Move(Vector2 movementDir)
-    {
-        Vector2 newPos = transform.position;
-        newPos += flySpeed * movementDir * Time.fixedDeltaTime;
-        rb.MovePosition(newPos);
+    private void OnPause(bool pause) {
+        if (pause) {
+            rb.velocity = Vector2.zero;
+        }
+        else {
+            rb.velocity = moveDir * flySpeed;
+        }
     }
+
+    private void Start() {
+        PauseManager.instance.EventPauseStateChange += OnPause;
+    }
+    private void OnDestroy() {
+        PauseManager.instance.EventPauseStateChange -= OnPause;
+    }
+
 }
