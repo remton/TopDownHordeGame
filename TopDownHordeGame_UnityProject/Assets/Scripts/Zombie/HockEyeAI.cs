@@ -1,56 +1,67 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 public class HockEyeAI : ZombieAI
 {
-    [SerializeField] private Animator animator;
-    private HockEyeThrow hockEyeThrow;
     public float playerDistForThrow;
-    private bool canMove = true;
-    private float timeToMove;
-    [SerializeField] private float timeCountdown;
+    public float throwCooldown;
+    public float throwForce;
+    public GameObject eyePrefab;
 
-    protected override void Awake()
-    {
-        base.Awake();
-        hockEyeThrow = GetComponent<HockEyeThrow>();
-        hockEyeThrow.EventOnThrow += OnThrow;
-    }
+    [SerializeField] private Animator animator;
+
+    private bool isWalking;
+    private bool canThrow = true;
+
 
     public override void SetValues(float newHealth, float newSpeed, float newDamage)
     {
         base.SetValues(Mathf.CeilToInt(newHealth / 2.0f), newSpeed * 1.5f, Mathf.CeilToInt(newDamage * 0.8f));
-        hockEyeThrow.SetDamage(damage);
     }
 
-    private void OnThrow() {
-        animator.SetTrigger("throw");
-        animator.SetBool("isIdle", true);
-        timeToMove = timeCountdown;
-        canMove = false;
-    }
-
-    protected override void Update()
-    {
-        if (isGamePaused)
-            return;
-
-        //Throw eyes then pathfind.
-        if (target != null && Vector2.Distance(target.transform.position, transform.position) <= playerDistForThrow)
-        {
+    protected override void OnUpdate() {
+        base.OnUpdate();
+        //We are close enough to our target to throw
+        if (Vector2.Distance(target.transform.position, transform.position) <= playerDistForThrow) {
+            isWalking = false;
             StopPathing();
-            Vector2 dir = target.transform.position - transform.position;
-            hockEyeThrow.Throw(dir);
+            //We can throw
+            if (canThrow) {
+                StartThrow();
+                DisableThrowing();
+            }
         }
-        else if (!canMove && timeToMove > 0)
-            timeToMove -= Time.deltaTime;
-        else if (timeToMove <= 0)
-        {
-            animator.SetBool("isIdle", false);
-            canMove = true;
+        else{
+            isWalking = true;
             StartPathing();
         }
+        animator.SetBool("isIdle", !isWalking);
+    }
+
+    private void StartThrow() {
+        animator.SetTrigger("throw");
+    }
+    [Server]
+    private void Throw() {
+        Vector2 dir = target.transform.position - transform.position;
+        dir.Normalize();
+        GameObject obj = Instantiate(eyePrefab, transform.position, Quaternion.identity);
+        NetworkServer.Spawn(obj);
+        obj.GetComponent<HockEyeEye>().Init(dir, damage, throwForce);
+        timer.CreateTimer(throwCooldown, EnableThrowing);
+    }
+    private void DisableThrowing() {
+        canThrow = false;
+    }
+    private void EnableThrowing() {
+        canThrow = true;
+    }
+
+    protected override void Awake() {
+        base.Awake();
+        animator.GetComponent<HockEyeAnimHelper>().EventThrow += Throw;
     }
 }
 

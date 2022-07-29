@@ -31,9 +31,8 @@ public class BiggestFanAI : ZombieAI
         base.SetValues(Mathf.CeilToInt(newHealth*3.0f), newSpeed * .9f, newDamage * 2);
     }
 
-    protected override void Update() {
-        if (isGamePaused)
-            return;
+    protected override void OnUpdate() {
+        base.OnUpdate();
 
         //Lunge then explode!
         if (target != null && Vector2.Distance(target.transform.position, transform.position) <= playerDistForLunge) {

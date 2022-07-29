@@ -23,8 +23,8 @@ public class LungsAI : ZombieAI
         zombieLunge.SetDamage(newDamage);
     }
 
-    protected override void Update() {
-        base.Update();
+    protected override void OnUpdate() {
+        base.OnUpdate();
         //zombie lunges
         if (target!=null && !lungeOnCooldown && Vector2.Distance(target.transform.position, transform.position) <= playerDistForLunge) {
             StopPathing();

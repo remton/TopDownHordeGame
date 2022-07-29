@@ -34,8 +34,8 @@ public class ZathrakAI : ZombieAI
         timeUntilSpawn = timeBetweenSpawns;
     }
 
-    protected override void Update() {
-        base.Update();
+    protected override void OnUpdate() {
+        base.OnUpdate();
         //zombie lunges
         if (target != null && !lungeOnCooldown && Vector2.Distance(target.transform.position, transform.position) <= playerDistForLunge) {
             StopPathing();

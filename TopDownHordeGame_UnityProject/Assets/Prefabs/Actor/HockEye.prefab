@@ -5340,7 +5340,6 @@ GameObject:
   - component: {fileID: 8163446417953433952}
   - component: {fileID: 3017018676422336411}
   - component: {fileID: 5583149644503066930}
-  - component: {fileID: -5401963966837659357}
   - component: {fileID: 2389574174256334623}
   - component: {fileID: -8196749228963241976}
   - component: {fileID: 7143486602985053605}
@@ -5406,7 +5405,6 @@ MonoBehaviour:
   syncInterval: 0.1
   hitParticles: {fileID: 6690244077217428205}
   dieParticles: {fileID: 5998376472573162533}
-  moneyEffect: {fileID: 3078305918877377745, guid: fec51dc1c354e004dbdff7a5657edba2, type: 3}
   moneyEffectVerticalOffset: 0.5
   givesMoney: 1
   DontDestroyOnDeath: 0
@@ -5468,28 +5466,12 @@ MonoBehaviour:
   payForKill: 50
   spwanFramesInSeconds: 0.5
   target: {fileID: 0}
-  timeBetweenTargetChecks: 0
-  animator: {fileID: 6786400491849979149}
-  playerDistForThrow: 5
-  timeCountdown: 1
---- !u!114 &-5401963966837659357
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6956723953377203767}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b99fcf39c81c834abcedfe59e5caff9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  timeBetweenThrows: 2.7
-  damage: 0
+  timeBetweenTargetChecks: 0.5
+  playerDistForThrow: 3.5
+  throwCooldown: 1.2
   throwForce: 10
   eyePrefab: {fileID: 8087499198492442456, guid: 112a6939347ff754eac966a681930a17, type: 3}
+  animator: {fileID: 6786400491849979149}
 --- !u!114 &2389574174256334623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10461,6 +10443,7 @@ GameObject:
   - component: {fileID: 777614070769223865}
   - component: {fileID: 4149284474107684485}
   - component: {fileID: 6786400491849979149}
+  - component: {fileID: 7488201761965962231}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -10525,8 +10508,8 @@ SpriteRenderer:
   m_SortingLayerID: 123998109
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 8318688728706502886, guid: 78b15cdfa56ae3a42b96f486c1dab9c5, type: 3}
-  m_Color: {r: 0.11747954, g: 0.49120194, b: 0.754717, a: 1}
+  m_Sprite: {fileID: -3109383995173785867, guid: 2e47d5d551c780f4bb1288e8bb3749d6, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -10555,3 +10538,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7488201761965962231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8347913053698358829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbc1899d4a7f4ad489b5482d552385a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

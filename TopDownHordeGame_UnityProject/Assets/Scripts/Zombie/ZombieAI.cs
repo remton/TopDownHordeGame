@@ -10,9 +10,9 @@ public class ZombieAI : NetworkBehaviour
     public int payForKill;
 
     public float spwanFramesInSeconds;
-    private bool isInSpawnFrames = true;
     private bool wasPathingBeforeFreeze;
-    private bool isFrozen;
+    protected bool isInSpawnFrames = true;
+    protected bool isFrozen;
 
     public GameObject target;
     private ZombiePathfind zombiePath;
@@ -140,7 +140,7 @@ public class ZombieAI : NetworkBehaviour
         isFrozen = false;
     }
 
-    protected virtual void Update() {
+    private void Update() {
         if (isGamePaused || isInSpawnFrames || isFrozen)
             return;
 
@@ -148,6 +148,12 @@ public class ZombieAI : NetworkBehaviour
             FindTarget(PlayerManager.instance.GetActivePlayers());
             return;
         }
+        OnUpdate();
+    }
+
+
+    /// <summary> Override in place of update method</summary>
+    protected virtual void OnUpdate() {
 
         //Handle updating sprite direction
         Vector2 dir = target.transform.position - transform.position;
