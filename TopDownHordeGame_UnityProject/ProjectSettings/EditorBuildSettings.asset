@@ -8,9 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: bc4c9be4b2c3d3f47a7ccecc500cdcd1
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: a7916dc74c7094744a709837fcc0534e
@@ -23,5 +20,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/Testing/TestLevel.unity
     guid: 17aa16e9f6b322e4a8396b9d3ca9feb9
+  - enabled: 1
+    path: Assets/Scenes/Levels/Alley/Alley.unity
+    guid: 3e0d194f7cc8bc3449a95a237c9f083d
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 58c65e19acd3a36498243221d21df442, type: 2}
