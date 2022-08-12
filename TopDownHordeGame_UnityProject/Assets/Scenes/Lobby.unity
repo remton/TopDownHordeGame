@@ -6149,6 +6149,10 @@ MonoBehaviour:
     Name: Testing level for devs only
     description: 
     preview: {fileID: 21300000, guid: d2784ad8e20370147a5b40aebcd98e4c, type: 3}
+  - scene: Assets/Scenes/Levels/Box/TheBox.unity
+    Name: The Box
+    description: Small, compact, shippable
+    preview: {fileID: 3792534909945103846, guid: f8c87ac4f32ac814a8efccf16504a331, type: 3}
   mapNameTxt: {fileID: 1553348705}
   mapDescriptionTxt: {fileID: 925801984}
   modifierListTxt: {fileID: 148151752}
