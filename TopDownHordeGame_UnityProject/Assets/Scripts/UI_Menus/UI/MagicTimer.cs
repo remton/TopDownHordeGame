@@ -7,9 +7,8 @@ public class MagicTimer : MonoBehaviour
 {
     public Image Image;
     public Text text;
-    private bool timerRunning = false;
     private Magic magic;
-    private Timer timer;
+    private Timer timer = null;
     private System.Guid timerID;
 
     public void StartTimer(Magic magic, System.Guid timerID) {
@@ -17,7 +16,6 @@ public class MagicTimer : MonoBehaviour
         this.timerID = timerID;
         timer = magic.GetComponent<Timer>();
         magic.EventTimerEnd += RemoveTimer;
-        timerRunning = true;
         Image.sprite = magic.icon;
     }
     public void RemoveTimer() {
@@ -25,7 +23,10 @@ public class MagicTimer : MonoBehaviour
         MagicController.instance.RemoveTimer(this);
     }
     private void Update() {
-        if (timerRunning) {
+        if(timer != null) {
+            if (!timer.HasTimer(timerID)) {
+                RemoveTimer();
+            }
             int timeLeft = Mathf.FloorToInt(timer.TimeLeft(timerID));
             int min = timeLeft / 60;
             int sec = timeLeft % 60;

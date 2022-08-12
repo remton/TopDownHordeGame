@@ -50,7 +50,7 @@ public class Kill : Magic
         }
         effectedWeapons.Clear();
         activeKill = null;
-        Destroy(gameObject);
+        Destroy(gameObject, 1f);
     }
     private void ResetTimer() {
         timer.SetTimer(timerID, time, OnTimerEnd);

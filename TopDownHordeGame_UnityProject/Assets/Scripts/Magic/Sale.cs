@@ -56,7 +56,7 @@ public class Sale : Magic
             current.GetComponent<WeaponShop>().SaleEnd();
         }
         activeSale = null;
-        Destroy(gameObject);
+        Destroy(gameObject, 1f);
     }
     private void ResetTimer() {
         timer.SetTimer(timerID, time, OnTimerEnd);

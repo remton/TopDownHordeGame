@@ -84,8 +84,9 @@ MonoBehaviour:
   weaponName: M16
   baseDamage: 3
   penatration: 2
+  range: 25
   fireDeley: 0.4
-  magSize: 30
+  magSize: 25
   reserveSize: 300
   reloadTime: 0.4
   reloadAmount: 0

@@ -53,6 +53,7 @@ MonoBehaviour:
   weaponName: Remton 870
   baseDamage: 1
   penatration: 2
+  range: 8
   fireDeley: 0.5
   magSize: 5
   reserveSize: 50
@@ -68,7 +69,7 @@ MonoBehaviour:
   shakeIntensity: 3
   spriteControl: {fileID: 165125178573960015}
   pelletCount: 9
-  spreadAngle: 20
+  spreadAngle: 15
 --- !u!82 &7853944436744635101
 AudioSource:
   m_ObjectHideFlags: 0

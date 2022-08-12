@@ -8,6 +8,7 @@ public class Weapon : NetworkBehaviour
     [SerializeField] private string weaponName;     // Weapon name for display
     [SerializeField] private float baseDamage;        // Used to reset damage for the magic that makes players intantly kill zombies
     [SerializeField] protected int penatration;     // number of zombies able to be hit by one bullet. (Should be at least 1)
+    [SerializeField] protected float range;         // range of raycast bullets
     [SerializeField] protected float fireDeley;     // time between shots (handled in playerWeaponControl)
     [SerializeField] protected int magSize;         // size of this weapons magazine
     [SerializeField] protected int reserveSize;     // max ammo that can be held with this weapon
@@ -173,7 +174,7 @@ public class Weapon : NetworkBehaviour
     protected void FireShot(GameObject player, Vector2 direction) {
         // Raycast in direction and get all collisions with mask
         string[] mask = { "BulletCollider", "ZombieHitbox", "Door", "Prop"};
-        RaycastHit2D[] hitInfos = Physics2D.RaycastAll(player.transform.position, direction, Mathf.Infinity, LayerMask.GetMask(mask));
+        RaycastHit2D[] hitInfos = Physics2D.RaycastAll(player.transform.position, direction, range, LayerMask.GetMask(mask));
         
         int penetrated = 0; //Used to count how many zombies we collided with and not hit more than weapon's penetration
 
@@ -213,11 +214,11 @@ public class Weapon : NetworkBehaviour
                 }
             }
             else {
-                trailEnd = startPos + (direction.normalized * effectController.maxDistance);
+                trailEnd = startPos + (direction.normalized * range);
             }
         }
         if(trailEnd == startPos)
-            trailEnd = startPos + (direction.normalized * effectController.maxDistance);
+            trailEnd = startPos + (direction.normalized * range);
 
         if (EventWeaponFired != null) { EventWeaponFired.Invoke(owner, victims, startPos, trailEnd); }
         effectController.CreateTrail(startPos, trailEnd);
