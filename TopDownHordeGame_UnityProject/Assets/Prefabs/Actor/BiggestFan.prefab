@@ -10270,7 +10270,6 @@ MonoBehaviour:
   syncInterval: 0.1
   hitParticles: {fileID: 7840340506163624005}
   dieParticles: {fileID: 2308848048988258830}
-  moneyEffect: {fileID: 3078305918877377745, guid: fec51dc1c354e004dbdff7a5657edba2, type: 3}
   moneyEffectVerticalOffset: 0.5
   givesMoney: 1
   DontDestroyOnDeath: 0
@@ -10328,15 +10327,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  payForHit: 2
-  payForKill: 50
+  payForHit: 1
+  payForKill: 150
   spwanFramesInSeconds: 0.5
   target: {fileID: 0}
   timeBetweenTargetChecks: 0.1
   animator: {fileID: 8993806625534781042}
   explosionObj: {fileID: 2669479584483856320, guid: 5b0d6ecbd5708204f9ed034f9f7486a7, type: 3}
-  knockbackStrength: 750
-  playerDistForLunge: 1.5
+  knockbackStrength: 650
+  playerDistForLunge: 1.75
 --- !u!114 &1387880836856220121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10355,7 +10354,7 @@ MonoBehaviour:
   waitTime: 0.4
   lungeTime: 0.4
   damage: 0
-  lungeForce: 400
+  lungeForce: 350
 --- !u!114 &1164026406751873685
 MonoBehaviour:
   m_ObjectHideFlags: 0
