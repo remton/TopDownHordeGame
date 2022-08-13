@@ -120,7 +120,8 @@ public class Timer : MonoBehaviour
             if (timers[i].isTimerRunning) {
                 timers[i].timeLeft -= Time.deltaTime;
                 if (timers[i].timeLeft <= 0) {
-                    timers[i].onEnd();
+                    if(timers[i].onEnd != null)
+                        timers[i].onEnd();
                     RemoveTimer(i);
                 }
             }
