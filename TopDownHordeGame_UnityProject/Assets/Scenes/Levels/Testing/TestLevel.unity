@@ -47767,7 +47767,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4969436710342382336, guid: abc133fba00b1e14dad91dd7db62306d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 3.2000275
+      value: 3.2000122
       objectReference: {fileID: 0}
     - target: {fileID: 6519708967023122633, guid: abc133fba00b1e14dad91dd7db62306d, type: 3}
       propertyPath: m_SizeDelta.x
@@ -48082,6 +48082,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1188416777}
     m_Modifications:
+    - target: {fileID: 3265246451487908489, guid: cf20ec2de5c0f784a9a74476ef9d2313, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -1.9089355
+      objectReference: {fileID: 0}
+    - target: {fileID: 3265246451522507784, guid: cf20ec2de5c0f784a9a74476ef9d2313, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -1.9968872
+      objectReference: {fileID: 0}
     - target: {fileID: 3879570095317555416, guid: cf20ec2de5c0f784a9a74476ef9d2313, type: 3}
       propertyPath: m_Name
       value: PauseMenu
@@ -48120,11 +48128,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3879570095317555423, guid: cf20ec2de5c0f784a9a74476ef9d2313, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -213.7085
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3879570095317555423, guid: cf20ec2de5c0f784a9a74476ef9d2313, type: 3}
       propertyPath: m_SizeDelta.y
-      value: -55.038513
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3879570095317555423, guid: cf20ec2de5c0f784a9a74476ef9d2313, type: 3}
       propertyPath: m_LocalPosition.x
