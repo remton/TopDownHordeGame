@@ -10334,8 +10334,8 @@ MonoBehaviour:
   timeBetweenTargetChecks: 0.1
   animator: {fileID: 8993806625534781042}
   explosionObj: {fileID: 2669479584483856320, guid: 5b0d6ecbd5708204f9ed034f9f7486a7, type: 3}
-  knockbackStrength: 650
-  playerDistForLunge: 1.75
+  knockbackStrength: 600
+  playerDistForLunge: 2
 --- !u!114 &1387880836856220121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10351,10 +10351,11 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   hitBox: {fileID: 5617553464189486681}
-  waitTime: 0.4
-  lungeTime: 0.4
+  waitTime: 0.15
+  lungeTime: 0.25
   damage: 0
-  lungeForce: 350
+  lungeForce: 300
+  normalizeDirection: 0
 --- !u!114 &1164026406751873685
 MonoBehaviour:
   m_ObjectHideFlags: 0

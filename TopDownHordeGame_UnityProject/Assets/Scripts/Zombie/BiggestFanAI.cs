@@ -19,7 +19,7 @@ public class BiggestFanAI : ZombieAI
     protected override void Start() {
         base.Start();
         if (isServer) {
-            Debug.Log("Subscribe server BIGGESTFAN");
+            //Debug.Log("Subscribe server BIGGESTFAN");
             zombieLunge.EventLungeEnd += zombieHealth.Kill;
             zombieLunge.EventPrelungeEnd += OnPrelungeEnd;
             zombieHealth.EventOnDeath += Explode;
@@ -28,7 +28,7 @@ public class BiggestFanAI : ZombieAI
     }
 
     public override void SetValues(float newHealth, float newSpeed, float newDamage) {
-        base.SetValues(Mathf.CeilToInt(newHealth*2f), newSpeed * .9f, newDamage * 4.2f);
+        base.SetValues(Mathf.CeilToInt(newHealth*2f), newSpeed * .8f, newDamage * 4.5f);
     }
 
     protected override void OnUpdate() {
@@ -50,17 +50,23 @@ public class BiggestFanAI : ZombieAI
 
     [ClientRpc]
     private void Explode() {
-        Debug.LogWarning("EXPLODE!");
+        //Debug.LogWarning("EXPLODE!");
 
         List<string> damageTags = new List<string>();
-        damageTags.Add("Player");
+        damageTags.Add("PlayerDamageHitbox");
         damageTags.Add("ZombieDamageHitbox");
         List<string> knockbackTags = new List<string>();
-        knockbackTags.Add("Player");
+        knockbackTags.Add("PlayerDamageHitbox");
         knockbackTags.Add("ZombieDamageHitbox");
 
         GameObject obj = Instantiate(explosionObj, transform.position, Quaternion.identity);
         obj.GetComponent<Explosion>().Init(gameObject, damageTags, knockbackTags, damage, knockbackStrength);
+        StartCoroutine(DestroyNextFrame());
+    }
+
+    private IEnumerator DestroyNextFrame() {
+        yield return new WaitForEndOfFrame();
         Destroy(gameObject);
     }
+
 }

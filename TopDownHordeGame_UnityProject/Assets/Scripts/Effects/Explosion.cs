@@ -68,13 +68,15 @@ public class Explosion : MonoBehaviour
         }
     }
 
-    public void DamageActor(GameObject actorHitbox) {
-        if(actorHitbox.tag == "Player") {
-            actorHitbox.GetComponent<PlayerHealth>().DamageCMD(damage);
+    public void DamageActor(GameObject actor) {
+        if (actor.HasComponent<DamageHitbox>()) {
+            actor = actor.GetComponent<DamageHitbox>().owner;
         }
-        if(actorHitbox.tag == "ZombieDamageHitbox") {
-            GameObject zombie = actorHitbox.GetComponent<DamageHitbox>().owner;
-            zombie.GetComponent<ZombieHealth>().DamageCMD(damage, owner);
+        if (actor.tag == "Player") {
+            actor.GetComponent<PlayerHealth>().DamageCMD(damage);
+        }
+        if (actor.tag == "Zombie") {
+            actor.GetComponent<ZombieHealth>().DamageCMD(damage, owner);
         }
     }
     public void KnockbackActor(GameObject actor) {

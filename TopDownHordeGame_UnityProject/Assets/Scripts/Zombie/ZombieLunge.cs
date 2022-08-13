@@ -7,10 +7,15 @@ using Mirror;
 public class ZombieLunge : NetworkBehaviour
 {
     [SerializeField] private HitBoxController hitBox;
+    [Tooltip("Time in prelunge state")]
     [SerializeField] private float waitTime;
+    [Tooltip("Time until lunge is considered over")]
     [SerializeField] private float lungeTime;
     [SerializeField] private float damage;
     [SerializeField] private float lungeForce;
+
+    [Tooltip("When false, lunge force varies by distance to target")]
+    public bool normalizeDirection;
 
     private bool isLunging = false;
     private bool isWaitingToLunge = false;
@@ -48,6 +53,8 @@ public class ZombieLunge : NetworkBehaviour
 
     [Server]
     private void Damage(GameObject playerHitbox) {
+        if (damage == 0)
+            return;
         GameObject player = playerHitbox.GetComponent<DamageHitbox>().owner;
         player.GetComponent<PlayerHealth>().DamageCMD(damage);
     }
@@ -80,7 +87,10 @@ public class ZombieLunge : NetworkBehaviour
     private void StartLunge() {
         //Debug.Log("START OF LUNGE");
         isLunging = true;
-        rb.AddForce(dir * lungeForce);
+        if(normalizeDirection)
+            rb.AddForce(dir.normalized * lungeForce);
+        else
+            rb.AddForce(dir * lungeForce);
         hitBox.SetActive(true);
         hitBox.ForceEntry();
         timer.CreateTimer(lungeTime, EndLunge);
