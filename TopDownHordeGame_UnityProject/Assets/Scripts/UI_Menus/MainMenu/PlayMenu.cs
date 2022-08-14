@@ -75,7 +75,9 @@ public class PlayMenu : Menu
         MyNetworkManager.instance.Event_FailedToJoinLobby += FailedToJoin;
     }
     private void OnDestroy() {
-        MyNetworkManager.instance.Event_FailedToCreateLobby -= FailedToJoin;
-        MyNetworkManager.instance.Event_FailedToJoinLobby -= FailedToJoin;
+        if(MyNetworkManager.instance != null) {
+            MyNetworkManager.instance.Event_FailedToCreateLobby -= FailedToJoin;
+            MyNetworkManager.instance.Event_FailedToJoinLobby -= FailedToJoin;
+        }
     }
 }

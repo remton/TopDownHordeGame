@@ -11,7 +11,7 @@ public class Menu : MonoBehaviour
 {
     public Menu parentMenu;
     public GameObject defaultSelectedObject;
-    private bool isUsingGamepad = false;
+    protected bool isUsingGamepad = false;
 
     protected virtual void Update() {
         //handle the cancel and back button

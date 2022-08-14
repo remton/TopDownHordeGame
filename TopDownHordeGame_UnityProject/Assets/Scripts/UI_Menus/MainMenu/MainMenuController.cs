@@ -24,6 +24,11 @@ public class MainMenuController : Menu {
         Application.Quit();
     }
 
+    public override void SetInteractable(bool interactable) {
+        base.SetInteractable(interactable);
+        gameObject.SetActive(interactable);
+    }
+
     protected override void Update() {
         base.Update();
         if (timer.HasTimer(zoomTimerID)) {
