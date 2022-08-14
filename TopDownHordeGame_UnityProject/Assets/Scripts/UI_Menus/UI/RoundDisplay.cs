@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class RoundDisplay : MonoBehaviour
 {
     public GameObject popup;
-    public GameObject smallDisplay;
 
     [SerializeField] private float displayTime;
     private bool isDisplayingPopup;
@@ -17,7 +16,6 @@ public class RoundDisplay : MonoBehaviour
         timeUntilEndPopup = displayTime;
         round = r;
         StartPopup();
-        smallDisplay.GetComponentInChildren<Text>().text = "Round " + round.ToString();
     }
     private void StartPopup() {
         popup.SetActive(true);

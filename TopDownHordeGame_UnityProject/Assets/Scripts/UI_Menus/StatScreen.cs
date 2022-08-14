@@ -2,15 +2,36 @@ using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StatScreen : NetworkBehaviour
 {
     public static StatScreen instance;
-    public StatScreen instanceDEBUG;
+    //public StatScreen instanceDEBUG;
     public GameObject screen;
+    public Text roundTxt;
     public List<UIPlayerSidebar> statHolders;
 
     public readonly SyncList<PlayerStats> stats = new SyncList<PlayerStats>();
+
+    public void UpdateStats() {
+        foreach (var statHolder in statHolders) {
+            statHolder.Activate(false);
+        }
+
+        int maxIndex = Mathf.Min(stats.Count, statHolders.Count);
+        for (int i = 0; i < maxIndex; i++) {
+            statHolders[i].Activate(true);
+            statHolders[i].UpdateBankTxt(stats[i].GetBank());
+            statHolders[i].SetPlayerName(stats[i].GetName());
+            statHolders[i].UpdatePerkImages(stats[i].GetComponent<PlayerPerkHolder>().GetPerks());
+        }
+    }
+
+    public void RoundChanged(int round) {
+        roundTxt.text = "Round " + round.ToString();
+    }
+
 
     //Only called by the server when scene is loaded. Clients do not run awake if the object was already in the scene when it loads
     private void Awake() {
@@ -19,7 +40,7 @@ public class StatScreen : NetworkBehaviour
     private void SetInstance() {
         if (instance == null) {
             instance = this;
-            instanceDEBUG = instance;
+            //instanceDEBUG = instance;
         }
     }
 
@@ -42,6 +63,7 @@ public class StatScreen : NetworkBehaviour
     private void OnAllClientsLoaded() {
         MyNetworkManager.instance.ServerEvent_AllClientsReady -= OnAllClientsLoaded;
         StartCoroutine(SetPlayers());
+        RoundController.instance.EventRoundChange += RoundChanged;
     }
     IEnumerator SetPlayers() {
         if (!isServer)
@@ -67,19 +89,6 @@ public class StatScreen : NetworkBehaviour
             UpdateStats();
         }
     }
-    public void UpdateStats() {
-        foreach (var statHolder in statHolders) {
-            statHolder.Activate(false);
-        }
-
-        int maxIndex = Mathf.Min(stats.Count, statHolders.Count);
-        for (int i = 0; i < maxIndex; i++) {
-            statHolders[i].Activate(true);
-            statHolders[i].UpdateBankTxt(stats[i].GetBank());
-            statHolders[i].SetPlayerName(stats[i].GetName());
-            statHolders[i].UpdatePerkImages(stats[i].GetComponent<PlayerPerkHolder>().GetPerks());
-        }
-    }
 
     public static void OpenMenu() {
         if (instance == null) {
@@ -95,4 +104,10 @@ public class StatScreen : NetworkBehaviour
             return;
         instance.screen.SetActive(false);
     }
+
+    private void OnDestroy() {
+        if(RoundController.instance != null)
+            RoundController.instance.EventRoundChange -= RoundChanged;
+    }
+
 }
