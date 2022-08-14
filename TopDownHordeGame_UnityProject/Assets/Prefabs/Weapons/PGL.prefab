@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: -7264617089256714810}
   - component: {fileID: 6106902627882828585}
   - component: {fileID: -9214458937155007217}
+  - component: {fileID: -3113834709906428697}
   m_Layer: 0
   m_Name: PGL
   m_TagString: Untagged
@@ -50,6 +51,7 @@ MonoBehaviour:
   weaponName: PGL
   baseDamage: 20
   penatration: 0
+  range: 0
   fireDeley: 0
   magSize: 6
   reserveSize: 60
@@ -62,7 +64,6 @@ MonoBehaviour:
   reloadSound: {fileID: 8300000, guid: 38ab4dbe0b1f1f44eab3ea84e6818b41, type: 3}
   swapSound: {fileID: 8300000, guid: e53c5f6b8d30c5f4c9ef0c7d7f40ab90, type: 3}
   shootSound: {fileID: 8300000, guid: 4e532ac5050c1714c9e413ac522abca7, type: 3}
-  effectController: {fileID: 2769296667775464315, guid: 7d9940cc4635be54da99373e2c0dfb27, type: 3}
   shakeIntensity: 1
   spriteControl: {fileID: 0}
   balanceRadius: 4
@@ -176,6 +177,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14961e36a52fb9046828cf5baf6ae0d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   duration: 0.2
   maxDistance: 70
   trailObjPrefab: {fileID: 5599144035722061591, guid: 1173e4391071715429544057dfc90985, type: 3}
+--- !u!114 &-3113834709906428697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4997718862678949635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7d9c3e8d80539541931c705f070eb8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  active: 0
+  lightningboltEffect: {fileID: 5988371370501018059, guid: 580bceb4a7d740c4dbba88241fe34507, type: 3}
+  range: 2
+  maxChains: 4
+  damage: 1

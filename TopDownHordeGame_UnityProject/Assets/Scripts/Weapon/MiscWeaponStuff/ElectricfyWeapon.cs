@@ -5,6 +5,8 @@ using Mirror;
 
 public class ElectricfyWeapon : NetworkBehaviour
 {
+    public bool active = false;
+
     public GameObject lightningboltEffect;
     public float range;
     public int maxChains;
@@ -17,6 +19,9 @@ public class ElectricfyWeapon : NetworkBehaviour
     private GameObject owner;
 
     public void OnWeaponFired(GameObject Owner, List<GameObject> Victims, Vector3 startPos, Vector3 endPos) {
+        if (!active)
+            return;
+
         this.owner = Owner;
         chainedObjs.Clear();
         effectStarts.Clear();

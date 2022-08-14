@@ -3,7 +3,8 @@ guid: e7d9c3e8d80539541931c705f070eb8a
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - lightningboltEffect: {fileID: 5988371370501018059, guid: 580bceb4a7d740c4dbba88241fe34507, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

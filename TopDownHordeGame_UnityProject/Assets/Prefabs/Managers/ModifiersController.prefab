@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 366167687652340249}
   - component: {fileID: 1326126165056492780}
+  - component: {fileID: 6513176267895268901}
   m_Layer: 0
   m_Name: ModifiersController
   m_TagString: Untagged
@@ -48,3 +49,24 @@ MonoBehaviour:
   fanClubList:
   - weight: 1
     obj: {fileID: 6956723953377203767, guid: 39d713aebd2034242a102a7f80f0fc3d, type: 3}
+  zappEffect: {fileID: 5988371370501018059, guid: 580bceb4a7d740c4dbba88241fe34507, type: 3}
+  zappRange: 4
+  zappDamageMult: 0.5
+  zappChains: 4
+--- !u!114 &6513176267895268901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7472144670688344891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: a174f0fe307a41b4d90578a978ac45e7
+  hasSpawned: 0

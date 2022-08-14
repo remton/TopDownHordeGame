@@ -16222,7 +16222,7 @@ MonoBehaviour:
   m_VoxelSize: 0.060000002
   m_BuildHeightMesh: 0
   m_HideEditorLogs: 0
-  m_NavMeshData: {fileID: 23800000, guid: 98ce266499094c446879546d7b75c36f, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 3b28a220789b615469dc55798ed25053, type: 2}
 --- !u!114 &593804365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16256,7 +16256,7 @@ MonoBehaviour:
   m_VoxelSize: 0.05
   m_BuildHeightMesh: 0
   m_HideEditorLogs: 0
-  m_NavMeshData: {fileID: 23800000, guid: ce530cf20f705934a9a6e3ac0f45dd40, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: d1fc643236bc559439a11dd86e0d4121, type: 2}
 --- !u!114 &593804366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16290,7 +16290,7 @@ MonoBehaviour:
   m_VoxelSize: 0.07333333
   m_BuildHeightMesh: 0
   m_HideEditorLogs: 0
-  m_NavMeshData: {fileID: 23800000, guid: 0453beac2a33bff4cad348bdfeb001e7, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: b38a3edd6c4767540899fbd77a4b1be3, type: 2}
 --- !u!1001 &596356597
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16341,6 +16341,10 @@ PrefabInstance:
     - target: {fileID: 366167687652340249, guid: a174f0fe307a41b4d90578a978ac45e7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513176267895268901, guid: a174f0fe307a41b4d90578a978ac45e7, type: 3}
+      propertyPath: sceneId
+      value: 1226970022
       objectReference: {fileID: 0}
     - target: {fileID: 7472144670688344891, guid: a174f0fe307a41b4d90578a978ac45e7, type: 3}
       propertyPath: m_Name
@@ -35759,7 +35763,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numPlayers: 1
-  modifier_fanClub: 0
+  modifierStates: []
 --- !u!4 &1191772241
 Transform:
   m_ObjectHideFlags: 0

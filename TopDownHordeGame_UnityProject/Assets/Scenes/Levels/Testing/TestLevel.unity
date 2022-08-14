@@ -26631,7 +26631,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numPlayers: 1
-  modifier_fanClub: 0
+  modifierStates: []
 --- !u!4 &1191772241
 Transform:
   m_ObjectHideFlags: 0
@@ -48552,6 +48552,10 @@ PrefabInstance:
     - target: {fileID: 366167687652340249, guid: a174f0fe307a41b4d90578a978ac45e7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513176267895268901, guid: a174f0fe307a41b4d90578a978ac45e7, type: 3}
+      propertyPath: sceneId
+      value: 3753778033
       objectReference: {fileID: 0}
     - target: {fileID: 7472144670688344891, guid: a174f0fe307a41b4d90578a978ac45e7, type: 3}
       propertyPath: m_Name

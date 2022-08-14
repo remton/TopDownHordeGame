@@ -129,6 +129,7 @@ GameObject:
   - component: {fileID: 5690047386926144567}
   - component: {fileID: -8871941958371890710}
   - component: {fileID: 507372946438945532}
+  - component: {fileID: 1491622521539735507}
   m_Layer: 0
   m_Name: SGL
   m_TagString: Untagged
@@ -329,6 +330,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2481c070c49a4dd4cb8ace2ff92559b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1491622521539735507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4997718862678949635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7d9c3e8d80539541931c705f070eb8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  active: 0
+  lightningboltEffect: {fileID: 5988371370501018059, guid: 580bceb4a7d740c4dbba88241fe34507, type: 3}
+  range: 2
+  maxChains: 4
+  damage: 1
 --- !u!1001 &9008795271172010489
 PrefabInstance:
   m_ObjectHideFlags: 0

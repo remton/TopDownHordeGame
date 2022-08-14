@@ -56,13 +56,15 @@ public class GameOptionsMenu : Menu
     public void UpdateModifierList() {
         string list = "Modifiers: ";
         bool modifierInList = false;
-        if (GameSettings.instance.modifier_fanClub) {
-            if (modifierInList)
-                list += ", ";
-            list += "Fan Club";
-            modifierInList = true;
+        List<GameSettings.ModifierState> modStates = GameSettings.instance.modifierStates;
+        for (int i = 0; i < modStates.Count; i++) {
+            if (modStates[i].isActive) {
+                if (modifierInList)
+                    list += ", ";
+                modifierInList = true;
+                list += modStates[i].name;
+            }
         }
-
         if (!modifierInList)
             list = "No Modifiers";
         modifierListTxt.text = list;
