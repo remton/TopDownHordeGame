@@ -36,6 +36,11 @@ public class SaveData : MonoBehaviour {
     public int leaderboard_totalScore;
     public int leaderboard_mostScore;
     public int leaderboard_highestRound;
+    // Not implemented
+    public int challenge_biggestFanKills;
+    public int challenge_zathrakKills;
+    public int challenge_LungsKills;
+    public int challenge_hockEyeKills;
 
     [Header("CatCafe")]
     public int[] catCafe_code;
@@ -86,6 +91,12 @@ public class SaveData : MonoBehaviour {
         instance.leaderboard_totalKills = save.leaderboard_totalKills;
         instance.leaderboard_totalMoneyEarned = save.leaderboard_totalMoneyEarned;
         instance.leaderboard_totalScore = save.leaderboard_totalScore;
+        //Challenges
+        instance.challenge_biggestFanKills = save.challenge_biggestFanKills;
+        instance.challenge_zathrakKills = save.challenge_zathrakKills;
+        instance.challenge_LungsKills = save.challenge_LungsKills;
+        instance.challenge_hockEyeKills = save.challenge_hockEyeKills;
+
         //Cat Cafe
         instance.catCafe_code = save.catCafe_code;
         instance.catCafe_unlockedDigits = save.catCafe_unlockedDigits;

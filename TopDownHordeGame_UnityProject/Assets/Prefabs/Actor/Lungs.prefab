@@ -10463,6 +10463,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  type: 4
   payForHit: 3
   payForKill: 50
   spwanFramesInSeconds: 0.5
@@ -10490,6 +10491,7 @@ MonoBehaviour:
   lungeTime: 0.15
   damage: 1
   lungeForce: 350
+  normalizeDirection: 0
 --- !u!114 &-2455652057355692573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10506,7 +10508,6 @@ MonoBehaviour:
   syncInterval: 0.1
   hitParticles: {fileID: 5254885537921617243}
   dieParticles: {fileID: 4079612657220472612}
-  moneyEffect: {fileID: 3078305918877377745, guid: fec51dc1c354e004dbdff7a5657edba2, type: 3}
   moneyEffectVerticalOffset: 0.5
   givesMoney: 1
   DontDestroyOnDeath: 0

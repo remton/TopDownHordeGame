@@ -3,9 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
+public enum ZombieType {
+    basic, biggestFan, hockEye, zathrak, lungs, minion
+}
+
 [RequireComponent(typeof(Timer))]
 public class ZombieAI : NetworkBehaviour
 {
+    public ZombieType type;
+
     public int payForHit;
     public int payForKill;
 

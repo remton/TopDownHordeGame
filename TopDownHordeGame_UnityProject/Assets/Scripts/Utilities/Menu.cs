@@ -52,10 +52,10 @@ public class Menu : MonoBehaviour
         isUsingGamepad = false;
     }
     public virtual void Close() {
-        gameObject.SetActive(false);
         if (parentMenu != null) {
             parentMenu.Open();
         }
+        gameObject.SetActive(false);
     }
     public virtual void SetInteractable(bool interactable) {
         Selectable[] selects = gameObject.GetComponentsInChildren<Selectable>();

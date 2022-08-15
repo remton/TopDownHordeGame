@@ -10,8 +10,7 @@ public class PauseMenu : Menu {
     }
 
     public void Button_Continue() {
-        if (PauseManager.instance.IsPaused())
-            PauseManager.instance.PauseButtonPress();
+        OnCancel();
     }
     public void Button_LeaveGame() {
         if (PauseManager.instance.IsPaused())
@@ -20,17 +19,18 @@ public class PauseMenu : Menu {
     }
     public override void OnCancel() {
         base.OnCancel();
-        PauseManager.instance.PauseButtonPress();
+        if (PauseManager.instance.IsPaused())
+            PauseManager.instance.PauseButtonPress();
     }
 
     public void QuitToMainMenu() {
-        if (PlayerConnection.myConnection.isServer)
-            SaveData.Save();
+        PlayerManager.instance.SavePlayerData();
+        SaveData.Save();
         PlayerConnection.myConnection.Disconnect();
     }
 
     public override void Close() {
-        base.Close();
         settings.Close();
+        base.Close();
     }
 }

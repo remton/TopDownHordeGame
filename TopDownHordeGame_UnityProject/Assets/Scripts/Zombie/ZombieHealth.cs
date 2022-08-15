@@ -87,7 +87,7 @@ public class ZombieHealth : NetworkBehaviour
                 if (health <= 0) {
                     damager.GetComponent<PlayerStats>().AddMoney(payForKill);
                     payAmount += payForKill;
-                    damager.GetComponent<PlayerStats>().AddKill();
+                    damager.GetComponent<PlayerStats>().AddKill(GetComponent<ZombieAI>().type);
                 }
                 MoneyEffectManager.instance.CreateEffect(damager, transform.position + new Vector3(0, moneyEffectVerticalOffset, 0), payAmount);
             }

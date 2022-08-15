@@ -111,8 +111,28 @@ public class PlayerStats : NetworkBehaviour
     }
 
     [Server]
-    public void AddKill() {
+    public void AddKill(ZombieType type) {
         totalKills++;
+        switch (type) {
+            case ZombieType.minion:
+                return;
+            case ZombieType.basic:
+                break;
+            case ZombieType.biggestFan:
+                SaveData.instance.challenge_biggestFanKills++;
+                break;
+            case ZombieType.hockEye:
+                SaveData.instance.challenge_hockEyeKills++;
+                break;
+            case ZombieType.zathrak:
+                SaveData.instance.challenge_zathrakKills++;
+                break;
+            case ZombieType.lungs:
+                SaveData.instance.challenge_LungsKills++;
+                break;
+            default:
+                break;
+        }
     }
 
     // ----- Editor buttons -----

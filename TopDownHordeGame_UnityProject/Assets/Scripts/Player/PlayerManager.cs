@@ -123,6 +123,11 @@ public class PlayerManager : NetworkBehaviour
         SetAllPlayersRPC(allPlayers.ToArray());
     }
 
+    [Client]
+    public void SavePlayerData() {
+        GameOverData.instance.SetData(localPlayers, RoundController.instance.round);
+        SaveData.Save();
+    }
 
     // --- Private Methods ---
 
@@ -223,8 +228,8 @@ public class PlayerManager : NetworkBehaviour
             }
         }
         //Everyone died so end game
-        GameOverData.instance.SetData(localPlayers, RoundController.instance.round);
-        SaveData.Save();
+        SavePlayerData();
         MyNetworkManager.instance.ChangeScene(GameOverScene);
     }
+
 }

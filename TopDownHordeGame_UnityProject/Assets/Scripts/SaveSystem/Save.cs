@@ -18,6 +18,12 @@ public class Save{
     public int leaderboard_mostScore;
     public int leaderboard_highestRound;
 
+    //Challenges
+    public int challenge_biggestFanKills;
+    public int challenge_zathrakKills;
+    public int challenge_LungsKills;
+    public int challenge_hockEyeKills;
+
     //CatCafe
     public int[] catCafe_code;
     public int catCafe_unlockedDigits;
