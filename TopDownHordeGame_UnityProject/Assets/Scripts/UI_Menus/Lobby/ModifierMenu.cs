@@ -7,7 +7,6 @@ public class ModifierMenu : Menu
 {
     public GameOptionsMenu gameOptionsMenu;
 
-    public List<GameObject> ChoiceButtons;
     public Color DisableChoiceColor;
     public Color EnableChoiceColor;
 

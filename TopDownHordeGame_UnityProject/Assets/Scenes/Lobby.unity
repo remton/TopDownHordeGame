@@ -252,7 +252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.38679248, g: 0.38679248, b: 0.38679248, a: 1}
+  m_Color: {r: 0.7764706, g: 0.7764706, b: 0.7764706, a: 0.6666667}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -369,7 +369,7 @@ GameObject:
   - component: {fileID: 105526521}
   - component: {fileID: 105526520}
   m_Layer: 5
-  m_Name: Empty
+  m_Name: AllHockEye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -382,17 +382,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 105526518}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 43689139}
-  m_Father: {fileID: 1238813193}
-  m_RootOrder: 0
+  m_Father: {fileID: 867900348}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 180.63617, y: -130.01492}
+  m_AnchoredPosition: {x: 536.9085, y: -130.01492}
   m_SizeDelta: {x: 351.27234, y: 250.02985}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &105526520
@@ -434,11 +434,23 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 105526521}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 918561928}
+        m_TargetAssemblyTypeName: ModifierMenu, Assembly-CSharp
+        m_MethodName: Button_ToggleModifier
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: allHockEye
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &105526521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1520,7 +1532,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.38679248, g: 0.38679248, b: 0.38679248, a: 1}
+  m_Color: {r: 0.7764706, g: 0.7764706, b: 0.7764706, a: 0.6666667}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2129,7 +2141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2149,7 +2161,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: NYI
+  m_Text: All Hock Eye
 --- !u!222 &632041140
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2730,7 +2742,7 @@ GameObject:
   - component: {fileID: 765691358}
   - component: {fileID: 765691357}
   m_Layer: 5
-  m_Name: Empty (1)
+  m_Name: AllZathrak
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2795,11 +2807,23 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 765691358}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 918561928}
+        m_TargetAssemblyTypeName: ModifierMenu, Assembly-CSharp
+        m_MethodName: Button_ToggleModifier
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: allZathrak
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &765691358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3087,7 +3111,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.9047951, y: 0.8804447}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.13751, y: -0.25}
+  m_AnchoredPosition: {x: -0.1375122, y: -0.25}
   m_SizeDelta: {x: -0.27501, y: -0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &786570487
@@ -3213,7 +3237,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1356806389}
-  - {fileID: 1038755581}
+  - {fileID: 105526519}
   - {fileID: 765691356}
   - {fileID: 1174604344}
   m_Father: {fileID: 457763312}
@@ -3534,7 +3558,6 @@ MonoBehaviour:
   parentMenu: {fileID: 1402754341}
   defaultSelectedObject: {fileID: 1356806388}
   gameOptionsMenu: {fileID: 1402754341}
-  ChoiceButtons: []
   DisableChoiceColor: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
   EnableChoiceColor: {r: 0.43900317, g: 1, b: 0.4198113, a: 1}
   modOptions:
@@ -3542,6 +3565,15 @@ MonoBehaviour:
     active: 0
     image: {fileID: 882569994}
   - mod: 1
+    active: 0
+    image: {fileID: 43689140}
+  - mod: 2
+    active: 0
+    image: {fileID: 339684216}
+  - mod: 3
+    active: 0
+    image: {fileID: 1906509674}
+  - mod: 4
     active: 0
     image: {fileID: 1590731844}
 --- !u!222 &918561929
@@ -4226,17 +4258,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1038755580}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1590731843}
-  m_Father: {fileID: 867900348}
-  m_RootOrder: 1
+  m_Father: {fileID: 1238813193}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 536.9085, y: -130.01492}
+  m_AnchoredPosition: {x: 180.63617, y: -130.01492}
   m_SizeDelta: {x: 351.27234, y: 250.02985}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1038755582
@@ -4637,7 +4669,7 @@ GameObject:
   - component: {fileID: 1174604346}
   - component: {fileID: 1174604345}
   m_Layer: 5
-  m_Name: Empty (2)
+  m_Name: All Lungs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4702,11 +4734,23 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 1174604346}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 918561928}
+        m_TargetAssemblyTypeName: ModifierMenu, Assembly-CSharp
+        m_MethodName: Button_ToggleModifier
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: allLungs
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1174604346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5031,7 +5075,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 105526519}
+  - {fileID: 1038755581}
   - {fileID: 761357933}
   - {fileID: 1387337324}
   - {fileID: 1662347626}
@@ -5748,7 +5792,7 @@ GameObject:
   - component: {fileID: 1356806391}
   - component: {fileID: 1356806390}
   m_Layer: 5
-  m_Name: FanClub
+  m_Name: AllBiggestFan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5827,7 +5871,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: fanClub
+          m_StringArgument: allBiggestFan
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1356806391
@@ -7684,7 +7728,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: Every zombie lunges like they have infinite lung capacity
 --- !u!222 &1717497183
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7842,7 +7886,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: Every zombie can throw, but lacks depth perception
 --- !u!222 &1737809554
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8798,7 +8842,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.38679248, g: 0.38679248, b: 0.38679248, a: 1}
+  m_Color: {r: 0.7764706, g: 0.7764706, b: 0.7764706, a: 0.6666667}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9031,7 +9075,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9051,7 +9095,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: NYI
+  m_Text: All Zathrak
 --- !u!222 &1942443735
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9401,7 +9445,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9421,7 +9465,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: NYI
+  m_Text: All Lungs
 --- !u!222 &1978129032
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9854,7 +9898,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: Every zombie summons minions to fight with them
 --- !u!222 &2117350134
 CanvasRenderer:
   m_ObjectHideFlags: 0

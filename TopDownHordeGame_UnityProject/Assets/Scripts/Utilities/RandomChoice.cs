@@ -23,6 +23,11 @@ public class RandomChoice
     /// </summary>
     public GameObject obj;
 
+    public RandomChoice(float nWeight, GameObject nObj) {
+        weight = nWeight;
+        obj = nObj;
+    }
+
     /// <summary> Chooses a random gameobj from a list (all objects must have the choosable script)</summary>
     public static GameObject ChooseRandom(List<RandomChoice> choices) {
         //An Empty list should not be passed to this funct

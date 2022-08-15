@@ -46,13 +46,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  fanClubList:
-  - weight: 1
-    obj: {fileID: 6956723953377203767, guid: 39d713aebd2034242a102a7f80f0fc3d, type: 3}
-  zappEffect: {fileID: 5988371370501018059, guid: 580bceb4a7d740c4dbba88241fe34507, type: 3}
-  zappRange: 4
-  zappDamageMult: 0.5
-  zappChains: 4
+  allBiggestFan_Prefab: {fileID: 6956723953377203767, guid: 39d713aebd2034242a102a7f80f0fc3d, type: 3}
+  allHockEye_Prefab: {fileID: 6956723953377203767, guid: 03a51a5cebba33041a60507cb32a8683, type: 3}
+  allZathrak_Prefab: {fileID: 6956723953377203767, guid: b1966b46c14620843bd15551d22f6fe7, type: 3}
+  allLungs_Prefab: {fileID: 6956723953377203767, guid: cd6b31b8766f4284a96fb1eeec301937, type: 3}
 --- !u!114 &6513176267895268901
 MonoBehaviour:
   m_ObjectHideFlags: 0
