@@ -48,15 +48,14 @@ public class Menu : MonoBehaviour
             parentMenu.SetInteractable(false);
         }
         gameObject.SetActive(true);
+        SetInteractable(true);
         isUsingGamepad = false;
     }
     public virtual void Close() {
-        if (parentMenu != null) {
-            parentMenu.SetInteractable(true);
-        }
         gameObject.SetActive(false);
-        if(parentMenu!=null)
-            EventSystem.current.SetSelectedGameObject(parentMenu.defaultSelectedObject);
+        if (parentMenu != null) {
+            parentMenu.Open();
+        }
     }
     public virtual void SetInteractable(bool interactable) {
         Selectable[] selects = gameObject.GetComponentsInChildren<Selectable>();
