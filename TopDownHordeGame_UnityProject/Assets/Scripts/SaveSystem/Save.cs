@@ -43,6 +43,11 @@ public class Save{
         leaderboard_totalScore = data.leaderboard_totalScore;
         leaderboard_mostScore = data.leaderboard_mostScore;
         leaderboard_highestRound = data.leaderboard_highestRound;
+        //Challenges
+        challenge_biggestFanKills = data.challenge_biggestFanKills;
+        challenge_zathrakKills = data.challenge_zathrakKills;
+        challenge_LungsKills = data.challenge_LungsKills;
+        challenge_hockEyeKills = data.challenge_hockEyeKills;
         //Cat Cafe
         catCafe_code = data.catCafe_code;
         catCafe_unlockedDigits = data.catCafe_unlockedDigits;

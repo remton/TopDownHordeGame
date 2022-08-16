@@ -36,7 +36,8 @@ public class SaveData : MonoBehaviour {
     public int leaderboard_totalScore;
     public int leaderboard_mostScore;
     public int leaderboard_highestRound;
-    // Not implemented
+
+    [Header("Challenges")]
     public int challenge_biggestFanKills;
     public int challenge_zathrakKills;
     public int challenge_LungsKills;
@@ -117,6 +118,11 @@ public class SaveData : MonoBehaviour {
         instance.leaderboard_totalKills = 0;
         instance.leaderboard_totalMoneyEarned = 0;
         instance.leaderboard_totalScore = 0;
+        //Challenges
+        instance.challenge_biggestFanKills = 0;
+        instance.challenge_zathrakKills = 0;
+        instance.challenge_LungsKills = 0;
+        instance.challenge_hockEyeKills = 0;
         //CatCafe
         instance.catCafe_code = new int[CatCafe.codeLength];
         for (int i = 0; i < CatCafe.codeLength; i++) {
@@ -124,6 +130,9 @@ public class SaveData : MonoBehaviour {
         }
         instance.catCafe_unlockedDigits = 0;
         instance.catCafe_unlockedElevator = false;
+
+        //Update other scripts
+        Challenge.ReloadAll();
     }
 
 
