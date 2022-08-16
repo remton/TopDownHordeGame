@@ -79,7 +79,11 @@ public class SteamLobby : MonoBehaviour
             //Create lobby triggers a callback (OnLobbbyCreated) when it is done
         }
         else {
-            Debug.Log("code already in use");
+            CreateLobbyData createData;
+            createData.lobbySteamID = CSteamID.Nil;
+            createData.info = "Code already in use";
+            createData.successful = false;
+            CallCreateLobbyEvent(createData);
         }
     }
     public void JoinLobby() {
@@ -113,6 +117,10 @@ public class SteamLobby : MonoBehaviour
             code,
             ELobbyComparison.k_ELobbyComparisonEqual);
         SteamMatchmaking.RequestLobbyList();
+    }
+
+    public void LeaveLobby() {
+        SteamMatchmaking.LeaveLobby(new CSteamID(lobbyID));
     }
 
     //Event Call methods

@@ -167,7 +167,7 @@ public class PlayerConnection : NetworkBehaviour
     public void Disconnect() {
         if (MyNetworkManager.instance.isNetworkActive) {
             MyNetworkManager.instance.offlineScene = sceneToLoadOnDisconnect;
-
+            MyNetworkManager.instance.DisconnectFromLobby();
             if (isServer && isClient)
                 MyNetworkManager.instance.StopHost();
             else if (isClient)

@@ -77,6 +77,11 @@ public class MyNetworkManager : NetworkManager
             StartClient();
         }
     }
+    public void DisconnectFromLobby() {
+        if(useSteam)
+            steamLobby.LeaveLobby();
+    }
+
     [Server]
     public void ChangeScene(string sceneName) {
         if (isNetworkActive)
