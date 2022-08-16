@@ -111,37 +111,38 @@ public class LobbyMenu : Menu
             //If we havent joined a local player for this connection yet
             if(playerDetails[detailsIndex].numLocalPlayers == 0) {
                 //Set the name
-                playerBoxes[slotIndex].nameText.text = EMPTY_NAME_TEXT;
-                playerBoxes[slotIndex].icon.texture = PlayerConnection.GetIcon(null);
-                playerBoxes[slotIndex].icon.color = Color.clear;
+                playerBoxes[slotIndex].nameText.text = playerDetails[detailsIndex].name;
+                playerBoxes[slotIndex].icon.texture = PlayerConnection.GetIcon(playerDetails[detailsIndex].connection);
                 //Set ready button text
                 playerBoxes[slotIndex].readyButton.GetComponentInChildren<Text>().text = NOT_READY_TEXT;
                 ActivateReadyButton(slotIndex, false);
-            }
-
-            //For every local player
-            for (int localPlayer = 0; localPlayer < playerDetails[detailsIndex].numLocalPlayers; localPlayer++) {
-                //Only if there is a slot available
-                if(slotIndex < numSlots) {
-                    //Set the name
-                    playerBoxes[slotIndex].nameText.text = playerDetails[detailsIndex].name;
-                    playerBoxes[slotIndex].icon.texture = PlayerConnection.GetIcon(playerDetails[detailsIndex].connection);
-                    playerBoxes[slotIndex].icon.color = Color.white;
-                    //Set ready button text
-                    if (playerDetails[detailsIndex].isReady) {
-                        playerBoxes[slotIndex].readyButton.GetComponentInChildren<Text>().text = READY_TEXT;
-                    }
-                    else {
-                        playerBoxes[slotIndex].readyButton.GetComponentInChildren<Text>().text = NOT_READY_TEXT;
-                    }
-
-                    //If these are my details, set this as my button
-                    if (playerDetails[detailsIndex].netID == PlayerConnection.myConnection.netId && playerDetails[detailsIndex].numLocalPlayers > 0)
-                        ActivateReadyButton(slotIndex, true);
-                    else
-                        ActivateReadyButton(slotIndex, false);
-                }
                 slotIndex++;
+            }
+            else {
+                //For every local player
+                for (int localPlayer = 0; localPlayer < playerDetails[detailsIndex].numLocalPlayers; localPlayer++) {
+                    //Only if there is a slot available
+                    if (slotIndex < numSlots) {
+                        //Set the name
+                        playerBoxes[slotIndex].nameText.text = playerDetails[detailsIndex].name;
+                        playerBoxes[slotIndex].icon.texture = PlayerConnection.GetIcon(playerDetails[detailsIndex].connection);
+                        playerBoxes[slotIndex].icon.color = Color.white;
+                        //Set ready button text
+                        if (playerDetails[detailsIndex].isReady) {
+                            playerBoxes[slotIndex].readyButton.GetComponentInChildren<Text>().text = READY_TEXT;
+                        }
+                        else {
+                            playerBoxes[slotIndex].readyButton.GetComponentInChildren<Text>().text = NOT_READY_TEXT;
+                        }
+
+                        //If these are my details, set this as my button
+                        if (playerDetails[detailsIndex].netID == PlayerConnection.myConnection.netId && playerDetails[detailsIndex].numLocalPlayers > 0)
+                            ActivateReadyButton(slotIndex, true);
+                        else
+                            ActivateReadyButton(slotIndex, false);
+                    }
+                    slotIndex++;
+                }
             }
 
             //Handle start game button

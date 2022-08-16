@@ -234,6 +234,7 @@ public class PlayerManager : NetworkBehaviour
 
 
     private void OnDestroy() {
-        MyNetworkManager.instance.ServerEvent_AllClientsReady -= OnAllClientsLoaded;
+        if(MyNetworkManager.instance != null)
+            MyNetworkManager.instance.ServerEvent_AllClientsReady -= OnAllClientsLoaded;
     }
 }
