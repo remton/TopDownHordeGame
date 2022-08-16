@@ -6,8 +6,7 @@ using UnityEngine.UI;
 public class ChallengeMenu : Menu
 {
     public GameObject infoBox;
-
-    public List<Challenge> challenges;
+    public GameObject ChallengeHolder;
     public GameObject challengeItemPrefab;
     public GameObject challengeItemHolder;
     private List<GameObject> challengeItems = new List<GameObject>();
@@ -18,11 +17,14 @@ public class ChallengeMenu : Menu
         }
         challengeItems.Clear();
 
+
+        Challenge[] challenges = ChallengeHolder.GetComponentsInChildren<Challenge>();
         foreach (Challenge challenge in challenges) {
-            GameObject item = Instantiate(challengeItemPrefab, challengeItemHolder.transform);
-            item.GetComponent<ChallengeItem>().Init(challenge, infoBox);
-            challengeItems.Add(item);
+            if (challenge.unlocked) {
+                GameObject item = Instantiate(challengeItemPrefab, challengeItemHolder.transform);
+                item.GetComponent<ChallengeItem>().Init(challenge, infoBox);
+                challengeItems.Add(item);
+            }
         }
-        //LayoutRebuilder.ForceRebuildLayoutImmediate(challengeItemHolder.GetComponent<RectTransform>());
     }
 }
