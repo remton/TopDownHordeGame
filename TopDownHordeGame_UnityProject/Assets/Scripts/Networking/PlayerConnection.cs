@@ -12,7 +12,6 @@ public class PlayerConnection : NetworkBehaviour
     public static PlayerConnection myConnection;
 
     public string sceneToLoadOnDisconnect;
-
     [SerializeField]
     private GameObject playerPrefab;
     [SerializeField]
@@ -23,6 +22,20 @@ public class PlayerConnection : NetworkBehaviour
 
     private List<string> controlSchemes = new List<string>();
     private readonly SyncList<GameObject> playerCharacters = new SyncList<GameObject>();
+
+
+    //Steam ID of this connection
+    public CSteamID steamID;
+    [Server]
+    public void SetSteamID(ulong newID) {
+        steamID = new CSteamID(newID);
+        SetSteamIDRPC(newID);
+    }
+    [ClientRpc]
+    private void SetSteamIDRPC(ulong newID) {
+        steamID = new CSteamID(newID);
+    }
+
 
     public void AddLocalPlayer(InputDevice device) {
         string scheme = "null";
@@ -59,22 +72,23 @@ public class PlayerConnection : NetworkBehaviour
 
 
     public static string GetName(PlayerConnection connection) {
-        return "Con [" + connection.netId + "]";
-
-        //ConnectionData data = connection.connectionData;
-        //if (MyNetworkManager.instance.useSteam)
-        //    return SteamFriends.GetFriendPersonaName(new CSteamID(ulong.Parse(data.steamID)));
-        //else
-        //    return "Con [" + connection.netId + "]";
+        if (MyNetworkManager.instance.useSteam) {
+            return SteamFriends.GetFriendPersonaName(connection.steamID);
+        }
+        else {
+            return System.Environment.UserName + " [" + connection.netId + "]";
+        }
+        
+        //return "Con [" + connection.netId + "]";
     }
     public static string GetName(PlayerConnection connection, GameObject player) {
-        string name;
-        name = "Player";
-
-        //if (MyNetworkManager.instance.useSteam)
-        //    name = SteamFriends.GetFriendPersonaName(new CSteamID(ulong.Parse(data.steamID)));
-        //else
-        //    name = "Player";
+        string name; 
+        if (MyNetworkManager.instance.useSteam) {
+            name = SteamFriends.GetFriendPersonaName(connection.steamID);
+        }
+        else {
+            name = "Player";
+        }
 
         List<GameObject> localPlayers = connection.GetPlayerCharacters();
         for (int i = 1; i < localPlayers.Count; i++) {

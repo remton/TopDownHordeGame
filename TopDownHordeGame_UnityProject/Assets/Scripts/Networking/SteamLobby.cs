@@ -20,6 +20,7 @@ public class SteamLobby : MonoBehaviour
     //When steam finishes getting the list of lobbies
     protected Callback<LobbyMatchList_t> lobbyList;
 
+    public ulong lobbyID;
 
     // --- Events called by this script ---
     public struct JoinLobbyData {
@@ -159,7 +160,7 @@ public class SteamLobby : MonoBehaviour
             new CSteamID(callback.m_ulSteamIDLobby),
             LOBBYCODE_KEY,
             lobbyCode);
-
+        lobbyID = callback.m_ulSteamIDLobby;
         Debug.Log("Created lobby with code: " + lobbyCode);
         MyNetworkManager.instance.StartHost();
 

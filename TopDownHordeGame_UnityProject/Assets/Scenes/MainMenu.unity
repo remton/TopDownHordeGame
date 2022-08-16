@@ -3854,8 +3854,8 @@ MonoBehaviour:
   - {fileID: 7609820944762314030, guid: 79b5ba03f56338c408ab4555c56e8c35, type: 3}
   - {fileID: 5454472768016782365, guid: 06f2c5833a8041340bd3b4e3118ff664, type: 3}
   - {fileID: 3078305918877377745, guid: fec51dc1c354e004dbdff7a5657edba2, type: 3}
-  steamDisabled: 1
-  useSteam: 0
+  steamDisabled: 0
+  useSteam: 1
   steamLobby: {fileID: 64649069}
   networkClips: []
 --- !u!4 &1273725197
@@ -4315,7 +4315,7 @@ MonoBehaviour:
   joinButton: {fileID: 1905792007}
   connectedTxt: {fileID: 389085577}
   lobbyScene: Assets/Scenes/Lobby.unity
-  kcpEnabled: 1
+  kcpEnabled: 0
 --- !u!1 &1330998660
 GameObject:
   m_ObjectHideFlags: 0

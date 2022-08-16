@@ -179,6 +179,8 @@ public class MyNetworkManager : NetworkManager
 
         //------- Addition for MyNetworkManager -------
         player.GetComponent<PlayerConnection>().Init();
+        ulong steamID = ((ulong)SteamMatchmaking.GetLobbyMemberByIndex(new CSteamID(steamLobby.lobbyID), numPlayers - 1));
+        player.GetComponent<PlayerConnection>().SetSteamID(steamID);
         playerConnections.Add(player.GetComponent<PlayerConnection>());
         if(ServerEvent_PlayerConnectionAdded != null) { ServerEvent_PlayerConnectionAdded.Invoke(player.GetComponent<PlayerConnection>()); }
         //------- Addition for MyNetworkManager -------
