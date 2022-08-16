@@ -43,6 +43,9 @@ public class SaveData : MonoBehaviour {
     public int challenge_LungsKills;
     public int challenge_hockEyeKills;
 
+    [Header("Modifers")]
+    public bool[] modifier_unlocks;
+
     [Header("CatCafe")]
     public int[] catCafe_code;
     public int catCafe_unlockedDigits;
@@ -97,7 +100,8 @@ public class SaveData : MonoBehaviour {
         instance.challenge_zathrakKills = save.challenge_zathrakKills;
         instance.challenge_LungsKills = save.challenge_LungsKills;
         instance.challenge_hockEyeKills = save.challenge_hockEyeKills;
-
+        //Modifiers
+        instance.modifier_unlocks = save.modifier_unlocks;
         //Cat Cafe
         instance.catCafe_code = save.catCafe_code;
         instance.catCafe_unlockedDigits = save.catCafe_unlockedDigits;
@@ -123,6 +127,8 @@ public class SaveData : MonoBehaviour {
         instance.challenge_zathrakKills = 0;
         instance.challenge_LungsKills = 0;
         instance.challenge_hockEyeKills = 0;
+        //Modifiers
+        instance.modifier_unlocks = new bool[System.Enum.GetNames(typeof(ModifierType)).Length];
         //CatCafe
         instance.catCafe_code = new int[CatCafe.codeLength];
         for (int i = 0; i < CatCafe.codeLength; i++) {

@@ -24,11 +24,13 @@ public class Save{
     public int challenge_LungsKills;
     public int challenge_hockEyeKills;
 
+    //Modifiers
+    public bool[] modifier_unlocks;
+
     //CatCafe
     public int[] catCafe_code;
     public int catCafe_unlockedDigits;
     public bool catCafe_unlockedElevator;
-
 
     public Save(SaveData data) {
         //Settings
@@ -52,5 +54,7 @@ public class Save{
         catCafe_code = data.catCafe_code;
         catCafe_unlockedDigits = data.catCafe_unlockedDigits;
         catCafe_unlockedElevator = data.catCafe_unlockedElevator;
+        //ModifierUnlocks
+        modifier_unlocks = data.modifier_unlocks;
     }
 }

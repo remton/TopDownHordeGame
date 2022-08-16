@@ -14,6 +14,7 @@ public class Challenge_BiggestFanKills : Challenge
     }
     public override void Complete() {
         completed = true;
+        SaveData.instance.modifier_unlocks[(int)ModifierType.allBiggestFan] = true;
         Debug.Log("Completed Biggest Fan Kills");
     }
     public override void Unlock() {

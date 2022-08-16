@@ -2999,6 +2999,7 @@ MonoBehaviour:
   challenge_zathrakKills: 0
   challenge_LungsKills: 0
   challenge_hockEyeKills: 0
+  modifier_unlocks: 
   catCafe_code: 
   catCafe_unlockedDigits: 0
   catCafe_unlockedElevator: 0
@@ -5636,8 +5637,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f149185e3b29d5479227104bbc19a61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: Hock Eye kills
-  description: Kill 10 Hock Eyes
+  title: Hock Eye Slayer
+  description: "Kill 10 Hock Eyes. \nUnlocks all Hock Eyes game setting."
   icon: {fileID: -3109383995173785867, guid: 2e47d5d551c780f4bb1288e8bb3749d6, type: 3}
   progress: 0
   unlocked: 0
@@ -6540,8 +6541,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 143cd66fa33cd944994047814314592c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: Kill Biggest Fans
-  description: Kill 10 Biggest fans
+  title: Biggest Fan Slayer
+  description: "Kill 10 Biggest fans. \nUnlocks all Biggest Fan game setting."
   icon: {fileID: 8318688728706502886, guid: 78b15cdfa56ae3a42b96f486c1dab9c5, type: 3}
   progress: 0
   unlocked: 0

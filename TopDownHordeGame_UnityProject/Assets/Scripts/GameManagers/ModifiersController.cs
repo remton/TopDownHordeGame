@@ -19,7 +19,7 @@ public class ModifiersController : NetworkBehaviour
 
     private List<GameObject> players;
 
-    // --- Modifiers ---
+    // --- Apply Modifiers ---
     [Server]
     public void Apply_AllBiggest() {
         zombieListReplacement.Add(new RandomChoice(1, allBiggestFan_Prefab));

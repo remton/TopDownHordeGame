@@ -232,4 +232,8 @@ public class PlayerManager : NetworkBehaviour
         MyNetworkManager.instance.ChangeScene(GameOverScene);
     }
 
+
+    private void OnDestroy() {
+        MyNetworkManager.instance.ServerEvent_AllClientsReady -= OnAllClientsLoaded;
+    }
 }

@@ -13,8 +13,10 @@ public class ModifierMenu : Menu
     [System.Serializable]
     private struct ModOption {
         public ModifierType mod;
+        public bool defaultUnlock;
         public bool active;
         public Image image;
+        public Button button;
     }
 
     [SerializeField]
@@ -41,8 +43,31 @@ public class ModifierMenu : Menu
             Debug.LogError("Failed to find ModifierType: \"" + modifierName + "\". Check spelling and that it is added to ModifierType enum.");
         }
     }
+    public override void Open() {
+        base.Open();
+        foreach (var modOption in modOptions) {
+            if (modOption.defaultUnlock)
+                SaveData.instance.modifier_unlocks[(int)modOption.mod] = true;
+            if (SaveData.instance.modifier_unlocks[(int)modOption.mod])
+                EnableOption(modOption);
+            else
+                DisableOption(modOption);
+        }
+    }
+
     public override void Close() {
         base.Close();
         gameOptionsMenu.UpdateModifierList();
+    }
+
+    private void EnableOption(ModOption option) {
+        option.button.enabled = true;
+        option.button.gameObject.SetActive(true);
+    }
+    private void DisableOption(ModOption option) {
+        option.active = false;
+        GameSettings.instance.SetModifier(option.mod, option.active);
+        option.button.enabled = false;
+        option.button.gameObject.SetActive(false);
     }
 }
