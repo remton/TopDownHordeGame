@@ -14,12 +14,17 @@ public class LobbyMenu : Menu
     const string INFOBOX_ALL_READY_TEXT = "Waiting on host...";
     const string INFOBOX_NOT_READY_TEXT = "Waiting for players to ready up...";
 
+    [System.Serializable]
+    private struct PlayerBox {
+        public GameObject readyButton;
+        public Text nameText;
+        public RawImage icon;
+    }
+    [SerializeField]
+    private List<PlayerBox> playerBoxes;
+
     [SerializeField]
     private GameObject StartGameButton;
-    [SerializeField]
-    private List<Text> playerNames;
-    [SerializeField]
-    private List<GameObject> readyButtons;
     [SerializeField]
     private Text titleText;
     [SerializeField]
@@ -38,6 +43,11 @@ public class LobbyMenu : Menu
         //Do nothing
     }
     public override void SetInteractable(bool interactable) {
+        List<GameObject> readyButtons = new List<GameObject>();
+        foreach (var box in playerBoxes) {
+            readyButtons.Add(box.readyButton);
+        }
+
         if (!interactable) {
             hasSavedInteractable = true;
             readyGameButtonInteractable.Clear();
@@ -76,13 +86,21 @@ public class LobbyMenu : Menu
     public void UpdateUI(List<Lobby.PlayerLobbyDetails> playerDetails) {
 
         bool allReady = true;
-        int numSlots = playerNames.Count;
+        int numSlots = playerBoxes.Count;
         int numPlayers = 0;
         for (int i = 0; i < playerDetails.Count; i++) {
             numPlayers += playerDetails[i].numLocalPlayers;
         }
         if (numPlayers > numSlots)
             Debug.LogError("More players than slots");
+
+
+        //List<GameObject> readyButtons = new List<GameObject>();
+        //List<Text> playerNames = new List<Text>();
+        //foreach (var box in playerBoxes) {
+        //    readyButtons.Add(box.readyButton);
+        //}
+
 
         int slotIndex = 0;
         //For every details (connection)
@@ -93,10 +111,11 @@ public class LobbyMenu : Menu
             //If we havent joined a local player for this connection yet
             if(playerDetails[detailsIndex].numLocalPlayers == 0) {
                 //Set the name
-                playerNames[slotIndex].text = EMPTY_NAME_TEXT;
-
+                playerBoxes[slotIndex].nameText.text = EMPTY_NAME_TEXT;
+                playerBoxes[slotIndex].icon.texture = PlayerConnection.GetIcon(null);
+                playerBoxes[slotIndex].icon.color = Color.clear;
                 //Set ready button text
-                readyButtons[slotIndex].GetComponentInChildren<Text>().text = NOT_READY_TEXT;
+                playerBoxes[slotIndex].readyButton.GetComponentInChildren<Text>().text = NOT_READY_TEXT;
                 ActivateReadyButton(slotIndex, false);
             }
 
@@ -105,14 +124,15 @@ public class LobbyMenu : Menu
                 //Only if there is a slot available
                 if(slotIndex < numSlots) {
                     //Set the name
-                    playerNames[slotIndex].text = playerDetails[detailsIndex].name;
-
+                    playerBoxes[slotIndex].nameText.text = playerDetails[detailsIndex].name;
+                    playerBoxes[slotIndex].icon.texture = PlayerConnection.GetIcon(playerDetails[detailsIndex].connection);
+                    playerBoxes[slotIndex].icon.color = Color.white;
                     //Set ready button text
                     if (playerDetails[detailsIndex].isReady) {
-                        readyButtons[slotIndex].GetComponentInChildren<Text>().text = READY_TEXT;
+                        playerBoxes[slotIndex].readyButton.GetComponentInChildren<Text>().text = READY_TEXT;
                     }
                     else {
-                        readyButtons[slotIndex].GetComponentInChildren<Text>().text = NOT_READY_TEXT;
+                        playerBoxes[slotIndex].readyButton.GetComponentInChildren<Text>().text = NOT_READY_TEXT;
                     }
 
                     //If these are my details, set this as my button
@@ -136,8 +156,10 @@ public class LobbyMenu : Menu
         }
         //For the rest of the slots
         for (; slotIndex < numSlots; slotIndex++) {
-            playerNames[slotIndex].text = EMPTY_NAME_TEXT;
-            readyButtons[slotIndex].GetComponentInChildren<Text>().text = EMPTY_READY_TEXT;
+            playerBoxes[slotIndex].nameText.text = EMPTY_NAME_TEXT;
+            playerBoxes[slotIndex].icon.texture = PlayerConnection.GetIcon(null);
+            playerBoxes[slotIndex].icon.color = Color.clear;
+            playerBoxes[slotIndex].readyButton.GetComponentInChildren<Text>().text = EMPTY_READY_TEXT;
             ActivateReadyButton(slotIndex, false);
         }
 
@@ -154,9 +176,9 @@ public class LobbyMenu : Menu
 
     //Activates the button at the given index and deativates all others
     private void ActivateReadyButton(int index, bool on) {
-        if (index > readyButtons.Count)
-            Debug.LogError("ERROR: Cant set ready button to " + index + ". Only " + readyButtons.Count + "exist.");
+        if (index > playerBoxes.Count)
+            Debug.LogError("ERROR: Cant set ready button to " + index + ". Only " + playerBoxes.Count + "exist.");
 
-        readyButtons[index].GetComponent<Button>().interactable = on;
+        playerBoxes[index].readyButton.GetComponent<Button>().interactable = on;
     }
 }

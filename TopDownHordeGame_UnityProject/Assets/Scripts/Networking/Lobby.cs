@@ -141,6 +141,7 @@ public class Lobby : NetworkBehaviour
         int detailsIndex = GetDetailsIndex(netID);
         PlayerLobbyDetails oldDetails = playerDetails[detailsIndex];
         PlayerLobbyDetails newDetails;
+        newDetails.connection = oldDetails.connection;
         newDetails.name = oldDetails.name;
         newDetails.netID = oldDetails.netID;
         newDetails.numLocalPlayers = oldDetails.numLocalPlayers;
@@ -188,6 +189,7 @@ public class Lobby : NetworkBehaviour
         details.name = PlayerConnection.GetName(connection);
         details.isReady = false;
         details.numLocalPlayers = connection.GetNumLocalPlayers();
+        details.connection = connection;
         playerDetails.Add(details);
     }
 
@@ -197,6 +199,7 @@ public class Lobby : NetworkBehaviour
         int detailsIndex = GetDetailsIndex(netID);
         PlayerLobbyDetails oldDetails = playerDetails[detailsIndex];
         PlayerLobbyDetails newDetails;
+        newDetails.connection = oldDetails.connection;
         newDetails.netID = oldDetails.netID;
         newDetails.name = oldDetails.name;
         newDetails.isReady = oldDetails.isReady;
@@ -228,6 +231,7 @@ public class Lobby : NetworkBehaviour
         public uint netID;
         public string name;
         public bool isReady;
+        public PlayerConnection connection;
     }
 }
 

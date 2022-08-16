@@ -97,6 +97,20 @@ public class PlayerConnection : NetworkBehaviour
         }
         return name;
     }
+    public static Texture2D GetIcon(PlayerConnection connection) {
+        Texture2D texture = null;
+        if(connection != null) {
+            if (MyNetworkManager.instance.useSteam) {
+                int imageID = SteamFriends.GetLargeFriendAvatar(connection.steamID);
+                texture = Utilities.GetSteamImageAsTexture(imageID);
+            }
+        }
+        if (texture == null) {
+            texture = Utilities.GetEmptyTexture(32,32, Color.clear);
+        }
+        return texture;
+    }
+
 
     [ClientRpc(includeOwner = true)]
     public void Init() {
