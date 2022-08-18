@@ -52,6 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  icon: {fileID: 21300000, guid: 6cf1f4c740f589a4a8ab7b42181b8988, type: 3}
   weaponName: Colt
   baseDamage: 4
   penatration: 3

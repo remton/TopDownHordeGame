@@ -5,6 +5,7 @@ using Mirror;
 
 public class Weapon : NetworkBehaviour
 {
+    public Sprite icon;                             //Icon for this weapon
     [SerializeField] private string weaponName;     // Weapon name for display
     [SerializeField] private float baseDamage;        // Used to reset damage for the magic that makes players intantly kill zombies
     [SerializeField] protected int penatration;     // number of zombies able to be hit by one bullet. (Should be at least 1)

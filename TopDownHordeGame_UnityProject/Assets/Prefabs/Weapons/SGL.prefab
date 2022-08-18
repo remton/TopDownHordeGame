@@ -166,6 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  icon: {fileID: 21300000, guid: e2064b75cf9f1074abbf0a94b3fc1a35, type: 3}
   weaponName: SGL
   baseDamage: 10
   penatration: 0

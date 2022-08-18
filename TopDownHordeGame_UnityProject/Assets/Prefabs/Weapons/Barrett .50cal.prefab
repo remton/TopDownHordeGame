@@ -51,6 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  icon: {fileID: 21300000, guid: 2250590593220294a9c86bc35fc04845, type: 3}
   weaponName: .50 Cal
   baseDamage: 24
   penatration: 5

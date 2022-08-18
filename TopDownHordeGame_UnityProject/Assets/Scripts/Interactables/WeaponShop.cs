@@ -10,6 +10,8 @@ public class WeaponShop : MonoBehaviour
 
     public GameObject weaponPrefab;
     public GameObject popupCanvas;
+    public Text popupText;
+    public Image popupImage;
     protected int cost;
     [SerializeField] protected int baseCost;
 
@@ -43,7 +45,8 @@ public class WeaponShop : MonoBehaviour
     virtual public void OnPlayerEnter(GameObject player) {
         player.GetComponent<PlayerActivate>().EventPlayerActivate += TryBuyWeapon;
         popupCanvas.SetActive(true);
-        popupCanvas.GetComponentInChildren<Text>().text = weaponPrefab.name + "\n$" + cost;
+        popupText.text = weaponPrefab.name + "\n$" + cost;
+        popupImage.sprite = weaponPrefab.GetComponent<Weapon>().icon;
     }
     public void OnPlayerExit(GameObject player) {
         player.GetComponent<PlayerActivate>().EventPlayerActivate -= TryBuyWeapon;

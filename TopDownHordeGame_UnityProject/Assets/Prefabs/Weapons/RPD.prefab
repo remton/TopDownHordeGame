@@ -135,6 +135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  icon: {fileID: 21300000, guid: 646f7ff452a6f4246998ac9c5f1a29d3, type: 3}
   weaponName: RPD
   baseDamage: 3
   penatration: 3

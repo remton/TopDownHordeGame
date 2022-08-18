@@ -9,6 +9,8 @@ public class PerkShop : MonoBehaviour
     public AudioClip FailedPurchaseSound;
     public GameObject perkPrefab;
     public GameObject popupCanvas;
+    public Text popupText;
+    public Image popupImage;
     private int cost;
     private int baseCost;
     private bool alreadyHave = false;
@@ -51,7 +53,8 @@ public class PerkShop : MonoBehaviour
     {
         player.GetComponent<PlayerActivate>().EventPlayerActivate += TryBuyPerk;
         popupCanvas.SetActive(true);
-        popupCanvas.GetComponentInChildren<Text>().text = perkPrefab.name + "\n$" + cost;
+        popupText.text = perkPrefab.name + "\n$" + cost;
+        popupImage.sprite = perkPrefab.GetComponent<Perk>().icon;
     }
     public void OnPlayerExit(GameObject player)
     {
