@@ -146,6 +146,9 @@ public class PlayerConnection : NetworkBehaviour
     [Command]
     private void SpawnPlayerCommand(Vector3 location, PlayerConnection conn, int playerIndex) {
         GameObject character = Instantiate(conn.playerPrefab, location, Quaternion.identity);
+        character.name = "Player " +  PlayerConnection.GetName(conn);
+        if(playerIndex > 0)
+            character.name += " " + (playerIndex+1).ToString();
         character.GetComponent<Player>().SetConnection(conn);
         character.GetComponent<Player>().playerIndex = playerIndex;
         NetworkServer.Spawn(character, conn.connectionToClient);
