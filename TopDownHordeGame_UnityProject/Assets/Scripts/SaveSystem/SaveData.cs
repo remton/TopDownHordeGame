@@ -76,7 +76,7 @@ public class SaveData : MonoBehaviour {
     }
     public static void Load() {
         Save save = SaveSystem.LoadSave();
-        if (save == null) {
+        if (save == null || !ValidSave(save)) {
             ClearData();
             Save();
             return;
@@ -105,6 +105,11 @@ public class SaveData : MonoBehaviour {
         //Cat Cafe
         instance.catCafe_code = save.catCafe_code;
         instance.catCafe_unlockedDigits = save.catCafe_unlockedDigits;
+    }
+    public static bool ValidSave(Save save) {
+        if (save.modifier_unlocks.Length != System.Enum.GetNames(typeof(ModifierType)).Length)
+            return false;
+        return true;
     }
     public static void DeleteSave() {
         SaveSystem.DeleteSave();

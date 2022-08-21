@@ -11,6 +11,7 @@ public class GameOptionsMenu : Menu
         public string Name;
         [TextArea] public string description;
         public Sprite preview;
+        public bool unlocked;
     }
     [SerializeField]
     private List<Map> maps;
@@ -25,8 +26,19 @@ public class GameOptionsMenu : Menu
 
     public override void Open() {
         base.Open();
+        LoadMaps();
         UpdateMapDisplay();
         UpdateModifierList();
+    }
+
+    public void LoadMaps() {
+        List<Map> myMaps = new List<Map>();
+        for (int i = 0; i < maps.Count; i++) {
+            if (maps[i].unlocked)
+                myMaps.Add(maps[i]);
+        }
+        maps = myMaps;
+        mapIndex = 0;
     }
 
     public void Button_MapLeft() {
@@ -44,8 +56,11 @@ public class GameOptionsMenu : Menu
         lobby.gameSceneName = maps[mapIndex].scene;
         lobby.TryStartGame();
     }
-
     public void UpdateMapDisplay() {
+        if (maps.Count <= 0) {
+            Debug.LogWarning("No maps unlocked");
+            return;
+        }
         Map map = maps[mapIndex];
         mapNameTxt.text = map.Name;
         mapNameTxt.resizeTextForBestFit = true;
