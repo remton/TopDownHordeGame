@@ -2,8 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Challenge : MonoBehaviour
+public enum ChallengeType {
+    BiggestFanKills, HockEyeKills, LungsKills, ZathrakKills
+}
+
+public class Challenge : MonoBehaviour
 {
+    public ChallengeType type;
     public string title;
     [TextArea]
     public string description;
@@ -20,11 +25,20 @@ public abstract class Challenge : MonoBehaviour
         }
     }
 
-    public abstract void Load();
+    public virtual void Load() {
+        unlocked = SaveData.instance.challenge_unlocks[(int)type];
+        completed = SaveData.instance.challenge_completed[(int)type];
+    }
     
-    public abstract void Unlock();
+    public virtual void Unlock() {
+        unlocked = true;
+        SaveData.instance.challenge_unlocks[(int)type] = true;
+    }
 
-    public abstract void Complete();
+    public virtual void Complete() {
+        completed = true;
+        SaveData.instance.challenge_completed[(int)type] = true;
+    }
 
     private void Start() {
         Load();

@@ -38,6 +38,8 @@ public class SaveData : MonoBehaviour {
     public int leaderboard_highestRound;
 
     [Header("Challenges")]
+    public bool[] challenge_unlocks;
+    public bool[] challenge_completed;
     public int challenge_biggestFanKills;
     public int challenge_zathrakKills;
     public int challenge_LungsKills;
@@ -96,6 +98,8 @@ public class SaveData : MonoBehaviour {
         instance.leaderboard_totalMoneyEarned = save.leaderboard_totalMoneyEarned;
         instance.leaderboard_totalScore = save.leaderboard_totalScore;
         //Challenges
+        instance.challenge_unlocks = save.challenge_unlocks;
+        instance.challenge_unlocks = save.challenge_completed;
         instance.challenge_biggestFanKills = save.challenge_biggestFanKills;
         instance.challenge_zathrakKills = save.challenge_zathrakKills;
         instance.challenge_LungsKills = save.challenge_LungsKills;
@@ -128,6 +132,8 @@ public class SaveData : MonoBehaviour {
         instance.leaderboard_totalMoneyEarned = 0;
         instance.leaderboard_totalScore = 0;
         //Challenges
+        instance.challenge_unlocks = new bool[System.Enum.GetNames(typeof(ChallengeType)).Length];
+        instance.challenge_completed = new bool[System.Enum.GetNames(typeof(ChallengeType)).Length];
         instance.challenge_biggestFanKills = 0;
         instance.challenge_zathrakKills = 0;
         instance.challenge_LungsKills = 0;

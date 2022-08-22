@@ -19,6 +19,8 @@ public class Save{
     public int leaderboard_highestRound;
 
     //Challenges
+    public bool[] challenge_unlocks;
+    public bool[] challenge_completed;
     public int challenge_biggestFanKills;
     public int challenge_zathrakKills;
     public int challenge_LungsKills;
@@ -46,6 +48,8 @@ public class Save{
         leaderboard_mostScore = data.leaderboard_mostScore;
         leaderboard_highestRound = data.leaderboard_highestRound;
         //Challenges
+        challenge_unlocks = data.challenge_unlocks;
+        challenge_completed = data.challenge_completed;
         challenge_biggestFanKills = data.challenge_biggestFanKills;
         challenge_zathrakKills = data.challenge_zathrakKills;
         challenge_LungsKills = data.challenge_LungsKills;

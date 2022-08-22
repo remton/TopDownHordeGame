@@ -14,10 +14,10 @@ public class PlayerStats : NetworkBehaviour
     public string GetName() {
         return playerName;
     }
-    private void OnNameChange(string oldName, string newName) {
-        playerName = newName;
-        if (EventNameChange != null) { EventNameChange.Invoke(playerName); }
-    }
+    //private void OnNameChange(string oldName, string newName) {
+    //    playerName = newName;
+    //    if (EventNameChange != null) { EventNameChange.Invoke(playerName); }
+    //}
     public delegate void NameChange(string newName);
     public event NameChange EventNameChange;
     [Server]

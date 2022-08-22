@@ -13,11 +13,8 @@ public class Challenge_HockEyeKills : Challenge
             Complete();
     }
     public override void Complete() {
-        completed = true;
+        base.Complete();
         SaveData.instance.modifier_unlocks[(int)ModifierType.allHockEye] = true;
         Debug.Log("Completed Biggest Fan Kills");
-    }
-    public override void Unlock() {
-        unlocked = true;
     }
 }

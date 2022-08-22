@@ -13,11 +13,8 @@ public class Challenge_BiggestFanKills : Challenge
             Complete();
     }
     public override void Complete() {
-        completed = true;
+        base.Complete();
         SaveData.instance.modifier_unlocks[(int)ModifierType.allBiggestFan] = true;
         Debug.Log("Completed Biggest Fan Kills");
-    }
-    public override void Unlock() {
-        unlocked = true;
     }
 }
