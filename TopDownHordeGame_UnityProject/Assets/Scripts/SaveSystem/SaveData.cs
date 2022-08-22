@@ -111,7 +111,17 @@ public class SaveData : MonoBehaviour {
         instance.catCafe_unlockedDigits = save.catCafe_unlockedDigits;
     }
     public static bool ValidSave(Save save) {
+        if (save.modifier_unlocks == null)
+            return false;
+        if (save.challenge_unlocks == null)
+            return false;
+        if (save.challenge_completed == null)
+            return false;
         if (save.modifier_unlocks.Length != System.Enum.GetNames(typeof(ModifierType)).Length)
+            return false;
+        if (save.challenge_unlocks.Length != System.Enum.GetNames(typeof(ChallengeType)).Length)
+            return false;
+        if (save.challenge_completed.Length != System.Enum.GetNames(typeof(ChallengeType)).Length)
             return false;
         return true;
     }
@@ -119,6 +129,8 @@ public class SaveData : MonoBehaviour {
         SaveSystem.DeleteSave();
     }
     public static void ClearData() {
+        Debug.Log("Clearing save data...");
+
         //settings
         instance.settings_volumeMaster = 0.5f;
         instance.settings_volumeSFX = 0.5f;
