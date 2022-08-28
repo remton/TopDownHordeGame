@@ -19,7 +19,6 @@ public class BleedOutMeter : MonoBehaviour
 
     public GameObject player;
     public PlayerHealth health;
-    public PlayerRevive revive;
     public SpriteRenderer spriteRenderer;
     public List<Sprite> sprites;
     public Text message;
@@ -47,7 +46,7 @@ public class BleedOutMeter : MonoBehaviour
         }
     }
     private void UpdateMeter() {
-        float bleedOutRatio = revive.GetBleedOutTimeRatio();
+        float bleedOutRatio = health.GetBleedOutTimeRatio();
         spriteRenderer.sprite = sprites[Mathf.RoundToInt(bleedOutRatio * (sprites.Count - 1))];
     }
 

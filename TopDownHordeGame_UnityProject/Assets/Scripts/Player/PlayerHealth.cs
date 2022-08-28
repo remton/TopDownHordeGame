@@ -14,7 +14,11 @@ public class PlayerHealth : NetworkBehaviour {
     [SyncVar(hook = nameof(SyncHookMaxHealth))] [SerializeField]
     private float maxHealth;
     [SerializeField] 
+    private float reviveTime;
+    [SerializeField] 
     private float iFrameTime;
+    [SerializeField]
+    private float bleedOutTime;
     [SerializeField] [Tooltip("Amount healed each regen heal")]
     private float regenAmount;
     [SerializeField] [Tooltip("Time after damage before regen starts")]
@@ -23,17 +27,24 @@ public class PlayerHealth : NetworkBehaviour {
     private float regenInterval;
 
     //components
-    [SerializeField] private PlayerRevive playerRevive;
+    [SerializeField] private BleedOutMeter bleedOutMeter;
+    [SerializeField] private HitBoxController reviveTrigger;
     private Timer timer;
 
     //prefabs
+    [SerializeField] private AudioClip reviveSound;
     [SerializeField] private AudioClip[] hurtsounds;
     [SerializeField] private GameObject hitEffectPrefab;
 
     //Other global vars
+    private GameObject reviver;
     [SyncVar] private float timeUntilDeath;
     private float timeSinceHit;
     private float timeSinceRegen;
+    private Guid reviveTimerID = Guid.Empty;
+    private bool isBeingRevived;
+    private bool isBleedingOut;
+    private bool hasRevivePrompt;
     private bool inIFrames = false;
     private bool isDead = false;
 
@@ -59,12 +70,12 @@ public class PlayerHealth : NetworkBehaviour {
     /// <summary> [Command] Damages health by given amount </summary>
     [Command(requiresAuthority = false)]
     public void DamageCMD(float damageAmount) {
-        if (inIFrames || playerRevive.isBleedingOut || isDead)
+        if (inIFrames || isBleedingOut || isDead)
             return;
         StartIFrames();
         health -= damageAmount;
         if (health <= 0)
-            playerRevive.StartBleedingOut();
+            GoDownRPC();
         timeSinceHit = 0;
         if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
         GameObject obj = Instantiate(hitEffectPrefab);
@@ -78,19 +89,38 @@ public class PlayerHealth : NetworkBehaviour {
     public void Revive() {
         ReviveRPC();
     }
+    /// <summary> [Command] Revives the player </summary>
+    [Command(requiresAuthority = false)]
+    public void ReviveCMD() {
+        ReviveRPC();
+    }
     /// <summary> [ClientRPC] Revives the player for all clients </summary>
     [ClientRpc]
     public void ReviveRPC() {
-
+        if (reviver == null || !reviver.GetComponent<PlayerHealth>().GetIsBleedingOut()) {
+            AudioManager.instance.PlaySound(reviveSound);
+            reviveTrigger.EventObjEnter -= OnPlayerEnterReviveTrigger;
+            reviveTrigger.EventObjExit -= OnPlayerExitReviveTrigger;
+            isBleedingOut = false;
+            isBeingRevived = false;
+            health = maxHealth;
+            bleedOutMeter.UpdateValues(isBleedingOut, hasRevivePrompt, isBeingRevived);
+            GetComponent<PlayerMovement>().EnableMovement();
+            //Debug.Log("Revived!");
+            if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
+        }
+        StopRevive(reviver);
+        reviver = null;
     }
 
     /// <summary> Respawns the player on this client </summary>
     [Client]
     public void Respawn() {
-        if (playerRevive.isBleedingOut)
-            playerRevive.Revive();
         health = maxHealth;
         isDead = false;
+        isBeingRevived = false;
+        bleedOutMeter.UpdateValues(isBleedingOut, hasRevivePrompt, isBeingRevived);
+        reviveTimerID = Guid.Empty;
         GetComponent<PlayerMovement>().EnableMovement();
         //GetComponent<PlayerWeaponControl>().ResetWeapons();
         //Debug.Log("Revived!");
@@ -111,8 +141,11 @@ public class PlayerHealth : NetworkBehaviour {
     public float GetHealthRatio() {
         return (float)health / maxHealth;
     }
+    public float GetBleedOutTimeRatio() {
+        return timeUntilDeath / bleedOutTime;
+    }
     public bool GetIsDead() { return isDead; }
-    public bool GetIsBleedingOut() { return playerRevive.isBleedingOut; }
+    public bool GetIsBleedingOut() { return isBleedingOut; }
     public float GetMaxHealth() { return maxHealth; }
 
     //------ Private methods ------
@@ -131,13 +164,133 @@ public class PlayerHealth : NetworkBehaviour {
     }
     #endregion
 
+    //--- Revive Trigger ---
+    #region Revive trigger
+    /// <summary> [Client] called on client when player enters the revive trigger</summary>
+    [Client]
+    private void OnPlayerEnterReviveTrigger(GameObject otherPlayer) {
+        OnPlayerEnterReviveTriggerCMD(otherPlayer);
+    }
+    [Command(requiresAuthority = false)]
+    private void OnPlayerEnterReviveTriggerCMD(GameObject otherPlayer) {
+        OnPlayerEnterReviveTriggerRPC(otherPlayer);
+    }
+    /// <summary> [ClientRpc] called on clients when a player enters the revive trigger</summary>
+    [ClientRpc]
+    private void OnPlayerEnterReviveTriggerRPC(GameObject otherPlayer) {
+        hasRevivePrompt = true;
+        bleedOutMeter.UpdateValues(isBleedingOut, hasRevivePrompt, isBeingRevived);
+        otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivate += StartRevive;
+        otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivateRelease += StopRevive;
+    }
+    /// <summary> [Client] called on client when player exits the revive trigger</summary>
+    [Client]
+    private void OnPlayerExitReviveTrigger(GameObject otherPlayer) {
+        OnPlayerExitReviveTriggerCMD(otherPlayer);
+    }
+    /// <summary> [Command] called on server when a player leaves the revive trigger </summary>
+    [Command(requiresAuthority = false)]
+    private void OnPlayerExitReviveTriggerCMD(GameObject otherPlayer) {
+        if (isBeingRevived && otherPlayer == reviver) {
+            StopReviveTRPC(otherPlayer.GetComponent<NetworkIdentity>().connectionToClient, otherPlayer);
+        }
+        OnPlayerExitReviveTriggerRPC(otherPlayer);
+    }
+    /// <summary> [ClientRpc] called on clients when a player exits the revive trigger</summary>
+    [ClientRpc]
+    private void OnPlayerExitReviveTriggerRPC(GameObject otherPlayer) {
+        hasRevivePrompt = false;
+        bleedOutMeter.UpdateValues(isBleedingOut, hasRevivePrompt, isBeingRevived);
+        otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivate -= StartRevive;
+        otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivateRelease -= StopRevive;
+    }
+    #endregion
+
+    //--- Reviving ---
+    #region reviving
+    /// <summary> [Client] Called on revivers client client when starting to revive this player </summary>
+    [Client]
+    private void StartRevive(GameObject reviver) {
+        if (isBleedingOut && !reviver.GetComponent<PlayerHealth>().isBleedingOut) {
+            isBeingRevived = true;
+            timer.KillTimer(reviveTimerID);
+            reviveTimerID = timer.CreateTimer(reviveTime, ReviveCMD);
+            StartReviveCMD(reviver);
+        }
+    }
+    /// <summary> [Command] called when reviver starts to revive this player </summary>
+    [Command(requiresAuthority = false)]
+    private void StartReviveCMD(GameObject reviver) {
+        this.reviver = reviver;
+        isBeingRevived = true;
+        StartReviveRPC(reviver);
+    }
+    /// <summary> [ClientRPC] called on all clients when reviver starts to revive this player </summary>
+    [ClientRpc]
+    private void StartReviveRPC(GameObject reviver) {
+        this.reviver = reviver;
+        isBeingRevived = true;
+        bleedOutMeter.UpdateValues(isBleedingOut, hasRevivePrompt, isBeingRevived);
+    }
+
+    /// <summary> [Client] Called on this client when stopping revive of this player </summary>
+    [Client]
+    private void StopRevive(GameObject reviver) {
+        if(isBleedingOut && isBeingRevived) {
+            isBeingRevived = false;
+            timer.KillTimer(reviveTimerID);
+            reviveTimerID = Guid.Empty;
+            StopReviveCMD(reviver);
+        }
+    }
+    /// <summary> [Command] called on server when reviver stops revive of this player </summary>
+    [Command(requiresAuthority = false)]
+    private void StopReviveCMD(GameObject reviver) {
+        isBeingRevived = false;
+        this.reviver = null;
+        StopReviveRPC(reviver);
+    }
+    /// <summary> [ClientRPC] called on all clients when reviver stops revive of this player </summary>
+    [ClientRpc]
+    private void StopReviveRPC(GameObject reviver) {
+        isBeingRevived = false;
+        this.reviver = null;
+        bleedOutMeter.UpdateValues(isBleedingOut, hasRevivePrompt, isBeingRevived);
+    }
+    /// <summary> [TargetRpc] Tells the client with connection to stop reviving this player </summary>
+    [TargetRpc] void StopReviveTRPC(NetworkConnection network, GameObject reviver) {
+        StopRevive(reviver);
+    }
+    #endregion
+
+    //--- Going Down ---
+    #region Going Down
+    /// <summary> [Server] server starts bleeding out state </summary>
+    [Server]
+    private void GoDownCMD() {
+        GoDownRPC();
+    }
+    /// <summary> [ClientRpc] Starts bleeding out state for all clients </summary>
+    [ClientRpc]
+    private void GoDownRPC() {
+        //Debug.Log("Bleeding out!");
+        reviveTrigger.EventObjEnter += OnPlayerEnterReviveTrigger;
+        reviveTrigger.EventObjExit += OnPlayerExitReviveTrigger;
+        reviveTrigger.ForceEntry();
+        timeUntilDeath = bleedOutTime;
+        isBleedingOut = true;
+        bleedOutMeter.UpdateValues(isBleedingOut, hasRevivePrompt, isBeingRevived);
+        GetComponent<PlayerMovement>().DisableMovement();
+        foreach (GameObject revivee in reviveTrigger.Hits()) {
+            revivee.GetComponent<PlayerHealth>().StopRevive(gameObject);
+            StopRevive(revivee);
+        }
+    }
+    #endregion
+
     //--- Dying ---
     #region Dying
     /// <summary> [Server] kills the client </summary>
-    [Server]
-    public void Kill() {
-        Die();
-    }
     [Server]
     private void Die() {
         DieRPC();
@@ -147,7 +300,11 @@ public class PlayerHealth : NetworkBehaviour {
     /// <summary> [ClientRPC] Kills the player on all clients </summary>
     [ClientRpc]
     private void DieRPC() {
+        reviveTrigger.EventObjEnter -= OnPlayerEnterReviveTrigger;
+        reviveTrigger.EventObjExit -= OnPlayerExitReviveTrigger;
+        isBleedingOut = false;
         isDead = true;
+        bleedOutMeter.UpdateValues(isBleedingOut, hasRevivePrompt, isBeingRevived);
     }
     #endregion
 
@@ -181,12 +338,25 @@ public class PlayerHealth : NetworkBehaviour {
 
     //Called every frame
     private void Update() {
+        //Is bleeding out timer
+        BleedOutUpdate();
         RegenUpdate();
+    }
+    /// <summary> Updates Bleeding out by one frame </summary>
+    private void BleedOutUpdate() {
+        if (isBleedingOut) {
+            if (!isBeingRevived)
+                timeUntilDeath -= Time.deltaTime;
+            if (timeUntilDeath <= 0) {
+                if(isServer)
+                    Die();
+            }
+        }
     }
     /// <summary> Updates regeneration by one frame </summary>
     private void RegenUpdate() 
     {
-        if (playerRevive.isBleedingOut || isDead)
+        if (isBleedingOut || isDead)
             return;
         if (timeSinceHit < regenHitDelay)
             timeSinceHit += Time.deltaTime;
