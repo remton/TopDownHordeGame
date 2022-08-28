@@ -91,7 +91,7 @@ public class PlayerManager : NetworkBehaviour
                 continue;
 
             if (player.GetComponent<PlayerHealth>().GetIsBleedingOut()) {
-                player.GetComponent<PlayerHealth>().ReviveCMD();
+                player.GetComponent<PlayerRevive>().Revive();
                 player.GetComponent<Player>().EnablePlayer();
                 //Debug.Log("Player revived.");
             }

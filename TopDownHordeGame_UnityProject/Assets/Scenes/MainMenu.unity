@@ -2359,6 +2359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2e5de0414d0feb459c98cc47d984507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
   title: Lungs Slayer
   description: "Kill 10 Lungs. \nUnlocks all Lungs game setting."
   icon: {fileID: 8318688728706502886, guid: 78b15cdfa56ae3a42b96f486c1dab9c5, type: 3}
@@ -3045,6 +3046,8 @@ MonoBehaviour:
   leaderboard_totalScore: 0
   leaderboard_mostScore: 0
   leaderboard_highestRound: 0
+  challenge_unlocks: 
+  challenge_completed: 
   challenge_biggestFanKills: 0
   challenge_zathrakKills: 0
   challenge_LungsKills: 0
@@ -3905,8 +3908,8 @@ MonoBehaviour:
   - {fileID: 5454472768016782365, guid: 06f2c5833a8041340bd3b4e3118ff664, type: 3}
   - {fileID: 3078305918877377745, guid: fec51dc1c354e004dbdff7a5657edba2, type: 3}
   - {fileID: 2093619312353819989, guid: b8256ba8e4b44bf478d420ffd3f47445, type: 3}
-  steamDisabled: 0
-  useSteam: 1
+  steamDisabled: 1
+  useSteam: 0
   steamLobby: {fileID: 64649069}
   networkClips: []
 --- !u!4 &1273725197
@@ -4366,7 +4369,7 @@ MonoBehaviour:
   joinButton: {fileID: 1905792007}
   connectedTxt: {fileID: 389085577}
   lobbyScene: Assets/Scenes/Lobby.unity
-  kcpEnabled: 0
+  kcpEnabled: 1
 --- !u!1 &1330998660
 GameObject:
   m_ObjectHideFlags: 0
@@ -5688,6 +5691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f149185e3b29d5479227104bbc19a61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
   title: Hock Eye Slayer
   description: "Kill 10 Hock Eyes. \nUnlocks all Hock Eyes game setting."
   icon: {fileID: -3109383995173785867, guid: 2e47d5d551c780f4bb1288e8bb3749d6, type: 3}
@@ -5945,6 +5949,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d68c8b2502ae35f4fa3d3255ab55bc1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
   title: Zathrak Slayer
   description: "Kill 10 Zathraks. \nUnlocks all Zathraks game setting."
   icon: {fileID: 3247106007308944677, guid: 78b15cdfa56ae3a42b96f486c1dab9c5, type: 3}
@@ -6641,6 +6646,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 143cd66fa33cd944994047814314592c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
   title: Biggest Fan Slayer
   description: "Kill 10 Biggest fans. \nUnlocks all Biggest Fan game setting."
   icon: {fileID: 2566507462757141269, guid: 8652728b55fa81a438853da54b71bfa1, type: 3}
