@@ -41,9 +41,10 @@ public class SaveData : MonoBehaviour {
     public bool[] challenge_unlocks;
     public bool[] challenge_completed;
     public int challenge_biggestFanKills;
-    public int challenge_zathrakKills;
-    public int challenge_LungsKills;
     public int challenge_hockEyeKills;
+    public int challenge_LungsKills;
+    public int challenge_splitterKills;
+    public int challenge_zathrakKills;
 
     [Header("Modifers")]
     public bool[] modifier_unlocks;
@@ -99,11 +100,12 @@ public class SaveData : MonoBehaviour {
         instance.leaderboard_totalScore = save.leaderboard_totalScore;
         //Challenges
         instance.challenge_unlocks = save.challenge_unlocks;
-        instance.challenge_unlocks = save.challenge_completed;
+        instance.challenge_completed = save.challenge_completed;
         instance.challenge_biggestFanKills = save.challenge_biggestFanKills;
-        instance.challenge_zathrakKills = save.challenge_zathrakKills;
-        instance.challenge_LungsKills = save.challenge_LungsKills;
         instance.challenge_hockEyeKills = save.challenge_hockEyeKills;
+        instance.challenge_LungsKills = save.challenge_LungsKills;
+        instance.challenge_splitterKills = save.challenge_splitterKills;
+        instance.challenge_zathrakKills = save.challenge_zathrakKills;
         //Modifiers
         instance.modifier_unlocks = save.modifier_unlocks;
         //Cat Cafe
@@ -147,9 +149,10 @@ public class SaveData : MonoBehaviour {
         instance.challenge_unlocks = new bool[System.Enum.GetNames(typeof(ChallengeType)).Length];
         instance.challenge_completed = new bool[System.Enum.GetNames(typeof(ChallengeType)).Length];
         instance.challenge_biggestFanKills = 0;
-        instance.challenge_zathrakKills = 0;
-        instance.challenge_LungsKills = 0;
         instance.challenge_hockEyeKills = 0;
+        instance.challenge_LungsKills = 0;
+        instance.challenge_splitterKills = 0;
+        instance.challenge_zathrakKills = 0;
         //Modifiers
         instance.modifier_unlocks = new bool[System.Enum.GetNames(typeof(ModifierType)).Length];
         //CatCafe

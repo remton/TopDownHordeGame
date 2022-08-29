@@ -34,11 +34,11 @@ public class BasicZombieAI : ZombieAI
                 animator.SetBool("isInPrelunge", true);
         }
         //Lunge cooldown management
-        if (lungeOnCooldown) {
-            timeUntilLungeCooldown -= Time.deltaTime;
-            if(timeUntilLungeCooldown <= 0)
-                lungeOnCooldown = false;
-        }
+        // if (lungeOnCooldown) {
+        //     timeUntilLungeCooldown -= Time.deltaTime;
+        //     if(timeUntilLungeCooldown <= 0)
+        //         lungeOnCooldown = false;
+        // }
     }
     public void OnPrelungeEnd() {
         animator.SetBool("isInPrelunge", false);
@@ -48,5 +48,9 @@ public class BasicZombieAI : ZombieAI
         lungeOnCooldown = true;
         timeUntilLungeCooldown = lungeCooldown;
         StartPathing();
+        GetComponent<Timer>().CreateTimer(lungeCooldown, OnCooldownOver);
+    }
+    public void OnCooldownOver() {
+        lungeOnCooldown = false;
     }
 }

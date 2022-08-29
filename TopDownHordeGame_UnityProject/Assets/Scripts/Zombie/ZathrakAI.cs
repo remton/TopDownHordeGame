@@ -58,7 +58,12 @@ public class ZathrakAI : ZombieAI
         lungeOnCooldown = true;
         timeUntilLungeCooldown = lungeCooldown;
         StartPathing();
+        //GetComponent<Timer>().CreateTimer(lungeCooldown, OnCooldownOver); // Zathrak should not attack players. This line commented out ensures his lunge is always on cooldown.
     }
+    public void OnCooldownOver() {
+    lungeOnCooldown = false;
+    }
+
     [Server]
     private GameObject CreateMinion() {
         Freeze(freezeTime);

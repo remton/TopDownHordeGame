@@ -4,15 +4,16 @@ using UnityEngine;
 using Mirror;
 
 public enum ModifierType {
-    allBiggestFan, allHockEye, allZathrak, allLungs, zapp
+    allBiggestFan, allHockEye, allLungs, allSplitter, allZathrak, zapp
 }
 
 public class ModifiersController : NetworkBehaviour
 {
     public GameObject allBiggestFan_Prefab;
     public GameObject allHockEye_Prefab;
-    public GameObject allZathrak_Prefab;
     public GameObject allLungs_Prefab;
+    public GameObject allSplitter_Prefab;
+    public GameObject allZathrak_Prefab;
 
     private List<RandomChoice> zombieListReplacement = new List<RandomChoice>();
     private bool replaceZombieList = false;
@@ -33,6 +34,18 @@ public class ModifiersController : NetworkBehaviour
         replaceZombieList = true;
         Debug.Log("MODIFIER: All Hock Eye");
     }
+    [Server]
+    public void Apply_AllLungs() {
+        zombieListReplacement.Add(new RandomChoice(1, allLungs_Prefab));
+        replaceZombieList = true;
+        Debug.Log("MODIFIER: All Lungs");
+    }
+    [Server]
+    public void Apply_AllSplitter() {
+        zombieListReplacement.Add(new RandomChoice(1, allSplitter_Prefab));
+        replaceZombieList = true;
+        Debug.Log("MODIFIER: All Splitter");
+    }
 
     [Server]
     public void Apply_AllZathrak() {
@@ -41,12 +54,7 @@ public class ModifiersController : NetworkBehaviour
         Debug.Log("MODIFIER: All Zathrak");
     }
 
-    [Server]
-    public void Apply_AllLungs() {
-        zombieListReplacement.Add(new RandomChoice(1, allLungs_Prefab));
-        replaceZombieList = true;
-        Debug.Log("MODIFIER: All Lungs");
-    }
+
 
     [Server]
     public void Apply_Zapp() {
@@ -77,11 +85,14 @@ public class ModifiersController : NetworkBehaviour
                     case ModifierType.allHockEye:
                         Apply_AllHockEye();
                         break;
-                    case ModifierType.allZathrak:
-                        Apply_AllZathrak();
-                        break;
                     case ModifierType.allLungs:
                         Apply_AllLungs();
+                        break;
+                    case ModifierType.allSplitter:
+                        Apply_AllSplitter();
+                        break;
+                    case ModifierType.allZathrak:
+                        Apply_AllZathrak();
                         break;
                     case ModifierType.zapp:
                         Apply_Zapp();

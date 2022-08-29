@@ -2345,7 +2345,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 811266037}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &775054605
 MonoBehaviour:
@@ -2359,6 +2359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2e5de0414d0feb459c98cc47d984507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 2
   title: Lungs Slayer
   description: "Kill 10 Lungs. \nUnlocks all Lungs game setting."
   icon: {fileID: 8318688728706502886, guid: 78b15cdfa56ae3a42b96f486c1dab9c5, type: 3}
@@ -2394,8 +2395,9 @@ Transform:
   m_Children:
   - {fileID: 2096590926}
   - {fileID: 1799917540}
-  - {fileID: 1868982670}
   - {fileID: 775054604}
+  - {fileID: 1969730535}
+  - {fileID: 1868982670}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3045,10 +3047,13 @@ MonoBehaviour:
   leaderboard_totalScore: 0
   leaderboard_mostScore: 0
   leaderboard_highestRound: 0
+  challenge_unlocks: 
+  challenge_completed: 
   challenge_biggestFanKills: 0
-  challenge_zathrakKills: 0
-  challenge_LungsKills: 0
   challenge_hockEyeKills: 0
+  challenge_LungsKills: 0
+  challenge_splitterKills: 0
+  challenge_zathrakKills: 0
   modifier_unlocks: 
   catCafe_code: 
   catCafe_unlockedDigits: 0
@@ -3905,8 +3910,11 @@ MonoBehaviour:
   - {fileID: 5454472768016782365, guid: 06f2c5833a8041340bd3b4e3118ff664, type: 3}
   - {fileID: 3078305918877377745, guid: fec51dc1c354e004dbdff7a5657edba2, type: 3}
   - {fileID: 2093619312353819989, guid: b8256ba8e4b44bf478d420ffd3f47445, type: 3}
-  steamDisabled: 0
-  useSteam: 1
+  - {fileID: 6956723953377203767, guid: aa581a650cd532e4a995eb3938301a45, type: 3}
+  - {fileID: 6956723953377203767, guid: 14b5131da3c4f6c4da14dd9f7518cd44, type: 3}
+  - {fileID: 6956723953377203767, guid: c294fcca27974ee4d8830599eeb0fff2, type: 3}
+  steamDisabled: 1
+  useSteam: 0
   steamLobby: {fileID: 64649069}
   networkClips: []
 --- !u!4 &1273725197
@@ -4366,7 +4374,7 @@ MonoBehaviour:
   joinButton: {fileID: 1905792007}
   connectedTxt: {fileID: 389085577}
   lobbyScene: Assets/Scenes/Lobby.unity
-  kcpEnabled: 0
+  kcpEnabled: 1
 --- !u!1 &1330998660
 GameObject:
   m_ObjectHideFlags: 0
@@ -5688,6 +5696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f149185e3b29d5479227104bbc19a61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 1
   title: Hock Eye Slayer
   description: "Kill 10 Hock Eyes. \nUnlocks all Hock Eyes game setting."
   icon: {fileID: -3109383995173785867, guid: 2e47d5d551c780f4bb1288e8bb3749d6, type: 3}
@@ -5931,7 +5940,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 811266037}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1868982671
 MonoBehaviour:
@@ -5945,6 +5954,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d68c8b2502ae35f4fa3d3255ab55bc1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 4
   title: Zathrak Slayer
   description: "Kill 10 Zathraks. \nUnlocks all Zathraks game setting."
   icon: {fileID: 3247106007308944677, guid: 78b15cdfa56ae3a42b96f486c1dab9c5, type: 3}
@@ -6133,6 +6143,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1905792005}
   m_CullTransparentMesh: 1
+--- !u!1 &1969730534
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1969730535}
+  - component: {fileID: 1969730536}
+  m_Layer: 0
+  m_Name: SplitterSlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1969730535
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1969730534}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 811266037}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1969730536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1969730534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dc9f0c1d2ce54b46ae5afdcc8bdb876, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 3
+  title: Splitter Slayer
+  description: "Kill 10 Splitters. \nUnlocks all Splitters game setting."
+  icon: {fileID: -1163577052211193727, guid: 78b15cdfa56ae3a42b96f486c1dab9c5, type: 3}
+  progress: 0
+  unlocked: 1
+  completed: 0
 --- !u!1 &2004468004
 GameObject:
   m_ObjectHideFlags: 0
@@ -6641,6 +6701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 143cd66fa33cd944994047814314592c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
   title: Biggest Fan Slayer
   description: "Kill 10 Biggest fans. \nUnlocks all Biggest Fan game setting."
   icon: {fileID: 2566507462757141269, guid: 8652728b55fa81a438853da54b71bfa1, type: 3}

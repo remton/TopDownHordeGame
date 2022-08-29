@@ -54,7 +54,12 @@ public class SplitterAI : ZombieAI
         lungeOnCooldown = true;
         timeUntilLungeCooldown = lungeCooldown;
         StartPathing();
+        GetComponent<Timer>().CreateTimer(lungeCooldown, OnCooldownOver);
     }
+    public void OnCooldownOver() {
+        lungeOnCooldown = false;
+    }
+
 
         //Minion summoning
     public void Split() {

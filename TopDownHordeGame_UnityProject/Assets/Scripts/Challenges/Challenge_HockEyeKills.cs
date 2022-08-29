@@ -6,6 +6,7 @@ public class Challenge_HockEyeKills : Challenge
 {
     public const int challengeKillCount = 10;
     public override void Load() {
+        base.Load();
         Unlock(); // This is unlocked by default
         int numKills = SaveData.instance.challenge_hockEyeKills;
         progress = Mathf.Min((float)numKills / challengeKillCount, 1);
