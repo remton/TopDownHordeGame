@@ -95,6 +95,10 @@ public class RoundController : NetworkBehaviour {
             numberActiveZombies = 0;
     }
 
+    public void IncreaseActiveZombies(int numExtra = 1) { // Used when extra zombies are added (such as when the splitter splits)
+        for(int i = 0; i < numExtra; i++)
+        numberActiveZombies ++; 
+    }
 
     // ----- Private Methods -----
 

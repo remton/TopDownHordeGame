@@ -47,17 +47,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  zombiePrefab: {fileID: 6956723953377203767, guid: 4412f1af9ed220f4a924d6646b25bd45, type: 3}
-  round: 0
-  display: {fileID: 9081023154583571782}
-  startRoomWindows:
-  - {fileID: 0}
-  players: []
+  startRound: 0
   pauseBeforeGameStart: 5
   pauseBetweenRounds: 10
   maxActiveZombies: 500
+  startRoomZombieSpawns: []
+  display: {fileID: 9081023154583571782}
   zombieList:
-  - weight: 275
+  - weight: 271
     obj: {fileID: 6956723953377203767, guid: 4412f1af9ed220f4a924d6646b25bd45, type: 3}
   - weight: 5
     obj: {fileID: 6956723953377203767, guid: 39d713aebd2034242a102a7f80f0fc3d, type: 3}
@@ -65,6 +62,8 @@ MonoBehaviour:
     obj: {fileID: 6956723953377203767, guid: 03a51a5cebba33041a60507cb32a8683, type: 3}
   - weight: 3
     obj: {fileID: 6956723953377203767, guid: cd6b31b8766f4284a96fb1eeec301937, type: 3}
+  - weight: 4
+    obj: {fileID: 6956723953377203767, guid: aa581a650cd532e4a995eb3938301a45, type: 3}
   - weight: 1
     obj: {fileID: 6956723953377203767, guid: b1966b46c14620843bd15551d22f6fe7, type: 3}
 --- !u!114 &9081023154583571782
@@ -80,7 +79,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popup: {fileID: 0}
-  smallDisplay: {fileID: 0}
   displayTime: 3
 --- !u!114 &9081023154583571783
 MonoBehaviour:
@@ -97,5 +95,5 @@ MonoBehaviour:
   sceneId: 0
   serverOnly: 0
   visible: 0
-  m_AssetId: 
+  m_AssetId: 1545cb196d2ebc847826b12325a7b858
   hasSpawned: 0
