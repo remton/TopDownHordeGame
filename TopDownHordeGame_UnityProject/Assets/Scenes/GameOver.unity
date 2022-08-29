@@ -1276,6 +1276,7 @@ GameObject:
   - component: {fileID: 1097068858}
   - component: {fileID: 1097068857}
   - component: {fileID: 1097068859}
+  - component: {fileID: 1097068860}
   m_Layer: 0
   m_Name: GameOverScreenController
   m_TagString: Untagged
@@ -1295,6 +1296,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7abfc3b563da4a841a69085c364fcaac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   timeUntilLoadNextScene: 10
   mainMenuScene: Assets/Scenes/MainMenu.unity
   lobbyScene: Assets/Scenes/Lobby.unity
@@ -1350,6 +1353,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2481c070c49a4dd4cb8ace2ff92559b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1097068860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097068856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 1550752073
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!1 &1348743557
 GameObject:
   m_ObjectHideFlags: 0

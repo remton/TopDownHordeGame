@@ -2,8 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Mirror;
 
-public class GameOverScreenController : MonoBehaviour
+public class GameOverScreenController : NetworkBehaviour
 {
     private Timer timer;
     private GameOverData data;
@@ -42,22 +43,11 @@ public class GameOverScreenController : MonoBehaviour
             moneyTxts[i].text = "Money Earned: $" + data.moneys[i].ToString();
         }
         roundTxt.text = "Round " + data.round.ToString();
-        timer.CreateTimer(timeUntilLoadNextScene, LoadNextScene);
+        timer.CreateTimer(timeUntilLoadNextScene, ForceCloseServer);
     }
 
-    public void LoadNextScene() {
-        //this is an online game
-        if (MyNetworkManager.instance.isNetworkActive) {
-            if (PlayerConnection.myConnection.isServer) {
-                MyNetworkManager.instance.EndGame();
-                MyNetworkManager.instance.ChangeScene(lobbyScene);
-            }
-        }
-        else {
-            //this is an offline game
-            SceneManager.LoadScene(mainMenuScene);
-        }
-
-       
+    public void ForceCloseServer() {
+        MyNetworkManager.instance.EndGame();
+        PlayerConnection.myConnection.Disconnect();
     }
 }

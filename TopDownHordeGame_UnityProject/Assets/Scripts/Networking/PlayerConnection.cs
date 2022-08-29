@@ -167,6 +167,13 @@ public class PlayerConnection : NetworkBehaviour
         return numSpawnedPlayers == numLocalPlayers;
     }
 
+
+    [TargetRpc]
+    public void Disconnect(NetworkConnection network) {
+        Disconnect();
+    }
+
+    [Client]
     public void Disconnect() {
         if (MyNetworkManager.instance.isNetworkActive) {
             MyNetworkManager.instance.offlineScene = sceneToLoadOnDisconnect;
