@@ -84,34 +84,6 @@ public class PlayerHealth : NetworkBehaviour {
         AudioManager.instance.PlaySound(hurtsounds[UnityEngine.Random.Range(0, hurtsounds.Length)]);
     }
 
-    /// <summary> [Server] Revives the player </summary>
-    [Server]
-    public void Revive() {
-        ReviveRPC();
-    }
-    /// <summary> [Command] Revives the player </summary>
-    [Command(requiresAuthority = false)]
-    public void ReviveCMD() {
-        ReviveRPC();
-    }
-    /// <summary> [ClientRPC] Revives the player for all clients </summary>
-    [ClientRpc]
-    public void ReviveRPC() {
-        if (reviver == null || !reviver.GetComponent<PlayerHealth>().GetIsBleedingOut()) {
-            AudioManager.instance.PlaySound(reviveSound);
-            reviveTrigger.EventObjEnter -= OnPlayerEnterReviveTrigger;
-            reviveTrigger.EventObjExit -= OnPlayerExitReviveTrigger;
-            isBleedingOut = false;
-            isBeingRevived = false;
-            health = maxHealth;
-            bleedOutMeter.UpdateValues(isBleedingOut, hasRevivePrompt, isBeingRevived);
-            GetComponent<PlayerMovement>().EnableMovement();
-            //Debug.Log("Revived!");
-            if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
-        }
-        StopRevive(reviver);
-        reviver = null;
-    }
 
     /// <summary> Respawns the player on this client </summary>
     [Client]
@@ -169,6 +141,8 @@ public class PlayerHealth : NetworkBehaviour {
     /// <summary> [Client] called on client when player enters the revive trigger</summary>
     [Client]
     private void OnPlayerEnterReviveTrigger(GameObject otherPlayer) {
+        otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivate += StartRevive;
+        otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivateRelease += StopRevive;
         OnPlayerEnterReviveTriggerCMD(otherPlayer);
     }
     [Command(requiresAuthority = false)]
@@ -180,12 +154,12 @@ public class PlayerHealth : NetworkBehaviour {
     private void OnPlayerEnterReviveTriggerRPC(GameObject otherPlayer) {
         hasRevivePrompt = true;
         bleedOutMeter.UpdateValues(isBleedingOut, hasRevivePrompt, isBeingRevived);
-        otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivate += StartRevive;
-        otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivateRelease += StopRevive;
     }
     /// <summary> [Client] called on client when player exits the revive trigger</summary>
     [Client]
     private void OnPlayerExitReviveTrigger(GameObject otherPlayer) {
+        otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivate -= StartRevive;
+        otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivateRelease -= StopRevive;
         OnPlayerExitReviveTriggerCMD(otherPlayer);
     }
     /// <summary> [Command] called on server when a player leaves the revive trigger </summary>
@@ -201,20 +175,51 @@ public class PlayerHealth : NetworkBehaviour {
     private void OnPlayerExitReviveTriggerRPC(GameObject otherPlayer) {
         hasRevivePrompt = false;
         bleedOutMeter.UpdateValues(isBleedingOut, hasRevivePrompt, isBeingRevived);
-        otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivate -= StartRevive;
-        otherPlayer.GetComponent<PlayerActivate>().EventPlayerActivateRelease -= StopRevive;
     }
     #endregion
 
     //--- Reviving ---
     #region reviving
+    /// <summary> [Server] Revives the player </summary>
+    [Client]
+    public void Revive() {
+        foreach (GameObject otherPlayer in reviveTrigger.Hits()) {
+            OnPlayerExitReviveTrigger(otherPlayer);
+        }
+        ReviveCMD();
+    }
+    /// <summary> [Command] Revives the player </summary>
+    [Command(requiresAuthority = false)]
+    public void ReviveCMD() {
+        ReviveRPC();
+    }
+    /// <summary> [ClientRPC] Revives the player for all clients </summary>
+    [ClientRpc]
+    public void ReviveRPC() {
+        if (reviver == null || !reviver.GetComponent<PlayerHealth>().GetIsBleedingOut()) {
+            AudioManager.instance.PlaySound(reviveSound);
+            reviveTrigger.EventObjEnter -= OnPlayerEnterReviveTrigger;
+            reviveTrigger.EventObjExit -= OnPlayerExitReviveTrigger;
+            isBleedingOut = false;
+            isBeingRevived = false;
+            health = maxHealth;
+            bleedOutMeter.UpdateValues(isBleedingOut, hasRevivePrompt, isBeingRevived);
+            GetComponent<PlayerMovement>().EnableMovement();
+            //Debug.Log("Revived!");
+            if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
+        }
+        StopRevive(reviver);
+        reviver = null;
+    }
+
+
     /// <summary> [Client] Called on revivers client client when starting to revive this player </summary>
     [Client]
     private void StartRevive(GameObject reviver) {
         if (isBleedingOut && !reviver.GetComponent<PlayerHealth>().isBleedingOut) {
             isBeingRevived = true;
             timer.KillTimer(reviveTimerID);
-            reviveTimerID = timer.CreateTimer(reviveTime, ReviveCMD);
+            reviveTimerID = timer.CreateTimer(reviveTime, Revive);
             StartReviveCMD(reviver);
         }
     }
