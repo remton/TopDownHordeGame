@@ -124,13 +124,17 @@ public class PlayerStats : NetworkBehaviour
             case ZombieType.hockEye:
                 SaveData.instance.challenge_hockEyeKills++;
                 break;
-            case ZombieType.zathrak:
-                SaveData.instance.challenge_zathrakKills++;
-                break;
             case ZombieType.lungs:
                 SaveData.instance.challenge_LungsKills++;
                 break;
+            case ZombieType.splitter:
+                SaveData.instance.challenge_splitterKills++;
+                break;
+            case ZombieType.zathrak:
+                SaveData.instance.challenge_zathrakKills++;
+                break;
             default:
+                Debug.LogWarning("Warnning: " + type + " not implemented.");
                 break;
         }
     }

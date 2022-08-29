@@ -22,9 +22,10 @@ public class Save{
     public bool[] challenge_unlocks;
     public bool[] challenge_completed;
     public int challenge_biggestFanKills;
-    public int challenge_zathrakKills;
-    public int challenge_LungsKills;
     public int challenge_hockEyeKills;
+    public int challenge_LungsKills;
+    public int challenge_splitterKills;
+    public int challenge_zathrakKills;
 
     //Modifiers
     public bool[] modifier_unlocks;
@@ -51,9 +52,10 @@ public class Save{
         challenge_unlocks = data.challenge_unlocks;
         challenge_completed = data.challenge_completed;
         challenge_biggestFanKills = data.challenge_biggestFanKills;
-        challenge_zathrakKills = data.challenge_zathrakKills;
-        challenge_LungsKills = data.challenge_LungsKills;
         challenge_hockEyeKills = data.challenge_hockEyeKills;
+        challenge_LungsKills = data.challenge_LungsKills;
+        challenge_splitterKills = data.challenge_splitterKills;
+        challenge_zathrakKills = data.challenge_zathrakKills;
         //Cat Cafe
         catCafe_code = data.catCafe_code;
         catCafe_unlockedDigits = data.catCafe_unlockedDigits;
