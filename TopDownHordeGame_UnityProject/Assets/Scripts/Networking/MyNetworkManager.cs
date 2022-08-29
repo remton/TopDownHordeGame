@@ -155,6 +155,7 @@ public class MyNetworkManager : NetworkManager
     /// <summary>
     /// Allows people to join the lobby
     /// </summary>
+    
     public void EndGame() {
         maxConnections = 4;
         gameStarted = false;
