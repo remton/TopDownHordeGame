@@ -100,7 +100,7 @@ public class SaveData : MonoBehaviour {
         instance.leaderboard_totalScore = save.leaderboard_totalScore;
         //Challenges
         instance.challenge_unlocks = save.challenge_unlocks;
-        instance.challenge_unlocks = save.challenge_completed;
+        instance.challenge_completed = save.challenge_completed;
         instance.challenge_biggestFanKills = save.challenge_biggestFanKills;
         instance.challenge_hockEyeKills = save.challenge_hockEyeKills;
         instance.challenge_LungsKills = save.challenge_LungsKills;
