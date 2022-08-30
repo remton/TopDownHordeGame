@@ -53,6 +53,7 @@ public class KeypadUI : Menu
         UpdateUI(currGuess);
     }
     public void SetInteractingPlayer(GameObject player) {
+        //Simply remove the interacting player if null param
         if(player == null) {
             if (interactingPlayer != null) {
                 //Remove interacting player and reenable them
@@ -62,6 +63,7 @@ public class KeypadUI : Menu
             interactingPlayer = null;
             return;
         }
+        //remove old player and set new
         Debug.Log(player.name + " is interacting with keypad");
         if (interactingPlayer != null) {
             //Remove interacting player and reenable them
@@ -82,11 +84,11 @@ public class KeypadUI : Menu
     }
 
     public void OpenUI(GameObject player) {
-        SetInteractingPlayer(player);
         if (isLockedOut) {
             AudioManager.instance.PlaySound(lockoutSound);
             return;
         }
+        SetInteractingPlayer(player);
         gameObject.SetActive(true);
         Cursor.visible = true;
     }
