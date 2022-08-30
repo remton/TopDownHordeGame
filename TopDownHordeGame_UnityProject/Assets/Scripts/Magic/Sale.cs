@@ -36,12 +36,13 @@ public class Sale : Magic
 
     protected override void StartTimer() {
         if (activeSale == null) {
+            GetComponent<TimedDestroy>().Cancel();
             activeSale = this;
             transform.position = holdingRoom;
             timerID = timer.CreateTimer(time, OnTimerEnd);
             MagicController.instance.CreateTimer(this, timerID);
         }
-        else {
+        else if(activeSale != this) {
             activeSale.ResetTimer();
             Destroy(gameObject);
         }
