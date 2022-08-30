@@ -30,14 +30,16 @@ public class Kill : Magic
         }
         base.OnPickupRPC(player);
     }
+    //This starts a timer after pickup on all clients
     protected override void StartTimer() {
         if (activeKill == null) {
+            GetComponent<TimedDestroy>().Cancel();
             activeKill = this;
             transform.position = holdingRoom;
             timerID = timer.CreateTimer(time, OnTimerEnd);
             MagicController.instance.CreateTimer(this, timerID);
         }
-        else {
+        else if(activeKill != this){
             activeKill.ResetTimer();
             Destroy(gameObject);
         }

@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 2385859765608143099}
   - component: {fileID: -6136780048622310910}
   - component: {fileID: 5536751366317092444}
-  - component: {fileID: 539208003773151762}
   - component: {fileID: 2500147705680359666}
   - component: {fileID: 7072946903041619369}
   - component: {fileID: 5846837804454702198}
+  - component: {fileID: 5809704726422677054}
   m_Layer: 0
   m_Name: Kill
   m_TagString: Untagged
@@ -123,21 +123,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggerTags:
   - Player
---- !u!114 &539208003773151762
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19701994243007283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0aba25a01e98616409088aa6efebd336, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destroyTime: 30
-  waitingToDestroy: 0
-  isActivated: 0
 --- !u!95 &2500147705680359666
 Animator:
   serializedVersion: 3
@@ -195,3 +180,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.77677035, y: 0.8978715}
   m_EdgeRadius: 0
+--- !u!114 &5809704726422677054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19701994243007283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e20581f1662b184f95a1d9858d4bc02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyTime: 30
