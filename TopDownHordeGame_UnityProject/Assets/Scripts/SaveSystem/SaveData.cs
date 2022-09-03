@@ -40,6 +40,7 @@ public class SaveData : MonoBehaviour {
     [Header("Challenges")]
     public bool[] challenge_unlocks;
     public bool[] challenge_completed;
+    public int challenge_basicKills;
     public int challenge_biggestFanKills;
     public int challenge_hockEyeKills;
     public int challenge_LungsKills;
@@ -101,6 +102,7 @@ public class SaveData : MonoBehaviour {
         //Challenges
         instance.challenge_unlocks = save.challenge_unlocks;
         instance.challenge_completed = save.challenge_completed;
+        instance.challenge_basicKills = save.challenge_basicKills;
         instance.challenge_biggestFanKills = save.challenge_biggestFanKills;
         instance.challenge_hockEyeKills = save.challenge_hockEyeKills;
         instance.challenge_LungsKills = save.challenge_LungsKills;
@@ -148,6 +150,7 @@ public class SaveData : MonoBehaviour {
         //Challenges
         instance.challenge_unlocks = new bool[System.Enum.GetNames(typeof(ChallengeType)).Length];
         instance.challenge_completed = new bool[System.Enum.GetNames(typeof(ChallengeType)).Length];
+        instance.challenge_basicKills = 0;
         instance.challenge_biggestFanKills = 0;
         instance.challenge_hockEyeKills = 0;
         instance.challenge_LungsKills = 0;

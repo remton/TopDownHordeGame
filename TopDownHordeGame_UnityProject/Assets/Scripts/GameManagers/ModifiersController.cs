@@ -4,11 +4,12 @@ using UnityEngine;
 using Mirror;
 
 public enum ModifierType {
-    allBiggestFan, allHockEye, allLungs, allSplitter, allZathrak, zapp
+    allBasic, allBiggestFan, allHockEye, allLungs, allSplitter, allZathrak, zapp
 }
 
 public class ModifiersController : NetworkBehaviour
 {
+    public GameObject allBasic_Prefab;
     public GameObject allBiggestFan_Prefab;
     public GameObject allHockEye_Prefab;
     public GameObject allLungs_Prefab;
@@ -21,6 +22,12 @@ public class ModifiersController : NetworkBehaviour
     private List<GameObject> players;
 
     // --- Apply Modifiers ---
+    [Server]
+    public void Apply_AllBasic() {
+        zombieListReplacement.Add(new RandomChoice(1, allBasic_Prefab));
+        replaceZombieList = true;
+        Debug.Log("MODIFIER: All Basic");
+    }
     [Server]
     public void Apply_AllBiggest() {
         zombieListReplacement.Add(new RandomChoice(1, allBiggestFan_Prefab));
@@ -79,6 +86,9 @@ public class ModifiersController : NetworkBehaviour
         foreach (ModifierType mod in System.Enum.GetValues(typeof(ModifierType))) {
             if (GameSettings.instance.ModActive(mod)) {
                 switch (mod) {
+                    case ModifierType.allBasic:
+                        Apply_AllBasic();
+                        break;
                     case ModifierType.allBiggestFan:
                         Apply_AllBiggest();
                         break;
@@ -101,7 +111,7 @@ public class ModifiersController : NetworkBehaviour
                         Debug.LogWarning("Modifer: " + mod.ToString() + " has no implementation!");
                         break;
                 }
-            }
+            }   
         }
         if(replaceZombieList)
             RoundController.instance.zombieList = zombieListReplacement;
