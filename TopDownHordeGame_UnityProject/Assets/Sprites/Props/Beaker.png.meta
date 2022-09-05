@@ -57,7 +57,7 @@ TextureImporter:
       213: 3182886611960478157
     second: Beaker_17
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -78,6 +78,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -116,6 +117,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -131,6 +133,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -532,6 +546,25 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Beaker_15: 3141965530998431083
+      Beaker_11: 3102312148876240943
+      Beaker_7: 8349970720263182826
+      Beaker_16: 2642136968281701136
+      Beaker_2: 2339717778741609443
+      Beaker_17: 3182886611960478157
+      Beaker_13: 1869017660251797057
+      Beaker_5: 5510507303794003392
+      Beaker_12: -6403070892720632034
+      Beaker_3: 5773128145867547834
+      Beaker_1: -6638933297006128613
+      Beaker_8: 5330149491992084986
+      Beaker_6: -6000491716580677915
+      Beaker_14: 8121093181827196842
+      Beaker_9: -4436886409636820060
+      Beaker_4: -4426690482287479592
+      Beaker_10: -9102448922929945148
+      Beaker_0: -8214379713626754130
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

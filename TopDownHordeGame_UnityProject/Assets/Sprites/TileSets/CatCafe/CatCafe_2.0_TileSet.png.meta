@@ -240,7 +240,7 @@ TextureImporter:
       213: -4702794624670236668
     second: CatCafe_2.0_TileSet_78
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -261,6 +261,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -299,6 +300,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -314,6 +316,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -1996,6 +2010,86 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      CatCafe_2.0_TileSet_74: 1061668030447772255
+      CatCafe_2.0_TileSet_5: -608870713265722640
+      CatCafe_2.0_TileSet_60: 2394490596241757726
+      CatCafe_2.0_TileSet_11: 5954210977215508657
+      CatCafe_2.0_TileSet_17: 7225174994905491928
+      CatCafe_2.0_TileSet_61: 9177421800760657947
+      CatCafe_2.0_TileSet_13: 71103086883700682
+      CatCafe_2.0_TileSet_69: -4233040357811387686
+      CatCafe_2.0_TileSet_23: 2880296899511922618
+      CatCafe_2.0_TileSet_48: -4902849232001990918
+      CatCafe_2.0_TileSet_21: 6675073640441982237
+      CatCafe_2.0_TileSet_67: -7808594740735645444
+      CatCafe_2.0_TileSet_65: -9054592205153777087
+      CatCafe_2.0_TileSet_30: 4868640533052685586
+      CatCafe_2.0_TileSet_58: 5894297477031675571
+      CatCafe_2.0_TileSet_72: 437531614714087938
+      CatCafe_2.0_TileSet_71: -4830380925525494692
+      CatCafe_2.0_TileSet_37: 6162768405982080572
+      CatCafe_2.0_TileSet_1: 5932543120274393543
+      CatCafe_2.0_TileSet_6: -9044678426037284586
+      CatCafe_2.0_TileSet_12: -241088246252004803
+      CatCafe_2.0_TileSet_31: 4905899022613399888
+      CatCafe_2.0_TileSet_62: 1833583830638842292
+      CatCafe_2.0_TileSet_66: -7101348488044251582
+      CatCafe_2.0_TileSet_9: 534800685540181738
+      CatCafe_2.0_TileSet_20: 5977808580951569470
+      CatCafe_2.0_TileSet_63: -3272719810982359575
+      CatCafe_2.0_TileSet_0: 8211215343013192470
+      CatCafe_2.0_TileSet_51: 321952945426405441
+      CatCafe_2.0_TileSet_55: -8955563558289926693
+      CatCafe_2.0_TileSet_39: -2084774765290167609
+      CatCafe_2.0_TileSet_43: -8332438128794771325
+      CatCafe_2.0_TileSet_4: 7761503127458640220
+      CatCafe_2.0_TileSet_49: 8726707796459044916
+      CatCafe_2.0_TileSet_52: 2417961728961353176
+      CatCafe_2.0_TileSet_27: 608313593460284588
+      CatCafe_2.0_TileSet_29: -301507871437907751
+      CatCafe_2.0_TileSet_36: 7336467782096742981
+      CatCafe_2.0_TileSet_10: -98252859359665334
+      CatCafe_2.0_TileSet_45: -4441443367107235040
+      CatCafe_2.0_TileSet_46: 4033273245129440665
+      CatCafe_2.0_TileSet_68: 2412526091070001089
+      CatCafe_2.0_TileSet_24: -2797599572299431101
+      CatCafe_2.0_TileSet_33: 8443085664264004805
+      CatCafe_2.0_TileSet_18: 2493682168654696396
+      CatCafe_2.0_TileSet_25: -2463168223334676419
+      CatCafe_2.0_TileSet_56: 1365133449832403496
+      CatCafe_2.0_TileSet_34: -1046668666467473468
+      CatCafe_2.0_TileSet_41: -3011570484206443774
+      CatCafe_2.0_TileSet_3: -9126130352680565513
+      CatCafe_2.0_TileSet_8: 7262445408345793898
+      CatCafe_2.0_TileSet_15: -6363850522834321917
+      CatCafe_2.0_TileSet_26: 2331275922132602978
+      CatCafe_2.0_TileSet_2: -4463762139103553807
+      CatCafe_2.0_TileSet_77: 7713511744429011187
+      CatCafe_2.0_TileSet_70: 4440017582134856927
+      CatCafe_2.0_TileSet_35: -1657623839618274904
+      CatCafe_2.0_TileSet_14: 4481979414209556580
+      CatCafe_2.0_TileSet_75: 5471744784876004932
+      CatCafe_2.0_TileSet_78: -4702794624670236668
+      CatCafe_2.0_TileSet_32: -2990815104926194486
+      CatCafe_2.0_TileSet_38: 8545752459414253629
+      CatCafe_2.0_TileSet_44: 2591749592857291579
+      CatCafe_2.0_TileSet_59: 756703604437405747
+      CatCafe_2.0_TileSet_40: 5176840793020185331
+      CatCafe_2.0_TileSet_53: -2869430020292136583
+      CatCafe_2.0_TileSet_73: 1048122271599341353
+      CatCafe_2.0_TileSet_64: 907559952430038563
+      CatCafe_2.0_TileSet_76: -128694659627525485
+      CatCafe_2.0_TileSet_54: -9109969914455759092
+      CatCafe_2.0_TileSet_57: 1450697680456137769
+      CatCafe_2.0_TileSet_28: -6487825068346489210
+      CatCafe_2.0_TileSet_19: 2325737335210015800
+      CatCafe_2.0_TileSet_22: 3581150252120867704
+      CatCafe_2.0_TileSet_16: 8497009581612189169
+      CatCafe_2.0_TileSet_47: -8389230747162267745
+      CatCafe_2.0_TileSet_42: -7359965918663007745
+      CatCafe_2.0_TileSet_7: -4504426654725646346
+      CatCafe_2.0_TileSet_50: 5998309398802038508
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

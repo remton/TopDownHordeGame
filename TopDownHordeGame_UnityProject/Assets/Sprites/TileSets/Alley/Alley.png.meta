@@ -54,7 +54,7 @@ TextureImporter:
       213: 1684077727084370442
     second: Alley_16
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -75,6 +75,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -113,6 +114,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -128,6 +130,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -508,6 +522,24 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Alley_2: -8771934235165165152
+      Alley_1: -5840319372289148041
+      Alley_11: -6075239530340464686
+      Alley_13: -2691165739390160471
+      Alley_14: 6909474566955175682
+      Alley_15: 3694063736115361287
+      Alley_3: 4319183945149496402
+      Alley_8: -8283841408333334811
+      Alley_16: 1684077727084370442
+      Alley_7: -5475160776725974652
+      Alley_6: -2376436127370403575
+      Alley_5: -5014040925711987243
+      Alley_12: 1750491871490933859
+      Alley_9: 7470810472081249789
+      Alley_0: -3677291695937611194
+      Alley_4: 2748388234023632194
+      Alley_10: -1594669205307077928
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

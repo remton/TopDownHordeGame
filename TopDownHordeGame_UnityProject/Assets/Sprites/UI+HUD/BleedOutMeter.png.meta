@@ -54,7 +54,7 @@ TextureImporter:
       213: 6030011349037024970
     second: BleedOutMeter_16
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -75,6 +75,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -113,6 +114,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -128,6 +130,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -508,6 +522,24 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      BleedOutMeter_6: -2523149832667437192
+      BleedOutMeter_8: -2299711442282423838
+      BleedOutMeter_9: 785658529312606875
+      BleedOutMeter_1: 2639001784144517150
+      BleedOutMeter_12: 6752309137890881068
+      BleedOutMeter_13: -3286741247863526865
+      BleedOutMeter_5: -2822866200558822402
+      BleedOutMeter_11: 2782807754292872523
+      BleedOutMeter_0: 1980120223260764855
+      BleedOutMeter_2: 5456039509717997172
+      BleedOutMeter_14: 7038537580484450201
+      BleedOutMeter_15: -7226826383940116733
+      BleedOutMeter_4: 5978445580139303046
+      BleedOutMeter_7: 431165835901210454
+      BleedOutMeter_3: -3044458641051686393
+      BleedOutMeter_16: 6030011349037024970
+      BleedOutMeter_10: -8462317788000681548
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -351,7 +351,7 @@ TextureImporter:
       213: 1064707370099591185
     second: Lab_SpriteSheet_115
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -372,6 +372,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -410,6 +411,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -425,6 +427,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 1
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 1
     textureFormat: -1
@@ -2884,6 +2898,123 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Lab_SpriteSheet_107: -8936624120253851088
+      Lab_SpriteSheet_17: -6263406305237341304
+      Lab_SpriteSheet_79: 6589512851841872401
+      Lab_SpriteSheet_36: 7802844903728833694
+      Lab_SpriteSheet_27: 1668465542989452658
+      Lab_SpriteSheet_43: -8470004526381981564
+      Lab_SpriteSheet_54: 6448631394230300346
+      Lab_SpriteSheet_12: 3977254073811829718
+      Lab_SpriteSheet_14: -4128802141649837340
+      Lab_SpriteSheet_22: -910110190632025666
+      Lab_SpriteSheet_112: 9173702457210728896
+      Lab_SpriteSheet_78: 6845883314727919870
+      Lab_SpriteSheet_25: -767862366430437725
+      Lab_SpriteSheet_97: -723855315727648228
+      Lab_SpriteSheet_60: -5990262863404521417
+      Lab_SpriteSheet_4: 1403770623407351201
+      Lab_SpriteSheet_75: 4405794741362946225
+      Lab_SpriteSheet_48: -6108470069075712
+      Lab_SpriteSheet_68: 995394228459492352
+      Lab_SpriteSheet_56: -1782692445161299438
+      Lab_SpriteSheet_61: 4375896925339774422
+      Lab_SpriteSheet_65: 4215443407192683108
+      Lab_SpriteSheet_5: 5958725556233672887
+      Lab_SpriteSheet_74: -56744227941964755
+      Lab_SpriteSheet_35: -453375912435798497
+      Lab_SpriteSheet_53: 6111174712842509324
+      Lab_SpriteSheet_15: 8517700031697033016
+      Lab_SpriteSheet_99: 1913279746375232230
+      Lab_SpriteSheet_37: 7976133579933511440
+      Lab_SpriteSheet_13: 5303386391800042652
+      Lab_SpriteSheet_18: -5268119476166657480
+      Lab_SpriteSheet_63: 7864562526005222204
+      Lab_SpriteSheet_91: -5374885779586898770
+      Lab_SpriteSheet_71: 879464750341899701
+      Lab_SpriteSheet_50: 4661610070128983675
+      Lab_SpriteSheet_1: -6516728591561293907
+      Lab_SpriteSheet_10: 885551371263350433
+      Lab_SpriteSheet_2: -2679065728024063761
+      Lab_SpriteSheet_26: 3908982255814749995
+      Lab_SpriteSheet_31: 7096137647041924162
+      Lab_SpriteSheet_95: -5467628383694779197
+      Lab_SpriteSheet_73: -7147098170609587216
+      Lab_SpriteSheet_106: 7132140247817385813
+      Lab_SpriteSheet_114: 507531551027209143
+      Lab_SpriteSheet_93: -5534088120214949584
+      Lab_SpriteSheet_83: 6397437047704770106
+      Lab_SpriteSheet_86: 37784281816988971
+      Lab_SpriteSheet_8: -4083243542211946427
+      Lab_SpriteSheet_11: -745317244812415760
+      Lab_SpriteSheet_92: -6682089295638819983
+      Lab_SpriteSheet_33: 8152644867656748345
+      Lab_SpriteSheet_41: 4641863327517950383
+      Lab_SpriteSheet_62: 5818045167653926780
+      Lab_SpriteSheet_111: 5447051161260132015
+      Lab_SpriteSheet_103: 8076088882209116369
+      Lab_SpriteSheet_109: 4889934354797439981
+      Lab_SpriteSheet_101: 6599953317914964305
+      Lab_SpriteSheet_6: 2111474239273382840
+      Lab_SpriteSheet_110: -2440103820929572907
+      Lab_SpriteSheet_24: 3965226830136097439
+      Lab_SpriteSheet_89: -7994129406464796766
+      Lab_SpriteSheet_69: 8763317052815700305
+      Lab_SpriteSheet_19: 3659951759933126583
+      Lab_SpriteSheet_46: -94084245041383721
+      Lab_SpriteSheet_3: -4552483420712935977
+      Lab_SpriteSheet_52: 5645298911879304769
+      Lab_SpriteSheet_34: -6027877246803856697
+      Lab_SpriteSheet_67: -8213459431912260001
+      Lab_SpriteSheet_115: 1064707370099591185
+      Lab_SpriteSheet_100: -1705526915024568987
+      Lab_SpriteSheet_51: -7694969128986288299
+      Lab_SpriteSheet_85: 1480910842646237785
+      Lab_SpriteSheet_57: -8075585819520825450
+      Lab_SpriteSheet_39: 4789901228889663522
+      Lab_SpriteSheet_98: 8488089092627423382
+      Lab_SpriteSheet_9: 5476497482505291407
+      Lab_SpriteSheet_32: -610591270520693434
+      Lab_SpriteSheet_29: -1905454444445191134
+      Lab_SpriteSheet_58: 5396795748879250133
+      Lab_SpriteSheet_66: 7488951824457890589
+      Lab_SpriteSheet_70: 4036370781111361178
+      Lab_SpriteSheet_45: -8193568407578154068
+      Lab_SpriteSheet_87: 8979615756889442744
+      Lab_SpriteSheet_21: 8500455998422116664
+      Lab_SpriteSheet_38: 6754456370908884676
+      Lab_SpriteSheet_104: 3326048622489257509
+      Lab_SpriteSheet_108: -2336443243307116482
+      Lab_SpriteSheet_76: 7437374835380120867
+      Lab_SpriteSheet_7: -7222907664739872384
+      Lab_SpriteSheet_90: -3762951644130492766
+      Lab_SpriteSheet_84: 1767555755658675823
+      Lab_SpriteSheet_47: 1340844782024850167
+      Lab_SpriteSheet_64: -7974209490293116855
+      Lab_SpriteSheet_0: 1372773209041467126
+      Lab_SpriteSheet_82: -7233342360593196144
+      Lab_SpriteSheet_105: -3008443206091130426
+      Lab_SpriteSheet_30: 4620497209694027695
+      Lab_SpriteSheet_49: 7391054067952069227
+      Lab_SpriteSheet_94: -8336904224558400887
+      Lab_SpriteSheet_72: 6296873551805938380
+      Lab_SpriteSheet_77: 2025691400319472760
+      Lab_SpriteSheet_80: 6047494309764678383
+      Lab_SpriteSheet_42: -989581373453094508
+      Lab_SpriteSheet_44: -7894887949971028587
+      Lab_SpriteSheet_23: 8372190896856869039
+      Lab_SpriteSheet_81: -3956954949270182075
+      Lab_SpriteSheet_40: -9069323390586627445
+      Lab_SpriteSheet_55: -490282057902912127
+      Lab_SpriteSheet_16: 5928341691562736772
+      Lab_SpriteSheet_20: -2882677560730996604
+      Lab_SpriteSheet_59: -8536848413723127251
+      Lab_SpriteSheet_96: 8604645704192445026
+      Lab_SpriteSheet_28: -4095605181542420877
+      Lab_SpriteSheet_113: 96765899099722624
+      Lab_SpriteSheet_88: 6405437347695090850
+      Lab_SpriteSheet_102: -6296163461048112243
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

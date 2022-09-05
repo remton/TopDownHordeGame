@@ -195,7 +195,7 @@ TextureImporter:
       213: 9150053947323329477
     second: ZombieHoarde_TileMap_63
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -216,6 +216,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -254,6 +255,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -269,6 +271,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -1636,6 +1650,71 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      ZombieHoarde_TileMap_54: 1463002804407925859
+      ZombieHoarde_TileMap_30: -7937431586973935791
+      ZombieHoarde_TileMap_0: 2441236600361787066
+      ZombieHoarde_TileMap_45: -5935313817629817045
+      ZombieHoarde_TileMap_50: 2248858709390977986
+      ZombieHoarde_TileMap_38: -8891694594159039999
+      ZombieHoarde_TileMap_23: -7332913139529277266
+      ZombieHoarde_TileMap_51: -3141985027892653721
+      ZombieHoarde_TileMap_59: -1601834900972980873
+      ZombieHoarde_TileMap_20: -1419499685924755811
+      ZombieHoarde_TileMap_17: 3378496709778435598
+      ZombieHoarde_TileMap_28: 6269296600970301194
+      ZombieHoarde_TileMap_32: 6276450086857907942
+      ZombieHoarde_TileMap_14: 8485096502308476356
+      ZombieHoarde_TileMap_60: 6748661266822545353
+      ZombieHoarde_TileMap_52: -8071410634107668121
+      ZombieHoarde_TileMap_8: -1297395141877617396
+      ZombieHoarde_TileMap_6: -6203302851909129528
+      ZombieHoarde_TileMap_44: 8624029471983709783
+      ZombieHoarde_TileMap_2: -4595816883488925285
+      ZombieHoarde_TileMap_15: -213660829549121720
+      ZombieHoarde_TileMap_13: 1788636330611986718
+      ZombieHoarde_TileMap_63: 9150053947323329477
+      ZombieHoarde_TileMap_34: -3366622544219130549
+      ZombieHoarde_TileMap_12: 5595597809762126945
+      ZombieHoarde_TileMap_22: -3425530287536620236
+      ZombieHoarde_TileMap_36: -7077241564345796599
+      ZombieHoarde_TileMap_46: -7524438520840708447
+      ZombieHoarde_TileMap_5: 5189569124841661942
+      ZombieHoarde_TileMap_26: -6853874857686710106
+      ZombieHoarde_TileMap_58: -5779579527179424394
+      ZombieHoarde_TileMap_24: -8776416980515801861
+      ZombieHoarde_TileMap_3: -3354502911818366189
+      ZombieHoarde_TileMap_4: -1055680461289343226
+      ZombieHoarde_TileMap_40: 6080237312892280992
+      ZombieHoarde_TileMap_37: -948276489383725684
+      ZombieHoarde_TileMap_39: 8523223760315859309
+      ZombieHoarde_TileMap_48: 6022200790031007905
+      ZombieHoarde_TileMap_19: -4394595849576005427
+      ZombieHoarde_TileMap_10: 7529864758853540450
+      ZombieHoarde_TileMap_25: 7677361172927488812
+      ZombieHoarde_TileMap_7: 5899131530766188414
+      ZombieHoarde_TileMap_16: -3902226556558332669
+      ZombieHoarde_TileMap_56: -8782309382318500453
+      ZombieHoarde_TileMap_35: 885343601855761885
+      ZombieHoarde_TileMap_61: -155966176658539808
+      ZombieHoarde_TileMap_1: -8784356794432059825
+      ZombieHoarde_TileMap_18: -7058919710636697967
+      ZombieHoarde_TileMap_11: -7899411359462258744
+      ZombieHoarde_TileMap_27: -6066546903800060484
+      ZombieHoarde_TileMap_9: -513134450624305144
+      ZombieHoarde_TileMap_57: 3059907066295506784
+      ZombieHoarde_TileMap_41: -340059580888960866
+      ZombieHoarde_TileMap_47: -6881663782192021594
+      ZombieHoarde_TileMap_53: -525212630435568195
+      ZombieHoarde_TileMap_62: -5979506819813209069
+      ZombieHoarde_TileMap_43: -8591748239340313447
+      ZombieHoarde_TileMap_42: 7738642474852503657
+      ZombieHoarde_TileMap_31: 5031194143507178754
+      ZombieHoarde_TileMap_49: -7739801598678209894
+      ZombieHoarde_TileMap_21: -3347188449032126873
+      ZombieHoarde_TileMap_29: 2947886643787882607
+      ZombieHoarde_TileMap_55: 4450190259587032608
+      ZombieHoarde_TileMap_33: -5716594386548148421
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

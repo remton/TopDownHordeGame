@@ -195,7 +195,7 @@ TextureImporter:
       213: -6494693096663902644
     second: ComputerTyping_63
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -216,6 +216,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -254,6 +255,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -269,6 +271,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -1636,6 +1650,71 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      ComputerTyping_20: -811777435807877583
+      ComputerTyping_26: 6165221183928580375
+      ComputerTyping_4: 6437399836965933331
+      ComputerTyping_44: 2765408452296154709
+      ComputerTyping_6: 3512328328519507515
+      ComputerTyping_46: 621880207841254768
+      ComputerTyping_63: -6494693096663902644
+      ComputerTyping_1: 7822730018779006452
+      ComputerTyping_23: -533681769839956806
+      ComputerTyping_49: 5591217767761250334
+      ComputerTyping_14: 7644678074269035337
+      ComputerTyping_16: 7774286975581110811
+      ComputerTyping_22: -5941855866354940876
+      ComputerTyping_27: 7478545565708445310
+      ComputerTyping_37: 432559218985421938
+      ComputerTyping_38: -271698488715333924
+      ComputerTyping_62: 2979039111833322216
+      ComputerTyping_9: -1414614477153680536
+      ComputerTyping_30: -5451932062733564645
+      ComputerTyping_41: -3344042288594646587
+      ComputerTyping_21: 9055642420256026172
+      ComputerTyping_13: 5308510066445120559
+      ComputerTyping_34: -995964975738522039
+      ComputerTyping_31: -9169616376512841854
+      ComputerTyping_53: -1289563174869164842
+      ComputerTyping_2: 4531878872422654207
+      ComputerTyping_10: 4358965829608278009
+      ComputerTyping_24: 4360905024067734815
+      ComputerTyping_29: -4332208818034876998
+      ComputerTyping_8: -7790365712934605452
+      ComputerTyping_39: 2353972720454826354
+      ComputerTyping_48: 1885570165953133756
+      ComputerTyping_35: 2989236913201622154
+      ComputerTyping_3: 5965937083585647741
+      ComputerTyping_50: -5130151942179242214
+      ComputerTyping_45: -1607571736690554475
+      ComputerTyping_57: 5016403402295504538
+      ComputerTyping_61: 1345239690960427350
+      ComputerTyping_55: -8347223595115090500
+      ComputerTyping_11: 2045114824547089387
+      ComputerTyping_33: 1399947249062336554
+      ComputerTyping_28: 2166001518948366217
+      ComputerTyping_12: 2492619210425176643
+      ComputerTyping_56: -1164944201751730762
+      ComputerTyping_5: -4326700131687953863
+      ComputerTyping_18: 7948972019033941799
+      ComputerTyping_32: 5902804945253817048
+      ComputerTyping_36: 3513774429185390526
+      ComputerTyping_52: -7765564474269576108
+      ComputerTyping_43: -749538269920535066
+      ComputerTyping_58: 1158678837362505663
+      ComputerTyping_60: 1498527912375381626
+      ComputerTyping_15: -2282808187823256056
+      ComputerTyping_7: -1443010269529245565
+      ComputerTyping_54: 421337331936260503
+      ComputerTyping_19: 3614308364853705116
+      ComputerTyping_40: -1638536445916535946
+      ComputerTyping_59: 8741117201951712349
+      ComputerTyping_47: -4787799139978459668
+      ComputerTyping_0: -4759864928504889661
+      ComputerTyping_25: 8382617796940048334
+      ComputerTyping_17: -1435787536513898070
+      ComputerTyping_51: -2330330370126922556
+      ComputerTyping_42: 1708714693560114940
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

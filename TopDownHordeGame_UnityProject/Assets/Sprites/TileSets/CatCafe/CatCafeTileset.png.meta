@@ -186,7 +186,7 @@ TextureImporter:
       213: -1808748484247712464
     second: CatCafeTileset_60
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -207,6 +207,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -245,6 +246,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -260,6 +262,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -1564,6 +1578,68 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      CatCafeTileset_45: 3508154746225771245
+      CatCafeTileset_42: -9141080570455749042
+      CatCafeTileset_47: 3878553929235390114
+      CatCafeTileset_22: 3137382266878504914
+      CatCafeTileset_40: -302125877968216467
+      CatCafeTileset_33: 251605937842406851
+      CatCafeTileset_48: 6987840221758438075
+      CatCafeTileset_0: 4714830967014626550
+      CatCafeTileset_24: -6266137481323865568
+      CatCafeTileset_50: -7871053516673125115
+      CatCafeTileset_19: -5489632898975711473
+      CatCafeTileset_18: -5347145389870334699
+      CatCafeTileset_39: 4913829914128153451
+      CatCafeTileset_21: -1188995929344605989
+      CatCafeTileset_54: 4952267461492072927
+      CatCafeTileset_37: -4753704678884176014
+      CatCafeTileset_52: -1726700610554271417
+      CatCafeTileset_43: 165156868511552627
+      CatCafeTileset_51: -8592455254409490576
+      CatCafeTileset_34: 5574046930180351849
+      CatCafeTileset_58: 1202409264881698647
+      CatCafeTileset_38: 8047808835766551556
+      CatCafeTileset_9: 4810067920328796425
+      CatCafeTileset_17: 8589190110264167362
+      CatCafeTileset_23: 7292426561686951776
+      CatCafeTileset_57: 4148966719602182593
+      CatCafeTileset_12: 7139853532023802179
+      CatCafeTileset_60: -1808748484247712464
+      CatCafeTileset_29: 3850303655380800073
+      CatCafeTileset_30: 6335048284992906518
+      CatCafeTileset_13: -6327458940839827294
+      CatCafeTileset_1: 1388188989376299541
+      CatCafeTileset_44: 4532460844866171075
+      CatCafeTileset_49: 8111171346596216161
+      CatCafeTileset_32: -7741974858357396012
+      CatCafeTileset_5: 6800225145590784760
+      CatCafeTileset_55: 7367523227919416700
+      CatCafeTileset_2: 1389929651690853925
+      CatCafeTileset_28: 2876454851202270637
+      CatCafeTileset_16: -138148219483734536
+      CatCafeTileset_8: -4591560746466399828
+      CatCafeTileset_26: 4820713350525601256
+      CatCafeTileset_59: 471077425289670222
+      CatCafeTileset_7: 4221177274586988999
+      CatCafeTileset_36: -3072587696216245011
+      CatCafeTileset_27: -8927140060119666405
+      CatCafeTileset_3: -5969222952178341810
+      CatCafeTileset_41: 883337713237917463
+      CatCafeTileset_53: -30842730917004106
+      CatCafeTileset_56: -3297000834053621112
+      CatCafeTileset_10: 6608404185102633062
+      CatCafeTileset_11: -8598377054559718702
+      CatCafeTileset_6: 3720817767338177324
+      CatCafeTileset_31: 7617270486687142043
+      CatCafeTileset_4: -7406028042807886159
+      CatCafeTileset_15: 9151867300140558082
+      CatCafeTileset_46: 1267281618283815026
+      CatCafeTileset_25: 1384826124226221367
+      CatCafeTileset_35: 3297021325318457429
+      CatCafeTileset_14: 5262293654703089473
+      CatCafeTileset_20: 2608910986264469666
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

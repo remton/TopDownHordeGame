@@ -63,7 +63,7 @@ TextureImporter:
       213: 7514256671422278519
     second: Monitor_19
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -84,6 +84,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -122,6 +123,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -137,6 +139,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -580,6 +594,27 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Monitor_12: -3254313563464661079
+      Monitor_2: -8306617903366266639
+      Monitor_0: 6527285518945232940
+      Monitor_13: 295653023953553347
+      Monitor_5: 598288611964492677
+      Monitor_19: 7514256671422278519
+      Monitor_8: -2577325653750296282
+      Monitor_11: 3859697614591003380
+      Monitor_10: -5588609051640001472
+      Monitor_18: 1471687230004643235
+      Monitor_3: -3857058950514058150
+      Monitor_9: -1931170439165008120
+      Monitor_15: -2867079396455998539
+      Monitor_14: -8099137055176245840
+      Monitor_17: -2108528020662751863
+      Monitor_6: 3563455233404673792
+      Monitor_7: 8825494272745926134
+      Monitor_1: -2935916568101528647
+      Monitor_16: -7871350504379652156
+      Monitor_4: -6863783368773266073
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
