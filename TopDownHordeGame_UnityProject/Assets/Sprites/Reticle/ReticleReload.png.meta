@@ -102,7 +102,7 @@ TextureImporter:
       213: -8304295385051381111
     second: ReticleReload_32
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 11
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -123,7 +123,6 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -162,7 +161,6 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
-  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -178,18 +176,6 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -906,40 +892,6 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      ReticleReload_19: -5465591102365276276
-      ReticleReload_21: -7382589721165583698
-      ReticleReload_4: -2458405164461327399
-      ReticleReload_28: -745993164170594105
-      ReticleReload_24: -4933559605046605623
-      ReticleReload_6: 3249095081898782742
-      ReticleReload_20: 3707915990156431876
-      ReticleReload_7: 3735036990024170502
-      ReticleReload_31: -1961478064545420451
-      ReticleReload_18: 5965290254314532192
-      ReticleReload_25: 8125828515699444042
-      ReticleReload_0: -2762732675243189587
-      ReticleReload_8: -8559827395220652773
-      ReticleReload_14: -2851822011190028778
-      ReticleReload_17: 2613167677753233007
-      ReticleReload_32: -8304295385051381111
-      ReticleReload_29: 1368717735409302928
-      ReticleReload_2: -5296142851944084129
-      ReticleReload_16: -6457249842686906326
-      ReticleReload_9: -1879992339608104220
-      ReticleReload_22: -8188602571359630500
-      ReticleReload_5: -7080459506733293166
-      ReticleReload_10: -180130085567902993
-      ReticleReload_23: 3583265317449716616
-      ReticleReload_11: -1077036525301870206
-      ReticleReload_3: 5737547321852080744
-      ReticleReload_15: 2462735976565056730
-      ReticleReload_26: -8609669221273807559
-      ReticleReload_27: 6188916309043190791
-      ReticleReload_1: -3683767890905983057
-      ReticleReload_12: -7621834136773488775
-      ReticleReload_30: 4045027930821207018
-      ReticleReload_13: -5927389495037040960
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

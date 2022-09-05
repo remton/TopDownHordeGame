@@ -201,7 +201,7 @@ TextureImporter:
       213: -9159374605049991639
     second: Tablet_65
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 11
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -222,7 +222,6 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -261,7 +260,6 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
-  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -277,18 +275,6 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -1698,73 +1684,6 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      Tablet_43: 1266818382952042480
-      Tablet_8: 7965795579345059529
-      Tablet_28: 640016689367731316
-      Tablet_17: 6756328497517028251
-      Tablet_22: -669612923769332325
-      Tablet_57: -7118178890422589494
-      Tablet_51: -7318398707076502480
-      Tablet_12: -4345427786131716596
-      Tablet_53: 3805248697979343465
-      Tablet_23: 3210997162553226496
-      Tablet_49: -3083068994177460838
-      Tablet_44: 3201344996529191927
-      Tablet_54: -82492759091687897
-      Tablet_35: 1132847454075482006
-      Tablet_59: -1795854038682908105
-      Tablet_2: -8964263593882802089
-      Tablet_41: -9016720663099668192
-      Tablet_56: -7859942562736828414
-      Tablet_18: 8725071022986840928
-      Tablet_64: -3594456578466509122
-      Tablet_60: -8799421558317079809
-      Tablet_55: 9140908379744714257
-      Tablet_7: 8382895646335780000
-      Tablet_63: 2570262523919530700
-      Tablet_33: 4976844228526811319
-      Tablet_3: -3097939157252810968
-      Tablet_34: -1424746143752940024
-      Tablet_19: -3181887429061356483
-      Tablet_50: -6385631084305175728
-      Tablet_1: 5009524446515598369
-      Tablet_4: 1258767304138713511
-      Tablet_0: -1803845828464903431
-      Tablet_25: 9119892842310178209
-      Tablet_36: 6636835123280169955
-      Tablet_46: -6363579309753948793
-      Tablet_30: -7158662397522151249
-      Tablet_65: -9159374605049991639
-      Tablet_26: 2435722460990084730
-      Tablet_27: 5423746568579512486
-      Tablet_58: -4049743522914111218
-      Tablet_9: -843758320404264115
-      Tablet_45: 3205352965498868877
-      Tablet_47: -3058248549951435993
-      Tablet_29: -8413592996944533054
-      Tablet_42: 8643097945357804021
-      Tablet_62: 7642987050197844784
-      Tablet_5: -1507785218966854988
-      Tablet_40: -7894585520622196543
-      Tablet_31: 7363784408893044220
-      Tablet_10: -1320538454170747387
-      Tablet_48: 6224105867781562871
-      Tablet_61: -3300869561179044182
-      Tablet_13: 6351884334654472234
-      Tablet_6: 9191717031155793852
-      Tablet_52: -8315178316257764954
-      Tablet_14: 1585777851461562147
-      Tablet_24: -5809276553741980069
-      Tablet_11: -5168653933286936833
-      Tablet_39: 2912277377626443398
-      Tablet_16: -6824268380545728286
-      Tablet_38: 807737018847403436
-      Tablet_37: 2525053606098970939
-      Tablet_32: 6057230260989130945
-      Tablet_15: -2509022810282433386
-      Tablet_21: 5286468492894878569
-      Tablet_20: 1713669046555634274
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

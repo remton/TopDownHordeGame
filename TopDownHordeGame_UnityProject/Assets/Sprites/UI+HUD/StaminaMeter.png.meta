@@ -81,7 +81,7 @@ TextureImporter:
       213: -4671638690073155271
     second: StaminaMeter_25
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 11
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -102,7 +102,6 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -141,7 +140,6 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
-  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -157,18 +155,6 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -738,33 +724,6 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      StaminaMeter_5: -6434836294813373724
-      StaminaMeter_18: -6549312634875118118
-      StaminaMeter_4: -3030404932531688898
-      StaminaMeter_7: 3683696750842675278
-      StaminaMeter_10: -4100519347389283202
-      StaminaMeter_21: -1917084867381439458
-      StaminaMeter_0: -5220883952034781144
-      StaminaMeter_16: -7531337316289064291
-      StaminaMeter_12: 6327714311349117409
-      StaminaMeter_13: 4237453013656016262
-      StaminaMeter_25: -4671638690073155271
-      StaminaMeter_6: -8442230074268688259
-      StaminaMeter_9: -8804814991042051385
-      StaminaMeter_8: -4124302097925525647
-      StaminaMeter_11: 2206868420857859430
-      StaminaMeter_22: 7442718015920457926
-      StaminaMeter_20: 5552595458292942851
-      StaminaMeter_24: -6351331515982655033
-      StaminaMeter_15: 2578674231214566609
-      StaminaMeter_2: 1767154094425948300
-      StaminaMeter_14: 6531843799049704222
-      StaminaMeter_19: 8741284033328718061
-      StaminaMeter_17: -7837250101766738155
-      StaminaMeter_1: -4299622003081801200
-      StaminaMeter_3: -7516613259783891943
-      StaminaMeter_23: -4755850941108268289
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

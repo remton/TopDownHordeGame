@@ -54,7 +54,7 @@ TextureImporter:
       213: 3792534909945103846
     second: CatCafeTileset2_16
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 11
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -75,7 +75,6 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -114,7 +113,6 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
-  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -130,18 +128,6 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -522,24 +508,6 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      CatCafeTileset2_8: -3829445665127368724
-      CatCafeTileset2_14: 7347869705019684014
-      CatCafeTileset2_16: 3792534909945103846
-      CatCafeTileset2_11: 6990990577854683890
-      CatCafeTileset2_15: 6195061999396952229
-      CatCafeTileset2_6: -6262072275727327593
-      CatCafeTileset2_1: 6117240532715232414
-      CatCafeTileset2_2: -1168938005290522966
-      CatCafeTileset2_3: 891248199678250043
-      CatCafeTileset2_5: -7983801045763182941
-      CatCafeTileset2_12: 6439109449348884315
-      CatCafeTileset2_7: 3248852365282702751
-      CatCafeTileset2_10: -2076288796793385766
-      CatCafeTileset2_0: 1838551542709532994
-      CatCafeTileset2_9: 6848229823964302551
-      CatCafeTileset2_4: 4640360574417993747
-      CatCafeTileset2_13: -1740139153307619775
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

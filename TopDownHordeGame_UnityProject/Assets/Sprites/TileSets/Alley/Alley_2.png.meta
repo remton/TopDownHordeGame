@@ -126,7 +126,7 @@ TextureImporter:
       213: 2522328921208643819
     second: Alley_2_40
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 11
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -147,7 +147,6 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -186,7 +185,6 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
-  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -202,18 +200,6 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -1098,48 +1084,6 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      Alley_2_36: -2089042227509645712
-      Alley_2_25: 322232505164281698
-      Alley_2_24: -4682048861974980371
-      Alley_2_16: 7818160981149223611
-      Alley_2_38: 8274564026143942793
-      Alley_2_14: 5468731655743032745
-      Alley_2_15: 4441135267856011764
-      Alley_2_39: -7514083935222153330
-      Alley_2_11: -2542229930579377263
-      Alley_2_40: 2522328921208643819
-      Alley_2_0: 3331489281009152648
-      Alley_2_19: 2057609503821220205
-      Alley_2_37: -4099597840199643981
-      Alley_2_22: 8835975913799012293
-      Alley_2_1: -2129499809698919638
-      Alley_2_4: -8459022839184791177
-      Alley_2_23: -5538214065086058198
-      Alley_2_26: 8399713424285034809
-      Alley_2_34: -5795000252427413667
-      Alley_2_9: 252324329724526799
-      Alley_2_5: 3990933458451168823
-      Alley_2_28: -2133877263585069672
-      Alley_2_35: 5104203390761162659
-      Alley_2_10: 6645571578535185306
-      Alley_2_12: -5380331891000992546
-      Alley_2_17: 7743798939551633862
-      Alley_2_7: 1089871834936593926
-      Alley_2_2: -6339267127244798675
-      Alley_2_13: 745658226548762113
-      Alley_2_6: 498380550840274724
-      Alley_2_20: -3957147040485679338
-      Alley_2_33: -6054865432955438084
-      Alley_2_21: 5449078711020870884
-      Alley_2_18: 1928589269008088400
-      Alley_2_30: 8625781338056251256
-      Alley_2_29: 8025662400933889700
-      Alley_2_8: -1285570081354340092
-      Alley_2_3: 6751084550508552761
-      Alley_2_32: -3110564064609707196
-      Alley_2_27: 6886286843313067975
-      Alley_2_31: 830301441456524939
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
