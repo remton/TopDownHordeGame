@@ -5293,7 +5293,7 @@ MonoBehaviour:
   type: 6
   payForHit: 0
   payForKill: 10
-  spwanFramesInSeconds: 0.75
+  spwanFramesInSeconds: 0.1
   target: {fileID: 0}
   timeBetweenTargetChecks: 0.1
   animator: {fileID: 4884111978699468873}
