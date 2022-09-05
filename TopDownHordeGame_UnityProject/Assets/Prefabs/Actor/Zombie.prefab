@@ -5337,7 +5337,7 @@ GameObject:
   m_Layer: 7
   m_Name: Zombie
   m_TagString: Zombie
-  m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 7422848464349959988, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -5393,6 +5393,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  type: 0
   payForHit: 2
   payForKill: 50
   spwanFramesInSeconds: 0.5
@@ -5420,6 +5421,7 @@ MonoBehaviour:
   lungeTime: 0.2
   damage: 1
   lungeForce: 350
+  normalizeDirection: 0
 --- !u!114 &-2455652057355692573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5436,7 +5438,6 @@ MonoBehaviour:
   syncInterval: 0.1
   hitParticles: {fileID: 4372391901890484816}
   dieParticles: {fileID: 2625950378744035311}
-  moneyEffect: {fileID: 3078305918877377745, guid: fec51dc1c354e004dbdff7a5657edba2, type: 3}
   moneyEffectVerticalOffset: 0.5
   givesMoney: 1
   DontDestroyOnDeath: 0

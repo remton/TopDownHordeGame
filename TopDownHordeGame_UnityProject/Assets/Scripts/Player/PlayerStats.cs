@@ -117,6 +117,7 @@ public class PlayerStats : NetworkBehaviour
             case ZombieType.minion:
                 return;
             case ZombieType.basic:
+                SaveData.instance.challenge_basicKills++;
                 break;
             case ZombieType.biggestFan:
                 SaveData.instance.challenge_biggestFanKills++;
