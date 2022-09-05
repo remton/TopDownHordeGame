@@ -4,7 +4,8 @@ using UnityEngine;
 using Mirror;
 
 public enum ModifierType {
-    allBasic, allBiggestFan, allHockEye, allLungs, allSplitter, allZathrak, zapp
+    allBasic, allBiggestFan, allHockEye, allLungs, allSplitter, allZathrak, 
+    safetyOff, zapp
 }
 
 public class ModifiersController : NetworkBehaviour
@@ -22,6 +23,7 @@ public class ModifiersController : NetworkBehaviour
     private List<GameObject> players;
 
     // --- Apply Modifiers ---
+    #region zombie spawn modifiers
     [Server]
     public void Apply_AllBasic() {
         zombieListReplacement.Add(new RandomChoice(1, allBasic_Prefab));
@@ -60,8 +62,12 @@ public class ModifiersController : NetworkBehaviour
         replaceZombieList = true;
         Debug.Log("MODIFIER: All Zathrak");
     }
+    #endregion
 
-
+    [Server]
+    public void Apply_SaftyOff() {
+        Debug.Log("MODIFIER: Safty Off : (NYI)");
+    }
 
     [Server]
     public void Apply_Zapp() {
@@ -103,6 +109,9 @@ public class ModifiersController : NetworkBehaviour
                         break;
                     case ModifierType.allZathrak:
                         Apply_AllZathrak();
+                        break;
+                    case ModifierType.safetyOff:
+                        Apply_SaftyOff();
                         break;
                     case ModifierType.zapp:
                         Apply_Zapp();

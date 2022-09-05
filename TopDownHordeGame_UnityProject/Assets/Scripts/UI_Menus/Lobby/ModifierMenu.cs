@@ -2,72 +2,81 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class ModifierMenu : Menu
 {
     public GameOptionsMenu gameOptionsMenu;
 
-    public Color DisableChoiceColor;
-    public Color EnableChoiceColor;
-
     [System.Serializable]
-    private struct ModOption {
+    public class ModOption {
         public ModifierType mod;
+        public string name;
+        [TextArea()]
+        public string description;
         public bool defaultUnlock;
+        [HideInInspector]
+        public ModifierItem itemUI;
         public bool active;
-        public Image image;
-        public Button button;
     }
 
     [SerializeField]
-    private List<ModOption> modOptions = new List<ModOption>();
+    private List<ModOption> modifiers = new List<ModOption>();
 
-    public void Button_ToggleModifier(string modifierName) {
-        ModifierType mod;
-        if(System.Enum.TryParse<ModifierType>(modifierName, out mod)) {
-            for (int i = 0; i < modOptions.Count; i++) {
-                if (mod == modOptions[i].mod) {
-                    ModOption option = modOptions[i];
-                    option.active = !option.active;
-                    modOptions[i] = option;
-                    GameSettings.instance.SetModifier(mod, option.active);
-                    if (option.active)
-                        option.image.color = EnableChoiceColor;
-                    else
-                        option.image.color = DisableChoiceColor;
+    public GameObject modItemHolder;
+    public GameObject modItemPrefab;
+    private List<GameObject> modItems = new List<GameObject>();
+
+    public void ToggleModifier(ModifierType mod) {
+        for (int i = 0; i < modifiers.Count; i++) {
+            if(!base.isUsingGamepad)
+                EventSystem.current.SetSelectedGameObject(null);
+
+            ModOption option = modifiers[i];
+            if (mod == option.mod) {
+                if (modifiers[i].itemUI == null) {
+                    Debug.LogError("Failed to find modifier ui item for: " + mod);
                     return;
                 }
+                option.active = !option.active;
+                modifiers[i] = option;
+                GameSettings.instance.SetModifier(mod, option.active);
+                if (option.active)
+                    option.itemUI.Activate();
+                else
+                    option.itemUI.Deactivate();
+                return;
             }
-        }
-        else {
-            Debug.LogError("Failed to find ModifierType: \"" + modifierName + "\". Check spelling and that it is added to ModifierType enum.");
         }
     }
     public override void Open() {
         base.Open();
-        foreach (var modOption in modOptions) {
-            if (modOption.defaultUnlock)
-                SaveData.instance.modifier_unlocks[(int)modOption.mod] = true;
-            if (SaveData.instance.modifier_unlocks[(int)modOption.mod])
-                EnableOption(modOption);
-            else
-                DisableOption(modOption);
+        foreach (var item in modItems) {
+            Destroy(item);
+        }
+        modItems.Clear();
+
+        foreach (var modifier in modifiers) {
+            if (modifier.defaultUnlock)
+                SaveData.instance.modifier_unlocks[(int)modifier.mod] = true;
+            if (SaveData.instance.modifier_unlocks[(int)modifier.mod]) {
+                GameObject item = Instantiate(modItemPrefab, modItemHolder.transform);
+                modifier.itemUI = item.GetComponent<ModifierItem>();
+                item.GetComponent<ModifierItem>().Init(modifier);
+                item.GetComponent<ModifierItem>().EventButtonPressed += ToggleModifier;
+
+                if (modifier.active)
+                    item.GetComponent<ModifierItem>().Activate();
+                else
+                    item.GetComponent<ModifierItem>().Deactivate();
+                GameSettings.instance.SetModifier(modifier.mod, modifier.active);
+                modItems.Add(item);
+            }
         }
     }
 
     public override void Close() {
         base.Close();
         gameOptionsMenu.UpdateModifierList();
-    }
-
-    private void EnableOption(ModOption option) {
-        option.button.enabled = true;
-        option.button.gameObject.SetActive(true);
-    }
-    private void DisableOption(ModOption option) {
-        option.active = false;
-        GameSettings.instance.SetModifier(option.mod, option.active);
-        option.button.enabled = false;
-        option.button.gameObject.SetActive(false);
     }
 }
