@@ -21,6 +21,7 @@ public class Save{
     //Challenges
     public bool[] challenge_unlocks;
     public bool[] challenge_completed;
+    public int challenge_basicKills;
     public int challenge_biggestFanKills;
     public int challenge_hockEyeKills;
     public int challenge_LungsKills;
@@ -51,6 +52,7 @@ public class Save{
         //Challenges
         challenge_unlocks = data.challenge_unlocks;
         challenge_completed = data.challenge_completed;
+        challenge_basicKills = data.challenge_basicKills;
         challenge_biggestFanKills = data.challenge_biggestFanKills;
         challenge_hockEyeKills = data.challenge_hockEyeKills;
         challenge_LungsKills = data.challenge_LungsKills;

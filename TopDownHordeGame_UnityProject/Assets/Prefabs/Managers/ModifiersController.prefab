@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  allBasic_Prefab: {fileID: 6956723953377203767, guid: 4412f1af9ed220f4a924d6646b25bd45, type: 3}
   allBiggestFan_Prefab: {fileID: 6956723953377203767, guid: 39d713aebd2034242a102a7f80f0fc3d, type: 3}
   allHockEye_Prefab: {fileID: 6956723953377203767, guid: 03a51a5cebba33041a60507cb32a8683, type: 3}
   allLungs_Prefab: {fileID: 6956723953377203767, guid: cd6b31b8766f4284a96fb1eeec301937, type: 3}
