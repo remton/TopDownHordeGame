@@ -10,12 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 6396399298110489021}
   - component: {fileID: 6396399298110489020}
-  - component: {fileID: 6396399298110489019}
   - component: {fileID: 6396399298110489018}
   - component: {fileID: -1742336083142638671}
   - component: {fileID: -213541478100332637}
   - component: {fileID: -8152802728731556285}
   - component: {fileID: -2904112923595943339}
+  - component: {fileID: 197666655898663668}
+  - component: {fileID: -1396260389718212586}
   m_Layer: 8
   m_Name: GrenadePrefab
   m_TagString: Untagged
@@ -32,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 6396399298110489017}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -16.4906, y: 7.1775, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.14, z: 0.2}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: -1605951905
   m_SortingLayer: 3
   m_SortingOrder: 10
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
+  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   m_Color: {r: 1, g: 0.52397186, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -89,22 +90,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!70 &6396399298110489019
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6396399298110489017}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
-  m_Direction: 0
 --- !u!114 &6396399298110489018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,9 +103,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerTags:
-  - Zombie
+  - ZombieDamageHitbox
   - BulletCollision
-  - Wall
 --- !u!114 &-1742336083142638671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,12 +114,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6396399298110489017}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 232e9a0bdd973c04092b59e74a6ba5d3, type: 3}
+  m_Script: {fileID: 11500000, guid: bcc1b4d8c6129794bbebc5d1fd45d33d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
   explosionPrefab: {fileID: 7885101383054547307, guid: 4ec5975d2394ea84e8f91b97233fadb6, type: 3}
+  dragCoefficient: 0.99
   rb: {fileID: -213541478100332637}
 --- !u!50 &-213541478100332637
 Rigidbody2D:
@@ -204,3 +187,36 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+--- !u!114 &197666655898663668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6396399298110489017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 4453c43dc2fab504e9aa9ee6e04a7af1
+  hasSpawned: 0
+--- !u!58 &-1396260389718212586
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6396399298110489017}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.6
