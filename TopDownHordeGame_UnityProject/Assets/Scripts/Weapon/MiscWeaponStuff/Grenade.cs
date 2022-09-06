@@ -13,6 +13,7 @@ public class Grenade : MonoBehaviour
     private Vector2 moveDir;
     private float balanceTimer;
     [SerializeField] private float dragCoefficient;
+    private int bounceNum;
     private Timer timer;
 
     private GameObject owner;
@@ -33,6 +34,7 @@ public class Grenade : MonoBehaviour
         timer = GetComponent<Timer>();
         gameObject.GetComponent<HitBoxController>().EventObjEnter += Ricochet;
         timer.CreateTimer(balanceTimer, Explode);
+        bounceNum = 0;
         //Debug.Log("Grenade Init ended");
     }
 
@@ -60,22 +62,44 @@ public class Grenade : MonoBehaviour
         Destroy(gameObject); 
     }
 
+    /* This function seems to mostly work when the (x, y, z) scale on the Grenade prefab is set to (1, 1, 1)
+     * 
+     * Known issues:
+     * Can phase through corners (after grenade hits vertical wall, it can sometimes pass through horizontal wall)
+     * Can get stuck in walls (stops happening when hitbox is really big)
+     */
     private void Ricochet(GameObject objectHit)
     {
         // Reflecting Bullets
         //Debug.Log("Grenade Ricochet ran");
         string[] mask = { "BulletCollider", "ZombieHitbox", "Door" };
+        Vector2 normalVector;
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, moveDir, 3, LayerMask.GetMask(mask)); // Raycasting is okay here, since this function is only called during collision
         Vector2 hitPoint = hitInfo.point;
-        Debug.Log("normal vector: " + hitInfo.normal);
-        //Vector2 reflectedVector = Vector2.Reflect(moveDir, hitInfo.normal);
+        //Debug.Log("starting move direction: " + moveDir);
+        //Debug.Log("normal vector: " + hitInfo.normal);
         Vector2 position2d = transform.position;
         Vector2 reflectedVector = Vector2.Reflect((hitPoint - position2d).normalized, hitInfo.normal);
         moveDir = reflectedVector;
-        Debug.Log("final move direction: " + reflectedVector);
+        //Debug.Log("final move direction: " + reflectedVector);
         flySpeed *= 0.8f;
 
-        /*
+        // This next part is intended to stop the grenade from phasing through corners sometimes
+
+        RaycastHit2D nextHitInfo = Physics2D.Raycast(transform.position, moveDir, 2, LayerMask.GetMask(mask));
+        
+        if (nextHitInfo.collider == null)
+        {
+            Debug.Log("nextHitInfo is null");
+        } else if (bounceNum <= 1)
+        {
+            GameObject nextObjectHit = nextHitInfo.transform.gameObject;
+            bounceNum++;
+            Ricochet(nextObjectHit);
+        }
+        bounceNum = 0;
+
+        /* What was in this function before I started working on it
         Quaternion normal = objectHit.transform.rotation;
         Vector2 normalVector = normal.eulerAngles;
         Vector2 v = Vector2.Reflect(transform.up, normalVector);
