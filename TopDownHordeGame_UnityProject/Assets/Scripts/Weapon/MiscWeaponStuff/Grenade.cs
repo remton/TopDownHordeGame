@@ -13,15 +13,17 @@ public class Grenade : MonoBehaviour
     private Vector2 moveDir;
     private float balanceTimer;
     [SerializeField] private float dragCoefficient;
-    private int bounceNum;
+    private List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
     private Timer timer;
+    [SerializeField] private Rigidbody2D rb;
+    private float bounceCoefficient;
 
     private GameObject owner;
 
     public void Init(GameObject newOwner, Vector2 movementDir, float damage, float radius, float speed, float knockback, float explodeTime)
     {
         //Debug.Log("Grenade Init ran");
-        owner = newOwner; 
+        owner = newOwner;
         transform.position = newOwner.transform.position;
         rotationTemp = newOwner.transform.rotation.eulerAngles;
         rotationTemp.z += 90;
@@ -32,14 +34,27 @@ public class Grenade : MonoBehaviour
         flySpeed = speed;
         balanceTimer = explodeTime;
         timer = GetComponent<Timer>();
-        gameObject.GetComponent<HitBoxController>().EventObjEnter += Ricochet;
         timer.CreateTimer(balanceTimer, Explode);
-        bounceNum = 0;
+        bounceCoefficient = 0.8f;
         //Debug.Log("Grenade Init ended");
     }
 
     private void FixedUpdate()
     {
+        int count = rb.Cast(moveDir, castCollisions, flySpeed * Time.fixedDeltaTime); // casts a ray based on where the grenade is about to move, saves each collision in castCollisions, and saves number of collisions in count
+
+        if (count != 0)
+        {
+            for (int i = 0; i < count; i++) // not sure how necessary this is
+            {
+                if (castCollisions[i].collider.CompareTag("BulletCollision") || castCollisions[i].collider.CompareTag("ZombieDamageHitbox")) // ricochets if collider has the right tag
+                {
+                    Ricochet(castCollisions[i]);
+                    Move(moveDir);
+                    return;
+                }
+            }
+        }
         Move(moveDir);
     }
   
@@ -62,58 +77,19 @@ public class Grenade : MonoBehaviour
         Destroy(gameObject); 
     }
 
-    /* This function seems to mostly work when the (x, y, z) scale on the Grenade prefab is set to (1, 1, 1)
-     * 
-     * Known issues:
-     * Can phase through corners (after grenade hits vertical wall, it can sometimes pass through horizontal wall)
-     * Can get stuck in walls (stops happening when hitbox is really big)
-     */
-    private void Ricochet(GameObject objectHit)
+    private void Ricochet(RaycastHit2D hitInfo) // bounces grenade off object, and decreases its speed
     {
         // Reflecting Bullets
         //Debug.Log("Grenade Ricochet ran");
-        string[] mask = { "BulletCollider", "ZombieHitbox", "Door" };
-        Vector2 normalVector;
-        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, moveDir, 3, LayerMask.GetMask(mask)); // Raycasting is okay here, since this function is only called during collision
-        Vector2 hitPoint = hitInfo.point;
-        //Debug.Log("starting move direction: " + moveDir);
-        //Debug.Log("normal vector: " + hitInfo.normal);
-        Vector2 position2d = transform.position;
-        Vector2 reflectedVector = Vector2.Reflect((hitPoint - position2d).normalized, hitInfo.normal);
-        moveDir = reflectedVector;
-        //Debug.Log("final move direction: " + reflectedVector);
-        flySpeed *= 0.8f;
-
-        // This next part is intended to stop the grenade from phasing through corners sometimes
-
-        RaycastHit2D nextHitInfo = Physics2D.Raycast(transform.position, moveDir, 2, LayerMask.GetMask(mask));
         
-        if (nextHitInfo.collider == null)
-        {
-            Debug.Log("nextHitInfo is null");
-        } else if (bounceNum <= 1)
-        {
-            GameObject nextObjectHit = nextHitInfo.transform.gameObject;
-            bounceNum++;
-            Ricochet(nextObjectHit);
-        }
-        bounceNum = 0;
+        Vector2 reflectedVector = Vector2.Reflect(moveDir, hitInfo.normal);
+        moveDir = reflectedVector;
+        flySpeed *= bounceCoefficient;
 
-        /* What was in this function before I started working on it
-        Quaternion normal = objectHit.transform.rotation;
-        Vector2 normalVector = normal.eulerAngles;
-        Vector2 v = Vector2.Reflect(transform.up, normalVector);
-        Debug.Log("moveDir = " + moveDir);
-        Debug.Log("normalVector = " + normalVector);
-        Debug.Log("reflected vector = " + v);
-        float rot = Mathf.Atan2(-v.x, v.y) * Mathf.Rad2Deg;
-        transform.eulerAngles = new Vector3(0, 0, rot);
-        moveDir = transform.eulerAngles;
-        Debug.Log("moveDir = " + moveDir);
-        */
+        //Transform hitObject = hitInfo.transform;
+        //Debug.Log("object hit: " + hitObject.name);
     }
 
-    [SerializeField] private Rigidbody2D rb;
     private void Move(Vector2 movementDir) {
         Vector2 newPos = transform.position;
         newPos += flySpeed * movementDir * Time.fixedDeltaTime;
