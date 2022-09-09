@@ -4,7 +4,7 @@ using UnityEngine;
 using Mirror;
 
 public enum ZombieType {
-    basic, biggestFan, hockEye, zathrak, lungs, minion, splitter
+    basic, biggestFan, hockEye, zathrak, lungs, minion, splitter, elevator
 }
 
 [RequireComponent(typeof(Timer))]
