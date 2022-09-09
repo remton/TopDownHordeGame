@@ -170,6 +170,10 @@ public class Weapon : NetworkBehaviour
 
     // ---- Utility methods not called in this base implementation ----
 
+    protected void CallFireShotEvent(List<GameObject> victims, Vector2 startPos, Vector2 endPos) {
+        if (EventWeaponFired != null) { EventWeaponFired.Invoke(owner, victims, startPos, endPos); }
+    }
+
     // This is NOT called by playerWeaponControl and is just a utility for overriding Fire() in derived Weapon classes
     /// <summary> Fires a shot in the given direction </summary>
     protected void FireShot(GameObject player, Vector2 direction) {
@@ -225,7 +229,7 @@ public class Weapon : NetworkBehaviour
         if(trailEnd == startPos)
             trailEnd = startPos + (direction.normalized * range);
 
-        if (EventWeaponFired != null) { EventWeaponFired.Invoke(owner, victims, startPos, trailEnd); }
+        CallFireShotEvent(victims, startPos, trailEnd);
         effectController.CreateTrail(startPos, trailEnd);
         CameraController.instance.Shake(shakeIntensity);
     }
