@@ -45,10 +45,12 @@ public class Explosion : MonoBehaviour
         hitBox.triggerTags.Clear();
         
         for (int i = 0; i < nDamageTags.Count; i++) {
-            hitBox.triggerTags.Add(nDamageTags[i]);
+            if (!hitBox.triggerTags.Contains(nDamageTags[i]))
+                hitBox.triggerTags.Add(nDamageTags[i]);
         }
         for (int i = 0; i < nKnockbackTags.Count; i++) {
-            hitBox.triggerTags.Add(nKnockbackTags[i]);
+            if (!hitBox.triggerTags.Contains(nKnockbackTags[i]))
+                hitBox.triggerTags.Add(nKnockbackTags[i]);
         }
         hitBox.SetActive(true);
         hitBox.EventObjEnter += ActorEnter;
@@ -69,11 +71,16 @@ public class Explosion : MonoBehaviour
     }
 
     public void DamageActor(GameObject actor) {
+        if (owner == null)
+            Debug.LogError("explosion owner is null!");
+
         if (actor.HasComponent<DamageHitbox>()) {
             actor = actor.GetComponent<DamageHitbox>().owner;
         }
         if (actor.tag == "Player") {
-            actor.GetComponent<PlayerHealth>().DamageCMD(damage);
+            Debug.Log("player in explosion!");
+            if (owner.tag != "Player" || (owner.tag == "Player" && actor.GetComponent<PlayerHealth>().HasFriendlyFire()))
+                actor.GetComponent<PlayerHealth>().DamageCMD(damage);
         }
         if (actor.tag == "Zombie") {
             actor.GetComponent<ZombieHealth>().DamageCMD(damage, owner);
