@@ -174,7 +174,7 @@ public class Weapon : NetworkBehaviour
     /// <summary> Fires a shot in the given direction </summary>
     protected void FireShot(GameObject player, Vector2 direction) {
         // Raycast in direction and get all collisions with mask
-        string[] mask = { "BulletCollider", "ZombieHitbox", "Door", "Prop"};
+        string[] mask = { "BulletCollider", "PlayerHitbox", "ZombieHitbox", "Door", "Prop"};
         RaycastHit2D[] hitInfos = Physics2D.RaycastAll(player.transform.position, direction, range, LayerMask.GetMask(mask));
         
         int penetrated = 0; //Used to count how many zombies we collided with and not hit more than weapon's penetration
@@ -186,19 +186,21 @@ public class Weapon : NetworkBehaviour
         for (int i = 0; i < hitInfos.Length; i++)
         {
             GameObject hitObj = hitInfos[i].transform.gameObject;
-            
-            if (hitObj.CompareTag("ZombieDamageHitbox")) // We hit a zombie's hitbox
+
+            if (hitObj.CompareTag("PlayerDamageHitbox")) { // We hit a players hitbox
+                hitObj = hitObj.GetComponent<DamageHitbox>().owner;
+                if (hitObj!=owner && hitObj.GetComponent<PlayerHealth>().HasFriendlyFire()) {
+                    hitObj.GetComponent<PlayerHealth>().DamageCMD(damage);
+                    penetrated++;
+                    victims.Add(hitObj);
+                }
+            }
+            else if (hitObj.CompareTag("ZombieDamageHitbox")) // We hit a zombie's hitbox
             {
                 hitObj = hitObj.GetComponent<DamageHitbox>().owner;
                 penetrated++;
                 hitObj.GetComponent<ZombieHealth>().DamageCMD(damage, owner);
                 victims.Add(hitObj);
-
-                //We have hit our max number of zombies in one shot so we create the trail and break;
-                if (penetrated >= penatration){
-                    trailEnd = hitInfos[i].point; 
-                    break;
-                }
             }
             else if (hitObj.CompareTag("BulletCollision") || hitObj.CompareTag("Door"))
             {
@@ -209,13 +211,15 @@ public class Weapon : NetworkBehaviour
                 Prop prop = hitObj.GetComponent<Prop>();
                 prop.ShootCMD();
                 penetrated += prop.hardness;
-                if (penetrated >= penatration) {
-                    trailEnd = hitInfos[i].point;
-                    break;
-                }
             }
             else {
                 trailEnd = startPos + (direction.normalized * range);
+            }
+
+            //We have hit our max number of actors in one shot so we create the trail and break;
+            if (penetrated >= penatration) {
+                trailEnd = hitInfos[i].point;
+                break;
             }
         }
         if(trailEnd == startPos)

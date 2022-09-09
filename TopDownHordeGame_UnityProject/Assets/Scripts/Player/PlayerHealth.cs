@@ -47,6 +47,7 @@ public class PlayerHealth : NetworkBehaviour {
     private bool hasRevivePrompt;
     private bool inIFrames = false;
     private bool isDead = false;
+    private bool doFriendlyFire = false;
 
 
     // --- Public Events ---
@@ -56,6 +57,18 @@ public class PlayerHealth : NetworkBehaviour {
 
 
     // --- Public Methods ---
+    [Server]
+    public void SetFriendlyFire(bool b) {
+        doFriendlyFire = b;
+        SetFriendlyFireRPC(b);
+    }
+    [ClientRpc]
+    public void SetFriendlyFireRPC(bool b) {
+        doFriendlyFire = b;
+    }
+    public bool HasFriendlyFire() {
+        return doFriendlyFire;
+    }
 
     /// <summary> [Server] Heals by healAmount up to maxHealth </summary>
     [Server]
