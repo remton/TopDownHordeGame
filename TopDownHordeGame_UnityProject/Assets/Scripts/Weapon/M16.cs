@@ -6,7 +6,7 @@ public class M16 : Weapon
 {
     public float spreadAngle;
     public float burstTime;
-    public int burstCount = 3;
+    public int burstCount;
 
     private float timeUntilNextShot;
     private float timebetweenShots;
@@ -22,7 +22,7 @@ public class M16 : Weapon
 
     public override void Fire(GameObject player, Vector2 direction){
         currPlayer = player;
-        shotsLeftInBurst = burstCount;
+        shotsLeftInBurst = Mathf.Min(burstCount, inMag);
     }
     public override void Update() {
         base.Update();
