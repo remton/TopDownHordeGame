@@ -124,7 +124,7 @@ public class RoundController : NetworkBehaviour {
         if (isWaitingForNextRound) {
             if (!hasShownRoundChange) {
                 DisplayRoundChangeRPC(round + 1); //display before the zombies start spawning
-                PlayerManager.instance.HealAllPlayers();
+                PlayerManager.instance.HealAllPlayersRPC();
                 PlayerManager.instance.ReviveDownedPlayersRPC();
                 PlayerManager.instance.RespawnDeadPlayersRPC();
                 hasShownRoundChange = true;
