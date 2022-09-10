@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class Grenade : MonoBehaviour
+public class Grenade : NetworkBehaviour
 {
     public GameObject explosionPrefab;
     private GameObject explosionObj;
@@ -20,6 +21,7 @@ public class Grenade : MonoBehaviour
 
     private GameObject owner;
 
+    [ClientRpc]
     public void Init(GameObject newOwner, Vector2 movementDir, float damage, float radius, float speed, float knockback, float explodeTime)
     {
         //Debug.Log("Grenade Init ran");
@@ -33,6 +35,12 @@ public class Grenade : MonoBehaviour
         throwStrength = knockback;
         flySpeed = speed;
         balanceTimer = explodeTime;
+
+        if (!isServer) {
+            this.enabled = false;
+            return;
+        }
+
         timer = GetComponent<Timer>();
         timer.CreateTimer(balanceTimer, Explode);
         bounceCoefficient = 0.8f;
@@ -59,6 +67,7 @@ public class Grenade : MonoBehaviour
     }
   
     //Creates an Explosion Object
+    [ClientRpc]
     public void Explode(/*GameObject player*/)
     {
         //Debug.Log("Creating explosion object.");
