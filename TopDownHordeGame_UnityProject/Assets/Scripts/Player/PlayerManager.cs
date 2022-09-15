@@ -61,6 +61,10 @@ public class PlayerManager : NetworkBehaviour
         return allPlayers;
     }
 
+    public int NumPlayers() { 
+        return allPlayers.Count; 
+    }
+
     /// <summary> [ClientRPC] Respawns all dead players </summary>
     [ClientRpc]
     public void RespawnDeadPlayersRPC() {

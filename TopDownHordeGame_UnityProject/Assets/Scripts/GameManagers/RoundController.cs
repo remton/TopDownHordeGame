@@ -27,7 +27,7 @@ public class RoundController : NetworkBehaviour {
     private List<ZombieSpawn> activeSpawns = new List<ZombieSpawn>();
     private int zombiesToSpawn;
     private int zombiesSpawnedThisRound;
-    private int numberActiveZombies;
+    public int numberActiveZombies { get; internal set; }
     private bool isWaitingForNextRound = false;
     private bool hasShownRoundChange = false;
     private float timeUntilRoundStart;
