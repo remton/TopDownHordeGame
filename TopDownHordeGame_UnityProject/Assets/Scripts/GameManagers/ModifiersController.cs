@@ -129,6 +129,9 @@ public class ModifiersController : NetworkBehaviour
             RoundController.instance.zombieList = zombieListReplacement;
     }
 
+
+
+
     private void Start() {
         if (isServer) {
             MyNetworkManager.instance.ServerEvent_AllClientsReady += ApplyModifiers;
