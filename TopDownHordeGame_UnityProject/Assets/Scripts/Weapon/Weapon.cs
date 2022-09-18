@@ -31,6 +31,9 @@ public class Weapon : NetworkBehaviour
     protected int inMag = 0;    // bullets in magazine
     protected int inReserve = 0;// bullets in reserve
 
+    protected bool bloodBullets = false;
+    protected float bloodBulletsDamage = 0.15f; // change this to SerializeField if you want different values for different weapons
+
     protected GameObject owner;
 
     /// <summary> Called whenever the this weapon is fired </summary>
@@ -45,11 +48,13 @@ public class Weapon : NetworkBehaviour
     protected virtual void Awake() {
         spriteControl = GetComponent<WeaponSpriteController>();
         effectController = GetComponent<FireEffectController>();
+        //Debug.Log(weaponName + " awoke");
     }
 
     protected virtual void Start() {
         damage = baseDamage;
-        if (infiniteReserve)
+
+        if (infiniteReserve || bloodBullets)
             reserveSize = int.MaxValue;
 
         if(owner != null) {
@@ -60,6 +65,7 @@ public class Weapon : NetworkBehaviour
         else {
             Debug.LogWarning("No owner set for " + name);
         }
+        //Debug.Log(weaponName + " started");
     }
 
     public virtual void Update() {
@@ -88,7 +94,7 @@ public class Weapon : NetworkBehaviour
     public int GetMagSize() { return magSize; }
     public int GetInMag() { return inMag; }
     public int GetInReserve() {
-        if (infiniteReserve)
+        if (infiniteReserve || bloodBullets)
             return -1;
         return inReserve; 
     }
@@ -103,7 +109,13 @@ public class Weapon : NetworkBehaviour
     public string GetWeaponName() { return weaponName; }
     public bool MagEmpty() { return inMag <= 0;}
     public bool ReserveEmpty() {
-        return !infiniteReserve && inReserve <= 0;
+        return !(infiniteReserve || bloodBullets) && inReserve <= 0;
+    }
+    public void SetBloodBullets(bool newValue) {
+        bloodBullets = newValue;
+        if (bloodBullets) {
+            owner.GetComponent<PlayerWeaponControl>().UpdateVisuals();
+        }
     }
 
     // ---- Play sounds ----
@@ -133,7 +145,7 @@ public class Weapon : NetworkBehaviour
     }
     public void Reload(int magSize) {
         int oldAmmo = inMag;
-        if (infiniteReserve) {
+        if (infiniteReserve || bloodBullets) {
             inMag = magSize;
             return;
         }
@@ -147,14 +159,14 @@ public class Weapon : NetworkBehaviour
             inMag = inReserve + inMag;
             inReserve = 0;
         }
-        if (infiniteReserve)
+        if (infiniteReserve || bloodBullets)
             inReserve = -1;
 
         if(EventWeaponReloaded != null) { EventWeaponReloaded.Invoke(owner, oldAmmo, inMag); }
     }
     /// <summary> adds the given amount of bullets to the reserve</summary>
     public void AddReserveAmmo(int amount) {
-        if (infiniteReserve) {
+        if (infiniteReserve || bloodBullets) {
             inReserve = int.MaxValue;
             return;
         }
@@ -166,6 +178,11 @@ public class Weapon : NetworkBehaviour
     public virtual void Fire(GameObject player, Vector2 direction) {
         inMag--;
         PlayShootSoundForAll();
+
+        if (bloodBullets)
+        {
+            owner.GetComponent<PlayerHealth>().DamageCMD(bloodBulletsDamage);
+        }
     }
 
     // ---- Utility methods not called in this base implementation ----

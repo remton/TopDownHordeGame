@@ -57,6 +57,7 @@ public class ModifierMenu : Menu
         modItems.Clear();
 
         foreach (var modifier in modifiers) {
+            Debug.Log("Modifier " + modifier.name + " was detected.");
             if (modifier.defaultUnlock)
                 SaveData.instance.modifier_unlocks[(int)modifier.mod] = true;
             if (SaveData.instance.modifier_unlocks[(int)modifier.mod]) {

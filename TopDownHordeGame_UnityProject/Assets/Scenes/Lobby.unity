@@ -2455,6 +2455,12 @@ MonoBehaviour:
     defaultUnlock: 1
     itemUI: {fileID: 0}
     active: 0
+  - mod: 8
+    name: Blood Bullets
+    description: All weapons have infinite ammo, but at what cost?
+    defaultUnlock: 1
+    itemUI: {fileID: 0}
+    active: 0
   modItemHolder: {fileID: 1921211669}
   modItemPrefab: {fileID: 4622083580506210520, guid: 8e46b983ec2326d4c85ed88e8619e18e, type: 3}
 --- !u!222 &918561929

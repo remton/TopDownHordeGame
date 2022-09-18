@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -7725834689857293229}
   - component: {fileID: 4399374025343130478}
   - component: {fileID: 8661051171454799786}
+  - component: {fileID: 1959790847206907936}
   m_Layer: 0
   m_Name: AA12
   m_TagString: Untagged
@@ -70,6 +71,7 @@ MonoBehaviour:
   shootSound: {fileID: 8300000, guid: 5af9215d970b0694f89126f9e447dd50, type: 3}
   shakeIntensity: 3
   spriteControl: {fileID: 4754621866937811774}
+  bloodBulletsDamage: 0.05
   pelletCount: 12
   spreadAngle: 25
 --- !u!82 &4058102515737213373
@@ -234,6 +236,23 @@ MonoBehaviour:
   range: 2
   maxChains: 4
   damage: 1
+--- !u!114 &1959790847206907936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4588798819567209700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: dddf0d8df2ee23b4ab9a0dff3c7c1ada
+  hasSpawned: 0
 --- !u!1 &5607564663723538282
 GameObject:
   m_ObjectHideFlags: 0
