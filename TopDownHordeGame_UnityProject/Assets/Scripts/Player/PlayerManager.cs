@@ -22,7 +22,6 @@ public class PlayerManager : NetworkBehaviour
     private List<GameObject> localPlayers = new List<GameObject>(); //Holds only the local players to this client
     private List<GameObject> allPlayers = new List<GameObject>(); //Holds all players in game
 
-
     //--- Public Methods ---
 
     //Returns the playercharacter with the given ID
@@ -150,10 +149,31 @@ public class PlayerManager : NetworkBehaviour
         SaveData.Save();
     }
 
+    // begin new stuff
+    public void StudentLoans(int roundNum) // to change the starting amount, go to ModifiersController.Apply_StudentLoans()
+    {
+        int amountLost = 500; // scales with each round, change this to affect the balance of this modifier
+        if (roundNum > 1)
+        {
+            foreach (GameObject player in allPlayers)
+            {
+                if (player.GetComponent<PlayerStats>().GetStudentLoans()) // if studentLoans is active
+                {
+                    Debug.Log("Player " + player.GetComponent<PlayerStats>().GetName() + " lost $" + (roundNum - 1) * amountLost);
+                    MoneyEffectManager.instance.CreateEffect(player, player.transform.position, (roundNum - 1) * amountLost * -1);
+                    player.GetComponent<PlayerStats>().AddMoney((roundNum - 1) * amountLost * -1);
+                }
+            }
+        }
+    }
+
+    // end new stuff
+
     // --- Private Methods ---
 
     // Called immediatly when creating this script object
     private void Awake() {
+        RoundController.instance.EventRoundChange += StudentLoans;
         //Handle instance
         if (instance == null) { instance = this; }
         else { Debug.Log("Two playerManagers active. Destroying one..."); }

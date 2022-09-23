@@ -5,7 +5,7 @@ using Mirror;
 
 public enum ModifierType {
     allBasic, allBiggestFan, allHockEye, allLungs, allSplitter, allZathrak, 
-    safetyOff, zapp
+    safetyOff, zapp, studentLoans
 }
 
 public class ModifiersController : NetworkBehaviour
@@ -84,6 +84,18 @@ public class ModifiersController : NetworkBehaviour
         }
     }
 
+    [Server]
+    public void Apply_StudentLoans() // to adjust the amount lost, go to PlayerManager.StudentLoans()
+    {
+        int startingAmount = 5000; // change this to change the starting amount
+        Debug.Log("MODIFIER: Student Loans");
+        foreach (GameObject player in players)
+        {
+            player.GetComponent<PlayerStats>().SetStudentLoans(true);
+            player.GetComponent<PlayerStats>().AddMoney(startingAmount);
+        }
+    }
+
 
     /// <summary> Reads and applys modifiers from GameSettigns </summary>
     public void ApplyModifiers() {
@@ -115,6 +127,9 @@ public class ModifiersController : NetworkBehaviour
                         break;
                     case ModifierType.zapp:
                         Apply_Zapp();
+                        break;
+                    case ModifierType.studentLoans:
+                        Apply_StudentLoans();
                         break;
                     default:
                         Debug.LogWarning("Modifer: " + mod.ToString() + " has no implementation!");

@@ -36,19 +36,28 @@ public class MoneyEffectManager : NetworkBehaviour
             if (player == players[i]) {
                 GameObject obj = Instantiate(moneyEffectPrefab, pos, Quaternion.identity);
                 NetworkServer.Spawn(obj);
-                if (timer.HasTimer(comboTimers[i])) {
-                    //We are still in a combo
-                    if (latestEffect[i] != null) {
-                        latestEffect[i].HideAmount();
-                        amount += latestEffect[i].GetAmount();
+                if (amount > 0)
+                {
+                    if (timer.HasTimer(comboTimers[i]))
+                    {
+                        //We are still in a combo
+                        if (latestEffect[i] != null)
+                        {
+                            latestEffect[i].HideAmount();
+                            amount += latestEffect[i].GetAmount();
+                        }
+                        timer.SetTimer(comboTimers[i], comboTime, ComboEnd);
                     }
-                    timer.SetTimer(comboTimers[i], comboTime, ComboEnd);
-                }
-                else {
-                    comboTimers[i] = timer.CreateTimer(comboTime, ComboEnd);
+                    else
+                    {
+                        comboTimers[i] = timer.CreateTimer(comboTime, ComboEnd);
+                    }
                 }
                 obj.GetComponent<MoneyEffect>().SetAmount(amount);
-                latestEffect[i] = obj.GetComponent<MoneyEffect>();
+                if (amount > 0)
+                {
+                    latestEffect[i] = obj.GetComponent<MoneyEffect>();
+                }
             }
         }
     }

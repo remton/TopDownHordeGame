@@ -86,7 +86,20 @@ public class PlayerStats : NetworkBehaviour
     }
     #endregion
 
+
     // -------- METHODS --------
+
+    private bool studentLoans = false;
+    public void SetStudentLoans(bool newVal)
+    {
+        studentLoans = newVal;
+        Debug.Log("PlayerStats.studentLoans = " + studentLoans);
+    }
+
+    public bool GetStudentLoans()
+    {
+        return studentLoans;
+    }
 
     [Server]
     public void AddScore(int addScore) { 
@@ -101,6 +114,10 @@ public class PlayerStats : NetworkBehaviour
     public bool TrySpendMoney(int amount) {
         if (bank >= amount) {
             SpendMoney(amount);
+            if (amount != 0)
+            {
+                MoneyEffectManager.instance.CreateEffect(gameObject, gameObject.transform.position, amount * -1);
+            }
             return true;
         }
         return false;

@@ -23,7 +23,14 @@ public class MoneyEffect : NetworkBehaviour
     [Server]
     public void SetAmount(int amount) {
         this.amount = amount;
-        text.text = "+ " + amount.ToString();
+        if (amount < 0)
+        {
+            text.color = new Color(240/225f, 50/255f, 50/255);
+            text.text = "- " + Mathf.Abs(amount).ToString();
+        } else
+        {
+            text.text = "+ " + amount.ToString();
+        }
         SetTextRPC(text.text);
     }
 
