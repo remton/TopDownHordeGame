@@ -33,6 +33,12 @@ public class ZombieLunge : NetworkBehaviour
     public delegate void PrelungeEnd();
     public event PrelungeEnd EventPrelungeEnd;
 
+    private static bool pingPong = false;
+    public static void SetPingPong(bool newVal) // sets variable for all instances of zombies
+    {
+        pingPong = newVal;
+    }
+
     private void Awake() {
         AI = GetComponent<BasicZombieAI>();
         rb = GetComponent<Rigidbody2D>();
@@ -57,6 +63,10 @@ public class ZombieLunge : NetworkBehaviour
             return;
         GameObject player = playerHitbox.GetComponent<DamageHitbox>().owner;
         player.GetComponent<PlayerHealth>().DamageCMD(damage);
+        if (pingPong)
+        {
+            player.GetComponent<PlayerMovement>().KnockBack(Mathf.Max(500, rb.velocity.magnitude * 75), dir); // change the first argument to adjust the strength of the knockback
+        }
     }
 
     public void SetDamage(float newDamage){

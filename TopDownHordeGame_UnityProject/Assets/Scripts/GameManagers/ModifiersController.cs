@@ -5,7 +5,7 @@ using Mirror;
 
 public enum ModifierType {
     allBasic, allBiggestFan, allHockEye, allLungs, allSplitter, allZathrak, 
-    safetyOff, zapp
+    safetyOff, zapp, pingPong
 }
 
 public class ModifiersController : NetworkBehaviour
@@ -84,6 +84,13 @@ public class ModifiersController : NetworkBehaviour
         }
     }
 
+    public void Apply_PingPong() // go to ZombieLunge.Damage() if you want to adjust the strength
+    {
+        Debug.Log("MODIFIER: Ping Pong");
+        ZombieLunge.SetPingPong(true);
+        HockEyeEye.SetPingPong(true); // if we add any other zombies that don't lunge, we will need to update this function
+    }
+
 
     /// <summary> Reads and applys modifiers from GameSettigns </summary>
     public void ApplyModifiers() {
@@ -115,6 +122,9 @@ public class ModifiersController : NetworkBehaviour
                         break;
                     case ModifierType.zapp:
                         Apply_Zapp();
+                        break;
+                    case ModifierType.pingPong:
+                        Apply_PingPong();
                         break;
                     default:
                         Debug.LogWarning("Modifer: " + mod.ToString() + " has no implementation!");

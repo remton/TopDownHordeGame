@@ -12,6 +12,12 @@ public class HockEyeEye : NetworkBehaviour
     private Vector2 moveDir;
     private GameObject owner;
 
+    private static bool pingPong = false;
+    public static void SetPingPong(bool newVal)
+    {
+        pingPong = newVal;
+    }
+
     [ClientRpc]
     public void Init(Vector2 movementDir, float damage, float speed)
     {
@@ -37,6 +43,10 @@ public class HockEyeEye : NetworkBehaviour
             //Debug.Log("Hurting player.");
             GetComponent<HitBoxController>().EventObjEnter -= Impact;
             player.GetComponent<PlayerHealth>().DamageCMD(balanceDamage);
+            if (pingPong)
+            {
+                player.GetComponent<PlayerMovement>().KnockBack(Mathf.Max(400, rb.velocity.magnitude * 60), moveDir); // change the first argument to adjust the knockback
+            }
         }
         NetworkServer.Destroy(gameObject);
     }
