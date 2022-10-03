@@ -5,7 +5,7 @@ using Mirror;
 
 public enum ModifierType {
     allBasic, allBiggestFan, allHockEye, allLungs, allSplitter, allZathrak, 
-    safetyOff, zapp
+    safetyOff, zapp, csws
 }
 
 public class ModifiersController : NetworkBehaviour
@@ -37,7 +37,7 @@ public class ModifiersController : NetworkBehaviour
         Debug.Log("MODIFIER: All Biggest Fan");
     }
 
-    [Server] 
+    [Server]
     public void Apply_AllHockEye() {
         zombieListReplacement.Add(new RandomChoice(1, allHockEye_Prefab));
         replaceZombieList = true;
@@ -84,6 +84,12 @@ public class ModifiersController : NetworkBehaviour
         }
     }
 
+    public void Apply_CSWS() // can't stop won't stop
+    {
+        Debug.Log("MODIFIER: CSWS");
+        PlayerMovement.SetCSWS(true);
+    }
+
 
     /// <summary> Reads and applys modifiers from GameSettigns </summary>
     public void ApplyModifiers() {
@@ -115,6 +121,9 @@ public class ModifiersController : NetworkBehaviour
                         break;
                     case ModifierType.zapp:
                         Apply_Zapp();
+                        break;
+                    case ModifierType.csws:
+                        Apply_CSWS();
                         break;
                     default:
                         Debug.LogWarning("Modifer: " + mod.ToString() + " has no implementation!");

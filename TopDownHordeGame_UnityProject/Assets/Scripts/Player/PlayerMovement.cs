@@ -18,6 +18,7 @@ public class PlayerMovement : NetworkBehaviour {
     public bool isPaused = false;
     private bool isMoving = false;
     private bool isRunning = false;
+    private bool hasMoved = false;
 
     //Called when stamina value changes
     public delegate void StaminaChange(float newStamina, float newMax);
@@ -74,6 +75,13 @@ public class PlayerMovement : NetworkBehaviour {
         currentLookDir = newDir;
     }
 
+    private static bool csws = false;
+    public static void SetCSWS(bool newVal)
+    {
+        csws = true;
+    }
+    private const float CSWS_STRENGTH = 0.5f; // HP lost per second when not moving
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -81,8 +89,28 @@ public class PlayerMovement : NetworkBehaviour {
         staminaThreshold = staminaMaximum * 0.2F;
         GetComponent<Player>().EventDoInputChange += DoInputChange;
     }
+
+    private void CSWS_Damage()
+    {
+        if (csws && !hasMoved)
+        {
+            GetComponent<Player>().GetComponent<PlayerHealth>().DamageCMD(CSWS_STRENGTH / 2, false);
+            /*
+            Debug.Log("Damage taken: " + CSWS_STRENGTH * Time.deltaTime);
+            Debug.Log("CSWS_STRENGTH: " + CSWS_STRENGTH);
+            Debug.Log("Time elapsed: " + Time.deltaTime);
+            */
+        }
+        timer.CreateTimer(0.5f, CSWS_Damage);
+        hasMoved = false;
+    }
+
     private void Start() {
         CallStaminaChangeEvent(staminaRemaining, staminaMaximum);
+        if (csws)
+        {
+            timer.CreateTimer(0.5f, CSWS_Damage);
+        }
     }
 
     public void OnDeviceChange(InputDevice device, InputDeviceChange deviceChange)
@@ -113,6 +141,10 @@ public class PlayerMovement : NetworkBehaviour {
             LookAtMouse();
         }
         UpdateAnimation();
+        if (isMoving && !hasMoved)
+        {
+            hasMoved = true;
+        }
     }
 
     //called after every frame
@@ -126,6 +158,7 @@ public class PlayerMovement : NetworkBehaviour {
         if (knockBackActive && !forceknockbackActive && rb.velocity.magnitude <= minSpeedForEndKnockback) {
             knockBackActive = false;
         }
+        // Debug.Log("isMoving: " + isMoving);
     }
 
     public void KnockBack(float strength, Vector2 dir) {
