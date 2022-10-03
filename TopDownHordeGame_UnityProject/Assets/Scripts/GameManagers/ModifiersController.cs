@@ -5,7 +5,7 @@ using Mirror;
 
 public enum ModifierType {
     allBasic, allBiggestFan, allHockEye, allLungs, allSplitter, allZathrak, 
-    safetyOff, zapp
+    safetyOff, zapp, bloodBullets
 }
 
 public class ModifiersController : NetworkBehaviour
@@ -84,6 +84,31 @@ public class ModifiersController : NetworkBehaviour
         }
     }
 
+    [Server]
+    public void Apply_BloodBullets()
+    {
+        foreach (PlayerConnection pconn in MyNetworkManager.instance.GetPlayerConnections()) {
+            Apply_BloodBulletsTRPC(pconn.connectionToClient);
+        }
+        Debug.Log("MODIFIER: Blood Bullets");
+    }
+    [TargetRpc]
+    public void Apply_BloodBulletsTRPC(NetworkConnection conn) {
+        foreach (GameObject player in PlayerConnection.myConnection.GetPlayerCharacters()) {
+            //Debug.Log("BLOOD BULLETS FOR PLAYER: " + player.name);
+            player.GetComponent<PlayerWeaponControl>().EventOwnedWeaponsChange += BloodBulletsOnWeaponsChange;
+            BloodBulletsOnWeaponsChange(new List<Weapon>(), player.GetComponent<PlayerWeaponControl>().GetWeapons());
+        }
+        //Debug.Log("BLOOD BULLETS: Applied");
+    }
+    private void BloodBulletsOnWeaponsChange(List<Weapon> oldWeapon, List<Weapon> newWeapons)
+    {
+        foreach (Weapon weapon in newWeapons)
+        {
+            //Debug.Log("BLOOD BULLETS: OnWeaponsChange ran");
+            weapon.SetBloodBullets(true);
+        }
+    }
 
     /// <summary> Reads and applys modifiers from GameSettigns </summary>
     public void ApplyModifiers() {
@@ -116,25 +141,40 @@ public class ModifiersController : NetworkBehaviour
                     case ModifierType.zapp:
                         Apply_Zapp();
                         break;
+                    case ModifierType.bloodBullets:
+                        Apply_BloodBullets();
+                        break;
                     default:
                         Debug.LogWarning("Modifer: " + mod.ToString() + " has no implementation!");
                         break;
                 }
-            }   
+            }
         }
-        if(replaceZombieList)
+        if (replaceZombieList)
             RoundController.instance.zombieList = zombieListReplacement;
+    }
+
+    private void OnClientsLoaded() {
+        StartCoroutine(SetPlayers());
+    }
+    IEnumerator SetPlayers() {
+        if (!isServer)
+            yield break;
+        //wait unitl all charcters are spawned
+        yield return new WaitUntil(MyNetworkManager.instance.AllPlayerCharactersSpawned);
+        //ApplyModifiers
+        ApplyModifiers();
     }
 
     private void Start() {
         if (isServer) {
-            MyNetworkManager.instance.ServerEvent_AllClientsReady += ApplyModifiers;
+            MyNetworkManager.instance.ServerEvent_AllClientsReady += OnClientsLoaded;
             if (MyNetworkManager.instance.AllClientsReady())
-                ApplyModifiers();
+                OnClientsLoaded();
         }
     }
     private void OnDestroy() {
         if (isServer)
-            MyNetworkManager.instance.ServerEvent_AllClientsReady -= ApplyModifiers;
+            MyNetworkManager.instance.ServerEvent_AllClientsReady -= OnClientsLoaded;
     }
 }

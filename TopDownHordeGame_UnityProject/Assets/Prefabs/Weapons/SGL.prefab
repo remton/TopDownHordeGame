@@ -185,6 +185,7 @@ MonoBehaviour:
   shootSound: {fileID: 8300000, guid: e7ef617406060cb4eb1040f9f9883b96, type: 3}
   shakeIntensity: 1
   spriteControl: {fileID: 5690047386926144567}
+  bloodBulletsDamage: 0.1
   balanceRadius: 10
   grenadeObjPrefab: {fileID: 6396399298110489017, guid: 82fb970eb680ef543814a550e285d10d, type: 3}
   player: {fileID: 0}

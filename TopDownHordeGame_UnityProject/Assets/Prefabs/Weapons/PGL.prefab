@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  icon: {fileID: 0}
   weaponName: PGL
   baseDamage: 20
   penatration: 0
@@ -66,6 +67,7 @@ MonoBehaviour:
   shootSound: {fileID: 8300000, guid: 4e532ac5050c1714c9e413ac522abca7, type: 3}
   shakeIntensity: 1
   spriteControl: {fileID: 0}
+  bloodBulletsDamage: 0.1
   balanceRadius: 4
   grenadeObjPrefab: {fileID: 6396399298110489017, guid: 4453c43dc2fab504e9aa9ee6e04a7af1, type: 3}
   player: {fileID: 0}
