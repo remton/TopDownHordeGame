@@ -87,21 +87,28 @@ public class ModifiersController : NetworkBehaviour
     [Server]
     public void Apply_BloodBullets()
     {
-        foreach (GameObject player in players)
-        {
-            player.GetComponent<PlayerWeaponControl>().EventOwnedWeaponsChange += BloodBulletsOnWeaponsChange;
+        foreach (PlayerConnection pconn in MyNetworkManager.instance.GetPlayerConnections()) {
+            Apply_BloodBulletsTRPC(pconn.connectionToClient);
         }
-        //Debug.Log("MODIFIER: Blood Bullets");
+        Debug.Log("MODIFIER: Blood Bullets");
+    }
+    [TargetRpc]
+    public void Apply_BloodBulletsTRPC(NetworkConnection conn) {
+        foreach (GameObject player in PlayerConnection.myConnection.GetPlayerCharacters()) {
+            //Debug.Log("BLOOD BULLETS FOR PLAYER: " + player.name);
+            player.GetComponent<PlayerWeaponControl>().EventOwnedWeaponsChange += BloodBulletsOnWeaponsChange;
+            BloodBulletsOnWeaponsChange(new List<Weapon>(), player.GetComponent<PlayerWeaponControl>().GetWeapons());
+        }
+        //Debug.Log("BLOOD BULLETS: Applied");
     }
     private void BloodBulletsOnWeaponsChange(List<Weapon> oldWeapon, List<Weapon> newWeapons)
     {
         foreach (Weapon weapon in newWeapons)
         {
-            //Debug.Log("BloodBulletsOnWeaponsChange ran");
+            //Debug.Log("BLOOD BULLETS: OnWeaponsChange ran");
             weapon.SetBloodBullets(true);
         }
     }
-
 
     /// <summary> Reads and applys modifiers from GameSettigns </summary>
     public void ApplyModifiers() {
@@ -147,15 +154,27 @@ public class ModifiersController : NetworkBehaviour
             RoundController.instance.zombieList = zombieListReplacement;
     }
 
+    private void OnClientsLoaded() {
+        StartCoroutine(SetPlayers());
+    }
+    IEnumerator SetPlayers() {
+        if (!isServer)
+            yield break;
+        //wait unitl all charcters are spawned
+        yield return new WaitUntil(MyNetworkManager.instance.AllPlayerCharactersSpawned);
+        //ApplyModifiers
+        ApplyModifiers();
+    }
+
     private void Start() {
         if (isServer) {
-            MyNetworkManager.instance.ServerEvent_AllClientsReady += ApplyModifiers;
+            MyNetworkManager.instance.ServerEvent_AllClientsReady += OnClientsLoaded;
             if (MyNetworkManager.instance.AllClientsReady())
-                ApplyModifiers();
+                OnClientsLoaded();
         }
     }
     private void OnDestroy() {
         if (isServer)
-            MyNetworkManager.instance.ServerEvent_AllClientsReady -= ApplyModifiers;
+            MyNetworkManager.instance.ServerEvent_AllClientsReady -= OnClientsLoaded;
     }
 }

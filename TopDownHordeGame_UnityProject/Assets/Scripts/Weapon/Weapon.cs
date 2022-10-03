@@ -179,10 +179,8 @@ public class Weapon : NetworkBehaviour
         inMag--;
         PlayShootSoundForAll();
 
-        if (bloodBullets)
-        {
-            owner.GetComponent<PlayerHealth>().DamageCMD(bloodBulletsDamage);
-        }
+        if (bloodBullets) 
+            owner.GetComponent<PlayerHealth>().DamageCMD(bloodBulletsDamage, false, false, true);
     }
 
     // ---- Utility methods not called in this base implementation ----
