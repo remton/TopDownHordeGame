@@ -27,7 +27,7 @@ public class RoundController : NetworkBehaviour {
     private List<ZombieSpawn> activeSpawns = new List<ZombieSpawn>();
     private int zombiesToSpawn;
     private int zombiesSpawnedThisRound;
-    private int numberActiveZombies;
+    public int numberActiveZombies { get; internal set; }
     private bool isWaitingForNextRound = false;
     private bool hasShownRoundChange = false;
     private float timeUntilRoundStart;
@@ -124,6 +124,7 @@ public class RoundController : NetworkBehaviour {
         if (isWaitingForNextRound) {
             if (!hasShownRoundChange) {
                 DisplayRoundChangeRPC(round + 1); //display before the zombies start spawning
+                PlayerManager.instance.HealAllPlayersRPC();
                 PlayerManager.instance.ReviveDownedPlayersRPC();
                 PlayerManager.instance.RespawnDeadPlayersRPC();
                 hasShownRoundChange = true;
@@ -207,18 +208,18 @@ public class RoundController : NetworkBehaviour {
         }
     }
     //Returns how many zombies per second to spawn
-    private float GetSpawnDeley() {
+    public float GetSpawnDeley() {
         //e^(-0.25*(x-7.2)) + 0.3
         return (((Mathf.Exp(-0.25f * (round - 7.2F)) + 0.3f) * 1.35F) / Mathf.Pow(1.35F, numPlayers));
     }
 
-    private float GetSpeed() {
+    public float GetSpeed() {
         int calcRound = round;
         if (round > 10)
             calcRound = 10;
         return 1.3f + 3f / 10f * calcRound + Random.Range(-.04F * calcRound, .08F * calcRound); // Gives zombies a random speed
     }
-    private float GetHealth() {
+    public float GetHealth() {
         //0.10(0.7round+0.8)^2 + 4 until round 6
         //round+1 after round 6
         if (round < 6)
@@ -227,7 +228,7 @@ public class RoundController : NetworkBehaviour {
             return round + 1;
         }
     }
-    private float GetDamage() {
+    public float GetDamage() {
         return Mathf.Sqrt(2f * round) * .75f - .5f;
     }
     #endregion
