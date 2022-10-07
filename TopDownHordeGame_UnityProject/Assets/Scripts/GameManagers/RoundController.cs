@@ -248,16 +248,13 @@ public class RoundController : NetworkBehaviour {
     private void OnDestroy() {
         if (MyNetworkManager.instance != null) {
             MyNetworkManager.instance.ServerEvent_PlayerConnectionAdded -= PlayerConnect;
-            MyNetworkManager.instance.ServerEvent_AllClientsReady -= StartGame;
         }
     }
     //Called on first frame in scene
     private void Start() {
         if (isServer) {
             MyNetworkManager.instance.ServerEvent_PlayerConnectionAdded += PlayerConnect;
-            MyNetworkManager.instance.ServerEvent_AllClientsReady += StartGame;
-            if (MyNetworkManager.instance.AllClientsReady())
-                StartGame();
+            SceneLoader.instance.AddClientsLoad(StartGame);
         }
         if (!isServer) {
             activeSpawns.Clear();
