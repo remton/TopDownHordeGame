@@ -29,19 +29,10 @@ public class CatCafe : NetworkBehaviour
 
     public override void OnStartClient() {
         base.OnStartClient();
-        if (isServer) {
-            if (MyNetworkManager.instance.AllClientsReady()) {
-                OnAllClientsLoaded();
-            }
-            else {
-                MyNetworkManager.instance.ServerEvent_AllClientsReady += OnAllClientsLoaded;
-            }
-        }
+        SceneLoader.instance.AddClientsLoad(OnAllClientsLoaded);
     }
     [Server]
     private void OnAllClientsLoaded() {
-        MyNetworkManager.instance.ServerEvent_AllClientsReady -= OnAllClientsLoaded;
-
         //Load saved data
         keypadCode = SaveData.instance.catCafe_code;
         unlockedDigits = SaveData.instance.catCafe_unlockedDigits;

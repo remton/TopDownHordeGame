@@ -189,27 +189,8 @@ public class ModifiersController : NetworkBehaviour
             RoundController.instance.zombieList = zombieListReplacement;
     }
 
-    private void OnClientsLoaded() {
-        StartCoroutine(SetPlayers());
-    }
-    IEnumerator SetPlayers() {
-        if (!isServer)
-            yield break;
-        //wait unitl all charcters are spawned
-        yield return new WaitUntil(MyNetworkManager.instance.AllPlayerCharactersSpawned);
-        //ApplyModifiers
-        ApplyModifiers();
-    }
-
-    private void Start() {
-        if (isServer) {
-            MyNetworkManager.instance.ServerEvent_AllClientsReady += OnClientsLoaded;
-            if (MyNetworkManager.instance.AllClientsReady())
-                OnClientsLoaded();
-        }
-    }
-    private void OnDestroy() {
-        if (isServer)
-            MyNetworkManager.instance.ServerEvent_AllClientsReady -= OnClientsLoaded;
+    public override void OnStartServer() {
+        base.OnStartServer();
+        SceneLoader.instance.AddPostLoad(ApplyModifiers);
     }
 }
