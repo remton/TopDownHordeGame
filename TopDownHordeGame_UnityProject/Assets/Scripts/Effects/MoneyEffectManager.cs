@@ -29,6 +29,9 @@ public class MoneyEffectManager : NetworkBehaviour
     public void CreateEffect(GameObject player, Vector3 pos, int amount) {
         if (comboTimers == null || players == null || latestEffect == null) {
             Debug.Log("nullreference handled");
+            Debug.Log("comboTimers: " + (comboTimers == null).ToString());
+            Debug.Log("players: " + (players == null).ToString());
+            Debug.Log("latest: " + (latestEffect == null).ToString());
             return;
         }
 
@@ -36,6 +39,8 @@ public class MoneyEffectManager : NetworkBehaviour
             if (player == players[i]) {
                 GameObject obj = Instantiate(moneyEffectPrefab, pos, Quaternion.identity);
                 NetworkServer.Spawn(obj);
+                obj.GetComponent<MoneyEffect>().SetAmount(amount);
+                //update combo timers only if its a positive amount
                 if (amount > 0)
                 {
                     if (timer.HasTimer(comboTimers[i]))
@@ -52,12 +57,8 @@ public class MoneyEffectManager : NetworkBehaviour
                     {
                         comboTimers[i] = timer.CreateTimer(comboTime, ComboEnd);
                     }
-                }
-                obj.GetComponent<MoneyEffect>().SetAmount(amount);
-                if (amount > 0)
-                {
                     latestEffect[i] = obj.GetComponent<MoneyEffect>();
-                }
+                } 
             }
         }
     }
@@ -74,7 +75,6 @@ public class MoneyEffectManager : NetworkBehaviour
     }
 
     private void Start() {
-        timer.CreateTimer(startDelay, InitPlayers);
     }
 
     private void Awake() {

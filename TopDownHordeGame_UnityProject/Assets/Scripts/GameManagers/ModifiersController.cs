@@ -84,17 +84,37 @@ public class ModifiersController : NetworkBehaviour
         }
     }
 
+    //How the amount lost is determined
+    int StudentLoans_GetAmountLost(int round) {
+        if (round <= 1)
+            return 0;
+        return (round - 1) * 500;
+    }
     [Server]
-    public void Apply_StudentLoans() // to adjust the amount lost, go to PlayerManager.StudentLoans()
+    public void Apply_StudentLoans() 
     {
-        int startingAmount = 5000; // change this to change the starting amount
+        // change this to change the starting amount
+        int startingAmount = 5000; 
         Debug.Log("MODIFIER: Student Loans");
         foreach (GameObject player in players)
         {
-            player.GetComponent<PlayerStats>().SetStudentLoans(true);
+            Debug.Log("Loaned money to " + player.GetComponent<PlayerStats>().GetName());
             player.GetComponent<PlayerStats>().AddMoney(startingAmount);
+            MoneyEffectManager.instance.CreateEffect(player, player.transform.position, startingAmount);
+        }
+        RoundController.instance.EventRoundChange += StudentLoans_OnRoundChange;
+    }
+    [Server]
+    private void StudentLoans_OnRoundChange(int round) {
+        if (round == RoundController.instance.startRound)
+            return;
+
+        foreach (GameObject player in players) {
+            Debug.Log("Player " + player.GetComponent<PlayerStats>().GetName() + " lost $" + StudentLoans_GetAmountLost(round));
+            player.GetComponent<PlayerStats>().SpendMoney(StudentLoans_GetAmountLost(RoundController.instance.round) * -1);
         }
     }
+
 
 
     /// <summary> Reads and applys modifiers from GameSettigns </summary>
