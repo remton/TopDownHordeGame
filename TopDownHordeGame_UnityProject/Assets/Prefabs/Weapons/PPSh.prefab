@@ -185,6 +185,7 @@ MonoBehaviour:
   shootSound: {fileID: 8300000, guid: 91e5707cac1adba418266eb43225e71f, type: 3}
   shakeIntensity: 1
   spriteControl: {fileID: 2404315362293929957}
+  bloodBulletsDamage: 0.1
   pelletCount: 1
   spreadAngle: 16
 --- !u!82 &3127585394012047881

@@ -160,6 +160,7 @@ public class PlayerConnection : NetworkBehaviour
     [Command(requiresAuthority = false)]
     public void PlayerSpawnConfirm() {
         numSpawnedPlayers++;
+
         Debug.Log("Confirmed spawn: " + numSpawnedPlayers + " spawned for con [" + netId + "]");
     }
 
