@@ -66,7 +66,10 @@ public class ModifiersController : NetworkBehaviour
 
     [Server]
     public void Apply_SaftyOff() {
-        Debug.Log("MODIFIER: Safty Off : (NYI)");
+        Debug.Log("MODIFIER: Safty Off");
+        foreach (GameObject player in players) {
+            player.GetComponent<PlayerHealth>().SetFriendlyFire(true);
+        }
     }
 
     [Server]

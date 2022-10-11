@@ -34,7 +34,7 @@ public class ElectricfyWeapon : NetworkBehaviour
         //Base case
         if (depth > maxChains)
             return;
-        string[] mask = { "ZombieHitbox" };
+        string[] mask = { "ZombieHitbox"};
         Collider2D[] hits = Physics2D.OverlapCircleAll(previousPos, range, LayerMask.GetMask(mask));
         foreach (Collider2D hit in hits) {
             GameObject hitObj = hit.gameObject.GetComponent<DamageHitbox>().owner;
