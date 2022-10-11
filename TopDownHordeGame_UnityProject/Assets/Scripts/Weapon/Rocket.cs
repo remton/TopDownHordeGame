@@ -37,6 +37,12 @@ public class Rocket : NetworkBehaviour
     }
   
     public void OnHitSomething(GameObject obj) {
+        if (obj.HasComponent<DamageHitbox>())
+            obj = obj.GetComponent<DamageHitbox>().owner;
+        if (obj == owner)
+            return;
+        if (obj.CompareTag("Player") && !obj.GetComponent<PlayerHealth>().HasFriendlyFire())
+            return;
         Explode(transform.position);
         GetComponent<HitBoxController>().EventObjEnter -= OnHitSomething;
     }
@@ -52,9 +58,10 @@ public class Rocket : NetworkBehaviour
 
         List<string> damageTags = new List<string>();
         damageTags.Add("ZombieDamageHitbox");
+        damageTags.Add("PlayerDamageHitbox");
         List<string> knockbackTags = new List<string>();
         knockbackTags.Add("ZombieDamageHitbox");
-        knockbackTags.Add("Player");
+        knockbackTags.Add("PlayerDamageHitbox");
 
         explosionObj.GetComponent<Explosion>().Init(owner, damageTags, knockbackTags, balanceDamage, throwStrength);
         Destroy(gameObject);

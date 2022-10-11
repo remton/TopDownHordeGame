@@ -157,6 +157,8 @@ MonoBehaviour:
   GameOverScene: Assets/Scenes/GameOver.unity
   spawnPoint: {fileID: 4866832493529361263}
   deadPlayerLocation: {fileID: 4866832495154800622}
+  moneyLostBoxes:
+  - {fileID: 0}
 --- !u!1 &4866832495154800622
 GameObject:
   m_ObjectHideFlags: 0

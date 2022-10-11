@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7165625540631680869}
   - component: {fileID: 196382076323267294}
   - component: {fileID: 6037775698387821153}
+  - component: {fileID: 5538929482085645758}
   m_Layer: 0
   m_Name: MoneyEffect
   m_TagString: Untagged
@@ -112,11 +113,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  solidTime: 0.3
+  solidTime: 0.4
   fadeTime: 0.3
   upDist: 3
+  lossColor: {r: 1.0666667, g: 0.19607843, b: 0, a: 1}
+  gainColor: {r: 0.64789665, g: 1, b: 0.042452812, a: 1}
   spriteRenderer: {fileID: 7165625540631680869}
   text: {fileID: 3086865448446930550}
+--- !u!114 &5538929482085645758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3078305918877377745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: fec51dc1c354e004dbdff7a5657edba2
+  hasSpawned: 0
 --- !u!1 &7832940591520611019
 GameObject:
   m_ObjectHideFlags: 0

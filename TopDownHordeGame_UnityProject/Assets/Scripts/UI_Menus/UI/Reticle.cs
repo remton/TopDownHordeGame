@@ -10,7 +10,7 @@ public class Reticle : MonoBehaviour
     private Text ammoTxt;
     public float ammoUptime; //time before ammo text disappears after ammo is changed
     private Timer timer;
-    private System.Guid ammoTimer = System.Guid.Empty; 
+    private System.Guid ammoTimer = System.Guid.Empty;
 
     private Animator animator;
     private SpriteRenderer sprite;

@@ -5,7 +5,7 @@ using Mirror;
 
 public enum ModifierType {
     allBasic, allBiggestFan, allHockEye, allLungs, allSplitter, allZathrak, 
-    safetyOff, zapp, csws
+    safetyOff, zapp, studentLoans, bloodBullets, csws
 }
 
 public class ModifiersController : NetworkBehaviour
@@ -66,7 +66,10 @@ public class ModifiersController : NetworkBehaviour
 
     [Server]
     public void Apply_SaftyOff() {
-        Debug.Log("MODIFIER: Safty Off : (NYI)");
+        Debug.Log("MODIFIER: Safty Off");
+        foreach (GameObject player in players) {
+            player.GetComponent<PlayerHealth>().SetFriendlyFire(true);
+        }
     }
 
     [Server]
@@ -84,12 +87,72 @@ public class ModifiersController : NetworkBehaviour
         }
     }
 
+    [Server]
     public void Apply_CSWS() // can't stop won't stop
     {
         Debug.Log("MODIFIER: CSWS");
         PlayerMovement.SetCSWS(true);
     }
 
+    // change this to change the starting amount
+    int studentLoansStartAmount = 5000;
+    [Server]
+    public void Apply_StudentLoans() 
+    {
+        Debug.Log("MODIFIER: Student Loans");
+        RoundController.instance.EventRoundChange += StudentLoans_OnRoundChange;
+    }
+    [Server]
+    private void StudentLoans_OnRoundChange(int round) {
+        Debug.Log("STUDENT LOANS: Round change: " + round);
+        //Start Round
+        if (round == RoundController.instance.startRound) {
+            foreach (GameObject player in players) {
+                Debug.Log(player.GetComponent<PlayerStats>().GetName() + "Gained $" + studentLoansStartAmount);
+                player.GetComponent<PlayerStats>().AddMoney(studentLoansStartAmount);
+                MoneyEffectManager.instance.CreateEffect(player, player.transform.position, studentLoansStartAmount);
+            }
+            return;
+        }
+        //Other Rounds
+        foreach (GameObject player in players) {
+            Debug.Log(player.GetComponent<PlayerStats>().GetName() + " lost $" + StudentLoans_GetAmountLost(round));
+            player.GetComponent<PlayerStats>().SpendMoney(StudentLoans_GetAmountLost(RoundController.instance.round));
+        }
+    }
+    //How the amount lost each round is determined
+    int StudentLoans_GetAmountLost(int round) {
+        if (round <= 1)
+            return 0;
+        return (round - 1) * 500;
+    }
+
+
+    [Server]
+    public void Apply_BloodBullets()
+    {
+        foreach (PlayerConnection pconn in MyNetworkManager.instance.GetPlayerConnections()) {
+            Apply_BloodBulletsTRPC(pconn.connectionToClient);
+        }
+        Debug.Log("MODIFIER: Blood Bullets");
+    }
+    [TargetRpc]
+    public void Apply_BloodBulletsTRPC(NetworkConnection conn) {
+        foreach (GameObject player in PlayerConnection.myConnection.GetPlayerCharacters()) {
+            //Debug.Log("BLOOD BULLETS FOR PLAYER: " + player.name);
+            player.GetComponent<PlayerWeaponControl>().EventOwnedWeaponsChange += BloodBulletsOnWeaponsChange;
+            BloodBulletsOnWeaponsChange(new List<Weapon>(), player.GetComponent<PlayerWeaponControl>().GetWeapons());
+        }
+        //Debug.Log("BLOOD BULLETS: Applied");
+    }
+    private void BloodBulletsOnWeaponsChange(List<Weapon> oldWeapon, List<Weapon> newWeapons)
+    {
+        foreach (Weapon weapon in newWeapons)
+        {
+            //Debug.Log("BLOOD BULLETS: OnWeaponsChange ran");
+            weapon.SetBloodBullets(true);
+        }
+    }
 
     /// <summary> Reads and applys modifiers from GameSettigns </summary>
     public void ApplyModifiers() {
@@ -125,25 +188,24 @@ public class ModifiersController : NetworkBehaviour
                     case ModifierType.csws:
                         Apply_CSWS();
                         break;
+                    case ModifierType.studentLoans:
+                        Apply_StudentLoans();
+                        break;
+                    case ModifierType.bloodBullets:
+                        Apply_BloodBullets();
+                        break;
                     default:
                         Debug.LogWarning("Modifer: " + mod.ToString() + " has no implementation!");
                         break;
                 }
-            }   
+            }
         }
-        if(replaceZombieList)
+        if (replaceZombieList)
             RoundController.instance.zombieList = zombieListReplacement;
     }
 
-    private void Start() {
-        if (isServer) {
-            MyNetworkManager.instance.ServerEvent_AllClientsReady += ApplyModifiers;
-            if (MyNetworkManager.instance.AllClientsReady())
-                ApplyModifiers();
-        }
-    }
-    private void OnDestroy() {
-        if (isServer)
-            MyNetworkManager.instance.ServerEvent_AllClientsReady -= ApplyModifiers;
+    public override void OnStartServer() {
+        base.OnStartServer();
+        SceneLoader.instance.AddPostLoad(ApplyModifiers);
     }
 }

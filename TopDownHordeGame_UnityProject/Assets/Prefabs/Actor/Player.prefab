@@ -872,7 +872,7 @@ MonoBehaviour:
   fireDelayMult: 1
   magMult: 1
   reserveMult: 1
-  starterWeaponPrefab: {fileID: 4997718862678949635, guid: 937812e8c2a119747a643882cc274136, type: 3}
+  starterWeaponPrefab: {fileID: 2093619312353819989, guid: fdf774ac936edeb448f010811a3c19dc, type: 3}
   maxWeapons: 2
   electricRadius: 10
   electricDamage: 10
@@ -1434,6 +1434,7 @@ GameObject:
   - component: {fileID: 3943600120025627270}
   - component: {fileID: 2564225033216594634}
   - component: {fileID: 7693599939814958367}
+  - component: {fileID: 136707183956745505}
   m_Layer: 16
   m_Name: DamageHitbox
   m_TagString: PlayerDamageHitbox
@@ -1494,6 +1495,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owner: {fileID: 1620798982028091906}
+--- !u!50 &136707183956745505
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6034991544059413264}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &7581346416370141612
 GameObject:
   m_ObjectHideFlags: 0
