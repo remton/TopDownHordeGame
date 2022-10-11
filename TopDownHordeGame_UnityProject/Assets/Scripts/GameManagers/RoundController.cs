@@ -34,6 +34,7 @@ public class RoundController : NetworkBehaviour {
     private float timeUntilNextSpawn;
     private int numPlayers;
     
+
     // --- Public Events ---
     public delegate void RoundChange(int round);
     public event RoundChange EventRoundChange;
@@ -117,7 +118,7 @@ public class RoundController : NetworkBehaviour {
         NextRoundRPC(round);
         //Debug.Log("Round: " + round.ToString());
     }
-    
+
     /// <summary> [Server] Updates round system by 1 frame </summary>
     [Server]
     private void RoundUpdate() {
@@ -233,6 +234,7 @@ public class RoundController : NetworkBehaviour {
     }
     #endregion
 
+    
     //Called immediatly when script object is created
     private void Awake() {
         gameStarted = false;
@@ -248,16 +250,13 @@ public class RoundController : NetworkBehaviour {
     private void OnDestroy() {
         if (MyNetworkManager.instance != null) {
             MyNetworkManager.instance.ServerEvent_PlayerConnectionAdded -= PlayerConnect;
-            MyNetworkManager.instance.ServerEvent_AllClientsReady -= StartGame;
         }
     }
     //Called on first frame in scene
     private void Start() {
         if (isServer) {
             MyNetworkManager.instance.ServerEvent_PlayerConnectionAdded += PlayerConnect;
-            MyNetworkManager.instance.ServerEvent_AllClientsReady += StartGame;
-            if (MyNetworkManager.instance.AllClientsReady())
-                StartGame();
+            SceneLoader.instance.AddClientsLoad(StartGame);
         }
         if (!isServer) {
             activeSpawns.Clear();

@@ -22,7 +22,6 @@ public class PlayerManager : NetworkBehaviour
     private List<GameObject> localPlayers = new List<GameObject>(); //Holds only the local players to this client
     private List<GameObject> allPlayers = new List<GameObject>(); //Holds all players in game
 
-
     //--- Public Methods ---
 
     //Returns the playercharacter with the given ID
@@ -164,12 +163,7 @@ public class PlayerManager : NetworkBehaviour
 
     // called on first frame in scene only on server
     public override void OnStartServer() {
-        base.OnStartServer();
-        if (MyNetworkManager.instance.AllClientsReady())
-            OnAllClientsLoaded();
-        else {
-            MyNetworkManager.instance.ServerEvent_AllClientsReady += OnAllClientsLoaded;
-        }
+        SceneLoader.instance.AddClientsLoad(CreatePlayers);
     }
 
     // called on first frame in scene only on clients
@@ -177,11 +171,6 @@ public class PlayerManager : NetworkBehaviour
         base.OnStartClient();
         localPlayers.Clear();
         if (EventActivePlayersChange != null) { EventActivePlayersChange.Invoke(GetActivePlayers()); }
-    }
-
-    [Server]
-    private void OnAllClientsLoaded() {
-        CreatePlayers();
     }
 
     /// <summary> [Server] call when a player leaves </summary>
@@ -252,11 +241,5 @@ public class PlayerManager : NetworkBehaviour
         SetGaveOverData();
         SavePlayerData();
         MyNetworkManager.instance.ChangeScene(GameOverScene);
-    }
-
-
-    private void OnDestroy() {
-        if(MyNetworkManager.instance != null)
-            MyNetworkManager.instance.ServerEvent_AllClientsReady -= OnAllClientsLoaded;
     }
 }

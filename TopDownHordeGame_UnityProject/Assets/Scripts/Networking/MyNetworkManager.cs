@@ -255,7 +255,6 @@ public class MyNetworkManager : NetworkManager
             if (Event_FailedToCreateLobby != null) { Event_FailedToCreateLobby.Invoke(data.info); }
     }
 
-
     //--- Set network transports ---
     private bool SetSteamTransport() {
         if (steamDisabled) {

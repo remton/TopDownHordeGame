@@ -17,9 +17,7 @@ public class ElevatorZombieSpawn : ZombieSpawn {
     private void Start() {
         timer = GetComponent<Timer>();
         if (isServer && startOnSceneLoad) {
-            MyNetworkManager.instance.ServerEvent_AllClientsReady += StartSpawns;
-            if (MyNetworkManager.instance.AllClientsReady())
-                timer.CreateTimer(3f, StartSpawns);
+            SceneLoader.instance.AddPostLoad(StartSpawns);
         }
     }
 
