@@ -11,6 +11,9 @@ public class MoneyEffect : NetworkBehaviour
     public float fadeTime;      //time that this effect takes to fade
     public float upDist;        //distance to float upwards
 
+    public Color lossColor = new Color(240 / 225f, 50 / 255f, 50 / 255);
+    public Color gainColor;
+
     [SerializeField]
     private SpriteRenderer spriteRenderer; 
     [SerializeField]
@@ -23,25 +26,26 @@ public class MoneyEffect : NetworkBehaviour
     [Server]
     public void SetAmount(int amount) {
         this.amount = amount;
-        if (amount < 0){
-            //Red color text for loss of money
-            text.color = new Color(240/225f, 50/255f, 50/255);
-            text.text = "- " + Mathf.Abs(amount).ToString();
-        }
-        else {
-            text.text = "+ " + amount.ToString();
-        }
-        SetTextRPC(text.text);
+        SetVisualsRPC(amount);
     }
-
     [Server]
     public void HideAmount() {
         text.text = "";
-        SetTextRPC(text.text);
+        SetVisualsRPC(0);
     }
     [ClientRpc]
-    private void SetTextRPC(string newText) {
-        text.text = newText;
+    private void SetVisualsRPC(int amount) {
+        if(amount == 0) {
+            text.text = "";
+        }
+        else if (amount > 0) {
+            text.color = gainColor;
+            text.text = "+ " + amount.ToString();
+        }
+        else {
+            text.color = lossColor;
+            text.text = "- " + Mathf.Abs(amount).ToString();
+        }
     }
 
     public int GetAmount() { 

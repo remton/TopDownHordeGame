@@ -84,35 +84,37 @@ public class ModifiersController : NetworkBehaviour
         }
     }
 
-    //How the amount lost is determined
-    int StudentLoans_GetAmountLost(int round) {
-        if (round <= 1)
-            return 0;
-        return (round - 1) * 500;
-    }
+    // change this to change the starting amount
+    int studentLoansStartAmount = 5000;
     [Server]
     public void Apply_StudentLoans() 
     {
-        // change this to change the starting amount
-        int startingAmount = 5000; 
         Debug.Log("MODIFIER: Student Loans");
-        foreach (GameObject player in players)
-        {
-            Debug.Log("Loaned money to " + player.GetComponent<PlayerStats>().GetName());
-            player.GetComponent<PlayerStats>().AddMoney(startingAmount);
-            MoneyEffectManager.instance.CreateEffect(player, player.transform.position, startingAmount);
-        }
         RoundController.instance.EventRoundChange += StudentLoans_OnRoundChange;
     }
     [Server]
     private void StudentLoans_OnRoundChange(int round) {
-        if (round == RoundController.instance.startRound)
+        Debug.Log("STUDENT LOANS: Round change: " + round);
+        //Start Round
+        if (round == RoundController.instance.startRound) {
+            foreach (GameObject player in players) {
+                Debug.Log(player.GetComponent<PlayerStats>().GetName() + "Gained $" + studentLoansStartAmount);
+                player.GetComponent<PlayerStats>().AddMoney(studentLoansStartAmount);
+                MoneyEffectManager.instance.CreateEffect(player, player.transform.position, studentLoansStartAmount);
+            }
             return;
-
-        foreach (GameObject player in players) {
-            Debug.Log("Player " + player.GetComponent<PlayerStats>().GetName() + " lost $" + StudentLoans_GetAmountLost(round));
-            player.GetComponent<PlayerStats>().SpendMoney(StudentLoans_GetAmountLost(RoundController.instance.round) * -1);
         }
+        //Other Rounds
+        foreach (GameObject player in players) {
+            Debug.Log(player.GetComponent<PlayerStats>().GetName() + " lost $" + StudentLoans_GetAmountLost(round));
+            player.GetComponent<PlayerStats>().SpendMoney(StudentLoans_GetAmountLost(RoundController.instance.round));
+        }
+    }
+    //How the amount lost each round is determined
+    int StudentLoans_GetAmountLost(int round) {
+        if (round <= 1)
+            return 0;
+        return (round - 1) * 500;
     }
 
 

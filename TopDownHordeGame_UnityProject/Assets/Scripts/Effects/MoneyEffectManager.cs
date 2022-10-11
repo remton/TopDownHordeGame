@@ -74,7 +74,9 @@ public class MoneyEffectManager : NetworkBehaviour
         Debug.Log(players.Length + " players");
     }
 
-    private void Start() {
+    public override void OnStartServer() {
+        base.OnStartServer();
+        SceneLoader.instance.AddPlayerLoad(InitPlayers);
     }
 
     private void Awake() {
