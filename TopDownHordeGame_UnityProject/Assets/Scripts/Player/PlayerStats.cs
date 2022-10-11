@@ -86,7 +86,15 @@ public class PlayerStats : NetworkBehaviour
     }
     #endregion
 
+
     // -------- METHODS --------
+
+    //private bool studentLoans = false;
+    //public void SetStudentLoans(bool newVal)
+    //{
+    //    studentLoans = newVal;
+    //    Debug.Log("PlayerStats.studentLoans = " + studentLoans);
+    //}
 
     [Server]
     public void AddScore(int addScore) { 
@@ -105,9 +113,10 @@ public class PlayerStats : NetworkBehaviour
         }
         return false;
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void SpendMoney(int amount) {
         bank -= amount;
+        MoneyEffectManager.instance.CreateEffect(gameObject, gameObject.transform.position, amount * -1);
     }
 
     [Server]

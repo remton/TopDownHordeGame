@@ -22,7 +22,6 @@ public class PlayerManager : NetworkBehaviour
     private List<GameObject> localPlayers = new List<GameObject>(); //Holds only the local players to this client
     private List<GameObject> allPlayers = new List<GameObject>(); //Holds all players in game
 
-
     //--- Public Methods ---
 
     //Returns the playercharacter with the given ID

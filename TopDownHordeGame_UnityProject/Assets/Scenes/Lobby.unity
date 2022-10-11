@@ -2456,6 +2456,12 @@ MonoBehaviour:
     itemUI: {fileID: 0}
     active: 0
   - mod: 8
+    name: Student Loans
+    description: Lose increasing amounts of money every round!
+    defaultUnlock: 1
+    itemUI: {fileID: 0}
+    active: 0
+  - mod: 9
     name: Blood Bullets
     description: All weapons have infinite ammo, but at what cost?
     defaultUnlock: 1

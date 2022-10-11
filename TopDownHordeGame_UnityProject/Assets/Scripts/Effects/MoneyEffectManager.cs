@@ -29,6 +29,9 @@ public class MoneyEffectManager : NetworkBehaviour
     public void CreateEffect(GameObject player, Vector3 pos, int amount) {
         if (comboTimers == null || players == null || latestEffect == null) {
             Debug.Log("nullreference handled");
+            Debug.Log("comboTimers: " + (comboTimers == null).ToString());
+            Debug.Log("players: " + (players == null).ToString());
+            Debug.Log("latest: " + (latestEffect == null).ToString());
             return;
         }
 
@@ -36,19 +39,26 @@ public class MoneyEffectManager : NetworkBehaviour
             if (player == players[i]) {
                 GameObject obj = Instantiate(moneyEffectPrefab, pos, Quaternion.identity);
                 NetworkServer.Spawn(obj);
-                if (timer.HasTimer(comboTimers[i])) {
-                    //We are still in a combo
-                    if (latestEffect[i] != null) {
-                        latestEffect[i].HideAmount();
-                        amount += latestEffect[i].GetAmount();
-                    }
-                    timer.SetTimer(comboTimers[i], comboTime, ComboEnd);
-                }
-                else {
-                    comboTimers[i] = timer.CreateTimer(comboTime, ComboEnd);
-                }
                 obj.GetComponent<MoneyEffect>().SetAmount(amount);
-                latestEffect[i] = obj.GetComponent<MoneyEffect>();
+                //update combo timers only if its a positive amount
+                if (amount > 0)
+                {
+                    if (timer.HasTimer(comboTimers[i]))
+                    {
+                        //We are still in a combo
+                        if (latestEffect[i] != null)
+                        {
+                            latestEffect[i].HideAmount();
+                            amount += latestEffect[i].GetAmount();
+                        }
+                        timer.SetTimer(comboTimers[i], comboTime, ComboEnd);
+                    }
+                    else
+                    {
+                        comboTimers[i] = timer.CreateTimer(comboTime, ComboEnd);
+                    }
+                    latestEffect[i] = obj.GetComponent<MoneyEffect>();
+                } 
             }
         }
     }
@@ -64,8 +74,9 @@ public class MoneyEffectManager : NetworkBehaviour
         Debug.Log(players.Length + " players");
     }
 
-    private void Start() {
-        timer.CreateTimer(startDelay, InitPlayers);
+    public override void OnStartServer() {
+        base.OnStartServer();
+        SceneLoader.instance.AddPlayerLoad(InitPlayers);
     }
 
     private void Awake() {

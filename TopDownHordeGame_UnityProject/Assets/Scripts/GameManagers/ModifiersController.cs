@@ -5,7 +5,7 @@ using Mirror;
 
 public enum ModifierType {
     allBasic, allBiggestFan, allHockEye, allLungs, allSplitter, allZathrak, 
-    safetyOff, zapp, bloodBullets
+    safetyOff, zapp, studentLoans, bloodBullets
 }
 
 public class ModifiersController : NetworkBehaviour
@@ -84,6 +84,40 @@ public class ModifiersController : NetworkBehaviour
         }
     }
 
+    // change this to change the starting amount
+    int studentLoansStartAmount = 5000;
+    [Server]
+    public void Apply_StudentLoans() 
+    {
+        Debug.Log("MODIFIER: Student Loans");
+        RoundController.instance.EventRoundChange += StudentLoans_OnRoundChange;
+    }
+    [Server]
+    private void StudentLoans_OnRoundChange(int round) {
+        Debug.Log("STUDENT LOANS: Round change: " + round);
+        //Start Round
+        if (round == RoundController.instance.startRound) {
+            foreach (GameObject player in players) {
+                Debug.Log(player.GetComponent<PlayerStats>().GetName() + "Gained $" + studentLoansStartAmount);
+                player.GetComponent<PlayerStats>().AddMoney(studentLoansStartAmount);
+                MoneyEffectManager.instance.CreateEffect(player, player.transform.position, studentLoansStartAmount);
+            }
+            return;
+        }
+        //Other Rounds
+        foreach (GameObject player in players) {
+            Debug.Log(player.GetComponent<PlayerStats>().GetName() + " lost $" + StudentLoans_GetAmountLost(round));
+            player.GetComponent<PlayerStats>().SpendMoney(StudentLoans_GetAmountLost(RoundController.instance.round));
+        }
+    }
+    //How the amount lost each round is determined
+    int StudentLoans_GetAmountLost(int round) {
+        if (round <= 1)
+            return 0;
+        return (round - 1) * 500;
+    }
+
+
     [Server]
     public void Apply_BloodBullets()
     {
@@ -140,6 +174,9 @@ public class ModifiersController : NetworkBehaviour
                         break;
                     case ModifierType.zapp:
                         Apply_Zapp();
+                        break;
+                    case ModifierType.studentLoans:
+                        Apply_StudentLoans();
                         break;
                     case ModifierType.bloodBullets:
                         Apply_BloodBullets();
