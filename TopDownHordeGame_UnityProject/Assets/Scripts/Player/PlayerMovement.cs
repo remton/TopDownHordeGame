@@ -18,6 +18,8 @@ public class PlayerMovement : NetworkBehaviour {
     public bool isPaused = false;
     private bool isMoving = false;
     private bool isRunning = false;
+    //How long since the player last moved
+    public float lastMoved { get; internal set; }
 
     //Called when stamina value changes
     public delegate void StaminaChange(float newStamina, float newMax);
@@ -81,6 +83,7 @@ public class PlayerMovement : NetworkBehaviour {
         staminaThreshold = staminaMaximum * 0.2F;
         GetComponent<Player>().EventDoInputChange += DoInputChange;
     }
+
     private void Start() {
         CallStaminaChangeEvent(staminaRemaining, staminaMaximum);
     }
@@ -113,6 +116,11 @@ public class PlayerMovement : NetworkBehaviour {
             LookAtMouse();
         }
         UpdateAnimation();
+        //update last moved time
+        if (isMoving)
+            lastMoved = 0;
+        else
+            lastMoved += Time.deltaTime;
     }
 
     //called after every frame
@@ -126,6 +134,7 @@ public class PlayerMovement : NetworkBehaviour {
         if (knockBackActive && !forceknockbackActive && rb.velocity.magnitude <= minSpeedForEndKnockback) {
             knockBackActive = false;
         }
+        // Debug.Log("isMoving: " + isMoving);
     }
 
     public void KnockBack(float strength, Vector2 dir) {

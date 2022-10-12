@@ -2467,6 +2467,12 @@ MonoBehaviour:
     defaultUnlock: 1
     itemUI: {fileID: 0}
     active: 0
+  - mod: 10
+    name: Can't stop won't stop
+    description: You stop, you drop
+    defaultUnlock: 1
+    itemUI: {fileID: 0}
+    active: 0
   modItemHolder: {fileID: 1921211669}
   modItemPrefab: {fileID: 4622083580506210520, guid: 8e46b983ec2326d4c85ed88e8619e18e, type: 3}
 --- !u!222 &918561929
