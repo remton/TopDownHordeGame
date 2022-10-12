@@ -111,26 +111,6 @@ public class PlayerHealth : NetworkBehaviour {
         }
     }
 
-    [Command(requiresAuthority = false)]
-    public void DamageCMD(float damageAmount, bool displayEffect) // if displayEffect is false, the effect will not be displayed, and invincibility frames will not apply
-    {
-        if ((displayEffect && inIFrames) || isBleedingOut || isDead)
-            return;
-        StartIFrames();
-        health -= damageAmount;
-        if (health <= 0)
-            GoDownRPC();
-        timeSinceHit = 0;
-        if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
-        if (displayEffect)
-        {
-            GameObject obj = Instantiate(hitEffectPrefab);
-            obj.transform.position = transform.position;
-            NetworkServer.Spawn(obj);
-            AudioManager.instance.PlaySound(hurtsounds[UnityEngine.Random.Range(0, hurtsounds.Length)]);
-        }
-    }
-
     /// <summary> Respawns the player on this client </summary>
     [Client]
     public void Respawn() {

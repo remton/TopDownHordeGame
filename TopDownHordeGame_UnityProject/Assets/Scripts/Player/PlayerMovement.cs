@@ -18,7 +18,8 @@ public class PlayerMovement : NetworkBehaviour {
     public bool isPaused = false;
     private bool isMoving = false;
     private bool isRunning = false;
-    private bool hasMoved = false;
+    //How long since the player last moved
+    public float lastMoved { get; internal set; }
 
     //Called when stamina value changes
     public delegate void StaminaChange(float newStamina, float newMax);
@@ -75,13 +76,6 @@ public class PlayerMovement : NetworkBehaviour {
         currentLookDir = newDir;
     }
 
-    private static bool csws = false;
-    public static void SetCSWS(bool newVal)
-    {
-        csws = true;
-    }
-    private const float CSWS_STRENGTH = 0.5f; // HP lost per second when not moving
-
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -90,27 +84,8 @@ public class PlayerMovement : NetworkBehaviour {
         GetComponent<Player>().EventDoInputChange += DoInputChange;
     }
 
-    private void CSWS_Damage()
-    {
-        if (csws && !hasMoved)
-        {
-            GetComponent<Player>().GetComponent<PlayerHealth>().DamageCMD(CSWS_STRENGTH / 2, false);
-            /*
-            Debug.Log("Damage taken: " + CSWS_STRENGTH * Time.deltaTime);
-            Debug.Log("CSWS_STRENGTH: " + CSWS_STRENGTH);
-            Debug.Log("Time elapsed: " + Time.deltaTime);
-            */
-        }
-        timer.CreateTimer(0.5f, CSWS_Damage);
-        hasMoved = false;
-    }
-
     private void Start() {
         CallStaminaChangeEvent(staminaRemaining, staminaMaximum);
-        if (csws)
-        {
-            timer.CreateTimer(0.5f, CSWS_Damage);
-        }
     }
 
     public void OnDeviceChange(InputDevice device, InputDeviceChange deviceChange)
@@ -141,10 +116,11 @@ public class PlayerMovement : NetworkBehaviour {
             LookAtMouse();
         }
         UpdateAnimation();
-        if (isMoving && !hasMoved)
-        {
-            hasMoved = true;
-        }
+        //update last moved time
+        if (isMoving)
+            lastMoved = 0;
+        else
+            lastMoved += Time.deltaTime;
     }
 
     //called after every frame

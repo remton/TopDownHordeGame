@@ -8,6 +8,7 @@ public enum ModifierType {
     safetyOff, zapp, studentLoans, bloodBullets, csws
 }
 
+[RequireComponent(typeof(Timer))]
 public class ModifiersController : NetworkBehaviour
 {
     public GameObject allBasic_Prefab;
@@ -19,7 +20,7 @@ public class ModifiersController : NetworkBehaviour
 
     private List<RandomChoice> zombieListReplacement = new List<RandomChoice>();
     private bool replaceZombieList = false;
-
+    private Timer timer;
     private List<GameObject> players;
 
     // --- Apply Modifiers ---
@@ -87,15 +88,31 @@ public class ModifiersController : NetworkBehaviour
         }
     }
 
+    private const float CSWS_STRENGTH = 0.5f; // HP lost per second when not moving
+    private const float CSWS_UPDATE_TIME = 0.5f;
     [Server]
     public void Apply_CSWS() // can't stop won't stop
     {
         Debug.Log("MODIFIER: CSWS");
-        PlayerMovement.SetCSWS(true);
+        CSWS_StartClients();
+    }
+    [ClientRpc]
+    private void CSWS_StartClients() {
+        timer.CreateTimer(CSWS_UPDATE_TIME, CSWS_Damage);
+    }
+    [Client]
+    private void CSWS_Damage() {
+        foreach (var player in PlayerManager.instance.GetActiveLocalPlayers()) {
+            //If the player hasn't moved since the last check for CSWS
+            if (player.GetComponent<PlayerMovement>().lastMoved > CSWS_UPDATE_TIME) {
+                player.GetComponent<PlayerHealth>().DamageCMD(CSWS_STRENGTH / 2, false, false, true);
+            }
+        }
+        timer.CreateTimer(CSWS_UPDATE_TIME, CSWS_Damage);
     }
 
     // change this to change the starting amount
-    int studentLoansStartAmount = 5000;
+    int STUDENTLOANS_START_AMOUNT = 5000;
     [Server]
     public void Apply_StudentLoans() 
     {
@@ -108,9 +125,9 @@ public class ModifiersController : NetworkBehaviour
         //Start Round
         if (round == RoundController.instance.startRound) {
             foreach (GameObject player in players) {
-                Debug.Log(player.GetComponent<PlayerStats>().GetName() + "Gained $" + studentLoansStartAmount);
-                player.GetComponent<PlayerStats>().AddMoney(studentLoansStartAmount);
-                MoneyEffectManager.instance.CreateEffect(player, player.transform.position, studentLoansStartAmount);
+                Debug.Log(player.GetComponent<PlayerStats>().GetName() + "Gained $" + STUDENTLOANS_START_AMOUNT);
+                player.GetComponent<PlayerStats>().AddMoney(STUDENTLOANS_START_AMOUNT);
+                MoneyEffectManager.instance.CreateEffect(player, player.transform.position, STUDENTLOANS_START_AMOUNT);
             }
             return;
         }
@@ -204,6 +221,9 @@ public class ModifiersController : NetworkBehaviour
             RoundController.instance.zombieList = zombieListReplacement;
     }
 
+    private void Awake() {
+        timer = GetComponent<Timer>();
+    }
     public override void OnStartServer() {
         base.OnStartServer();
         SceneLoader.instance.AddPostLoad(ApplyModifiers);
