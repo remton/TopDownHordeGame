@@ -5,7 +5,7 @@ using Mirror;
 
 public enum ModifierType {
     allBasic, allBiggestFan, allHockEye, allLungs, allSplitter, allZathrak, 
-    safetyOff, zapp, studentLoans, bloodBullets, csws
+    safetyOff, zapp, studentLoans, bloodBullets, csws, pingPong
 }
 
 [RequireComponent(typeof(Timer))]
@@ -86,6 +86,16 @@ public class ModifiersController : NetworkBehaviour
                 weapon.gameObject.GetComponent<ElectricfyWeapon>().active = true;
             }
         }
+    }
+
+    float PINGPONG_LUNG_KNOCKBACK = 500;
+    float PINGPONG_EYE_KNOCKBACK = 400;
+    [Server]
+    public void Apply_PingPong(){
+        Debug.Log("MODIFIER: Ping Pong");
+        ZombieLunge.SetPingPong(PINGPONG_LUNG_KNOCKBACK);
+        HockEyeEye.SetPingPong(PINGPONG_EYE_KNOCKBACK);
+        // if we add any other zombies that don't lunge, we will need to update this function
     }
 
     private const float CSWS_STRENGTH = 0.5f; // HP lost per second when not moving
@@ -201,6 +211,9 @@ public class ModifiersController : NetworkBehaviour
                         break;
                     case ModifierType.zapp:
                         Apply_Zapp();
+                        break;
+                    case ModifierType.pingPong:
+                        Apply_PingPong();
                         break;
                     case ModifierType.csws:
                         Apply_CSWS();

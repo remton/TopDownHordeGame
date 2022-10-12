@@ -137,6 +137,16 @@ public class PlayerMovement : NetworkBehaviour {
         // Debug.Log("isMoving: " + isMoving);
     }
 
+
+    [Command(requiresAuthority = false)]
+    public void KnockbackCMD(float strength, Vector2 dir) {
+        KnockbackTRPC(connectionToClient, strength, dir);
+    }
+    [TargetRpc]
+    private void KnockbackTRPC(NetworkConnection conn, float strength, Vector2 dir) {
+        KnockBack(strength, dir);
+    }
+    [Client]
     public void KnockBack(float strength, Vector2 dir) {
         knockBackActive = true;
         forceknockbackActive = true;
