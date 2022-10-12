@@ -71,6 +71,7 @@ public class StickyGrenade : NetworkBehaviour
 
         List<string> damageTags = new List<string>();
         damageTags.Add("ZombieDamageHitbox");
+        damageTags.Add("PlayerDamageHitbox");
         List<string> knockbackTags = new List<string>();
         knockbackTags.Add("ZombieDamageHitbox");
         knockbackTags.Add("Player");
@@ -81,14 +82,24 @@ public class StickyGrenade : NetworkBehaviour
     // Sticks to anything the grenade impacts. 
     public void Stick(GameObject objectHit)
     {
+        GameObject ownerObj = null;
+        if (objectHit.HasComponent<DamageHitbox>())
+            ownerObj = objectHit.GetComponent<DamageHitbox>().owner;
+        if (objectHit == owner || ownerObj == owner) {
+            return;
+        }
+
         flySpeed = 0;
         stuck = true;
-        if (!(objectHit.CompareTag("Player") || objectHit.CompareTag("ZombieDamageHitbox"))) {
-            stuckToScenery = true;
-        }
-        else
-        {
+
+        if (objectHit.CompareTag("PlayerDamageHitbox")) {
             stuckOn = objectHit;
+        }
+        else if (objectHit.CompareTag("ZombieDamageHitbox")) {
+            stuckOn = objectHit;
+        }
+        else {
+            stuckToScenery = true;
         }
         gameObject.GetComponent<HitBoxController>().EventObjEnter -= Stick;
     }

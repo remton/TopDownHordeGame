@@ -170,6 +170,7 @@ MonoBehaviour:
   triggerTags:
   - ZombieDamageHitbox
   - BulletCollision
+  - PlayerDamageHitbox
 --- !u!114 &-512873134856680351
 MonoBehaviour:
   m_ObjectHideFlags: 0

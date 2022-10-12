@@ -7,9 +7,12 @@ public class Colt : Weapon{
     private GameObject player;
     [SerializeField] private float spreadAngleOnRicochet;
     const float bounceShiftForward = 0.1f;
+
+    private List<GameObject> victims = new List<GameObject>();
+    
     private void FireRicochet(Vector2 startPos, Vector2 direction, int bounceNum) {
         // Raycast in direction and get first collsion with mask
-        string[] mask = { "BulletCollider", "ZombieHitbox", "Door" };
+        string[] mask = { "BulletCollider", "PlayerHitbox", "ZombieHitbox", "Door", "Prop" }; ;
         RaycastHit2D[] hitInfos = Physics2D.RaycastAll(startPos, direction, Mathf.Infinity, LayerMask.GetMask(mask));
         // We hit nothing
         if (hitInfos.Length == 0) {
@@ -17,29 +20,42 @@ public class Colt : Weapon{
             effectController.CreateTrail(startPos, trailEnd);
             return;
         }
+
         GameObject hitObj = hitInfos[0].transform.gameObject;
         Vector2 hitPoint = hitInfos[0].point;
         int finalhitIndex = 0;
-        if (hitObj.CompareTag("ZombieDamageHitbox")) {
-            //Loop until we dont hit a zombie -_-
-            for (int i = 0; i < hitInfos.Length; i++) {
-                finalhitIndex = i;
-                hitObj = hitInfos[i].transform.gameObject;
-                hitPoint = hitInfos[i].point;
-                if (hitObj.tag != "ZombieDamageHitbox")
-                    break;
+        float damageMult = 1f;
+        for (int i = 0; i < hitInfos.Length; i++) {
+            finalhitIndex = i;
+            hitObj = hitInfos[i].transform.gameObject;
+            hitPoint = hitInfos[i].point;
+            if (hitObj.CompareTag("BulletCollision") || hitObj.CompareTag("Door"))
+                break;
+
+            if (hitObj.CompareTag("PlayerDamageHitbox")) {
                 hitObj = hitObj.GetComponent<DamageHitbox>().owner;
-
-                //Double damage for every zombie penetrated!
-                if (i>0)
-                    hitObj.GetComponent<ZombieHealth>().DamageCMD(damage*i, owner);
-
-                //do normal damage
-                hitObj.GetComponent<ZombieHealth>().DamageCMD(damage, owner);
-
-                if (Random.Range(0, 2) == 0)
-                    break;
+                if (hitObj != owner && hitObj.GetComponent<PlayerHealth>().HasFriendlyFire()) {
+                    hitObj.GetComponent<PlayerHealth>().DamageCMD(damage * damageMult);
+                    damageMult++;
+                    victims.Add(hitObj);
+                }
+                else
+                    continue;
             }
+            else if (hitObj.CompareTag("ZombieDamageHitbox")) {
+                hitObj = hitObj.GetComponent<DamageHitbox>().owner;
+                hitObj.GetComponent<ZombieHealth>().DamageCMD(damage * damageMult, owner);
+                damageMult++;
+                victims.Add(hitObj);
+            }
+            else if (hitObj.CompareTag("Prop") && hitObj.GetComponent<Prop>().canBeShot) {
+                Prop prop = hitObj.GetComponent<Prop>();
+                prop.ShootCMD();
+                break;
+            }
+
+            if (Random.Range(0, 2) == 0)
+                break;
         }
         effectController.CreateTrail(startPos, hitPoint);
         Vector2 reflection = Vector2.Reflect(hitPoint - startPos, hitInfos[finalhitIndex].normal);
@@ -48,13 +64,19 @@ public class Colt : Weapon{
         float angleDiff = Random.Range(-(spread / 2), (spread / 2)); //Get a random float to modify the direction angle
         reflection = new Vector2(Mathf.Cos(baseAngle + angleDiff * Mathf.Deg2Rad), Mathf.Sin(baseAngle + angleDiff * Mathf.Deg2Rad));
         bounceNum++;
-        if (bounceNum >= penatration)
+        //BASE CASE
+        if (bounceNum >= penatration) {
+            CallFireShotEvent(victims, startPos, hitPoint);
+            CameraController.instance.Shake(shakeIntensity);
             return;
+        }
         else {/*Unless*/}
+        //RECURSION
         FireRicochet(hitPoint+(reflection.normalized*bounceShiftForward), reflection.normalized, bounceNum);
     }
 
     public override void Fire(GameObject player, Vector2 direction) {
+        victims.Clear();
         this.player = player;
         base.Fire(player, direction);
         CameraController.instance.Shake(shakeIntensity / 35);

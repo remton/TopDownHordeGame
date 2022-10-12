@@ -47,12 +47,7 @@ public class StatScreen : NetworkBehaviour
     public override void OnStartClient() {
         base.OnStartClient();
         if (isServer) {
-            if (MyNetworkManager.instance.AllClientsReady()) {
-                OnAllClientsLoaded();
-            }
-            else {
-                MyNetworkManager.instance.ServerEvent_AllClientsReady += OnAllClientsLoaded;
-            }
+            SceneLoader.instance.AddClientsLoad(OnAllClientsLoaded);
         }
         else {
             CloseMenu();
@@ -61,7 +56,6 @@ public class StatScreen : NetworkBehaviour
     
     [Server]
     private void OnAllClientsLoaded() {
-        MyNetworkManager.instance.ServerEvent_AllClientsReady -= OnAllClientsLoaded;
         StartCoroutine(SetPlayers());
         RoundController.instance.EventRoundChange += RoundChanged;
     }
