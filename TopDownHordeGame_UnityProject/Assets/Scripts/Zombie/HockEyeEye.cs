@@ -13,9 +13,13 @@ public class HockEyeEye : NetworkBehaviour
     private GameObject owner;
 
     private static bool pingPong = false;
-    public static void SetPingPong(bool newVal)
-    {
-        pingPong = newVal;
+    private static float pingPongKnockback = 0;
+    public static void SetPingPong(float knockback) {
+        if (knockback > 0)
+            pingPong = true;
+        else
+            pingPong = false;
+        pingPongKnockback = knockback;
     }
 
     [ClientRpc]
@@ -45,7 +49,7 @@ public class HockEyeEye : NetworkBehaviour
             player.GetComponent<PlayerHealth>().DamageCMD(balanceDamage);
             if (pingPong)
             {
-                player.GetComponent<PlayerMovement>().KnockBack(Mathf.Max(400, rb.velocity.magnitude * 60), moveDir); // change the first argument to adjust the knockback
+                player.GetComponent<PlayerMovement>().KnockbackCMD(Mathf.Max(pingPongKnockback, rb.velocity.magnitude * 60), moveDir); // change the first argument to adjust the knockback
             }
         }
         NetworkServer.Destroy(gameObject);

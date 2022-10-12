@@ -33,10 +33,17 @@ public class ZombieLunge : NetworkBehaviour
     public delegate void PrelungeEnd();
     public event PrelungeEnd EventPrelungeEnd;
 
+    //Ping pong makes all hits do knockback
+
     private static bool pingPong = false;
-    public static void SetPingPong(bool newVal) // sets variable for all instances of zombies
+    private static float pingPongKnockback = 0;
+    public static void SetPingPong(float knockback)
     {
-        pingPong = newVal;
+        if (knockback > 0)
+            pingPong = true;
+        else
+            pingPong = false;
+        pingPongKnockback = knockback;
     }
 
     private void Awake() {
@@ -65,7 +72,7 @@ public class ZombieLunge : NetworkBehaviour
         player.GetComponent<PlayerHealth>().DamageCMD(damage);
         if (pingPong)
         {
-            player.GetComponent<PlayerMovement>().KnockBack(Mathf.Max(500, rb.velocity.magnitude * 75), dir); // change the first argument to adjust the strength of the knockback
+            player.GetComponent<PlayerMovement>().KnockbackCMD(Mathf.Max(pingPongKnockback, rb.velocity.magnitude * 75), dir);
         }
     }
 

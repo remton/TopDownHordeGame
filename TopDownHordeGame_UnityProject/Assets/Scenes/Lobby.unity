@@ -2455,25 +2455,25 @@ MonoBehaviour:
     defaultUnlock: 1
     itemUI: {fileID: 0}
     active: 0
-  - mod: 8
+  - mod: 11
     name: Ping Pong
     description: Enemies push you when they deal damage
     defaultUnlock: 1
     itemUI: {fileID: 0}
     active: 0
-  - mod: 9
+  - mod: 8
     name: Student Loans
     description: Lose increasing amounts of money every round!
     defaultUnlock: 1
     itemUI: {fileID: 0}
     active: 0
-  - mod: 10
+  - mod: 9
     name: Blood Bullets
     description: All weapons have infinite ammo, but at what cost?
     defaultUnlock: 1
     itemUI: {fileID: 0}
     active: 0
-  - mod: 11
+  - mod: 10
     name: Can't stop won't stop
     description: You stop, you drop
     defaultUnlock: 1

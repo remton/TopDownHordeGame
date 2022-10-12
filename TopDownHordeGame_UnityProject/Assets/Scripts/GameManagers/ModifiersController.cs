@@ -88,11 +88,14 @@ public class ModifiersController : NetworkBehaviour
         }
     }
 
-    public void Apply_PingPong() // go to ZombieLunge.Damage() if you want to adjust the strength
-    {
+    float PINGPONG_LUNG_KNOCKBACK = 500;
+    float PINGPONG_EYE_KNOCKBACK = 400;
+    [Server]
+    public void Apply_PingPong(){
         Debug.Log("MODIFIER: Ping Pong");
-        ZombieLunge.SetPingPong(true);
-        HockEyeEye.SetPingPong(true); // if we add any other zombies that don't lunge, we will need to update this function
+        ZombieLunge.SetPingPong(PINGPONG_LUNG_KNOCKBACK);
+        HockEyeEye.SetPingPong(PINGPONG_EYE_KNOCKBACK);
+        // if we add any other zombies that don't lunge, we will need to update this function
     }
 
     private const float CSWS_STRENGTH = 0.5f; // HP lost per second when not moving
