@@ -47,6 +47,7 @@ public class PlayerHealth : NetworkBehaviour {
     private bool hasRevivePrompt;
     private bool inIFrames = false;
     private bool isDead = false;
+    private bool doFriendlyFire = false;
 
 
     // --- Public Events ---
@@ -56,6 +57,18 @@ public class PlayerHealth : NetworkBehaviour {
 
 
     // --- Public Methods ---
+    [Server]
+    public void SetFriendlyFire(bool b) {
+        doFriendlyFire = b;
+        SetFriendlyFireRPC(b);
+    }
+    [ClientRpc]
+    public void SetFriendlyFireRPC(bool b) {
+        doFriendlyFire = b;
+    }
+    public bool HasFriendlyFire() {
+        return doFriendlyFire;
+    }
 
     /// <summary> [Server] Heals by healAmount up to maxHealth </summary>
     [Server]
@@ -70,20 +83,33 @@ public class PlayerHealth : NetworkBehaviour {
     /// <summary> [Command] Damages health by given amount </summary>
     [Command(requiresAuthority = false)]
     public void DamageCMD(float damageAmount) {
-        if (inIFrames || isBleedingOut || isDead)
+        Damage(damageAmount, true, true, true);
+    }
+    [Command(requiresAuthority = false)]
+    public void DamageCMD(float damageAmount, bool doIFrames, bool doEffect, bool effectRegen) {
+        Damage(damageAmount, doIFrames, doEffect, effectRegen);
+    }
+    [Server]
+    private void Damage(float damageAmount, bool doIFrames, bool doEffect, bool effectRegen) {
+        if (doIFrames && inIFrames)
             return;
-        StartIFrames();
+        if (isBleedingOut || isDead)
+            return;
+        if(doIFrames)
+            StartIFrames();
         health -= damageAmount;
         if (health <= 0)
             GoDownRPC();
-        timeSinceHit = 0;
+        if(effectRegen)
+            timeSinceHit = 0;
         if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
-        GameObject obj = Instantiate(hitEffectPrefab);
-        obj.transform.position = transform.position;
-        NetworkServer.Spawn(obj);
-        AudioManager.instance.PlaySound(hurtsounds[UnityEngine.Random.Range(0, hurtsounds.Length)]);
+        if (doEffect) {
+            GameObject obj = Instantiate(hitEffectPrefab);
+            obj.transform.position = transform.position;
+            NetworkServer.Spawn(obj);
+            AudioManager.instance.PlaySound(hurtsounds[UnityEngine.Random.Range(0, hurtsounds.Length)]);
+        }
     }
-
 
     /// <summary> Respawns the player on this client </summary>
     [Client]

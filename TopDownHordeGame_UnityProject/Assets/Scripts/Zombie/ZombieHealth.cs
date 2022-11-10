@@ -18,6 +18,7 @@ public class ZombieHealth : NetworkBehaviour
     [SerializeField] private AudioClip[] hurtsounds;
     private int chance;
     private bool killed = false;
+    private bool hurtSoundCooldown = false;
 
     public delegate void HealthChange(float newHealth, float newMax);
     public event HealthChange EventHealthChanged;
@@ -61,6 +62,10 @@ public class ZombieHealth : NetworkBehaviour
         if (EventHealthChanged != null) { EventHealthChanged.Invoke(health, maxHealth); }
     }
 
+    private void ResetHurtSoundCooldown(){
+        hurtSoundCooldown = false;
+    }
+
     [Command(requiresAuthority = false)]
     public void DamageCMD(float amount) {
         if (killed)
@@ -76,7 +81,11 @@ public class ZombieHealth : NetworkBehaviour
         if (killed)
             return; 
         health -= amount;
-        PlayDamageEffects();
+        if(!hurtSoundCooldown){
+            PlayDamageEffects();
+            hurtSoundCooldown = true;
+            GetComponent<Timer>().CreateTimer(1, ResetHurtSoundCooldown);
+        }
 
         if (damager != null) {
             if (damager.HasComponent<Player>()) {

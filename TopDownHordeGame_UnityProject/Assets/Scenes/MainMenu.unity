@@ -2345,7 +2345,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 811266037}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &775054605
 MonoBehaviour:
@@ -2359,13 +2359,76 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2e5de0414d0feb459c98cc47d984507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
+  type: 3
   title: Lungs Slayer
   description: "Kill 10 Lungs. \nUnlocks all Lungs game setting."
   icon: {fileID: 8318688728706502886, guid: 78b15cdfa56ae3a42b96f486c1dab9c5, type: 3}
   progress: 0
-  unlocked: 0
+  unlocked: 1
   completed: 0
+--- !u!1 &777089098
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 777089101}
+  - component: {fileID: 777089100}
+  - component: {fileID: 777089099}
+  m_Layer: 0
+  m_Name: SceneLoader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &777089099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777089098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc1cfd36e11f7094c8f3464fbbcb3bca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+--- !u!114 &777089100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777089098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 4053026905
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 
+  hasSpawned: 0
+--- !u!4 &777089101
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777089098}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.4809725, y: -6.234941, z: -0.111797415}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &811266035
 GameObject:
   m_ObjectHideFlags: 0
@@ -2393,6 +2456,7 @@ Transform:
   m_LocalPosition: {x: 1085.7903, y: 431.38312, z: -624.6109}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1680389516}
   - {fileID: 2096590926}
   - {fileID: 1799917540}
   - {fileID: 775054604}
@@ -3049,6 +3113,7 @@ MonoBehaviour:
   leaderboard_highestRound: 0
   challenge_unlocks: 
   challenge_completed: 
+  challenge_basicKills: 0
   challenge_biggestFanKills: 0
   challenge_hockEyeKills: 0
   challenge_LungsKills: 0
@@ -3559,7 +3624,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.1875, y: 0.093333334}
   m_AnchorMax: {x: 0.82500005, y: 1}
-  m_AnchoredPosition: {x: -4.999878, y: -124.63391}
+  m_AnchoredPosition: {x: -4.9999084, y: -124.63391}
   m_SizeDelta: {x: 0, y: 495.5262}
   m_Pivot: {x: 0.5, y: 0.7150514}
 --- !u!114 &1141415710
@@ -3913,8 +3978,10 @@ MonoBehaviour:
   - {fileID: 6956723953377203767, guid: aa581a650cd532e4a995eb3938301a45, type: 3}
   - {fileID: 6956723953377203767, guid: 14b5131da3c4f6c4da14dd9f7518cd44, type: 3}
   - {fileID: 6956723953377203767, guid: c294fcca27974ee4d8830599eeb0fff2, type: 3}
-  steamDisabled: 1
-  useSteam: 0
+  - {fileID: 6956723953377203767, guid: caf4ab76aa591e346addb74c51762c2c, type: 3}
+  - {fileID: 4997718862678949635, guid: 937812e8c2a119747a643882cc274136, type: 3}
+  steamDisabled: 0
+  useSteam: 1
   steamLobby: {fileID: 64649069}
   networkClips: []
 --- !u!4 &1273725197
@@ -4374,7 +4441,7 @@ MonoBehaviour:
   joinButton: {fileID: 1905792007}
   connectedTxt: {fileID: 389085577}
   lobbyScene: Assets/Scenes/Lobby.unity
-  kcpEnabled: 1
+  kcpEnabled: 0
 --- !u!1 &1330998660
 GameObject:
   m_ObjectHideFlags: 0
@@ -4454,6 +4521,69 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1330998660}
   m_CullTransparentMesh: 1
+--- !u!1 &1386804196
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1386804199}
+  - component: {fileID: 1386804198}
+  - component: {fileID: 1386804197}
+  m_Layer: 0
+  m_Name: SceneLoader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1386804197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1386804196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc1cfd36e11f7094c8f3464fbbcb3bca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+--- !u!114 &1386804198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1386804196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 3868204358
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 
+  hasSpawned: 0
+--- !u!4 &1386804199
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1386804196}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.4809725, y: -6.234941, z: -0.111797415}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1392516667
 GameObject:
   m_ObjectHideFlags: 0
@@ -5353,6 +5483,56 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1680389515
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1680389516}
+  - component: {fileID: 1680389517}
+  m_Layer: 0
+  m_Name: BasicSlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1680389516
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680389515}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 811266037}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1680389517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680389515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12e5d44c41c02484fa181012fa313fda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  title: BRG Massacre
+  description: "Kill 1068 basic zombies. \nUnlocks all basic modifier."
+  icon: {fileID: 3389320486985925744, guid: b32bb4234e2e469428f5b3cd46daee57, type: 3}
+  progress: 0
+  unlocked: 1
+  completed: 0
 --- !u!1 &1725539744
 GameObject:
   m_ObjectHideFlags: 0
@@ -5682,7 +5862,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 811266037}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1799917541
 MonoBehaviour:
@@ -5696,12 +5876,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f149185e3b29d5479227104bbc19a61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
+  type: 2
   title: Hock Eye Slayer
   description: "Kill 10 Hock Eyes. \nUnlocks all Hock Eyes game setting."
   icon: {fileID: -3109383995173785867, guid: 2e47d5d551c780f4bb1288e8bb3749d6, type: 3}
   progress: 0
-  unlocked: 0
+  unlocked: 1
   completed: 0
 --- !u!1 &1845281506
 GameObject:
@@ -5940,7 +6120,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 811266037}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1868982671
 MonoBehaviour:
@@ -5954,12 +6134,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d68c8b2502ae35f4fa3d3255ab55bc1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 4
+  type: 5
   title: Zathrak Slayer
   description: "Kill 10 Zathraks. \nUnlocks all Zathraks game setting."
   icon: {fileID: 3247106007308944677, guid: 78b15cdfa56ae3a42b96f486c1dab9c5, type: 3}
   progress: 0
-  unlocked: 0
+  unlocked: 1
   completed: 0
 --- !u!1 &1878317967
 GameObject:
@@ -6172,7 +6352,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 811266037}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1969730536
 MonoBehaviour:
@@ -6186,7 +6366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dc9f0c1d2ce54b46ae5afdcc8bdb876, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 3
+  type: 4
   title: Splitter Slayer
   description: "Kill 10 Splitters. \nUnlocks all Splitters game setting."
   icon: {fileID: -1163577052211193727, guid: 78b15cdfa56ae3a42b96f486c1dab9c5, type: 3}
@@ -6687,7 +6867,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 811266037}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2096590927
 MonoBehaviour:
@@ -6701,12 +6881,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 143cd66fa33cd944994047814314592c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  type: 1
   title: Biggest Fan Slayer
   description: "Kill 10 Biggest fans. \nUnlocks all Biggest Fan game setting."
   icon: {fileID: 2566507462757141269, guid: 8652728b55fa81a438853da54b71bfa1, type: 3}
   progress: 0
-  unlocked: 0
+  unlocked: 1
   completed: 0
 --- !u!1 &2103708450
 GameObject:
@@ -7328,6 +7508,10 @@ PrefabInstance:
     - target: {fileID: 1193663349483389753, guid: 10c0c4b053884e14e968a02b4365f79b, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2246859428789673517, guid: 10c0c4b053884e14e968a02b4365f79b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -2.9999924
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10c0c4b053884e14e968a02b4365f79b, type: 3}

@@ -88,9 +88,9 @@ MonoBehaviour:
   penatration: 2
   range: 25
   fireDeley: 0.4
-  magSize: 25
+  magSize: 30
   reserveSize: 300
-  reloadTime: 0.4
+  reloadTime: 1.05
   reloadAmount: 0
   swapTime: 1
   movePenalty: 1.1
@@ -101,6 +101,7 @@ MonoBehaviour:
   shootSound: {fileID: 8300000, guid: c484a7bc68f7e054f901ea8447bc9bee, type: 3}
   shakeIntensity: 1.1
   spriteControl: {fileID: 2463911640964357872}
+  bloodBulletsDamage: 0.1
   spreadAngle: 4
   burstTime: 0.25
   burstCount: 3

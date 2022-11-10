@@ -82,14 +82,8 @@ public class PlayerConnection : NetworkBehaviour
         //return "Con [" + connection.netId + "]";
     }
     public static string GetName(PlayerConnection connection, GameObject player) {
-        string name; 
-        if (MyNetworkManager.instance.useSteam) {
-            name = SteamFriends.GetFriendPersonaName(connection.steamID);
-        }
-        else {
-            name = "Player";
-        }
-
+        string name;
+        name = GetName(connection);
         List<GameObject> localPlayers = connection.GetPlayerCharacters();
         for (int i = 1; i < localPlayers.Count; i++) {
             if (player == localPlayers[i])
@@ -160,6 +154,7 @@ public class PlayerConnection : NetworkBehaviour
     [Command(requiresAuthority = false)]
     public void PlayerSpawnConfirm() {
         numSpawnedPlayers++;
+
         Debug.Log("Confirmed spawn: " + numSpawnedPlayers + " spawned for con [" + netId + "]");
     }
 

@@ -185,6 +185,7 @@ MonoBehaviour:
   shootSound: {fileID: 8300000, guid: 4e532ac5050c1714c9e413ac522abca7, type: 3}
   shakeIntensity: 1
   spriteControl: {fileID: 1691279667324185807}
+  bloodBulletsDamage: 0.1
   fireKnockback: 180
   knockback: 600
   flySpeed: 30

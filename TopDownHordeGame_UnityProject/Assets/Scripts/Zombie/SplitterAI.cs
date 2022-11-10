@@ -76,7 +76,6 @@ public class SplitterAI : ZombieAI
     [Server]
     private GameObject CreateSplit() {
         Freeze(freezeTime);
-        animator.SetTrigger("summon");
         //spawn special minion zombie
         GameObject minion = Instantiate(spawn);
         //minion.GetComponent<Minion>().owner = this.gameObject;

@@ -31,6 +31,9 @@ public class Weapon : NetworkBehaviour
     protected int inMag = 0;    // bullets in magazine
     protected int inReserve = 0;// bullets in reserve
 
+    protected bool bloodBullets = false;
+    protected float bloodBulletsDamage = 0.15f; // change this to SerializeField if you want different values for different weapons
+
     protected GameObject owner;
 
     /// <summary> Called whenever the this weapon is fired </summary>
@@ -45,11 +48,13 @@ public class Weapon : NetworkBehaviour
     protected virtual void Awake() {
         spriteControl = GetComponent<WeaponSpriteController>();
         effectController = GetComponent<FireEffectController>();
+        //Debug.Log(weaponName + " awoke");
     }
 
     protected virtual void Start() {
         damage = baseDamage;
-        if (infiniteReserve)
+
+        if (infiniteReserve || bloodBullets)
             reserveSize = int.MaxValue;
 
         if(owner != null) {
@@ -60,6 +65,7 @@ public class Weapon : NetworkBehaviour
         else {
             Debug.LogWarning("No owner set for " + name);
         }
+        //Debug.Log(weaponName + " started");
     }
 
     public virtual void Update() {
@@ -88,7 +94,7 @@ public class Weapon : NetworkBehaviour
     public int GetMagSize() { return magSize; }
     public int GetInMag() { return inMag; }
     public int GetInReserve() {
-        if (infiniteReserve)
+        if (infiniteReserve || bloodBullets)
             return -1;
         return inReserve; 
     }
@@ -103,7 +109,13 @@ public class Weapon : NetworkBehaviour
     public string GetWeaponName() { return weaponName; }
     public bool MagEmpty() { return inMag <= 0;}
     public bool ReserveEmpty() {
-        return !infiniteReserve && inReserve <= 0;
+        return !(infiniteReserve || bloodBullets) && inReserve <= 0;
+    }
+    public void SetBloodBullets(bool newValue) {
+        bloodBullets = newValue;
+        if (bloodBullets) {
+            owner.GetComponent<PlayerWeaponControl>().UpdateVisuals();
+        }
     }
 
     // ---- Play sounds ----
@@ -133,7 +145,7 @@ public class Weapon : NetworkBehaviour
     }
     public void Reload(int magSize) {
         int oldAmmo = inMag;
-        if (infiniteReserve) {
+        if (infiniteReserve || bloodBullets) {
             inMag = magSize;
             return;
         }
@@ -147,14 +159,14 @@ public class Weapon : NetworkBehaviour
             inMag = inReserve + inMag;
             inReserve = 0;
         }
-        if (infiniteReserve)
+        if (infiniteReserve || bloodBullets)
             inReserve = -1;
 
         if(EventWeaponReloaded != null) { EventWeaponReloaded.Invoke(owner, oldAmmo, inMag); }
     }
     /// <summary> adds the given amount of bullets to the reserve</summary>
     public void AddReserveAmmo(int amount) {
-        if (infiniteReserve) {
+        if (infiniteReserve || bloodBullets) {
             inReserve = int.MaxValue;
             return;
         }
@@ -166,15 +178,22 @@ public class Weapon : NetworkBehaviour
     public virtual void Fire(GameObject player, Vector2 direction) {
         inMag--;
         PlayShootSoundForAll();
+
+        if (bloodBullets) 
+            owner.GetComponent<PlayerHealth>().DamageCMD(bloodBulletsDamage, false, false, true);
     }
 
     // ---- Utility methods not called in this base implementation ----
+
+    protected void CallFireShotEvent(List<GameObject> victims, Vector2 startPos, Vector2 endPos) {
+        if (EventWeaponFired != null) { EventWeaponFired.Invoke(owner, victims, startPos, endPos); }
+    }
 
     // This is NOT called by playerWeaponControl and is just a utility for overriding Fire() in derived Weapon classes
     /// <summary> Fires a shot in the given direction </summary>
     protected void FireShot(GameObject player, Vector2 direction) {
         // Raycast in direction and get all collisions with mask
-        string[] mask = { "BulletCollider", "ZombieHitbox", "Door", "Prop"};
+        string[] mask = { "BulletCollider", "PlayerHitbox", "ZombieHitbox", "Door", "Prop"};
         RaycastHit2D[] hitInfos = Physics2D.RaycastAll(player.transform.position, direction, range, LayerMask.GetMask(mask));
         
         int penetrated = 0; //Used to count how many zombies we collided with and not hit more than weapon's penetration
@@ -186,19 +205,21 @@ public class Weapon : NetworkBehaviour
         for (int i = 0; i < hitInfos.Length; i++)
         {
             GameObject hitObj = hitInfos[i].transform.gameObject;
-            
-            if (hitObj.CompareTag("ZombieDamageHitbox")) // We hit a zombie's hitbox
+
+            if (hitObj.CompareTag("PlayerDamageHitbox")) { // We hit a players hitbox
+                hitObj = hitObj.GetComponent<DamageHitbox>().owner;
+                if (hitObj!=owner && hitObj.GetComponent<PlayerHealth>().HasFriendlyFire()) {
+                    hitObj.GetComponent<PlayerHealth>().DamageCMD(damage);
+                    penetrated++;
+                    victims.Add(hitObj);
+                }
+            }
+            else if (hitObj.CompareTag("ZombieDamageHitbox")) // We hit a zombie's hitbox
             {
                 hitObj = hitObj.GetComponent<DamageHitbox>().owner;
                 penetrated++;
                 hitObj.GetComponent<ZombieHealth>().DamageCMD(damage, owner);
                 victims.Add(hitObj);
-
-                //We have hit our max number of zombies in one shot so we create the trail and break;
-                if (penetrated >= penatration){
-                    trailEnd = hitInfos[i].point; 
-                    break;
-                }
             }
             else if (hitObj.CompareTag("BulletCollision") || hitObj.CompareTag("Door"))
             {
@@ -209,19 +230,21 @@ public class Weapon : NetworkBehaviour
                 Prop prop = hitObj.GetComponent<Prop>();
                 prop.ShootCMD();
                 penetrated += prop.hardness;
-                if (penetrated >= penatration) {
-                    trailEnd = hitInfos[i].point;
-                    break;
-                }
             }
             else {
                 trailEnd = startPos + (direction.normalized * range);
+            }
+
+            //We have hit our max number of actors in one shot so we create the trail and break;
+            if (penetrated >= penatration) {
+                trailEnd = hitInfos[i].point;
+                break;
             }
         }
         if(trailEnd == startPos)
             trailEnd = startPos + (direction.normalized * range);
 
-        if (EventWeaponFired != null) { EventWeaponFired.Invoke(owner, victims, startPos, trailEnd); }
+        CallFireShotEvent(victims, startPos, trailEnd);
         effectController.CreateTrail(startPos, trailEnd);
         CameraController.instance.Shake(shakeIntensity);
     }
