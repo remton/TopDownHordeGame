@@ -281,6 +281,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   canBeShot: 1
+  hardness: 0
   destroyTime: 3
   myAnimator: {fileID: 9195128207379202008}
   liquidAnimator: {fileID: 6995986203959513400}
