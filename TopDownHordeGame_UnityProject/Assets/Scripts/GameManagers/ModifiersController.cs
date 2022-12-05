@@ -5,7 +5,7 @@ using Mirror;
 
 public enum ModifierType {
     allBasic, allBiggestFan, allHockEye, allLungs, allSplitter, allZathrak, 
-    safetyOff, zapp, studentLoans, bloodBullets, csws, pingPong
+    safetyOff, zapp, studentLoans, bloodBullets, csws, pingPong, holdYourGround
 }
 
 [RequireComponent(typeof(Timer))]
@@ -181,6 +181,33 @@ public class ModifiersController : NetworkBehaviour
         }
     }
 
+    private const float HYG_STRENGTH = 0.25f; // HP lost per second when not moving
+    private const float HYG_UPDATE_TIME = 0.5f;
+    [Server]
+    public void Apply_HoldYourGround() // can't stop won't stop
+    {
+        Debug.Log("MODIFIER: Hold Your Ground");
+        HYG_StartClients();
+    }
+    [ClientRpc]
+    private void HYG_StartClients()
+    {
+        timer.CreateTimer(HYG_UPDATE_TIME, HYG_Damage);
+    }
+    [Client]
+    private void HYG_Damage()
+    {
+        foreach (var player in PlayerManager.instance.GetActiveLocalPlayers())
+        {
+            //If the player has moved since the last check for HYG
+            if (player.GetComponent<PlayerMovement>().lastMoved < HYG_UPDATE_TIME)
+            {
+                player.GetComponent<PlayerHealth>().DamageCMD(HYG_STRENGTH / 2, false, false, true);
+            }
+        }
+        timer.CreateTimer(HYG_UPDATE_TIME, HYG_Damage);
+    }
+
     /// <summary> Reads and applys modifiers from GameSettigns </summary>
     public void ApplyModifiers() {
         //Debug.Log("Applying modifiers ...");
@@ -223,6 +250,9 @@ public class ModifiersController : NetworkBehaviour
                         break;
                     case ModifierType.bloodBullets:
                         Apply_BloodBullets();
+                        break;
+                    case ModifierType.holdYourGround:
+                        Apply_HoldYourGround();
                         break;
                     default:
                         Debug.LogWarning("Modifer: " + mod.ToString() + " has no implementation!");
