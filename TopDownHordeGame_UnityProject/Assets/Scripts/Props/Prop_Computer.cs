@@ -24,7 +24,7 @@ public class Prop_Computer : Prop
         trigger.EventObjExit += PlayerExitTrigger;
     }
 
-    protected override void OnShot() {
+    protected override void OnShot(Weapon weapon) {
         if (isBroke)
             return;
 

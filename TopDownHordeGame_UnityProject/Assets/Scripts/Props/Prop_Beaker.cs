@@ -9,7 +9,7 @@ public class Prop_Beaker : Prop
     [SerializeField] private Animator myAnimator;
     [SerializeField] private Animator liquidAnimator; 
     public AudioClip breakSound;
-    protected override void OnShot() {
+    protected override void OnShot(Weapon weapon) {
         canBeShot = false;
         AudioManager.instance.PlaySound(breakSound);
         myAnimator.SetTrigger("shot");

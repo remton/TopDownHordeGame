@@ -25,7 +25,7 @@ public class Prop_Monitor : Prop
         trigger.EventObjExit += PlayerExitTrigger;
     }
 
-    protected override void OnShot() {
+    protected override void OnShot(Weapon weapon) {
         if (isBroke) {
             if(canSpark)
                 Spark();

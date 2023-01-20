@@ -9,15 +9,15 @@ public class Prop : NetworkBehaviour
     public int hardness; // used to determine bullet penetration
 
     [Command(requiresAuthority = false)]
-    public void ShootCMD() {
-        ShootRPC();
+    public void ShootCMD(Weapon weapon) {
+        ShootRPC(weapon);
     }
     [ClientRpc]
-    private void ShootRPC() {
-        OnShot();
+    private void ShootRPC(Weapon weapon) {
+        OnShot(weapon);
     }
 
-    protected virtual void OnShot() {
+    protected virtual void OnShot(Weapon weapon) {
         
     }
 }

@@ -7,7 +7,7 @@ public class Prop_Tree : Prop {
     private ParticleSystem particle;
     [SerializeField]
     private ParticleSystem leavesParticle;
-    protected override void OnShot() {
+    protected override void OnShot(Weapon weapon) {
         particle.Play();
         leavesParticle.Play();
     }

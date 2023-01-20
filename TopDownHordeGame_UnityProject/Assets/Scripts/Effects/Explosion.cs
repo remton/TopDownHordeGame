@@ -71,14 +71,15 @@ public class Explosion : MonoBehaviour
     }
 
     public void DamageActor(GameObject actor) {
-        if (owner == null)
-            Debug.LogError("explosion owner is null!");
+        if (owner == null) {
+            owner = new GameObject();
+        }
 
         if (actor.HasComponent<DamageHitbox>()) {
             actor = actor.GetComponent<DamageHitbox>().owner;
         }
         if (actor.tag == "Player") {
-            Debug.Log("player in explosion!");
+            //Debug.Log("player in explosion!");
             if (owner.tag != "Player" || (owner.tag == "Player" && actor.GetComponent<PlayerHealth>().HasFriendlyFire()))
                 actor.GetComponent<PlayerHealth>().DamageCMD(damage);
         }

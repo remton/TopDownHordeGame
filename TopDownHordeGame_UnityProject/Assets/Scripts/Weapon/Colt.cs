@@ -50,7 +50,7 @@ public class Colt : Weapon{
             }
             else if (hitObj.CompareTag("Prop") && hitObj.GetComponent<Prop>().canBeShot) {
                 Prop prop = hitObj.GetComponent<Prop>();
-                prop.ShootCMD();
+                prop.ShootCMD(this);
                 break;
             }
 

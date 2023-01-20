@@ -38,7 +38,7 @@ public class Prop_Tube : Prop
         subjectObj.SetActive(false);
     }
 
-    protected override void OnShot() {
+    protected override void OnShot(Weapon weapon) {
         durability--;
         if(durability <= 0) {
             BreakTube();
