@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 6656138097197858420}
   - component: {fileID: 6656138097197858424}
   - component: {fileID: 4951614532858024553}
+  - component: {fileID: 479065826110812342}
   m_Layer: 17
   m_Name: Prop_BarrelExplosive
   m_TagString: Prop
@@ -62,7 +63,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6656138097197858423}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.4, y: 26.24, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.7, y: 1.7, z: 1}
   m_Children:
   - {fileID: 6656138097408524626}
@@ -157,10 +158,11 @@ MonoBehaviour:
   hardness: 2
   flames: {fileID: 3653969867823208774}
   explosionPrefab: {fileID: 625011097304364378, guid: 77ed71e9d93daf64fa1ce44bd12258a8, type: 3}
+  postExplodeSprite: {fileID: 21300000, guid: 0c32274e108bfd34ea3cf77175895790, type: 3}
   health: 5
   damage: 20
-  explosionWarningTime: 1.5
-  explosionScale: 13
+  explosionWarningTime: 2
+  explosionScale: 14
   knockbackStrength: 1800
 --- !u!61 &6656138097197858424
 BoxCollider2D:
@@ -200,6 +202,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2481c070c49a4dd4cb8ace2ff92559b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &479065826110812342
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6656138097197858423}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f855a8ba26082174a9016fe0631b02a8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6656138097408524717
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,7 +265,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0037884712, y: -0.6260662}
+  m_Offset: {x: 0.0037884712, y: -0.6187513}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -255,7 +276,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.99050426, y: 0.47037125}
+  m_Size: {x: 0.97221696, y: 0.3972218}
   m_EdgeRadius: 0
 --- !u!1001 &6572210917105256905
 PrefabInstance:
