@@ -6,14 +6,19 @@ public class Prop_Tube : Prop
 {
     public SpriteRenderer spriteRenderer;
     public Sprite brokenSprite;
+    public Sprite brokenFluidSprite;
     public Sprite subjectSprite;
     public AudioClip breakSound;
     public GameObject fluidObj;
     public GameObject subjectObj;
     public bool hasSubject;
     public bool broken;
-    public int durability;
+    public float health;
 
+    private ParticleSystem particle;
+    private void Awake() {
+        particle = GetComponent<ParticleSystem>();
+    }
     private void Start() {
         if (hasSubject) {
             subjectObj.GetComponent<SpriteRenderer>().sprite = subjectSprite;
@@ -31,16 +36,14 @@ public class Prop_Tube : Prop
         canBeShot = false;
         AudioManager.instance.PlaySound(breakSound);
         spriteRenderer.sprite = brokenSprite;
-        fluidObj.SetActive(false);
-        if (subjectObj.activeSelf) {
-
-        }
+        fluidObj.GetComponent<SpriteRenderer>().sprite = brokenFluidSprite;
         subjectObj.SetActive(false);
     }
 
     protected override void OnShot(Weapon weapon) {
-        durability--;
-        if(durability <= 0) {
+        particle.Play();
+        health -= weapon.GetDamage();
+        if(health <= 0) {
             BreakTube();
         }
     }
