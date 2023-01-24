@@ -14,8 +14,9 @@ public class Prop_Computer : Prop
     private bool hasTyped = false;
     public float timeBetweenSparks;
     public AudioClip breakSound;
+    public float breakSoundVolume;
     public AudioClip typeSound;
-
+    public float typeSoundVolume;
 
     private void Awake() {
         timer = GetComponent<Timer>();
@@ -31,7 +32,7 @@ public class Prop_Computer : Prop
         isBroke = true;
         animator.SetTrigger("shot");
         timer.CreateTimer(timeBetweenSparks, Spark);
-        AudioManager.instance.PlaySound(breakSound);
+        AudioManager.instance.PlaySound(breakSound, breakSoundVolume);
     }
 
     private void Spark() {
@@ -45,7 +46,7 @@ public class Prop_Computer : Prop
         if (isBroke || hasTyped)
             return;
         hasTyped = true;
-        AudioManager.instance.PlaySound(typeSound);
+        AudioManager.instance.PlaySound(typeSound, typeSoundVolume);
         animator.SetTrigger("type");
     }
 

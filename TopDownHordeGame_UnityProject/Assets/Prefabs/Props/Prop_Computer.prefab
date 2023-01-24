@@ -197,7 +197,9 @@ MonoBehaviour:
   trigger: {fileID: 3415222240836839007}
   timeBetweenSparks: 20
   breakSound: {fileID: 8300000, guid: 87409c0831f126446a39405384a0b26f, type: 3}
+  breakSoundVolume: 0
   typeSound: {fileID: 8300000, guid: f6e87a164e2f7794eb10ea1f1ecbc7f3, type: 3}
+  typeSoundVolume: 0.5
 --- !u!61 &3415222242650943768
 BoxCollider2D:
   m_ObjectHideFlags: 0

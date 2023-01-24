@@ -6,16 +6,17 @@ public class Prop_Brain : Prop
 {
     public float health;
     public Sprite brokeSprite;
-    public AudioClip squelch;
     private ParticleSystem particle;
     private bool hasBroke;
+    public AudioClip squelch;
+    public float soundVolume;
     private void Awake() {
         particle = GetComponent<ParticleSystem>();
     }
     public void BreakBrain() {
         hasBroke = true;
         GetComponent<SpriteRenderer>().sprite = brokeSprite;
-        AudioManager.instance.PlaySound(squelch);
+        AudioManager.instance.PlaySound(squelch, soundVolume);
     }
     protected override void OnShot(Weapon weapon) {
         if (!hasBroke) {

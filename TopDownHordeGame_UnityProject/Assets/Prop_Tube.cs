@@ -9,6 +9,7 @@ public class Prop_Tube : Prop
     public Sprite brokenFluidSprite;
     public Sprite subjectSprite;
     public AudioClip breakSound;
+    public float breakSoundVolume;
     public GameObject fluidObj;
     public GameObject subjectObj;
     public bool hasSubject;
@@ -34,7 +35,7 @@ public class Prop_Tube : Prop
 
     private void BreakTube() {
         canBeShot = false;
-        AudioManager.instance.PlaySound(breakSound);
+        AudioManager.instance.PlaySound(breakSound, breakSoundVolume);
         spriteRenderer.sprite = brokenSprite;
         fluidObj.GetComponent<SpriteRenderer>().sprite = brokenFluidSprite;
         subjectObj.SetActive(false);

@@ -2,8 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Steamworks;
+using System;
 
 public static class Utilities {
+
+    public static string FormatTime(float time_in_sec) {
+        string result = "";
+        int sec = Mathf.RoundToInt(time_in_sec);
+        int min = sec / 60;
+        sec %= 60;
+        int hours = min / 60;
+        min %= 60;
+        if (hours > 0)
+            result += hours.ToString("D2") + ":";
+        if(min > 0)
+            result += min.ToString("D2") + ":";
+        result += sec.ToString("D2");
+        return result;
+    }
 
     public static Texture2D GetEmptyTexture(int width, int height, Color fillColor) {
         Texture2D texture = new Texture2D(width, height, TextureFormat.ARGB32, false);
