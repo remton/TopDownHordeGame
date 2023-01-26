@@ -16,8 +16,20 @@ public class Prop : NetworkBehaviour
     private void ShootRPC(Weapon weapon) {
         OnShot(weapon);
     }
+    [Command(requiresAuthority = false)]
+    public void ExplodeCMD(float dmg) {
+        ExplodeRPC(dmg);
+    }
+    [ClientRpc]
+    private void ExplodeRPC(float dmg) {
+        OnExplode(dmg);
+    }
 
     protected virtual void OnShot(Weapon weapon) {
         
+    }
+
+    protected virtual void OnExplode(float dmg) {
+
     }
 }

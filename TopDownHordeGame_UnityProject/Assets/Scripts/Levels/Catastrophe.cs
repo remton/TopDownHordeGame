@@ -9,11 +9,12 @@ public class Catastrophe : NetworkBehaviour {
 
     [SerializeField] private float countdownTime;
     [SerializeField] private List<Prop_Screen> countdownScreens;
+    public AudioClip timerBeepSound;
+    public float timerBeepVolume;
 
     private Timer timer;
     private System.Guid countdownID;
     [SyncVar] private float countdownTimeLeft;
-
     private void Awake() {
         timer = GetComponent<Timer>();
     }
@@ -24,9 +25,21 @@ public class Catastrophe : NetworkBehaviour {
         ClientUpdate();
     }
 
+    public IEnumerator TimerBeep() {
+        while (countdownTimeLeft > 0) {
+            yield return new WaitForSeconds(1);
+            AudioManager.instance.PlaySound(timerBeepSound, timerBeepVolume);
+        }
+    }
+
     public override void OnStartServer() {
         base.OnStartServer();
         countdownID = timer.CreateTimer(countdownTime, CountdownEnd);
+    }
+
+    public override void OnStartClient() {
+        base.OnStartClient();
+        StartCoroutine(TimerBeep());
     }
 
     [Server]
@@ -36,7 +49,8 @@ public class Catastrophe : NetworkBehaviour {
     [Client]
     private void ClientUpdate() {
         foreach (Prop_Screen screen in countdownScreens) {
-            screen.SetText(Utilities.FormatTime(countdownTimeLeft));
+            string txt = "DETENATION IN \n" + Utilities.FormatTime(countdownTimeLeft);
+            screen.SetText(txt);
         }
     }
 

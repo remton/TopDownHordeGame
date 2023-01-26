@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 8133089859463574726}
   - component: {fileID: -4330121315790931372}
   - component: {fileID: -5362648881481970870}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: ExplosionPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,6 +121,7 @@ MonoBehaviour:
   triggerTags:
   - Player
   - ZombieDamageHitbox
+  - Prop
 --- !u!95 &-7197508349426154131
 Animator:
   serializedVersion: 3
@@ -154,6 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeActive: 0.2
   explosionSound: {fileID: 8300000, guid: 92603e07f4d5bf54ea4d51f1eb34ba12, type: 3}
+  explosionSoundVolume: 1
   screenShakeIntensity: 5.5
 --- !u!114 &8133089859463574726
 MonoBehaviour:
