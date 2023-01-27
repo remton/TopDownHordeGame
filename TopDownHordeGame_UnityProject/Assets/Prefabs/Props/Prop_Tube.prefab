@@ -196,6 +196,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8176550918396758509}
   - component: {fileID: 63730945055602628}
+  - component: {fileID: 4513938395806210747}
   m_Layer: 9
   m_Name: walkCollision
   m_TagString: Wall
@@ -233,6 +234,22 @@ CapsuleCollider2D:
   m_Offset: {x: -0.000000046762292, y: -0.39227057}
   m_Size: {x: 0.86276525, y: 0.37073863}
   m_Direction: 1
+--- !u!114 &4513938395806210747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8455746418897058005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35e95dc5ff2b64380880dd7ac5922847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Size: {x: 0.84, y: 0.38, z: 4}
+  m_Center: {x: 0, y: -0.4, z: 0}
+  m_Area: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &8746131173963611782
 GameObject:
   m_ObjectHideFlags: 0

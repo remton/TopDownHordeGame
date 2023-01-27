@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5361050185017180304}
   - component: {fileID: 770400163601173830}
+  - component: {fileID: 1170085276543606206}
   m_Layer: 9
   m_Name: walkCollision
   m_TagString: Wall
@@ -57,6 +58,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.7109989, y: 0.3657357}
   m_EdgeRadius: 0
+--- !u!114 &1170085276543606206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1340821711871138497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35e95dc5ff2b64380880dd7ac5922847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Size: {x: 0.777092, y: 0.4314677, z: 4}
+  m_Center: {x: 0.014296293, y: -0.16838992, z: 0}
+  m_Area: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &2158408830413636531
 GameObject:
   m_ObjectHideFlags: 0

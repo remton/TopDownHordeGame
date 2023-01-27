@@ -87,7 +87,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!114 &5230841572973914294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,6 +124,7 @@ MonoBehaviour:
   health: 3
   brokeSprite: {fileID: -6597746790429190138, guid: 3935632b5ae7a85458477432d68d14f4, type: 3}
   squelch: {fileID: 0}
+  soundVolume: 0
 --- !u!61 &6762463782885142422
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -140,7 +141,7 @@ BoxCollider2D:
   m_Offset: {x: -0.012871563, y: -0.03954671}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0.2}
     oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
