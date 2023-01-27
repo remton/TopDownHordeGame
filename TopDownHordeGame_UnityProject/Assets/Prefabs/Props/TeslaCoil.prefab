@@ -161,7 +161,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2884196471121137514}
   - component: {fileID: 7563688561521421826}
-  - component: {fileID: 7073863337685792435}
+  - component: {fileID: 1680824134913928128}
   m_Layer: 9
   m_Name: walkCollider
   m_TagString: Wall
@@ -196,7 +196,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.018996954, y: -0.84373015}
+  m_Offset: {x: 0, y: -0.84373015}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -209,7 +209,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.72431827, y: 0.13043725}
   m_EdgeRadius: 0
---- !u!114 &7073863337685792435
+--- !u!114 &1680824134913928128
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -218,12 +218,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5660365805167035604}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Script: {fileID: 11500000, guid: 35e95dc5ff2b64380880dd7ac5922847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_OverrideArea: 1
-  m_Area: 0
-  m_IgnoreFromBuild: 0
+  m_Size: {x: 0.7243183, y: 0.1304373, z: 50}
+  m_Center: {x: 0, y: -0.8437302, z: 0}
+  m_Area: 1
   m_AffectedAgents: ffffffff
 --- !u!1 &8764306903756945632
 GameObject:

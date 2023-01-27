@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5948596423512378893}
   - component: {fileID: 1396291791663128534}
+  - component: {fileID: 6163385604751265118}
   m_Layer: 9
   m_Name: WalkCollision
   m_TagString: Wall
@@ -57,6 +58,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.30766255, y: 0.16319996}
   m_EdgeRadius: 0
+--- !u!114 &6163385604751265118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5012725209395535819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35e95dc5ff2b64380880dd7ac5922847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Size: {x: 0.3076625, y: 0.1632, z: 50}
+  m_Center: {x: 0.05996656, y: -0.2330505, z: 0}
+  m_Area: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &6802956989866758149
 GameObject:
   m_ObjectHideFlags: 0
@@ -85,7 +102,7 @@ Transform:
   m_GameObject: {fileID: 6802956989866758149}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -20.37, y: 17.6, z: 0}
-  m_LocalScale: {x: 1.6904, y: 1.6904, z: 1.6904}
+  m_LocalScale: {x: 1.6904, y: 1.6904, z: 1}
   m_Children:
   - {fileID: 5948596423512378893}
   m_Father: {fileID: 0}
