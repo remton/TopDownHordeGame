@@ -1,9 +1,9 @@
 /*RandomChoice.cs
  * Author: Remington Ward
  * Date: 1/24/2022
- * This script is written for the Unity Game Engine. It provides a simple way for a List of gameobjects to be 
- * chosen based on some weight value. Just create a list<RandomChoice> that is serialized by unity and then add 
- * your chances and objects in the inspector! Then in your code call RandomChoice.ChooseRandom(List<RandomChoice> list)
+ * This script is written for the Unity Game Engine. It provides a simple way for a List of objects to be 
+ * chosen based on some weight value. Just create a list<RandomChoice<T>> that is serialized by unity and then add 
+ * your chances and objects in the inspector! Then in your code call RandomChoice.ChooseRandom(List<RandomChoice<T>> list)
  * and it will return one of the objects with apropriate randomness.
  */
 
