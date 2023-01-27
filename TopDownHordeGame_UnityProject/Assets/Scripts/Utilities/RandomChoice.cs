@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class RandomChoice
+public class RandomChoice <T>
 {
     /// <summary>
     /// The chance for this item to be selected
@@ -21,25 +21,25 @@ public class RandomChoice
     /// <summary>
     /// The object to be chosen
     /// </summary>
-    public GameObject obj;
+    public T obj;
 
-    public RandomChoice(float nWeight, GameObject nObj) {
+    public RandomChoice(float nWeight, T nObj) {
         weight = nWeight;
         obj = nObj;
     }
 
     /// <summary> Chooses a random gameobj from a list (all objects must have the choosable script)</summary>
-    public static GameObject ChooseRandom(List<RandomChoice> choices) {
+    public static T ChooseRandom(List<RandomChoice<T>> choices) {
         //An Empty list should not be passed to this funct
         if (!(choices.Count > 0)) {
             Debug.LogError("ChooseRandom was passed an empty or broken list!");
             Debug.Break();
-            return null;
+            return default(T);
         }
 
         //We need the sum of weights in order to choose correctly
         float sum = 0;
-        foreach (RandomChoice choice in choices) {
+        foreach (RandomChoice<T> choice in choices) {
             sum += choice.weight;
         }
 
@@ -47,7 +47,7 @@ public class RandomChoice
         //random number is within the portion if it is we retun that Choice's object
         float rand = UnityEngine.Random.Range(0, sum);
         float psum = 0;
-        foreach (RandomChoice choice in choices) {
+        foreach (RandomChoice<T> choice in choices) {
             if ((choice.weight + psum) >= rand && psum <= rand) {
                 return choice.obj;
             }
@@ -56,6 +56,6 @@ public class RandomChoice
         //Error if no choices were picked
         Debug.LogError("Choose Random Failed!");
         Debug.Break();
-        return null;
+        return default(T);
     }
 }

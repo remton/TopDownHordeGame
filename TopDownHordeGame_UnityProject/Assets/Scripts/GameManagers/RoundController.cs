@@ -21,7 +21,7 @@ public class RoundController : NetworkBehaviour {
     [SerializeField] private RoundDisplay display;
 
     // --- Prefabs ---
-    public List<RandomChoice> zombieList;
+    public List<RandomChoice<GameObject>> zombieList;
 
     // --- Other private vars
     private List<ZombieSpawn> activeSpawns = new List<ZombieSpawn>();
@@ -84,7 +84,7 @@ public class RoundController : NetworkBehaviour {
     [Server]
     public GameObject CreateZombie() {
         //spawn special zombie
-        GameObject zombieObj = Instantiate(RandomChoice.ChooseRandom(zombieList));
+        GameObject zombieObj = Instantiate(RandomChoice<GameObject>.ChooseRandom(zombieList));
         zombieObj.GetComponent<ZombieAI>().SetValues(GetHealth(), GetSpeed(), GetDamage());
         return zombieObj;
     }

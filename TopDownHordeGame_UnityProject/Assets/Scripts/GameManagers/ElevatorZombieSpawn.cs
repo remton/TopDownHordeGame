@@ -7,7 +7,7 @@ using Mirror;
 [RequireComponent(typeof(Timer))]
 public class ElevatorZombieSpawn : ZombieSpawn {
 
-    public List<RandomChoice> zombieList;
+    public List<RandomChoice<GameObject>> zombieList;
     private Timer timer;
     private System.Guid spawnTimerID;
     private bool doSpawns = false;
@@ -33,7 +33,7 @@ public class ElevatorZombieSpawn : ZombieSpawn {
 
     [Server]
     public GameObject CreateZombie() {
-        GameObject zombieObj = Instantiate(RandomChoice.ChooseRandom(zombieList));
+        GameObject zombieObj = Instantiate(RandomChoice<GameObject>.ChooseRandom(zombieList));
         zombieObj.GetComponent<ZombieAI>().SetValues(GetHealth(), GetSpeed(), GetDamage());
         return zombieObj;
     }
