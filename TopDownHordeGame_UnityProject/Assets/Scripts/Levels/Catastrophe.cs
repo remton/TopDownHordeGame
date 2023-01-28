@@ -17,6 +17,7 @@ public class Catastrophe : NetworkBehaviour {
     [SyncVar] private float countdownTimeLeft;
     private void Awake() {
         timer = GetComponent<Timer>();
+        countdownTimeLeft = countdownTime;
     }
     private void Update() {
         if(isServer)
