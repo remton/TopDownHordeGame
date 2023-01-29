@@ -62,8 +62,8 @@ public class Keypad : Interactable {
     }
 
 
-    private void Awake() {
-
+    protected override void Awake() {
+        base.Awake();
         UI.EventSubmitPressed += OnSubmit;
         SetUnlockedDigits(unlockedDigits);
     }

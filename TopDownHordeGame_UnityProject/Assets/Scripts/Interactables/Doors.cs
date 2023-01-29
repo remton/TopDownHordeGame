@@ -29,7 +29,8 @@ public class Doors : Interactable
     }
 
 
-    private void Awake(){
+    protected override void Awake(){
+        base.Awake();
         doorHolder.SetActive(true);
         popupCanvas.SetActive(false);
     }

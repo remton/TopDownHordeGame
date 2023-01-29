@@ -29,7 +29,8 @@ public class WeaponShop : Interactable
         }
     }
 
-    private void Awake() {
+    protected override void Awake() {
+        base.Awake();
         cost = baseCost;
         popupCanvas.SetActive(false);
     }

@@ -7,22 +7,7 @@ using Mirror;
 public class Interactable : NetworkBehaviour {
     [SerializeField] private HitBoxController trigger;
 
-    [SerializeField] protected bool interactable;
-    public void SetInteractable(bool b) {
-        SetInteractableCMD(b);
-    }
-    public bool GetInteractable() { return interactable; }
-
-    [Command(requiresAuthority = false)]
-    private void SetInteractableCMD(bool b) {
-        interactable = b;
-        SetInteractableRPC(b);
-    }
-    [ClientRpc]
-    private void SetInteractableRPC(bool b) {
-        interactable = b;
-    }
-
+    public bool interactable;
 
     //Events
     public delegate void OnEnter(GameObject player);
@@ -32,15 +17,18 @@ public class Interactable : NetworkBehaviour {
     public event OnExit EventOnExit;
     public event OnInteracted EventOnInteract;
 
-    private void Awake() {
+    protected virtual void Awake() {
         trigger.EventObjEnter += OnEnterHitbox;
         trigger.EventObjExit += OnExitHitbox;
     }
+
     private void OnEnterHitbox(GameObject player) {
+        //Debug.Log("Player Enter Interactable Hitbox");
         player.GetComponent<PlayerActivate>().EventPlayerActivate += PlayerAction;
         OnPlayerEnter(player);
     }
     private void OnExitHitbox(GameObject player) {
+        //Debug.Log("Player Exit Interactable Hitbox");
         player.GetComponent<PlayerActivate>().EventPlayerActivate -= PlayerAction;
         OnPlayerExit(player);
     }
@@ -53,17 +41,17 @@ public class Interactable : NetworkBehaviour {
     //virtual overrides
 
     public virtual void OnPlayerEnter(GameObject player) {
-        Debug.Log("Player Enter Interactable");
+        //Debug.Log("Player Enter Interactable");
         if (EventOnEnter != null) { EventOnEnter.Invoke(player); }
     }
 
     public virtual void OnPlayerExit(GameObject player) {
-        Debug.Log("Player Exit Interactable");
+        //Debug.Log("Player Exit Interactable");
         if (EventOnExit != null) { EventOnExit.Invoke(player); }
     }
 
     public virtual void OnInteract(GameObject player) {
-        Debug.Log("Player Interact Interactable");
+        //Debug.Log("Player Interact Interactable");
         if (EventOnInteract != null) { EventOnInteract.Invoke(player); }
     }
 }

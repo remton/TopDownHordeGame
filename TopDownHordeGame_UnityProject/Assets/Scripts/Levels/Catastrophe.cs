@@ -14,7 +14,7 @@ public class Catastrophe : NetworkBehaviour {
 
     [SerializeField] private List<GameObject> powerDependents;
     [SerializeField] private GameObject darkness;
-
+    [SerializeField] private List<GameObject> poweredLights;
     [SerializeField] private Interactable powerSwitch;
 
     private Timer timer;
@@ -93,9 +93,8 @@ public class Catastrophe : NetworkBehaviour {
         darkness.SetActive(true);
         isPowerOn = false;
         foreach (GameObject item in powerDependents) {
-            if (!item.HasComponent<Interactable>())
-                continue;
-            item.GetComponent<Interactable>().SetInteractable(false);
+            if (item.HasComponent<Interactable>())
+                item.GetComponent<Interactable>().interactable = false;
         }
         TurnOffPowerRPC();
     }
@@ -111,9 +110,8 @@ public class Catastrophe : NetworkBehaviour {
         darkness.SetActive(false);
         isPowerOn = true;
         foreach (GameObject item in powerDependents) {
-            if (!item.HasComponent<Interactable>())
-                continue;
-            item.GetComponent<Interactable>().SetInteractable(true);
+            if (item.HasComponent<Interactable>())
+                item.GetComponent<Interactable>().interactable = true;
         }
         TurnOnPowerRPC();
     }

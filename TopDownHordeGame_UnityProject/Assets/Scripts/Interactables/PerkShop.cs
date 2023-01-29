@@ -35,8 +35,9 @@ public class PerkShop : Interactable
     }
 
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         baseCost = perkPrefab.GetComponent<Perk>().cost;
         cost = baseCost;
         popupCanvas.SetActive(false);
