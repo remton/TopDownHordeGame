@@ -14,6 +14,8 @@ public class Catastrophe : NetworkBehaviour {
 
     [SerializeField] private List<GameObject> powerDependents;
     [SerializeField] private GameObject darkness;
+    public Color darknessPowerOnColor;
+    public Color darknessPowerOffColor;
     [SerializeField] private List<GameObject> poweredLights;
     [SerializeField] private Interactable powerSwitch;
 
@@ -60,16 +62,16 @@ public class Catastrophe : NetworkBehaviour {
     private void StartCountdown() {
         if (!timer.HasTimer(countdownID)) {
             countdownID = timer.CreateTimer(countdownTime, CountdownEnd);
-            Debug.Log("Starting COUNTDOWN");
+            //Debug.Log("Starting COUNTDOWN");
         }
         else {
-            Debug.Log("unpause COUNTDOWN");
+            //Debug.Log("unpause COUNTDOWN");
             timer.UnpauseTimer(countdownID);
         }
     }
     [Client]
     private void PauseCountdown() {
-        Debug.Log("pause COUNTDOWN");
+        //Debug.Log("pause COUNTDOWN");
         timer.PauseTimer(countdownID);
     }
     [Client]
@@ -90,7 +92,6 @@ public class Catastrophe : NetworkBehaviour {
 
     [Server]
     private void TurnOffPower() {
-        darkness.SetActive(true);
         isPowerOn = false;
         foreach (GameObject item in powerDependents) {
             if (item.HasComponent<Interactable>())
@@ -100,14 +101,16 @@ public class Catastrophe : NetworkBehaviour {
     }
     [ClientRpc]
     private void TurnOffPowerRPC() {
-        darkness.SetActive(true);
         isPowerOn = false;
         PauseCountdown();
+        foreach (GameObject item in poweredLights) {
+            item.SetActive(false);
+        }
+        darkness.GetComponent<SpriteRenderer>().color = darknessPowerOffColor;
     }
 
     [Server]
     private void TurnOnPower() {
-        darkness.SetActive(false);
         isPowerOn = true;
         foreach (GameObject item in powerDependents) {
             if (item.HasComponent<Interactable>())
@@ -117,8 +120,11 @@ public class Catastrophe : NetworkBehaviour {
     }
     [ClientRpc]
     private void TurnOnPowerRPC() {
-        darkness.SetActive(false);
         isPowerOn = true;
         StartCountdown();
+        foreach (GameObject item in poweredLights) {
+            item.SetActive(true);
+        }
+        darkness.GetComponent<SpriteRenderer>().color = darknessPowerOnColor;
     }
 }
