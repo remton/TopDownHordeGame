@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 3415222242650943768}
   - component: {fileID: 3415222242650943769}
   - component: {fileID: 3415222242650943843}
+  - component: {fileID: 8247287837562470242}
   m_Layer: 17
   m_Name: Prop_Computer
   m_TagString: Prop
@@ -194,7 +195,7 @@ MonoBehaviour:
   syncInterval: 0.1
   canBeShot: 1
   hardness: 2
-  trigger: {fileID: 3415222240836839007}
+  interactable: {fileID: 8247287837562470242}
   timeBetweenSparks: 20
   breakSound: {fileID: 8300000, guid: 87409c0831f126446a39405384a0b26f, type: 3}
   breakSoundVolume: 0
@@ -257,3 +258,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2481c070c49a4dd4cb8ace2ff92559b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8247287837562470242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3415222242650943770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 990424f464f626744aac8ef506eee5e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  trigger: {fileID: 3415222240836839007}
+  interactable: 1

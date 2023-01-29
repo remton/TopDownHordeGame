@@ -54,7 +54,7 @@ public class HitBoxController : MonoBehaviour {
 
     // These functions are called by unity when a gameObject enters and exits the trigger collider respectively
     private void OnTriggerEnter2D(Collider2D collision) {
-        Debug.Log("HitboxController - Collide " + collision.gameObject);
+        //Debug.Log("HitboxController - Collide " + collision.gameObject);
         objsInBox.Add(collision.gameObject);
         if (!active) return;
         if (Utilities.CompareTags(collision.gameObject, triggerTags)) {

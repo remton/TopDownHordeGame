@@ -71,7 +71,7 @@ public class MoneyEffectManager : NetworkBehaviour
         players = PlayerManager.instance.GetAllPlayers().ToArray();
         comboTimers = new System.Guid[players.Length];
         latestEffect = new MoneyEffect[players.Length];
-        Debug.Log(players.Length + " players");
+        //Debug.Log(players.Length + " players");
     }
 
     public override void OnStartServer() {

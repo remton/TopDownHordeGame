@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PerkShop : MonoBehaviour
+public class PerkShop : Interactable
 {
     public AudioClip purchaseSound;
     public AudioClip FailedPurchaseSound;
@@ -21,13 +21,11 @@ public class PerkShop : MonoBehaviour
         alreadyHave = player.GetComponent<PlayerPerkHolder>().HavePerk(perkPrefab);
         if (playerStats.GetBank() >= cost && !alreadyHave)
         {
-            //SoundPlayer.Play(purchaseSound,transform.position);
             AudioManager.instance.PlaySound(purchaseSound);
             playerStats.TrySpendMoney(cost);
             player.GetComponent<PlayerPerkHolder>().AddPerk(perkPrefab);
         }
         else if (playerStats.GetBank() < cost){
-            //SoundPlayer.Play(FailedPurchaseSound, transform.position);
             AudioManager.instance.PlaySound(FailedPurchaseSound);
         //    Debug.Log("U broke lol");
         }
@@ -36,42 +34,43 @@ public class PerkShop : MonoBehaviour
         }
     }
 
-    // Hitbox and player activation set
-    private HitBoxController hitbox;
 
     private void Awake()
     {
         baseCost = perkPrefab.GetComponent<Perk>().cost;
         cost = baseCost;
-        hitbox = GetComponent<HitBoxController>();
-        hitbox.EventObjEnter += OnPlayerEnter;
-        hitbox.EventObjExit += OnPlayerExit;
         popupCanvas.SetActive(false);
     }
 
-    public void OnPlayerEnter(GameObject player)
+    public override void OnPlayerEnter(GameObject player)
     {
-        player.GetComponent<PlayerActivate>().EventPlayerActivate += TryBuyPerk;
+        base.OnPlayerEnter(player);
+        if (!interactable)
+            return;
         popupCanvas.SetActive(true);
         popupText.text = perkPrefab.name + "\n$" + cost;
         popupImage.sprite = perkPrefab.GetComponent<Perk>().icon;
     }
-    public void OnPlayerExit(GameObject player)
+    public override void OnPlayerExit(GameObject player)
     {
-        player.GetComponent<PlayerActivate>().EventPlayerActivate -= TryBuyPerk;
+        base.OnPlayerExit(player);
         popupCanvas.SetActive(false);
+    }
+    public override void OnInteract(GameObject player) {
+        base.OnInteract(player);
+        TryBuyPerk(player);
     }
     public void SaleStart(float price)
     {
-        Debug.Log("Perk Name: " + perkPrefab);
-        Debug.Log("Price before: " + cost);
+        //Debug.Log("Perk Name: " + perkPrefab);
+        //Debug.Log("Price before: " + cost);
         cost = Mathf.FloorToInt(baseCost * price);
-        Debug.Log("Price now: " + cost + "\n");
+        //Debug.Log("Price now: " + cost + "\n");
     }
     public void SaleEnd()
     {
         cost = baseCost;
-        Debug.Log("Price after end: " + cost);
+        //Debug.Log("Price after end: " + cost);
     }
 
 }

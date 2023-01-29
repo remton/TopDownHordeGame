@@ -12,51 +12,115 @@ public class Catastrophe : NetworkBehaviour {
     public AudioClip timerBeepSound;
     public float timerBeepVolume;
 
+    [SerializeField] private List<GameObject> powerDependents;
+    [SerializeField] private GameObject darkness;
+
+    [SerializeField] private Interactable powerSwitch;
+
     private Timer timer;
     private System.Guid countdownID;
-    [SyncVar] private float countdownTimeLeft;
+    private float countdownTimeLeft;
+    private int prevCountdownTimeLeft;
+    public bool isPowerOn { get; internal set; }
+
     private void Awake() {
         timer = GetComponent<Timer>();
         countdownTimeLeft = countdownTime;
     }
     private void Update() {
-        if(isServer)
-            ServerUpdate();
-
         ClientUpdate();
     }
-
-    public IEnumerator TimerBeep() {
-        while (countdownTimeLeft > 0) {
-            yield return new WaitForSeconds(1);
+    [Client]
+    private void ClientUpdate() {
+        countdownTimeLeft = timer.TimeLeft(countdownID);
+        foreach (Prop_Screen screen in countdownScreens) {
+            string txt = "DETENATION IN \n" + Utilities.FormatTime(countdownTimeLeft);
+            if (isPowerOn)
+                screen.SetText(txt);
+            else
+                screen.SetText("");
+        }
+        if(Mathf.RoundToInt(countdownTimeLeft) < prevCountdownTimeLeft) {
             AudioManager.instance.PlaySound(timerBeepSound, timerBeepVolume);
         }
+        prevCountdownTimeLeft = Mathf.RoundToInt(countdownTimeLeft);
     }
 
     public override void OnStartServer() {
         base.OnStartServer();
-        countdownID = timer.CreateTimer(countdownTime, CountdownEnd);
+        TurnOffPower();
     }
 
     public override void OnStartClient() {
         base.OnStartClient();
-        StartCoroutine(TimerBeep());
+        powerSwitch.EventOnInteract += PowerSwitch;
     }
 
-    [Server]
-    private void ServerUpdate() {
-        countdownTimeLeft = timer.TimeLeft(countdownID);
-    }
     [Client]
-    private void ClientUpdate() {
-        foreach (Prop_Screen screen in countdownScreens) {
-            string txt = "DETENATION IN \n" + Utilities.FormatTime(countdownTimeLeft);
-            screen.SetText(txt);
+    private void StartCountdown() {
+        if (!timer.HasTimer(countdownID)) {
+            countdownID = timer.CreateTimer(countdownTime, CountdownEnd);
+            Debug.Log("Starting COUNTDOWN");
+        }
+        else {
+            Debug.Log("unpause COUNTDOWN");
+            timer.UnpauseTimer(countdownID);
         }
     }
-
-    [Server]
+    [Client]
+    private void PauseCountdown() {
+        Debug.Log("pause COUNTDOWN");
+        timer.PauseTimer(countdownID);
+    }
+    [Client]
     private void CountdownEnd() {
         Debug.Log("BOOM!");
+    }
+
+
+
+    [Command(requiresAuthority = false)]
+    public void PowerSwitch(GameObject player) {
+        Debug.Log("POWER SWITCH");
+        if (isPowerOn)
+            TurnOffPower();
+        else
+            TurnOnPower();
+    } 
+
+    [Server]
+    private void TurnOffPower() {
+        darkness.SetActive(true);
+        isPowerOn = false;
+        foreach (GameObject item in powerDependents) {
+            if (!item.HasComponent<Interactable>())
+                continue;
+            item.GetComponent<Interactable>().SetInteractable(false);
+        }
+        TurnOffPowerRPC();
+    }
+    [ClientRpc]
+    private void TurnOffPowerRPC() {
+        darkness.SetActive(true);
+        isPowerOn = false;
+        PauseCountdown();
+    }
+
+    [Server]
+    private void TurnOnPower() {
+        darkness.SetActive(false);
+        isPowerOn = true;
+        foreach (GameObject item in powerDependents) {
+            if (!item.HasComponent<Interactable>())
+                continue;
+            item.GetComponent<Interactable>().SetInteractable(true);
+        }
+        TurnOnPowerRPC();
+    }
+    [ClientRpc]
+    private void TurnOnPowerRPC() {
+        darkness.SetActive(false);
+        isPowerOn = true;
+        StartCountdown();
     }
 }

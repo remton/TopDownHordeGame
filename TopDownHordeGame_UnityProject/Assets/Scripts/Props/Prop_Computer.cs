@@ -7,7 +7,8 @@ using Mirror;
 public class Prop_Computer : Prop
 {
     [SerializeField]
-    private HitBoxController trigger;
+    private Interactable interactable;
+    //private HitBoxController trigger;
     private Animator animator;
     private Timer timer;
 
@@ -27,8 +28,7 @@ public class Prop_Computer : Prop
     private void Awake() {
         timer = GetComponent<Timer>();
         animator = GetComponent<Animator>();
-        trigger.EventObjEnter += PlayerEnterTrigger;
-        trigger.EventObjExit += PlayerExitTrigger;
+        interactable.EventOnInteract += Type;
     }
 
     protected override void OnShot(Weapon weapon) {
@@ -67,13 +67,5 @@ public class Prop_Computer : Prop
         AudioManager.instance.PlaySound(typeSound, typeSoundVolume);
         animator.SetTrigger("type");
         if (EventOnActivate != null) { EventOnActivate.Invoke(); }
-    }
-
-
-    private void PlayerEnterTrigger(GameObject player) {
-        player.GetComponent<PlayerActivate>().EventPlayerActivate += Type;
-    }
-    private void PlayerExitTrigger(GameObject player) {
-        player.GetComponent<PlayerActivate>().EventPlayerActivate -= Type;
     }
 }

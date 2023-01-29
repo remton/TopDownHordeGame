@@ -360,6 +360,7 @@ GameObject:
   - component: {fileID: 6025319416998648063}
   - component: {fileID: 6025319416998648060}
   - component: {fileID: 6025319416998648061}
+  - component: {fileID: 1202206676505394668}
   m_Layer: 0
   m_Name: WeaponShop
   m_TagString: WeaponShop
@@ -435,6 +436,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14114a6e435b09c46b3dfda1c15f8929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  trigger: {fileID: 6025319416998648060}
+  interactable: 1
   purchaseSound: {fileID: 8300000, guid: f6e87a164e2f7794eb10ea1f1ecbc7f3, type: 3}
   failPurchaseSound: {fileID: 8300000, guid: 821fc227c75397546aefd6d72ed79605, type: 3}
   weaponPrefab: {fileID: 6429082733309257629, guid: 5b052c79d1303c04396797d03783426e, type: 3}
@@ -442,6 +447,23 @@ MonoBehaviour:
   popupText: {fileID: 2445216831196594740}
   popupImage: {fileID: 1052997689742153079}
   baseCost: 0
+--- !u!114 &1202206676505394668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6025319416998648058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 446f747992bcc224eb7f198f719f8e94
+  hasSpawned: 0
 --- !u!1 &6627752338868280851
 GameObject:
   m_ObjectHideFlags: 0

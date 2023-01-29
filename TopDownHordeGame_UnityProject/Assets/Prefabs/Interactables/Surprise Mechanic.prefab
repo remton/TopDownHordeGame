@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7165810820432673532}
   - component: {fileID: 4967236144506582292}
   - component: {fileID: 5178467419987776371}
+  - component: {fileID: 4616523170992512858}
   m_Layer: 0
   m_Name: Surprise Mechanic
   m_TagString: Untagged
@@ -93,6 +94,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d8c3640f3f82b341a1bc838ba84305c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  trigger: {fileID: 4967236144506582292}
+  interactable: 1
   purchaseSound: {fileID: 8300000, guid: f6e87a164e2f7794eb10ea1f1ecbc7f3, type: 3}
   failPurchaseSound: {fileID: 8300000, guid: 821fc227c75397546aefd6d72ed79605, type: 3}
   weaponPrefab: {fileID: 0}
@@ -139,6 +144,23 @@ MonoBehaviour:
   defaultExpression: {fileID: -1048256274157062512, guid: 1828f2282da396c4686567f61a30c0aa, type: 3}
   blinkExpression: {fileID: -1617593813068027534, guid: 1828f2282da396c4686567f61a30c0aa, type: 3}
   expressTime: 1
+--- !u!114 &4616523170992512858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410449931181591242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 6ad4e4a95c89a41408a795b70eac10eb
+  hasSpawned: 0
 --- !u!1 &3305376097176506115
 GameObject:
   m_ObjectHideFlags: 0

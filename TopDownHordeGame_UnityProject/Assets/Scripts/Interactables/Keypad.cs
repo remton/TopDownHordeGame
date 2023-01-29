@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Keypad : MonoBehaviour {
+public class Keypad : Interactable {
     private bool isLockedOut = false;
 
-    private HitBoxController hitBox;
+    //private HitBoxController hitBox;
     public KeypadUI UI;
 
     public int[] code;
@@ -63,28 +63,25 @@ public class Keypad : MonoBehaviour {
 
 
     private void Awake() {
-        hitBox = GetComponent<HitBoxController>();
-        hitBox.EventObjEnter += OnPlayerEnter;
-        hitBox.EventObjExit += OnPlayerExit;
+
         UI.EventSubmitPressed += OnSubmit;
         SetUnlockedDigits(unlockedDigits);
     }
 
     private void OnDestroy() {
-        hitBox.EventObjEnter -= OnPlayerEnter;
-        hitBox.EventObjExit -= OnPlayerExit;
         UI.EventSubmitPressed -= OnSubmit;
     }
 
-    private void OnPlayerEnter(GameObject player) {
-        player.GetComponent<PlayerActivate>().EventPlayerActivate += PlayerActivate;
+
+    public override void OnPlayerEnter(GameObject player) {
+        base.OnPlayerEnter(player);
     }
-    private void PlayerActivate(GameObject player) {
+    public override void OnInteract(GameObject player) {
+        base.OnInteract(player);
         UI.OpenUI(player);
     }
-
-    private void OnPlayerExit(GameObject player) {
-        player.GetComponent<PlayerActivate>().EventPlayerActivate -= PlayerActivate;
+    public override void OnPlayerExit(GameObject player) {
+        base.OnPlayerExit(player);
     }
 
 }

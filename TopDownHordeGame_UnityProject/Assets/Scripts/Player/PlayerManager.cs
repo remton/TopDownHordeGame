@@ -109,7 +109,7 @@ public class PlayerManager : NetworkBehaviour
                 continue;
 
             player.GetComponent<PlayerHealth>().Heal(7000);
-            Debug.Log("Player healed.");
+            //Debug.Log("Player healed.");
         }
     }
 
