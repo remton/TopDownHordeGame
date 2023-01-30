@@ -16,8 +16,12 @@ public class Catastrophe : NetworkBehaviour {
     [SerializeField] private GameObject darkness;
     public Color darknessPowerOnColor;
     public Color darknessPowerOffColor;
-    [SerializeField] private List<GameObject> poweredLights;
     [SerializeField] private Interactable powerSwitch;
+
+    [SerializeField] AudioClip powerOnSound;
+    [SerializeField] float powerOnSoundVolume;
+    [SerializeField] AudioClip powerOffSound;
+    [SerializeField] float powerOffSoundVolume;
 
     private Timer timer;
     private System.Guid countdownID;
@@ -50,7 +54,8 @@ public class Catastrophe : NetworkBehaviour {
 
     public override void OnStartServer() {
         base.OnStartServer();
-        TurnOffPower();
+        SceneLoader.instance.AddPostLoad(TurnOffPower);
+        RoundController.instance.EventRoundChange += OnRoundChange;
     }
 
     public override void OnStartClient() {
@@ -79,6 +84,11 @@ public class Catastrophe : NetworkBehaviour {
         Debug.Log("BOOM!");
     }
 
+    [Server]
+    private void OnRoundChange(int round) {
+        if (round % 2 == 0)
+            TurnOffPower();
+    }
 
 
     [Command(requiresAuthority = false)]
@@ -94,37 +104,57 @@ public class Catastrophe : NetworkBehaviour {
     private void TurnOffPower() {
         isPowerOn = false;
         foreach (GameObject item in powerDependents) {
+            if (item == null)
+                continue;
             if (item.HasComponent<Interactable>())
                 item.GetComponent<Interactable>().interactable = false;
+            if (item.HasComponent<Light>())
+                item.GetComponent<Light>().TurnOff();
         }
         TurnOffPowerRPC();
     }
     [ClientRpc]
     private void TurnOffPowerRPC() {
+        AudioManager.instance.PlaySound(powerOffSound, powerOffSoundVolume);
         isPowerOn = false;
         PauseCountdown();
-        foreach (GameObject item in poweredLights) {
-            item.SetActive(false);
-        }
         darkness.GetComponent<SpriteRenderer>().color = darknessPowerOffColor;
+        foreach (GameObject item in powerDependents) {
+            if (item == null)
+                continue;
+            if (item.HasComponent<Interactable>())
+                item.GetComponent<Interactable>().interactable = false;
+            if (item.HasComponent<Light>())
+                item.GetComponent<Light>().TurnOff();
+        }
     }
 
     [Server]
     private void TurnOnPower() {
         isPowerOn = true;
         foreach (GameObject item in powerDependents) {
+            if (item == null)
+                continue;
             if (item.HasComponent<Interactable>())
                 item.GetComponent<Interactable>().interactable = true;
+            if (item.HasComponent<Light>())
+                item.GetComponent<Light>().TurnOn();
         }
         TurnOnPowerRPC();
     }
     [ClientRpc]
     private void TurnOnPowerRPC() {
+        AudioManager.instance.PlaySound(powerOnSound, powerOnSoundVolume);
         isPowerOn = true;
         StartCountdown();
-        foreach (GameObject item in poweredLights) {
-            item.SetActive(true);
-        }
         darkness.GetComponent<SpriteRenderer>().color = darknessPowerOnColor;
+        foreach (GameObject item in powerDependents) {
+            if (item == null)
+                continue;
+            if (item.HasComponent<Interactable>())
+                item.GetComponent<Interactable>().interactable = true;
+            if (item.HasComponent<Light>())
+                item.GetComponent<Light>().TurnOn();
+        }
     }
 }

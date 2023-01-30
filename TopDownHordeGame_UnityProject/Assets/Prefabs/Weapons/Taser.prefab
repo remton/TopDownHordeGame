@@ -66,7 +66,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 464398508465409989}
-  - {fileID: 4917933550816897141}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -201,6 +200,8 @@ MonoBehaviour:
   duration: 0.2
   maxDistance: 70
   trailObjPrefab: {fileID: 5599144035722061591, guid: b7e4d718e119a3549b00025ecc724fb9, type: 3}
+  particle: {fileID: 0}
+  lightEffectPrefab: {fileID: 0}
 --- !u!114 &1862295663597761640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,8 +267,8 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 219b242a3d27e274ab8e736ba3d0879c, type: 3}
   weaponName: Taser
   baseDamage: 0
-  penatration: 0
-  range: 3
+  penatration: 1
+  range: 4
   fireDeley: 0.1
   magSize: 1
   reserveSize: 20
@@ -312,6 +313,7 @@ Transform:
   m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_Children:
   - {fileID: 6058093347698898285}
+  - {fileID: 4917933550816897141}
   m_Father: {fileID: 1317619421317616089}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -372,7 +374,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1317619421317616089}
+    m_TransformParent: {fileID: 464398508465409989}
     m_Modifications:
     - target: {fileID: 2361379339897479701, guid: 66ed6816463cd4943bd223dd17ed1a7d, type: 3}
       propertyPath: m_RootOrder
@@ -380,19 +382,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2361379339897479701, guid: 66ed6816463cd4943bd223dd17ed1a7d, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.59999996
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2361379339897479701, guid: 66ed6816463cd4943bd223dd17ed1a7d, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.59999996
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2361379339897479701, guid: 66ed6816463cd4943bd223dd17ed1a7d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.4
+      value: 0.19833335
       objectReference: {fileID: 0}
     - target: {fileID: 2361379339897479701, guid: 66ed6816463cd4943bd223dd17ed1a7d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.064
+      value: 0.27333334
       objectReference: {fileID: 0}
     - target: {fileID: 2361379339897479701, guid: 66ed6816463cd4943bd223dd17ed1a7d, type: 3}
       propertyPath: m_LocalRotation.x

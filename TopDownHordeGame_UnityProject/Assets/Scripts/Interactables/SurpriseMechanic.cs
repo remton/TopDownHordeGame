@@ -42,7 +42,6 @@ public class SurpriseMechanic : WeaponShop
 
     override public void OnPlayerEnter(GameObject player)
     {
-        player.GetComponent<PlayerActivate>().EventPlayerActivate += TryBuyWeapon;
         popupCanvas.SetActive(true);
         popupCanvas.GetComponentInChildren<Text>().text = "Surprise Mechanic" + "\n$" + cost; // "Surprise Mechanic"
         SpriteWriteText(true);

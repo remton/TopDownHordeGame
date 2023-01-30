@@ -35,7 +35,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1320369792929139934}
-  - {fileID: 7528189673787408051}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -282,6 +281,7 @@ Transform:
   m_LocalScale: {x: 0.9, y: 0.9, z: 1}
   m_Children:
   - {fileID: 6685379302304138440}
+  - {fileID: 7528189673787408051}
   m_Father: {fileID: 759818053698442306}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -373,7 +373,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 759818053698442306}
+    m_TransformParent: {fileID: 1320369792929139934}
     m_Modifications:
     - target: {fileID: 2361379339897479701, guid: 66ed6816463cd4943bd223dd17ed1a7d, type: 3}
       propertyPath: m_RootOrder
@@ -381,19 +381,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2361379339897479701, guid: 66ed6816463cd4943bd223dd17ed1a7d, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.59999996
+      value: 0.6666667
       objectReference: {fileID: 0}
     - target: {fileID: 2361379339897479701, guid: 66ed6816463cd4943bd223dd17ed1a7d, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.59999996
+      value: 0.6666667
       objectReference: {fileID: 0}
     - target: {fileID: 2361379339897479701, guid: 66ed6816463cd4943bd223dd17ed1a7d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.45
+      value: 0.045555536
       objectReference: {fileID: 0}
     - target: {fileID: 2361379339897479701, guid: 66ed6816463cd4943bd223dd17ed1a7d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.027
+      value: 0.15666668
+      objectReference: {fileID: 0}
+    - target: {fileID: 2361379339897479701, guid: 66ed6816463cd4943bd223dd17ed1a7d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.88
       objectReference: {fileID: 0}
     - target: {fileID: 2361379339897479701, guid: 66ed6816463cd4943bd223dd17ed1a7d, type: 3}
       propertyPath: m_LocalRotation.x

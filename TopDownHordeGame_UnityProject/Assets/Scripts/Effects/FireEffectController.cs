@@ -8,20 +8,19 @@ public class FireEffectController : NetworkBehaviour
     public float duration; // How long in seconds until the trail fades 
     public float maxDistance;
     public GameObject trailObjPrefab; // The trail to use for this gun
+    public ParticleSystem particle;
+    public GameObject lightEffectPrefab;
 
     [Command(requiresAuthority = false)]
     public void CreateTrail(Vector2 pos1, Vector2 pos2) {
         GameObject trailObj = Instantiate(trailObjPrefab);
         NetworkServer.Spawn(trailObj);
         trailObj.GetComponent<BulletTrail>().Init(pos1, pos2, duration);
+        PlayEffect();
     }
-    //public void CreateTrailDir(Vector2 pos1, Vector2 direction) {
-    //    direction.Normalize();
-    //    Debug.Log("dir.x: " + direction.x.ToString() + "dir.y: " + direction.y.ToString());
-
-    //    GameObject trailObj = Instantiate(trailObjPrefab);
-    //    Vector2 pos2 = new Vector2(maxDistance * direction.x, maxDistance * direction.y);
-    //    pos2 += pos1;
-    //    trailObj.GetComponent<BulletTrail>().Init(pos1, pos2, duration);
-    //}
+    [ClientRpc]
+    public void PlayEffect() {
+        if (particle != null)
+            particle.Play();
+    }
 }
