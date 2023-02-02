@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using UnityEngine.Tilemaps;
+
 
 [RequireComponent(typeof(Timer))]
 public class Catastrophe : NetworkBehaviour {
@@ -13,10 +15,11 @@ public class Catastrophe : NetworkBehaviour {
     public float timerBeepVolume;
 
     [SerializeField] private List<GameObject> powerDependents;
-    [SerializeField] private GameObject darkness;
+    [SerializeField] private List<GameObject> darknessObjs;
     public Color darknessPowerOnColor;
     public Color darknessPowerOffColor;
     [SerializeField] private Interactable powerSwitch;
+    [SerializeField] private Interactable countdownDisableSwitch;
 
     [SerializeField] AudioClip powerOnSound;
     [SerializeField] float powerOnSoundVolume;
@@ -29,6 +32,12 @@ public class Catastrophe : NetworkBehaviour {
     private int prevCountdownTimeLeft;
     public bool isPowerOn { get; internal set; }
 
+    public int countdownReward;
+    private bool disabledCountdown = false;
+
+    [SerializeField] AudioClip explosionSound;
+    [SerializeField] float explosionSoundVolume;
+
     private void Awake() {
         timer = GetComponent<Timer>();
         countdownTimeLeft = countdownTime;
@@ -38,18 +47,20 @@ public class Catastrophe : NetworkBehaviour {
     }
     [Client]
     private void ClientUpdate() {
-        countdownTimeLeft = timer.TimeLeft(countdownID);
-        foreach (Prop_Screen screen in countdownScreens) {
-            string txt = "DETENATION IN \n" + Utilities.FormatTime(countdownTimeLeft);
-            if (isPowerOn)
-                screen.SetText(txt);
-            else
-                screen.SetText("");
+        if (!disabledCountdown) {
+            countdownTimeLeft = timer.TimeLeft(countdownID);
+            foreach (Prop_Screen screen in countdownScreens) {
+                string txt = "DETENATION IN \n" + Utilities.FormatTime(countdownTimeLeft);
+                if (isPowerOn)
+                    screen.SetText(txt);
+                else
+                    screen.SetText("");
+            }
+            if (Mathf.RoundToInt(countdownTimeLeft) < prevCountdownTimeLeft) {
+                AudioManager.instance.PlaySound(timerBeepSound, timerBeepVolume);
+            }
+            prevCountdownTimeLeft = Mathf.RoundToInt(countdownTimeLeft);
         }
-        if(Mathf.RoundToInt(countdownTimeLeft) < prevCountdownTimeLeft) {
-            AudioManager.instance.PlaySound(timerBeepSound, timerBeepVolume);
-        }
-        prevCountdownTimeLeft = Mathf.RoundToInt(countdownTimeLeft);
     }
 
     public override void OnStartServer() {
@@ -61,6 +72,34 @@ public class Catastrophe : NetworkBehaviour {
     public override void OnStartClient() {
         base.OnStartClient();
         powerSwitch.EventOnInteract += PowerSwitch;
+        countdownDisableSwitch.EventOnInteract += DisableCountdown;
+    }
+
+    private void SetLights(bool on) {
+        Color darknessColor;
+        if (on)
+            darknessColor = darknessPowerOnColor;
+        else
+            darknessColor = darknessPowerOffColor;
+
+        foreach (GameObject obj in darknessObjs) {
+            if (obj.HasComponent<SpriteRenderer>())
+                obj.GetComponent<SpriteRenderer>().color = darknessColor;
+            if(obj.HasComponent<Tilemap>())
+                obj.GetComponent<Tilemap>().color = darknessColor;
+        }
+        foreach (GameObject item in powerDependents) {
+            if (item == null)
+                continue;
+            if (item.HasComponent<Interactable>())
+                item.GetComponent<Interactable>().interactable = on;
+            if (item.HasComponent<Light>()) {
+                if(on)
+                    item.GetComponent<Light>().TurnOn();
+                else
+                    item.GetComponent<Light>().TurnOff();
+            }
+        }
     }
 
     [Client]
@@ -81,7 +120,20 @@ public class Catastrophe : NetworkBehaviour {
     }
     [Client]
     private void CountdownEnd() {
-        Debug.Log("BOOM!");
+        if (isServer) {
+            StartCoroutine(ExplodeMap());
+        }
+    }
+
+    [Server]
+    private IEnumerator ExplodeMap() {
+        TurnOffPower();
+        for (int i = 0; i < 15; i++) {
+            AudioManager.instance.PlaySound(explosionSound, explosionSoundVolume);
+            CameraController.instance.Shake(Random.Range(2f, i*2f));
+            yield return new WaitForSeconds(Random.Range(0.05f, 0.3f));
+        }
+        PlayerManager.instance.EndGame();
     }
 
     [Server]
@@ -100,17 +152,30 @@ public class Catastrophe : NetworkBehaviour {
             TurnOnPower();
     } 
 
+    [Command(requiresAuthority = false)]
+    public void DisableCountdown(GameObject player) {
+        if (disabledCountdown)
+            return;
+        player.GetComponent<PlayerStats>().AddMoney(countdownReward);
+        MoneyEffectManager.instance.CreateEffect(player, player.transform.position, countdownReward);
+        if (timer.HasTimer(countdownID)) {
+            disabledCountdown = true;
+            timer.KillTimer(countdownID);
+        }
+        DisableCountdownRPC();
+    }
+    [ClientRpc]
+    public void DisableCountdownRPC() {
+        if (timer.HasTimer(countdownID)) {
+            disabledCountdown = true;
+            timer.KillTimer(countdownID);
+        }
+    }
+
     [Server]
     private void TurnOffPower() {
         isPowerOn = false;
-        foreach (GameObject item in powerDependents) {
-            if (item == null)
-                continue;
-            if (item.HasComponent<Interactable>())
-                item.GetComponent<Interactable>().interactable = false;
-            if (item.HasComponent<Light>())
-                item.GetComponent<Light>().TurnOff();
-        }
+        SetLights(false);
         TurnOffPowerRPC();
     }
     [ClientRpc]
@@ -118,28 +183,14 @@ public class Catastrophe : NetworkBehaviour {
         AudioManager.instance.PlaySound(powerOffSound, powerOffSoundVolume);
         isPowerOn = false;
         PauseCountdown();
-        darkness.GetComponent<SpriteRenderer>().color = darknessPowerOffColor;
-        foreach (GameObject item in powerDependents) {
-            if (item == null)
-                continue;
-            if (item.HasComponent<Interactable>())
-                item.GetComponent<Interactable>().interactable = false;
-            if (item.HasComponent<Light>())
-                item.GetComponent<Light>().TurnOff();
-        }
+        SetLights(false);
     }
+
 
     [Server]
     private void TurnOnPower() {
         isPowerOn = true;
-        foreach (GameObject item in powerDependents) {
-            if (item == null)
-                continue;
-            if (item.HasComponent<Interactable>())
-                item.GetComponent<Interactable>().interactable = true;
-            if (item.HasComponent<Light>())
-                item.GetComponent<Light>().TurnOn();
-        }
+        SetLights(true);
         TurnOnPowerRPC();
     }
     [ClientRpc]
@@ -147,14 +198,6 @@ public class Catastrophe : NetworkBehaviour {
         AudioManager.instance.PlaySound(powerOnSound, powerOnSoundVolume);
         isPowerOn = true;
         StartCountdown();
-        darkness.GetComponent<SpriteRenderer>().color = darknessPowerOnColor;
-        foreach (GameObject item in powerDependents) {
-            if (item == null)
-                continue;
-            if (item.HasComponent<Interactable>())
-                item.GetComponent<Interactable>().interactable = true;
-            if (item.HasComponent<Light>())
-                item.GetComponent<Light>().TurnOn();
-        }
+        SetLights(true);
     }
 }

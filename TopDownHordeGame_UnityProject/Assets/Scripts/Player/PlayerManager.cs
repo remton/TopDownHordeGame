@@ -238,6 +238,11 @@ public class PlayerManager : NetworkBehaviour
             }
         }
         //Everyone died so end game
+        EndGame();
+    }
+
+    [Server]
+    public void EndGame() {
         SetGaveOverData();
         SavePlayerData();
         MyNetworkManager.instance.ChangeScene(GameOverScene);

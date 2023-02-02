@@ -234,6 +234,7 @@ MonoBehaviour:
   duration: 0.2
   maxDistance: 70
   trailObjPrefab: {fileID: 5599144035722061591, guid: 1173e4391071715429544057dfc90985, type: 3}
+  particle: {fileID: 0}
 --- !u!114 &1862295663597761640
 MonoBehaviour:
   m_ObjectHideFlags: 0
