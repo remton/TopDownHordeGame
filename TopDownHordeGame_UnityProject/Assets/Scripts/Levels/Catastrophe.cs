@@ -10,6 +10,9 @@ public class Catastrophe : NetworkBehaviour {
     public static string LevelName = "Catastrophe";
 
     [SerializeField] private float countdownTime;
+    [SerializeField] private float countdownMusicStartTime;
+    [SerializeField] private List<AudioClip> countdownMusic;
+    private bool countdownMusicStarted;
     [SerializeField] private List<Prop_Screen> countdownScreens;
     public AudioClip timerBeepSound;
     public float timerBeepVolume;
@@ -59,6 +62,12 @@ public class Catastrophe : NetworkBehaviour {
             if (Mathf.RoundToInt(countdownTimeLeft) < prevCountdownTimeLeft) {
                 AudioManager.instance.PlaySound(timerBeepSound, timerBeepVolume);
             }
+            if(!countdownMusicStarted && timer.HasTimer(countdownID) && countdownTimeLeft < countdownMusicStartTime) {
+                countdownMusicStarted = true;
+                Debug.Log("COUNTDOWN MUSIC");
+                MusicsManager.instance.SetMusic(countdownMusic, 1);
+            }
+
             prevCountdownTimeLeft = Mathf.RoundToInt(countdownTimeLeft);
         }
     }
