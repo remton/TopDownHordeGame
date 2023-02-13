@@ -22,6 +22,8 @@ public class PlayerManager : NetworkBehaviour
     private List<GameObject> localPlayers = new List<GameObject>(); //Holds only the local players to this client
     private List<GameObject> allPlayers = new List<GameObject>(); //Holds all players in game
 
+    public bool allowEndGame = true;
+
     //--- Public Methods ---
 
     //Returns the playercharacter with the given ID
@@ -242,7 +244,9 @@ public class PlayerManager : NetworkBehaviour
     }
 
     [Server]
-    public void EndGame() {
+    public void EndGame(bool forceEnd = false) {
+        if (!allowEndGame && !forceEnd)
+            return;
         SetGaveOverData();
         SavePlayerData();
         MyNetworkManager.instance.ChangeScene(GameOverScene);

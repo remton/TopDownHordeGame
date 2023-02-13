@@ -40,6 +40,12 @@ public class Catastrophe : NetworkBehaviour {
 
     [SerializeField] AudioClip explosionSound;
     [SerializeField] float explosionSoundVolume;
+    [SerializeField] float endCutsceneTime;
+    [SerializeField] GameObject endCutseneObj;
+    [SerializeField] float endCutsceneCameraSize;
+    [SerializeField] List<Animator> endExplosions;
+
+    [SerializeField] GameObject alarmLight;
 
     private void Awake() {
         timer = GetComponent<Timer>();
@@ -62,12 +68,15 @@ public class Catastrophe : NetworkBehaviour {
             if (Mathf.RoundToInt(countdownTimeLeft) < prevCountdownTimeLeft) {
                 AudioManager.instance.PlaySound(timerBeepSound, timerBeepVolume);
             }
-            if(!countdownMusicStarted && timer.HasTimer(countdownID) && countdownTimeLeft < countdownMusicStartTime) {
-                countdownMusicStarted = true;
-                Debug.Log("COUNTDOWN MUSIC");
-                MusicsManager.instance.SetMusic(countdownMusic, 1);
+            if(timer.HasTimer(countdownID) && countdownTimeLeft < (countdownMusicStartTime + MusicsManager.instance.fadeDuration)) {
+                if (!countdownMusicStarted) {
+                    countdownMusicStarted = true;
+                    Debug.Log("COUNTDOWN MUSIC");
+                    MusicsManager.instance.SetMusic(countdownMusic, 1);
+                    alarmLight.SetActive(true);
+                }
+                AlarmUpdate();
             }
-
             prevCountdownTimeLeft = Mathf.RoundToInt(countdownTimeLeft);
         }
     }
@@ -133,16 +142,65 @@ public class Catastrophe : NetworkBehaviour {
             StartCoroutine(ExplodeMap());
         }
     }
+  
+    float alarmOpacity = 0;
+    float alarmMaxOpacity = 0.4f;
+    float alarmFlipStall = 0.3f;
+    float alarmLightSpeed = 0.4f;
+    bool isAlarmOpacityIncreasing = true;
+    void AlarmUpdate() {
+        if (isAlarmOpacityIncreasing)
+            alarmOpacity += (1 * alarmLightSpeed) * Time.deltaTime;
+        else
+            alarmOpacity -= (1 * alarmLightSpeed) * Time.deltaTime;
+
+        if (alarmOpacity >= alarmMaxOpacity+alarmFlipStall) {
+            alarmOpacity = alarmMaxOpacity;
+            isAlarmOpacityIncreasing = false;
+        }
+
+        if (alarmOpacity <= 0-alarmFlipStall) {
+            isAlarmOpacityIncreasing = true;
+            alarmOpacity = 0;
+        }
+
+        Debug.Log("Alarm Opac: " + alarmOpacity);
+        Color c = alarmLight.GetComponent<SpriteRenderer>().color;
+        if (alarmOpacity > alarmMaxOpacity)
+            c.a = alarmMaxOpacity;
+        else if (alarmOpacity < 0)
+            c.a = 0;
+        else
+            c.a = alarmOpacity;
+        alarmLight.GetComponent<SpriteRenderer>().color = c;
+    }
+
 
     [Server]
     private IEnumerator ExplodeMap() {
+        PlayerManager.instance.allowEndGame = false;
         TurnOffPower();
-        for (int i = 0; i < 15; i++) {
-            AudioManager.instance.PlaySound(explosionSound, explosionSoundVolume);
-            CameraController.instance.Shake(Random.Range(2f, i*2f));
-            yield return new WaitForSeconds(Random.Range(0.05f, 0.3f));
-        }
+        StartEndCutscene();
+        yield return new WaitForSeconds(endCutsceneTime);
+        PlayerManager.instance.allowEndGame = true;
         PlayerManager.instance.EndGame();
+    }
+    [ClientRpc]
+    private void StartEndCutscene() {
+        CameraController.instance.FixPos(endCutseneObj.transform.position);
+        CameraController.instance.gameObject.GetComponent<Camera>().orthographicSize = endCutsceneCameraSize;
+        StartCoroutine(EndCutscene());
+    }
+    private IEnumerator EndCutscene() {
+        TurnOffPower();
+        int expNum = endExplosions.Count;
+        for (int i = 0; i < expNum; i++) {
+            AudioManager.instance.PlaySound(explosionSound, explosionSoundVolume);
+            endExplosions[i].gameObject.SetActive(true);
+            CameraController.instance.Shake(Random.Range(2f, i * 2f));
+            float randTimeAddition = Random.Range(-0.1f, 0f);
+            yield return new WaitForSeconds(randTimeAddition + endCutsceneTime/expNum);
+        }
     }
 
     [Server]
