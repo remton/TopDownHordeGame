@@ -456,7 +456,6 @@ RectTransform:
   - {fileID: 6139679337246550211}
   - {fileID: 5646090461719423308}
   - {fileID: 3338482677293958796}
-  - {fileID: 3368242677581993153}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -551,8 +550,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.016857833, y: -0.24162848}
-  m_Size: {x: 0.28079435, y: 0.39311647}
+  m_Offset: {x: -0.016857833, y: -0.2973646}
+  m_Size: {x: 0.28079435, y: 0.28164425}
   m_Direction: 0
 --- !u!114 &1620798982028091916
 MonoBehaviour:

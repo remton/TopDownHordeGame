@@ -48,7 +48,7 @@ public class Timer : MonoBehaviour
     public void UnpauseTimer(Guid timerID) {
         foreach (SingleTimer timer in timers) {
             if (timer.ID == timerID) {
-                timer.isTimerRunning = false;
+                timer.isTimerRunning = true;
             }
         }
     }

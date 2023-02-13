@@ -18,7 +18,7 @@ public class ModifiersController : NetworkBehaviour
     public GameObject allSplitter_Prefab;
     public GameObject allZathrak_Prefab;
 
-    private List<RandomChoice> zombieListReplacement = new List<RandomChoice>();
+    private List<RandomChoice<GameObject>> zombieListReplacement = new List<RandomChoice<GameObject>>();
     private bool replaceZombieList = false;
     private Timer timer;
     private List<GameObject> players;
@@ -27,39 +27,39 @@ public class ModifiersController : NetworkBehaviour
     #region zombie spawn modifiers
     [Server]
     public void Apply_AllBasic() {
-        zombieListReplacement.Add(new RandomChoice(1, allBasic_Prefab));
+        zombieListReplacement.Add(new RandomChoice<GameObject>(1, allBasic_Prefab));
         replaceZombieList = true;
         Debug.Log("MODIFIER: All Basic");
     }
     [Server]
     public void Apply_AllBiggest() {
-        zombieListReplacement.Add(new RandomChoice(1, allBiggestFan_Prefab));
+        zombieListReplacement.Add(new RandomChoice<GameObject>(1, allBiggestFan_Prefab));
         replaceZombieList = true;
         Debug.Log("MODIFIER: All Biggest Fan");
     }
 
     [Server]
     public void Apply_AllHockEye() {
-        zombieListReplacement.Add(new RandomChoice(1, allHockEye_Prefab));
+        zombieListReplacement.Add(new RandomChoice<GameObject>(1, allHockEye_Prefab));
         replaceZombieList = true;
         Debug.Log("MODIFIER: All Hock Eye");
     }
     [Server]
     public void Apply_AllLungs() {
-        zombieListReplacement.Add(new RandomChoice(1, allLungs_Prefab));
+        zombieListReplacement.Add(new RandomChoice<GameObject>(1, allLungs_Prefab));
         replaceZombieList = true;
         Debug.Log("MODIFIER: All Lungs");
     }
     [Server]
     public void Apply_AllSplitter() {
-        zombieListReplacement.Add(new RandomChoice(1, allSplitter_Prefab));
+        zombieListReplacement.Add(new RandomChoice<GameObject>(1, allSplitter_Prefab));
         replaceZombieList = true;
         Debug.Log("MODIFIER: All Splitter");
     }
 
     [Server]
     public void Apply_AllZathrak() {
-        zombieListReplacement.Add(new RandomChoice(1, allZathrak_Prefab));
+        zombieListReplacement.Add(new RandomChoice<GameObject>(1, allZathrak_Prefab));
         replaceZombieList = true;
         Debug.Log("MODIFIER: All Zathrak");
     }

@@ -121,7 +121,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.1}
+  m_Extents: {x: 0.5, y: 0.5, z: 1}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
@@ -175,6 +175,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8127bc0f35fa6744ebbbc796bbb1280a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  trigger: {fileID: 72847968915284564}
+  interactable: 1
   cost: 1000
   doorHolder: {fileID: 72847967375984667}
   popupCanvas: {fileID: 5377004052288633354}

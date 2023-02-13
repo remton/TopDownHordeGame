@@ -3857,6 +3857,11 @@ MonoBehaviour:
     description: Small, compact, shippable
     preview: {fileID: 3792534909945103846, guid: f8c87ac4f32ac814a8efccf16504a331, type: 3}
     unlocked: 1
+  - scene: Assets/Scenes/Levels/Catastrophy/Catastrophe.unity
+    Name: Catastrophe
+    description: Underground lab
+    preview: {fileID: 9119892842310178209, guid: a0bde204e9aa6b2478d979fa352f8e0d, type: 3}
+    unlocked: 1
   mapNameTxt: {fileID: 1553348705}
   mapDescriptionTxt: {fileID: 925801984}
   modifierListTxt: {fileID: 148151752}

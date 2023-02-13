@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WeaponShop : MonoBehaviour
+public class WeaponShop : Interactable
 {
     public AudioClip purchaseSound;
     public AudioClip failPurchaseSound;
@@ -21,47 +21,46 @@ public class WeaponShop : MonoBehaviour
         if (playerStats.GetBank() >= cost) {
             playerStats.TrySpendMoney(cost);
             weaponControl.PickUpWeapon(weaponPrefab);
-            //SoundPlayer.Play(purchaseSound, transform.position);
             AudioManager.instance.PlaySound(purchaseSound);
         }
         else {
-            //SoundPlayer.Play(failPurchaseSound, transform.position);
             AudioManager.instance.PlaySound(failPurchaseSound);
             //Debug.Log("u broke lol");
         }
     }
 
-    // Hitbox and player activation set
-    protected HitBoxController hitbox;
-
-    private void Awake() {
+    protected override void Awake() {
+        base.Awake();
         cost = baseCost;
-        hitbox = GetComponent<HitBoxController>();
-        hitbox.EventObjEnter += OnPlayerEnter;
-        hitbox.EventObjExit += OnPlayerExit;
         popupCanvas.SetActive(false);
     }
 
-    virtual public void OnPlayerEnter(GameObject player) {
-        player.GetComponent<PlayerActivate>().EventPlayerActivate += TryBuyWeapon;
+    public override void OnPlayerEnter(GameObject player) {
+        base.OnPlayerEnter(player);
+        if (!interactable)
+            return;
         popupCanvas.SetActive(true);
         popupText.text = weaponPrefab.name + "\n$" + cost;
         popupImage.sprite = weaponPrefab.GetComponent<Weapon>().icon;
     }
-    public void OnPlayerExit(GameObject player) {
-        player.GetComponent<PlayerActivate>().EventPlayerActivate -= TryBuyWeapon;
+    public override void OnPlayerExit(GameObject player) {
+        base.OnPlayerExit(player);
         popupCanvas.SetActive(false);
+    }
+    public override void OnInteract(GameObject player) {
+        base.OnInteract(player);
+        TryBuyWeapon(player);
     }
     public void SaleStart(float price)
     {
-        Debug.Log("Price before: " + cost);
+        //Debug.Log("Price before: " + cost);
         cost = Mathf.FloorToInt(baseCost * price);
-        Debug.Log("Price now: " + cost + "\n");
+        //Debug.Log("Price now: " + cost + "\n");
     }
     public void SaleEnd()
     {
         cost = baseCost;
-        Debug.Log("Price after end: " + cost);
+        //Debug.Log("Price after end: " + cost);
     }
 
 }

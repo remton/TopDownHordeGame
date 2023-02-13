@@ -7,18 +7,22 @@ using Mirror;
 [RequireComponent(typeof(Timer))]
 public class ElevatorZombieSpawn : ZombieSpawn {
 
-    public List<RandomChoice> zombieList;
+    public List<RandomChoice<GameObject>> zombieList;
     private Timer timer;
     private System.Guid spawnTimerID;
     private bool doSpawns = false;
 
-    public bool startOnSceneLoad;
 
     private void Start() {
         timer = GetComponent<Timer>();
-        if (isServer && startOnSceneLoad) {
-            SceneLoader.instance.AddPostLoad(StartSpawns);
+        if (isServer) {
+            RoundController.instance.EventRoundChange += FirstRoundStart;
         }
+    }
+
+    public void FirstRoundStart(int round) {
+        RoundController.instance.EventRoundChange -= FirstRoundStart;
+        StartSpawns();
     }
 
     public void StartSpawns() {
@@ -33,7 +37,7 @@ public class ElevatorZombieSpawn : ZombieSpawn {
 
     [Server]
     public GameObject CreateZombie() {
-        GameObject zombieObj = Instantiate(RandomChoice.ChooseRandom(zombieList));
+        GameObject zombieObj = Instantiate(RandomChoice<GameObject>.ChooseRandom(zombieList));
         zombieObj.GetComponent<ZombieAI>().SetValues(GetHealth(), GetSpeed(), GetDamage());
         return zombieObj;
     }
@@ -43,9 +47,9 @@ public class ElevatorZombieSpawn : ZombieSpawn {
         if (!doSpawns || RoundController.instance.numberActiveZombies >= RoundController.instance.maxActiveZombies)
             return;
         GameObject zombie = CreateZombie();
+        zombie.AddComponent(typeof(DoNotCount));
         zombie.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         NetworkServer.Spawn(zombie);
-        RoundController.instance.IncreaseActiveZombies(1);
         spawnTimerID = timer.CreateTimer(GetSpawnDeley(), SpawnZombie);
     }
 

@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 7324206027799971869}
   - component: {fileID: 7324206027799971866}
   - component: {fileID: 7324206027799971867}
-  - component: {fileID: 8312380616075930097}
   - component: {fileID: 6269237795999379795}
+  - component: {fileID: 218024251}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -47,8 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   masterVolume: 0.054
-  sfxVolume: 1
   musicVolume: 0.1
+  sfxVolume: 1
   sfxSource: {fileID: 6269237795999379795}
 --- !u!114 &7324206027799971867
 MonoBehaviour:
@@ -62,16 +62,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd8450c551eebc14a8056bb895c8d3e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainTheme: {fileID: 8300000, guid: 1a5af720b51d3154d98dcae846d2f30c, type: 3}
-  battleTheme: {fileID: 8300000, guid: 39b8225457ea9604b81fc8a7aa476d80, type: 3}
---- !u!81 &8312380616075930097
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7324206027799971864}
-  m_Enabled: 1
+  fadeDuration: 4
+  scenes:
+  - scene: Assets/Scenes/MainMenu.unity
+    musics:
+    - {fileID: 8300000, guid: f623192ae3846d34d99b3a7f4e87cf71, type: 3}
+    musicChance: 100
+    musicUptimeMin: 30
+    musicUptimeMax: 30
+    silenceUptimeMin: 1
+    silenceUptimeMax: 1
+  - scene: Assets/Scenes/Lobby.unity
+    musics:
+    - {fileID: 8300000, guid: f623192ae3846d34d99b3a7f4e87cf71, type: 3}
+    musicChance: 100
+    musicUptimeMin: 30
+    musicUptimeMax: 30
+    silenceUptimeMin: 1
+    silenceUptimeMax: 1
+  - scene: Assets/Scenes/Levels/CatCafe/CatCafe.unity
+    musics:
+    - {fileID: 8300000, guid: df4de93bc46a9744eaa6a7faccdef03f, type: 3}
+    - {fileID: 8300000, guid: b4529142a084ae247a6252b940f95b99, type: 3}
+    musicChance: 70
+    musicUptimeMin: 1
+    musicUptimeMax: 3
+    silenceUptimeMin: 0.2
+    silenceUptimeMax: 0.8
+  defaultScene:
+    scene: Assets/Scenes/MainMenu.unity
+    musics:
+    - {fileID: 8300000, guid: f623192ae3846d34d99b3a7f4e87cf71, type: 3}
+    musicChance: 100
+    musicUptimeMin: 30
+    musicUptimeMax: 30
+    silenceUptimeMin: 1
+    silenceUptimeMax: 1
 --- !u!82 &6269237795999379795
 AudioSource:
   m_ObjectHideFlags: 0
@@ -168,3 +194,11 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!81 &218024251
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7324206027799971864}
+  m_Enabled: 1

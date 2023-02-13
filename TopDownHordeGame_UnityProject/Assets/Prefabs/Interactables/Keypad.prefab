@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8471286947939755763}
   - component: {fileID: 8471286947939755760}
   - component: {fileID: 8471286947939755761}
+  - component: {fileID: 5260513218689726832}
   m_Layer: 0
   m_Name: Keypad
   m_TagString: Untagged
@@ -85,6 +86,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fe7b1e721cb92f45a4571d08aef9ac8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  trigger: {fileID: 8471286947939755760}
+  interactable: 1
   UI: {fileID: 0}
   code: 0100000002000000030000000400000005000000
   unlockedDigits: 0
+--- !u!114 &5260513218689726832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8471286947939755775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 9b74213c1256f97499476501e1d69d69
+  hasSpawned: 0

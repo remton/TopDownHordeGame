@@ -20,7 +20,7 @@ public class MusicsManager : MonoBehaviour {
         public float silenceUptimeMin;
         public float silenceUptimeMax;
     }
-    
+
     [Header("How long fading between tracks takes in seconds")]
     public float fadeDuration;
 
@@ -36,7 +36,17 @@ public class MusicsManager : MonoBehaviour {
     System.Guid uptimeTimer;
     private float uptime;
 
+    public static MusicsManager instance;
+
     private void Awake() {
+        if (instance == null) {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else {
+            Destroy(this);
+        }
+
         timer = GetComponent<Timer>();
         SceneManager.activeSceneChanged += SceneChanged;
     }
@@ -48,8 +58,8 @@ public class MusicsManager : MonoBehaviour {
         //Debug.Log("Scene changed");
         currScene = defaultScene;
         foreach (MusicScene scene in scenes) {
-            if (scene.scene == next.path)
-            currScene = scene;
+            if (scene.scene!=null && scene.scene == next.path)
+                currScene = scene;
         }
         StartCoroutine(SetScene(currScene));
     }
@@ -88,5 +98,17 @@ public class MusicsManager : MonoBehaviour {
         else {
             AudioManager.instance.FadeOutMusic(fadeDuration);
         }
+    }
+
+    public void SetMusic(List<AudioClip> musics, float chance = 1) {
+        MusicScene newScene = currScene;
+        newScene.musics = musics;
+        newScene.musicChance = chance;
+        StartCoroutine(SetMusicCoroutine(newScene));
+    }
+    private IEnumerator SetMusicCoroutine(MusicScene scene) {
+        StopMusic();
+        yield return new WaitForSeconds(fadeDuration);
+        StartCoroutine(SetScene(scene));
     }
 }

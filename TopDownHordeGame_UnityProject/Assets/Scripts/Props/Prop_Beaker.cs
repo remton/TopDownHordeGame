@@ -9,9 +9,10 @@ public class Prop_Beaker : Prop
     [SerializeField] private Animator myAnimator;
     [SerializeField] private Animator liquidAnimator; 
     public AudioClip breakSound;
-    protected override void OnShot() {
+    public float soundVolume;
+    protected override void OnShot(Weapon weapon) {
         canBeShot = false;
-        AudioManager.instance.PlaySound(breakSound);
+        AudioManager.instance.PlaySound(breakSound, soundVolume);
         myAnimator.SetTrigger("shot");
         liquidAnimator.SetTrigger("shot");
         TimedDestroy td = gameObject.AddComponent<TimedDestroy>();

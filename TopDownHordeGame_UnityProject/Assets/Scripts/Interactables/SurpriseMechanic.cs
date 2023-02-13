@@ -6,12 +6,23 @@ using UnityEngine.UI;
 public class SurpriseMechanic : WeaponShop
 {
     //public GameObject[] weaponPrefabList;
-    public List<RandomChoice> weaponChoices;
+    public List<RandomChoice<GameObject>> weaponChoices;
     //private int cost;
     //public int baseCost;
+    [SerializeField] SpriteRenderer expressionRenderer;
+    [SerializeField] Animator txtAnimator;
 
-    override public void TryBuyWeapon(GameObject player)
-    {
+    public List<RandomChoice<Sprite>> expressions;
+    public Sprite defaultExpression;
+    public Sprite blinkExpression;
+    public float expressTime;
+
+    private void Start() {
+        StartCoroutine(DefaultExpress());
+    }
+
+    override public void TryBuyWeapon(GameObject player) {
+        StartCoroutine(RandomExpress());
         PlayerStats playerStats = player.GetComponent<PlayerStats>();
         PlayerWeaponControl weaponControl = player.GetComponent<PlayerWeaponControl>();
         if (playerStats.GetBank() >= cost)
@@ -19,7 +30,7 @@ public class SurpriseMechanic : WeaponShop
             //SoundPlayer.Play(purchaseSound, transform.position);
             AudioManager.instance.PlaySound(purchaseSound);
             playerStats.TrySpendMoney(cost);
-            weaponControl.PickUpWeapon(RandomChoice.ChooseRandom(weaponChoices));
+            weaponControl.PickUpWeapon(RandomChoice<GameObject>.ChooseRandom(weaponChoices));
         }
         else
         {
@@ -29,19 +40,37 @@ public class SurpriseMechanic : WeaponShop
         }
     }
 
-    //private void Awake()
-    //{
-    //    hitbox = GetComponent<HitBoxController>();
-    //    hitbox.EventObjEnter += OnPlayerEnter;
-    //    hitbox.EventObjExit += OnPlayerExit;
-    //    popupCanvas.SetActive(false);
-    //    cost = baseCost;
-    //}
-
     override public void OnPlayerEnter(GameObject player)
     {
-        player.GetComponent<PlayerActivate>().EventPlayerActivate += TryBuyWeapon;
         popupCanvas.SetActive(true);
         popupCanvas.GetComponentInChildren<Text>().text = "Surprise Mechanic" + "\n$" + cost; // "Surprise Mechanic"
+        SpriteWriteText(true);
+    }
+
+    override public void OnPlayerExit(GameObject player) {
+        base.OnPlayerExit(player);
+        SpriteWriteText(false);
+    }
+
+    private void SpriteWriteText(bool b) {
+        txtAnimator.SetBool("showTxt", b);
+    }
+
+    private IEnumerator DefaultExpress() {
+        while (true) {
+            expressionRenderer.sprite = defaultExpression;
+            yield return new WaitForSeconds(Random.Range(15, 30));
+            yield return new WaitForEndOfFrame();
+            expressionRenderer.sprite = blinkExpression;
+            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(0.15f);
+        }
+    }
+
+    private IEnumerator RandomExpress() {
+        StopCoroutine(DefaultExpress());
+        expressionRenderer.sprite = RandomChoice<Sprite>.ChooseRandom(expressions);
+        yield return new WaitForSeconds(expressTime);
+        StartCoroutine(DefaultExpress());
     }
 }

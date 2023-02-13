@@ -13,7 +13,7 @@ public class MagicController : NetworkBehaviour
 
     [SerializeField] private GameObject magicTimerUIHolder;
     [SerializeField] private GameObject magicTimerUIPrefab;
-    [SerializeField] private List<RandomChoice> dropList;
+    [SerializeField] private List<RandomChoice<GameObject>> dropList;
 
     [Client]
     public void CreateTimer(Magic magic, System.Guid timerID) {
@@ -30,7 +30,7 @@ public class MagicController : NetworkBehaviour
 
     [Server]
     public void MagicDrop(Vector3 zombieLocation){   
-        GameObject dropObj = Instantiate(RandomChoice.ChooseRandom(dropList), zombieLocation, Quaternion.identity);
+        GameObject dropObj = Instantiate(RandomChoice<GameObject>.ChooseRandom(dropList), zombieLocation, Quaternion.identity);
         if (dropObj.CompareTag("NullChoice"))
             return;
         NetworkServer.Spawn(dropObj);
