@@ -76,7 +76,12 @@ public class SaveData : MonoBehaviour {
     // ----- Public Methods -----
     public static void Save() {
         Debug.Log("Saving . . .");
-        SaveSystem.Save(instance);
+        try {
+            SaveSystem.Save(instance);
+        }
+        catch (System.IO.IOException e) {
+            Debug.LogWarning("FAILED TO SAVE DUE TO IOException." + e.ToString());
+        }
     }
     public static void Load() {
         Save save = SaveSystem.LoadSave();

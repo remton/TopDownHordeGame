@@ -7,7 +7,7 @@ public class BleedOutMeter : MonoBehaviour
 {
     public string dyingText;
     public Color dyingColor;
-    private bool isDying;
+    private bool isBleedingOut;
 
     public string revivePromptText;
     public Color revivePromptColor;
@@ -18,7 +18,7 @@ public class BleedOutMeter : MonoBehaviour
     private bool isReviving;
 
     public GameObject player;
-    public PlayerHealth health;
+    public PlayerBleedout bleedout;
     public SpriteRenderer spriteRenderer;
     public List<Sprite> sprites;
     public Text message;
@@ -29,7 +29,7 @@ public class BleedOutMeter : MonoBehaviour
         awakeScaleX = transform.localScale.x;
     }
     private void Start() {
-        SetBleeingOut(health.GetIsBleedingOut());
+        SetBleeingOut(bleedout.isBleedingOut);
         SetRevivePrompt(false);
         SetReviving(false);
     }
@@ -41,24 +41,32 @@ public class BleedOutMeter : MonoBehaviour
         else
             transform.localScale = new Vector3(awakeScaleX, transform.localScale.y, transform.localScale.z);
 
-        if (isDying) {
+        if (isBleedingOut) {
             UpdateMeter();
         }
     }
     private void UpdateMeter() {
-        float bleedOutRatio = health.GetBleedOutTimeRatio();
+        float bleedOutRatio = bleedout.bleedoutRatio;
         spriteRenderer.sprite = sprites[Mathf.RoundToInt(bleedOutRatio * (sprites.Count - 1))];
     }
 
-    public void UpdateValues(bool bleedingOut, bool revivePrompt, bool reviving) {
-        SetBleeingOut(bleedingOut);
-        SetRevivePrompt(revivePrompt);
-        SetReviving(reviving);
+    public void SetBleeingOut(bool b) {
+        Debug.Log("BleedOutMeter: bleeding out " + b);
+        isBleedingOut = b;
+        UpdateUI();
     }
-
-    private void SetBleeingOut(bool b) {
-        isDying = b;
-        if (isDying) {
+    public void SetRevivePrompt(bool b) {
+        Debug.Log("BleedOutMeter: revive prompt " + b);
+        hasRevivePrompt = b;
+        UpdateUI();
+    }
+    public void SetReviving(bool b) {
+        Debug.Log("BleedOutMeter: reviving " + b);
+        isReviving = b;
+        UpdateUI();
+    }
+    private void UpdateUI() {
+        if (isBleedingOut) {
             spriteRenderer.enabled = true;
             message.gameObject.SetActive(true);
             message.text = dyingText;
@@ -69,17 +77,13 @@ public class BleedOutMeter : MonoBehaviour
             spriteRenderer.enabled = false;
             message.gameObject.SetActive(false);
         }
-    }
-    private void SetRevivePrompt(bool b) {
-        hasRevivePrompt = b;
+
         if (hasRevivePrompt) {
             message.text = revivePromptText;
             message.resizeTextForBestFit = true;
             message.color = revivePromptColor;
         }
-    }
-    private void SetReviving(bool b) {
-        isReviving = b;
+
         if (isReviving) {
             message.text = revivingText;
             message.resizeTextForBestFit = true;

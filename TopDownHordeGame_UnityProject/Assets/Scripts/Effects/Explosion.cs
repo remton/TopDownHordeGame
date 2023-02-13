@@ -13,7 +13,6 @@ public class Explosion : MonoBehaviour
     [SerializeField] private float screenShakeIntensity;
     private HitBoxController hitBox;
     private GameObject owner;
-    private string ownerTag;
     private List<string> damageTags;
     private List<string> knockbackTags;
     private float damage;
@@ -34,7 +33,6 @@ public class Explosion : MonoBehaviour
     public void Init(GameObject nOwner, List<string> nDamageTags, List<string> nKnockbackTags, float nDamage, float nKnockbackStrength) {
 
         owner = nOwner;
-        ownerTag = nOwner.tag;
         damageTags = nDamageTags;
         knockbackTags = nKnockbackTags;
         damage = nDamage;
@@ -80,8 +78,8 @@ public class Explosion : MonoBehaviour
             actor = actor.GetComponent<DamageHitbox>().owner;
         }
         if (actor.tag == "Player") {
-            //Debug.Log("player in explosion!");
-            if (owner.tag != "Player" || (owner.tag == "Player" && actor.GetComponent<PlayerHealth>().HasFriendlyFire()))
+            Debug.Log("player in explosion!");
+            if (owner == null || owner.tag != "Player" || (owner.tag == "Player" && actor.GetComponent<PlayerHealth>().HasFriendlyFire()))
                 actor.GetComponent<PlayerHealth>().DamageCMD(damage);
         }
         if (actor.tag == "Zombie") {
