@@ -103,15 +103,11 @@ public class PlayerManager : NetworkBehaviour
         }
     }
 
-    [ClientRpc]
-    public void HealAllPlayersRPC(){
-                for (int i = 0; i < localPlayers.Count; i++) {
-            GameObject player = localPlayers[i];
-            if (player == null)
-                continue;
-
-            player.GetComponent<PlayerHealth>().Heal(7000);
-            //Debug.Log("Player healed.");
+    [Server]
+    public void HealAllPlayers() {
+        foreach (GameObject player in allPlayers) {
+            if (player != null)
+                player.GetComponent<PlayerHealth>().Heal(7000);
         }
     }
 
