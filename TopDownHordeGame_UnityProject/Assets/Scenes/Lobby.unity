@@ -2452,31 +2452,31 @@ MonoBehaviour:
   - mod: 7
     name: Zapp
     description: All guns create chaining electricty
-    defaultUnlock: 1
+    defaultUnlock: 0
     itemUI: {fileID: 0}
     active: 0
   - mod: 11
     name: Ping Pong
     description: Enemies push you when they deal damage
-    defaultUnlock: 1
+    defaultUnlock: 0
     itemUI: {fileID: 0}
     active: 0
   - mod: 8
     name: Student Loans
     description: Lose increasing amounts of money every round!
-    defaultUnlock: 1
+    defaultUnlock: 0
     itemUI: {fileID: 0}
     active: 0
   - mod: 9
     name: Blood Bullets
     description: All weapons have infinite ammo, but at what cost?
-    defaultUnlock: 1
+    defaultUnlock: 0
     itemUI: {fileID: 0}
     active: 0
   - mod: 10
     name: Can't stop won't stop
     description: You stop, you drop
-    defaultUnlock: 1
+    defaultUnlock: 0
     itemUI: {fileID: 0}
     active: 0
   modItemHolder: {fileID: 1921211669}

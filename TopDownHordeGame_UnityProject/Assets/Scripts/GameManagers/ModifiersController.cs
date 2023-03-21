@@ -5,7 +5,7 @@ using Mirror;
 
 public enum ModifierType {
     allBasic, allBiggestFan, allHockEye, allLungs, allSplitter, allZathrak, 
-    safetyOff, zapp, studentLoans, bloodBullets, csws, pingPong
+    safetyOff, zapp, studentLoans, bloodBullets, CSWSMovement, pingPong
 }
 
 [RequireComponent(typeof(Timer))]
@@ -88,7 +88,7 @@ public class ModifiersController : NetworkBehaviour
         }
     }
 
-    float PINGPONG_LUNG_KNOCKBACK = 500;
+    float PINGPONG_LUNG_KNOCKBACK = 600;
     float PINGPONG_EYE_KNOCKBACK = 400;
     [Server]
     public void Apply_PingPong(){
@@ -215,7 +215,7 @@ public class ModifiersController : NetworkBehaviour
                     case ModifierType.pingPong:
                         Apply_PingPong();
                         break;
-                    case ModifierType.csws:
+                    case ModifierType.CSWSMovement:
                         Apply_CSWS();
                         break;
                     case ModifierType.studentLoans:
