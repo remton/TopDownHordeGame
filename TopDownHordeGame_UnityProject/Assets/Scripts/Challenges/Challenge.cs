@@ -40,10 +40,16 @@ public class Challenge : MonoBehaviour
         SaveData.instance.challenge_completed[(int)type] = true;
     }
 
-    private void Start() {
+    //Start is not called at the start of each scene since the challenge objects are never destroyed
+    //Use the similar unity function OnLevelWasLoaded as an alternative
+    protected void Start() {
         Load();
     }
-    private void Awake() {
+    //NOTE: OnLevelWasLoaded is called on every scene load except the first one where game is started.
+    protected virtual void OnLevelWasLoaded(int level) {
+        Load();
+    }
+    protected void Awake() {
         allChallenges.Add(this);
     }
 }

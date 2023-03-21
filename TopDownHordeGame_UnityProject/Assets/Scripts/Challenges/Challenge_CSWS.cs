@@ -9,15 +9,24 @@ public class Challenge_CSWS : Challenge
     private Timer timer;
     public override void Load() {
         base.Load();
+        Debug.Log("CSWS Load()");
         Unlock(); // This is unlocked by default
-     }
-    private void Start()
-    {
-        if (RoundController.instance != null)
-        {
+    }
+
+    //Called whenever a level is loaded. Alternative to start function
+    protected override void OnLevelWasLoaded(int level) {
+        base.OnLevelWasLoaded(level);
+        Debug.Log("CSWS OnLevelWasLoaded()");
+        SceneLoader.instance.AddPostLoad(StartCheck);
+    }
+
+    public void StartCheck() {
+        Debug.Log("CSWS StartCheck()");
+        if (RoundController.instance != null) {
             RoundController.instance.EventRoundChange += CSWS_RoundCheck;
         }
     }
+
     private void CSWS_Check()
     {
         Debug.Log("CHECKING Can't Stop Won't Stop");
