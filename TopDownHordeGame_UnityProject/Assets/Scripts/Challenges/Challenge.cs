@@ -28,6 +28,10 @@ public class Challenge : MonoBehaviour
     public virtual void Load() {
         unlocked = SaveData.instance.challenge_unlocks[(int)type];
         completed = SaveData.instance.challenge_completed[(int)type];
+        if(completed)
+        {
+            progress = 1f;
+        }
     }
     
     public virtual void Unlock() {
