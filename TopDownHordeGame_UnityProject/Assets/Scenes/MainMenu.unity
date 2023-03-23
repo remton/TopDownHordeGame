@@ -2489,6 +2489,7 @@ GameObject:
   m_Component:
   - component: {fileID: 828557433}
   - component: {fileID: 828557434}
+  - component: {fileID: 828557435}
   m_Layer: 0
   m_Name: MoveIt
   m_TagString: Untagged
@@ -2530,7 +2531,18 @@ MonoBehaviour:
   progress: 0
   unlocked: 0
   completed: 0
-  roundComplete: 1
+--- !u!114 &828557435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828557432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2481c070c49a4dd4cb8ace2ff92559b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &837858027
 GameObject:
   m_ObjectHideFlags: 0
