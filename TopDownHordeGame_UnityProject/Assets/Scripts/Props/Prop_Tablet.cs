@@ -10,6 +10,7 @@ public class Prop_Tablet : Prop
 
     private bool hasTurnedOn = false;
     public AudioClip turnOnSoundSound;
+    public float turnOnSoundVolume;
 
     private void Awake() {
         animator = GetComponent<Animator>();
@@ -21,7 +22,7 @@ public class Prop_Tablet : Prop
         if (hasTurnedOn)
             return;
         hasTurnedOn = true;
-        AudioManager.instance.PlaySound(turnOnSoundSound);
+        AudioManager.instance.PlaySound(turnOnSoundSound, turnOnSoundVolume);
         animator.SetTrigger("turnOn");
     }
 

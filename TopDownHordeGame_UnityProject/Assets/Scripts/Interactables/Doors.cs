@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
 
-public class Doors : NetworkBehaviour
+public class Doors : Interactable
 {
     public int cost;
     public GameObject doorHolder;
@@ -12,7 +12,6 @@ public class Doors : NetworkBehaviour
     public List<ZombieSpawn> roomSpawns;
     [SerializeField] private AudioClip openSound;
     [SerializeField] private AudioClip failedBuySound;
-
     public void TryBuyDoor(GameObject player)
     {
         PlayerStats playerStats = player.GetComponent<PlayerStats>();
@@ -29,29 +28,29 @@ public class Doors : NetworkBehaviour
         }
     }
 
-    // Hitbox and player activation set
-    private HitBoxController hitbox;
 
-    private void Awake()
-    {
+    protected override void Awake(){
+        base.Awake();
         doorHolder.SetActive(true);
-        hitbox = GetComponent<HitBoxController>();
-        hitbox.EventObjEnter += OnPlayerEnter;
-        hitbox.EventObjExit += OnPlayerExit;
         popupCanvas.SetActive(false);
     }
 
-    public void OnPlayerEnter(GameObject player)
-    {
-        player.GetComponent<PlayerActivate>().EventPlayerActivate += TryBuyDoor;
+    public override void OnPlayerEnter(GameObject player){
+        base.OnPlayerEnter(player);
+        if (!interactable)
+            return;
         popupCanvas.GetComponentInChildren<Text>().text = "$" + cost;
         popupCanvas.SetActive(true);
     }
-    public void OnPlayerExit(GameObject player)
-    {
-        player.GetComponent<PlayerActivate>().EventPlayerActivate -= TryBuyDoor;
+    public override void OnPlayerExit(GameObject player){
+        base.OnPlayerExit(player);
         popupCanvas.SetActive(false);
     }
+    public override void OnInteract(GameObject player) {
+        base.OnInteract(player);
+        TryBuyDoor(player);
+    }
+
     [Client]
     private void OpenDoor()
     {

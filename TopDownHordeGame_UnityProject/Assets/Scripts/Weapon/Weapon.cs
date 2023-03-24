@@ -226,9 +226,9 @@ public class Weapon : NetworkBehaviour
                 trailEnd = hitInfos[i].point;
                 break;
             }
-            else if (hitObj.CompareTag("Prop") && hitObj.GetComponent<Prop>().canBeShot) {
+            else if (hitObj.CompareTag("Prop") && hitObj.HasComponent<Prop>() && hitObj.GetComponent<Prop>().canBeShot) {
                 Prop prop = hitObj.GetComponent<Prop>();
-                prop.ShootCMD();
+                prop.ShootCMD(this);
                 penetrated += prop.hardness;
             }
             else {

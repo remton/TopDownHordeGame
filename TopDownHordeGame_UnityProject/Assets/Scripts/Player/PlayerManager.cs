@@ -22,6 +22,8 @@ public class PlayerManager : NetworkBehaviour
     private List<GameObject> localPlayers = new List<GameObject>(); //Holds only the local players to this client
     private List<GameObject> allPlayers = new List<GameObject>(); //Holds all players in game
 
+    public bool allowEndGame = true;
+
     //--- Public Methods ---
 
     //Returns the playercharacter with the given ID
@@ -93,23 +95,19 @@ public class PlayerManager : NetworkBehaviour
             if (player == null)
                 continue;
 
-            if (player.GetComponent<PlayerHealth>().GetIsBleedingOut()) {
-                player.GetComponent<PlayerHealth>().ReviveCMD();
+            if (player.GetComponent<PlayerBleedout>().isBleedingOut) {
+                player.GetComponent<PlayerRevive>().ReviveSelfCMD();
                 player.GetComponent<Player>().EnablePlayer();
                 //Debug.Log("Player revived.");
             }
         }
     }
 
-    [ClientRpc]
-    public void HealAllPlayersRPC(){
-                for (int i = 0; i < localPlayers.Count; i++) {
-            GameObject player = localPlayers[i];
-            if (player == null)
-                continue;
-
-            player.GetComponent<PlayerHealth>().Heal(7000);
-            Debug.Log("Player healed.");
+    [Server]
+    public void HealAllPlayers() {
+        foreach (GameObject player in allPlayers) {
+            if (player != null)
+                player.GetComponent<PlayerHealth>().Heal(7000);
         }
     }
 
@@ -238,6 +236,13 @@ public class PlayerManager : NetworkBehaviour
             }
         }
         //Everyone died so end game
+        EndGame();
+    }
+
+    [Server]
+    public void EndGame(bool forceEnd = false) {
+        if (!allowEndGame && !forceEnd)
+            return;
         SetGaveOverData();
         SavePlayerData();
         MyNetworkManager.instance.ChangeScene(GameOverScene);

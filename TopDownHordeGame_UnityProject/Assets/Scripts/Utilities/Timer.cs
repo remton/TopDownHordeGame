@@ -48,7 +48,7 @@ public class Timer : MonoBehaviour
     public void UnpauseTimer(Guid timerID) {
         foreach (SingleTimer timer in timers) {
             if (timer.ID == timerID) {
-                timer.isTimerRunning = false;
+                timer.isTimerRunning = true;
             }
         }
     }
@@ -112,6 +112,9 @@ public class Timer : MonoBehaviour
         public bool isTimerRunning;
     }
     private void RemoveTimer(int index) {
+        if(index >= timers.Count) {
+            Debug.LogError("ERROR: Timer index out of range");
+        }
         timers.RemoveAt(index);
         pauseState.RemoveAt(index);
     }
@@ -119,10 +122,20 @@ public class Timer : MonoBehaviour
         for (int i = 0; i < timers.Count; i++) {
             if (timers[i].isTimerRunning) {
                 timers[i].timeLeft -= Time.deltaTime;
+                //Timer is done
                 if (timers[i].timeLeft <= 0) {
+                    //Call onEnd()
+                    Guid id = timers[i].ID;
                     if(timers[i].onEnd != null)
                         timers[i].onEnd();
+                    //Ensure timers was not modified during onEnd()
+                    if (i >= timers.Count || id != timers[i].ID) {
+                        Debug.LogWarning("WARNING: Modifying timers during a timer's return function");
+                        KillTimer(id);
+                        break;
+                    }
                     RemoveTimer(i);
+                    i--;
                 }
             }
         }

@@ -11,12 +11,17 @@ public class Prop_Monitor : Prop
     private Timer timer;
 
     [SerializeField]
+    private float health;
+
+    [SerializeField]
     private float sparkDelay;
     private bool canSpark = false;
     private bool isBroke = false;
     private bool hasTurnedOn = false;
     public AudioClip breakSound;
+    public float breakSoundVolume;
     public AudioClip turnOnSoundSound;
+    public float turnOnSoundVolume;
 
     private void Awake() {
         timer = GetComponent<Timer>();
@@ -25,16 +30,22 @@ public class Prop_Monitor : Prop
         trigger.EventObjExit += PlayerExitTrigger;
     }
 
-    protected override void OnShot() {
+    protected override void OnShot(Weapon weapon) {
         if (isBroke) {
             if(canSpark)
                 Spark();
             return;
         }
-        canSpark = true;
-        isBroke = true;
-        animator.SetTrigger("break");
-        AudioManager.instance.PlaySound(breakSound);
+        if(health <= 0) {
+            canSpark = true;
+            isBroke = true;
+            animator.SetTrigger("break");
+            AudioManager.instance.PlaySound(breakSound, breakSoundVolume);
+        }
+        else {
+            health -= weapon.GetDamage();
+        }
+
     }
 
     private void Spark() {
@@ -52,7 +63,7 @@ public class Prop_Monitor : Prop
         if (isBroke || hasTurnedOn)
             return;
         hasTurnedOn = true;
-        AudioManager.instance.PlaySound(turnOnSoundSound);
+        AudioManager.instance.PlaySound(turnOnSoundSound, turnOnSoundVolume);
         animator.SetTrigger("turnOn");
     }
 

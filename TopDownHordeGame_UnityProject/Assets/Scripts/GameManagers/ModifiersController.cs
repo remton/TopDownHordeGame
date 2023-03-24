@@ -5,7 +5,7 @@ using Mirror;
 
 public enum ModifierType {
     allBasic, allBiggestFan, allHockEye, allLungs, allSplitter, allZathrak, 
-    safetyOff, zapp, studentLoans, bloodBullets, CSWSMovement, pingPong
+    safetyOff, zapp, studentLoans, bloodBullets, CSWSMovement, pingPong, holdYourGround
 }
 
 [RequireComponent(typeof(Timer))]
@@ -18,7 +18,7 @@ public class ModifiersController : NetworkBehaviour
     public GameObject allSplitter_Prefab;
     public GameObject allZathrak_Prefab;
 
-    private List<RandomChoice> zombieListReplacement = new List<RandomChoice>();
+    private List<RandomChoice<GameObject>> zombieListReplacement = new List<RandomChoice<GameObject>>();
     private bool replaceZombieList = false;
     private Timer timer;
     private List<GameObject> players;
@@ -27,39 +27,39 @@ public class ModifiersController : NetworkBehaviour
     #region zombie spawn modifiers
     [Server]
     public void Apply_AllBasic() {
-        zombieListReplacement.Add(new RandomChoice(1, allBasic_Prefab));
+        zombieListReplacement.Add(new RandomChoice<GameObject>(1, allBasic_Prefab));
         replaceZombieList = true;
         Debug.Log("MODIFIER: All Basic");
     }
     [Server]
     public void Apply_AllBiggest() {
-        zombieListReplacement.Add(new RandomChoice(1, allBiggestFan_Prefab));
+        zombieListReplacement.Add(new RandomChoice<GameObject>(1, allBiggestFan_Prefab));
         replaceZombieList = true;
         Debug.Log("MODIFIER: All Biggest Fan");
     }
 
     [Server]
     public void Apply_AllHockEye() {
-        zombieListReplacement.Add(new RandomChoice(1, allHockEye_Prefab));
+        zombieListReplacement.Add(new RandomChoice<GameObject>(1, allHockEye_Prefab));
         replaceZombieList = true;
         Debug.Log("MODIFIER: All Hock Eye");
     }
     [Server]
     public void Apply_AllLungs() {
-        zombieListReplacement.Add(new RandomChoice(1, allLungs_Prefab));
+        zombieListReplacement.Add(new RandomChoice<GameObject>(1, allLungs_Prefab));
         replaceZombieList = true;
         Debug.Log("MODIFIER: All Lungs");
     }
     [Server]
     public void Apply_AllSplitter() {
-        zombieListReplacement.Add(new RandomChoice(1, allSplitter_Prefab));
+        zombieListReplacement.Add(new RandomChoice<GameObject>(1, allSplitter_Prefab));
         replaceZombieList = true;
         Debug.Log("MODIFIER: All Splitter");
     }
 
     [Server]
     public void Apply_AllZathrak() {
-        zombieListReplacement.Add(new RandomChoice(1, allZathrak_Prefab));
+        zombieListReplacement.Add(new RandomChoice<GameObject>(1, allZathrak_Prefab));
         replaceZombieList = true;
         Debug.Log("MODIFIER: All Zathrak");
     }
@@ -181,6 +181,33 @@ public class ModifiersController : NetworkBehaviour
         }
     }
 
+    private const float HYG_STRENGTH = 0.25f; // HP lost per second when not moving
+    private const float HYG_UPDATE_TIME = 0.5f;
+    [Server]
+    public void Apply_HoldYourGround() // can't stop won't stop
+    {
+        Debug.Log("MODIFIER: Hold Your Ground");
+        HYG_StartClients();
+    }
+    [ClientRpc]
+    private void HYG_StartClients()
+    {
+        timer.CreateTimer(HYG_UPDATE_TIME, HYG_Damage);
+    }
+    [Client]
+    private void HYG_Damage()
+    {
+        foreach (var player in PlayerManager.instance.GetActiveLocalPlayers())
+        {
+            //If the player has moved since the last check for HYG
+            if (player.GetComponent<PlayerMovement>().lastMoved < HYG_UPDATE_TIME)
+            {
+                player.GetComponent<PlayerHealth>().DamageCMD(HYG_STRENGTH / 2, false, false, true);
+            }
+        }
+        timer.CreateTimer(HYG_UPDATE_TIME, HYG_Damage);
+    }
+
     /// <summary> Reads and applys modifiers from GameSettigns </summary>
     public void ApplyModifiers() {
         //Debug.Log("Applying modifiers ...");
@@ -223,6 +250,9 @@ public class ModifiersController : NetworkBehaviour
                         break;
                     case ModifierType.bloodBullets:
                         Apply_BloodBullets();
+                        break;
+                    case ModifierType.holdYourGround:
+                        Apply_HoldYourGround();
                         break;
                     default:
                         Debug.LogWarning("Modifer: " + mod.ToString() + " has no implementation!");

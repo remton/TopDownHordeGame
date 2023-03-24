@@ -18,6 +18,8 @@ public class BulletTrail : NetworkBehaviour
 
     [ClientRpc]
     public void Init(Vector2 pos1, Vector2 pos2, float dur) {
+        transform.position = pos1;
+
         line.SetPosition(0, pos1);
         line.SetPosition(1, pos2);
         line.enabled = true;

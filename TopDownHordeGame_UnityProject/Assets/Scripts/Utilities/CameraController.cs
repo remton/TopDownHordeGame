@@ -30,6 +30,9 @@ public class CameraController : NetworkBehaviour {
 
     private List<GameObject> players;
 
+    public bool fixPosition = false;
+    public Vector3 fixedPos = new Vector3();
+
     private void Update() {
         if(players.Count > 0) {
             MoveToNextPos();
@@ -37,6 +40,15 @@ public class CameraController : NetworkBehaviour {
         }
     }
 
+    //Sets the position of the camera
+    //If you want it to stay there consider disabling follow players
+    public void FixPos(Vector3 location) {
+        fixedPos = location;
+        fixPosition = true;
+    }
+    public void UnfixPos() {
+        fixPosition = false;
+    }
 
     public void MoveUpdate(Vector3 location, float speed) {
 
@@ -59,10 +71,14 @@ public class CameraController : NetworkBehaviour {
         Vector2 offset = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
         offset.Normalize();
         offset *= intensity;
-        Vector3 midpoint = FindMidpointOfPlayers();
-        Vector3 newpos = midpoint + new Vector3(offset.x, offset.y, 0);
+        Vector3 targetPos;
+        if (fixPosition)
+            targetPos = fixedPos;
+        else
+            targetPos = FindMidpointOfPlayers();
+        Vector3 newpos = targetPos + new Vector3(offset.x, offset.y, 0);
 
-        float shakeTime = Vector3.Distance(midpoint, newpos) / recenterSpeed;
+        float shakeTime = Vector3.Distance(targetPos, newpos) / recenterSpeed;
         transform.position = newpos;
 
         timer.KillTimer(shakeTimerID);
@@ -91,11 +107,14 @@ public class CameraController : NetworkBehaviour {
     public void MoveToNextPos() {
         if (players.Count == 0)
             return;
-        MoveUpdate(FindMidpointOfPlayers(), recenterSpeed);
+        if(!fixPosition)
+            MoveUpdate(FindMidpointOfPlayers(), recenterSpeed);
+        else
+            MoveUpdate(fixedPos, recenterSpeed);
     }
 
     private void ChangeSize() {
-        if (players.Count == 0)
+        if (fixPosition || players.Count == 0)
             return;
 
         float maxX = players[0].transform.position.x;

@@ -2,8 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Steamworks;
+using System;
 
 public static class Utilities {
+
+    public static string FormatTime(float time_in_sec) {
+        string result = "";
+        int sec = Mathf.RoundToInt(time_in_sec);
+        int min = sec / 60;
+        sec %= 60;
+        int hours = min / 60;
+        min %= 60;
+        if (hours > 0)
+            result += hours.ToString("D2") + ":";
+        if(min > 0)
+            result += min.ToString("D2") + ":";
+        result += sec.ToString("D2");
+        return result;
+    }
 
     public static Texture2D GetEmptyTexture(int width, int height, Color fillColor) {
         Texture2D texture = new Texture2D(width, height, TextureFormat.ARGB32, false);
@@ -43,16 +59,4 @@ public static class Utilities {
         return false;
     }
 
-    //CREDIT: https://forum.unity.com/threads/text-at-location-in-2d-world-space.397950/
-    public static Vector2 WorldToCanvas(RectTransform canv, Vector3 pos) {
-
-        //Please note that this will only work if the element you're positioning is either a direct child of the main canvas or the child of a transform that stretches to the full extents of the canvas. Otherwise you have to take the offsets of all parent RectTransforms into account.
-        if (Camera.main == null)
-            return Vector2.zero;
-
-        //This part is a bit complicated, but you have to make sure that you adjust your coordinates by the size of the canvas.
-        Vector2 cPos = new Vector2(((Camera.main.WorldToViewportPoint(pos).x * canv.sizeDelta.x) - (canv.sizeDelta.x * .5f)), ((Camera.main.WorldToViewportPoint(pos).y * canv.sizeDelta.y) - (canv.sizeDelta.y * .5f)));
-
-        return cPos;
-    }
 }

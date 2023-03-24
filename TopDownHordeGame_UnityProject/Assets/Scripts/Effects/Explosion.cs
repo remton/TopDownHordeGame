@@ -9,10 +9,10 @@ public class Explosion : MonoBehaviour
     private Timer timer;
     public float timeActive;
     [SerializeField] private AudioClip explosionSound;
+    [SerializeField] private float explosionSoundVolume;
     [SerializeField] private float screenShakeIntensity;
     private HitBoxController hitBox;
     private GameObject owner;
-    private string ownerTag;
     private List<string> damageTags;
     private List<string> knockbackTags;
     private float damage;
@@ -24,19 +24,15 @@ public class Explosion : MonoBehaviour
 
     private void Start() {
 //        SoundPlayer.Play(explosionSound, transform.position);
-        AudioManager.instance.PlaySound(explosionSound);
+        AudioManager.instance.PlaySound(explosionSound, explosionSoundVolume);
         CameraController.instance.Shake(screenShakeIntensity);
         timer.CreateTimer(aftershockTime, AftershockShake);
     }
 
 
     public void Init(GameObject nOwner, List<string> nDamageTags, List<string> nKnockbackTags, float nDamage, float nKnockbackStrength) {
-        if (!PlayerConnection.myConnection.isServer) {
-            return;
-        }
 
         owner = nOwner;
-        ownerTag = nOwner.tag;
         damageTags = nDamageTags;
         knockbackTags = nKnockbackTags;
         damage = nDamage;
@@ -45,15 +41,18 @@ public class Explosion : MonoBehaviour
         hitBox.triggerTags.Clear();
         
         for (int i = 0; i < nDamageTags.Count; i++) {
-            if (!hitBox.triggerTags.Contains(nDamageTags[i]))
+            if (!hitBox.triggerTags.Contains(nDamageTags[i])) {
                 hitBox.triggerTags.Add(nDamageTags[i]);
+            }
         }
         for (int i = 0; i < nKnockbackTags.Count; i++) {
             if (!hitBox.triggerTags.Contains(nKnockbackTags[i]))
                 hitBox.triggerTags.Add(nKnockbackTags[i]);
         }
-        hitBox.SetActive(true);
         hitBox.EventObjEnter += ActorEnter;
+        hitBox.SetActive(true);
+        hitBox.ForceEntry();
+        //hitBox.EventObjEnter -= ActorEnter;
         timer.CreateTimer(timeActive, StopHitDetection);
     }
 
@@ -71,19 +70,24 @@ public class Explosion : MonoBehaviour
     }
 
     public void DamageActor(GameObject actor) {
-        if (owner == null)
-            Debug.LogError("explosion owner is null!");
+        if (owner == null) {
+            owner = new GameObject();
+        }
 
         if (actor.HasComponent<DamageHitbox>()) {
             actor = actor.GetComponent<DamageHitbox>().owner;
         }
         if (actor.tag == "Player") {
             Debug.Log("player in explosion!");
-            if (owner.tag != "Player" || (owner.tag == "Player" && actor.GetComponent<PlayerHealth>().HasFriendlyFire()))
+            if (owner == null || owner.tag != "Player" || (owner.tag == "Player" && actor.GetComponent<PlayerHealth>().HasFriendlyFire()))
                 actor.GetComponent<PlayerHealth>().DamageCMD(damage);
         }
         if (actor.tag == "Zombie") {
             actor.GetComponent<ZombieHealth>().DamageCMD(damage, owner);
+        }
+        if(actor.tag == "Prop" && actor.GetComponent<Prop>().canBeShot) {
+            Debug.Log("EXPLOSION: PROP");
+            actor.GetComponent<Prop>().ExplodeCMD(damage);
         }
     }
     public void KnockbackActor(GameObject actor) {
