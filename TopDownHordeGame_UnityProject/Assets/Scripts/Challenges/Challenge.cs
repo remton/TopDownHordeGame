@@ -13,7 +13,7 @@ public class Challenge : MonoBehaviour
     [TextArea]
     public string description;
     public Sprite icon;
-    public float progress;      //progress 0 - 0.1 of completing this challenge
+    public float progress;      //progress 0 - 1 of completing this challenge
     public bool unlocked;       //if this challenge is available
     public bool completed;      //if this challenge has been completed
 

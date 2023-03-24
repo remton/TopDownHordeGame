@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ChallengesHolder : MonoBehaviour
 {
-    private static ChallengesHolder instance;
+    public static ChallengesHolder instance;
     private void Awake() {
         if (instance == null) {
             instance = this;
