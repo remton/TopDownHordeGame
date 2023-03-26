@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: d5fe94990f7ac1e43ac115961415343f
+guid: a0ad14a1b73686944acc9d890f8e6690
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -527354007811744576
-    second: Zombie_Lungs_Walk_ALT_0
+      213: -8445701398026329609
+    second: Zombie_Lungs_Lunge_0
   - first:
-      213: 6374890191512182168
-    second: Zombie_Lungs_Walk_ALT_1
+      213: 6283888656787352247
+    second: Zombie_Lungs_Lunge_1
   - first:
-      213: 7642316992494690597
-    second: Zombie_Lungs_Walk_ALT_2
+      213: -5201935635466671411
+    second: Zombie_Lungs_Lunge_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Zombie_Lungs_Walk_ALT_0
+      name: Zombie_Lungs_Lunge_0
       rect:
         serializedVersion: 2
         x: 0
@@ -114,14 +114,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0cc908de2567ea8f0800000000000000
-      internalID: -527354007811744576
+      spriteID: 7f1ee936357daca80800000000000000
+      internalID: -8445701398026329609
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Zombie_Lungs_Walk_ALT_1
+      name: Zombie_Lungs_Lunge_1
       rect:
         serializedVersion: 2
         x: 32
@@ -135,14 +135,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 89d94338ad8287850800000000000000
-      internalID: 6374890191512182168
+      spriteID: 7baaaeb907bd43750800000000000000
+      internalID: 6283888656787352247
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Zombie_Lungs_Walk_ALT_2
+      name: Zombie_Lungs_Lunge_2
       rect:
         serializedVersion: 2
         x: 0
@@ -156,8 +156,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 521e39e50d6fe0a60800000000000000
-      internalID: 7642316992494690597
+      spriteID: dca209fb9130fc7b0800000000000000
+      internalID: -5201935635466671411
       vertices: []
       indices: 
       edges: []
