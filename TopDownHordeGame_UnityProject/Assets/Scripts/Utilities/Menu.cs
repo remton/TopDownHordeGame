@@ -70,6 +70,7 @@ public class Menu : MonoBehaviour
     }
     protected virtual void OnUseKeyboard() {
         isUsingGamepad = false;
+        EventSystem.current.SetSelectedGameObject(null);
     }
 
     public virtual void OnCancel() {
