@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ChallengeMenu : Menu
 {
     public GameObject infoBox;
-    public GameObject ChallengeHolder;
+    private GameObject ChallengeHolder;
     public GameObject challengeItemPrefab;
     public GameObject challengeItemHolder;
     private List<GameObject> challengeItems = new List<GameObject>();
@@ -17,7 +17,7 @@ public class ChallengeMenu : Menu
         }
         challengeItems.Clear();
 
-
+        ChallengeHolder = ChallengesHolder.instance.gameObject;
         Challenge[] challenges = ChallengeHolder.GetComponentsInChildren<Challenge>();
         foreach (Challenge challenge in challenges) {
             if (challenge.unlocked) {

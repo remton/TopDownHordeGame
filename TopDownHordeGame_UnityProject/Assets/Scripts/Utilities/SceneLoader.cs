@@ -34,8 +34,12 @@ public class SceneLoader : NetworkBehaviour
     }
 
     // ------------ PUBLIC ----------------
-
+    /// </summary>
     //Server Loads first
+    /// </summary>
+    /// <param name="action">What to run</param>
+    /// <param name="priority">Determines order of what runs</param>
+    /// <param name="forceRun">Forces run if already loaded</param>
     public void AddServerLoad(Action action, int priority=0, bool forceRun=true) {
         if(!serverLoaded)
             serverLoadActions.Add(new PriorityAction(action, priority));
@@ -44,7 +48,12 @@ public class SceneLoader : NetworkBehaviour
         }
     }
 
+    /// </summary>
     //When all clients have loaded into the scene
+    /// </summary>
+    /// <param name="action">What to run</param>
+    /// <param name="priority">Determines order of what runs</param>
+    /// <param name="forceRun">Forces run if already loaded</param>
     public void AddClientsLoad(Action action, int priority=0, bool forceRun=true) {
         if(!clientsLoaded)
             clientsLoadActions.Add(new PriorityAction(action, priority));
@@ -52,7 +61,12 @@ public class SceneLoader : NetworkBehaviour
             action();
         }
     }
+    /// </summary>
     //When all the player characters have spawned in
+    /// </summary>
+    /// <param name="action">What to run</param>
+    /// <param name="priority">Determines order of what runs</param>
+    /// <param name="forceRun">Forces run if already loaded</param>
     public void AddPlayerLoad(Action action, int priority=0, bool forceRun=true) {
         if (!playersLoaded)
             playerLoadActions.Add(new PriorityAction(action, priority));
@@ -60,7 +74,12 @@ public class SceneLoader : NetworkBehaviour
             action();
         }
     }
-    //After all other loads have been called
+    /// <summary>
+    /// After all other loads have been called
+    /// </summary>
+    /// <param name="action">What to run</param>
+    /// <param name="priority">Determines order of what runs</param>
+    /// <param name="forceRun">Forces run if already loaded</param>
     public void AddPostLoad(Action action, int priority=0, bool forceRun=true) {
         if(!postLoaded)
             postLoadActions.Add(new PriorityAction(action, priority));
