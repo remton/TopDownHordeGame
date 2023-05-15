@@ -1,31 +1,16 @@
 fileFormatVersion: 2
-guid: 84ce2d5d4df8bf448950a37425deac9a
+guid: d8ea76538b1a0e74aa79d4821d9e1729
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5160595058289129178
-    second: Zombie_Minion_Prelunge_0
+      213: -4615886022096674937
+    second: Zombie_Minion_Lunge_0
   - first:
-      213: 2636542333802274714
-    second: Zombie_Minion_Prelunge_1
+      213: -1840099366047592836
+    second: Zombie_Minion_Lunge_1
   - first:
-      213: 3547784048716828656
-    second: Zombie_Minion_Prelunge_2
-  - first:
-      213: 6645223268287398330
-    second: Zombie_Minion_Prelunge_3
-  - first:
-      213: 8931374865908232635
-    second: Zombie_Minion_Prelunge_4
-  - first:
-      213: 611986418116563234
-    second: Zombie_Minion_Prelunge_5
-  - first:
-      213: -6235500850180566400
-    second: Zombie_Minion_Prelunge_6
-  - first:
-      213: 502082275676211791
-    second: Zombie_Minion_Prelunge_7
+      213: -3331656013941214685
+    second: Zombie_Minion_Lunge_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -115,70 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Zombie_Minion_Prelunge_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 64
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.35}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6294a01f222e168b0800000000000000
-      internalID: -5160595058289129178
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Zombie_Minion_Prelunge_1
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 64
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.35}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a9f50999841e69420800000000000000
-      internalID: 2636542333802274714
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Zombie_Minion_Prelunge_2
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 64
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.35}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0ff409b9bc24c3130800000000000000
-      internalID: 3547784048716828656
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Zombie_Minion_Prelunge_3
+      name: Zombie_Minion_Lunge_0
       rect:
         serializedVersion: 2
         x: 0
@@ -192,14 +114,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab14e67ca53983c50800000000000000
-      internalID: 6645223268287398330
+      spriteID: 78f9c317e1411ffb0800000000000000
+      internalID: -4615886022096674937
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Zombie_Minion_Prelunge_4
+      name: Zombie_Minion_Lunge_1
       rect:
         serializedVersion: 2
         x: 32
@@ -213,35 +135,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb1ff4ebe1e92fb70800000000000000
-      internalID: 8931374865908232635
+      spriteID: c7ecf473067a676e0800000000000000
+      internalID: -1840099366047592836
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Zombie_Minion_Prelunge_5
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 32
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.35}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2219333a7663e7800800000000000000
-      internalID: 611986418116563234
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Zombie_Minion_Prelunge_6
+      name: Zombie_Minion_Lunge_2
       rect:
         serializedVersion: 2
         x: 0
@@ -255,29 +156,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 082575c830d0779a0800000000000000
-      internalID: -6235500850180566400
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Zombie_Minion_Prelunge_7
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 32
-      alignment: 9
-      pivot: {x: 0.5, y: 0.35}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f4a43b96b21c7f600800000000000000
-      internalID: 502082275676211791
+      spriteID: 3227d37d18493c1d0800000000000000
+      internalID: -3331656013941214685
       vertices: []
       indices: 
       edges: []
