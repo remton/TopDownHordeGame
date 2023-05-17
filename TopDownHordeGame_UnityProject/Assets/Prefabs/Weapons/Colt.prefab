@@ -59,10 +59,10 @@ MonoBehaviour:
   range: 20
   fireDeley: 0.05
   magSize: 6
-  reserveSize: 96
-  reloadTime: 0.2
+  reserveSize: 120
+  reloadTime: 0.3
   reloadAmount: 1
-  swapTime: 0.1
+  swapTime: 0.3
   movePenalty: 1.1
   isAutomatic: 0
   infiniteReserve: 0

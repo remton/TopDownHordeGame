@@ -10464,8 +10464,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   type: 4
-  payForHit: 3
-  payForKill: 50
+  payForHit: 7
+  payForKill: 20
   spwanFramesInSeconds: 0.5
   target: {fileID: 0}
   timeBetweenTargetChecks: 0.1

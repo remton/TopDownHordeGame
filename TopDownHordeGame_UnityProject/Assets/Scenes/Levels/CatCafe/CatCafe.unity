@@ -13062,6 +13062,10 @@ PrefabInstance:
       propertyPath: sceneId
       value: 3863730192
       objectReference: {fileID: 0}
+    - target: {fileID: 6888804239098574880, guid: 32896fd3ccd10c642bc00c73c5d8e1d1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.75
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32896fd3ccd10c642bc00c73c5d8e1d1, type: 3}
 --- !u!4 &336569016 stripped
@@ -15698,6 +15702,8 @@ MonoBehaviour:
   edgeBufferSize: 5
   minSize: 5
   maxSize: 20
+  fixPosition: 0
+  fixedPos: {x: 0, y: 0, z: 0}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -16495,7 +16501,7 @@ MonoBehaviour:
   m_VoxelSize: 0.05
   m_BuildHeightMesh: 0
   m_HideEditorLogs: 0
-  m_NavMeshData: {fileID: 23800000, guid: d1fc643236bc559439a11dd86e0d4121, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 7120f34aaf4faac4aa220221812b3289, type: 2}
 --- !u!114 &593804366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16529,7 +16535,7 @@ MonoBehaviour:
   m_VoxelSize: 0.07333333
   m_BuildHeightMesh: 0
   m_HideEditorLogs: 0
-  m_NavMeshData: {fileID: 23800000, guid: b38a3edd6c4767540899fbd77a4b1be3, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 6fcb2ed160a01964cb536fb151f1921e, type: 2}
 --- !u!1001 &596356597
 PrefabInstance:
   m_ObjectHideFlags: 0

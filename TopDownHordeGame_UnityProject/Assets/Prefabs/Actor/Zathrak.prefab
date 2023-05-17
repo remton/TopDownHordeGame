@@ -5291,7 +5291,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   type: 3
-  payForHit: 2
+  payForHit: -5
   payForKill: 110
   spwanFramesInSeconds: 0.75
   target: {fileID: 0}

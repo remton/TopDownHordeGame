@@ -59,7 +59,7 @@ MonoBehaviour:
   range: 10
   fireDeley: 0.2
   magSize: 14
-  reserveSize: 160
+  reserveSize: 188
   reloadTime: 1.3
   reloadAmount: 0
   swapTime: 1.3
@@ -204,7 +204,6 @@ MonoBehaviour:
   duration: 0.2
   maxDistance: 70
   trailObjPrefab: {fileID: 5599144035722061591, guid: 1173e4391071715429544057dfc90985, type: 3}
-  particle: {fileID: 0}
 --- !u!114 &4399374025343130478
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -202,16 +202,19 @@ public class RoundController : NetworkBehaviour {
     #region Calculated values
     private int GetMaxZombies() {
         if (round > 15)
-            return Mathf.FloorToInt(5 + 8 * 15 * Mathf.Log10(6 + Mathf.Pow(numPlayers, 3) / 2));
+            return 2 * Mathf.FloorToInt(5 + 8 * 15 * Mathf.Log10(6 + Mathf.Pow(numPlayers, 3) / 2));
         else {
             //Debug.Log((numPlayers + " players in GetMaxZombies"));
-            return Mathf.FloorToInt(0 + 8 * round * Mathf.Log10(6 + Mathf.Pow(numPlayers, 3) / 2));
+            //return Mathf.FloorToInt(Mathf.Max(1, Mathf.Min(Mathf.Pow(1.1f,round), 2))) * Mathf.FloorToInt(0 + 8 * round * Mathf.Log10(6 + Mathf.Pow(numPlayers, 3) / 2)); // 12, 26, 38, 50 --  8, 18, 33, 50 -- 6, 15, 25, 38
+            return Mathf.FloorToInt(Mathf.Max(1, Mathf.Min(Mathf.Pow(1.1f, round), 2)) * Mathf.FloorToInt(0 + 8 * round * Mathf.Log10(6 + Mathf.Pow(numPlayers, 3) / 2)));
+
         }
     }
     //Returns how many zombies per second to spawn
     public float GetSpawnDeley() {
         //e^(-0.25*(x-7.2)) + 0.3
-        return (((Mathf.Exp(-0.25f * (round - 7.2F)) + 0.3f) * 1.35F) / Mathf.Pow(1.35F, numPlayers));
+        return (((Mathf.Exp(-0.25f * (round - 7.0F)) + 0.0f) * 1.35F) / Mathf.Pow(1.35F, numPlayers)); 
+        //return (((Mathf.Exp(-0.25f * (round - 7.2F)) + 0.3f) * 1.35F) / Mathf.Pow(1.35F, numPlayers)); 
     }
 
     public float GetSpeed() {
@@ -224,13 +227,16 @@ public class RoundController : NetworkBehaviour {
         //0.10(0.7round+0.8)^2 + 4 until round 6
         //round+1 after round 6
         if (round < 6)
-            return Mathf.FloorToInt(0.10f * (0.7f * round + 0.8f) * (0.7f * round + 0.8f) + 4);
-        else {
-            return round + 1;
+            return (.6f * 0.10f * Mathf.Pow((0.7f * round + 0.8f), 2.5f) + 1);
+            //return Mathf.FloorToInt(0.10f * (0.7f * round + 0.8f) * (0.7f * round + 0.8f) + 4);
+        else
+        {
+            return round * 0.6f + 1;
         }
     }
     public float GetDamage() {
-        return Mathf.Sqrt(2f * round) * .75f - .5f;
+        return Mathf.Max(.65f * Mathf.Sqrt(2f * round) * .73f - .5f, .5f);
+        //return Mathf.Sqrt(2f * round) * .75f - .5f;
     }
     #endregion
 

@@ -200,8 +200,6 @@ MonoBehaviour:
   duration: 0.2
   maxDistance: 70
   trailObjPrefab: {fileID: 5599144035722061591, guid: b7e4d718e119a3549b00025ecc724fb9, type: 3}
-  particle: {fileID: 0}
-  lightEffectPrefab: {fileID: 0}
 --- !u!114 &1862295663597761640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -271,7 +269,7 @@ MonoBehaviour:
   range: 4
   fireDeley: 0.1
   magSize: 1
-  reserveSize: 20
+  reserveSize: 35
   reloadTime: 0.9
   reloadAmount: 1
   swapTime: 0.25
