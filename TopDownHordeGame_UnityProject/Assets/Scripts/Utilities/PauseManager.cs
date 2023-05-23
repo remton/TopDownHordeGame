@@ -18,6 +18,18 @@ public class PauseManager : NetworkBehaviour
         }
     }
 
+    private void Start() {
+        SceneLoader.instance.AddClientsLoad(UpdatePauseState);
+    }
+    [Client]
+    public void UpdatePauseState() {
+        RequestPauseState();
+    }
+    [Command(requiresAuthority = false)]
+    public void RequestPauseState() {
+        PauseCMD(isPaused);
+    }
+
     public delegate void PauseStateChange(bool isPaused);
     public event PauseStateChange EventPauseStateChange;
 
