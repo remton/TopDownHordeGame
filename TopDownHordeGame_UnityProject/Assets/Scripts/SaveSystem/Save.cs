@@ -31,6 +31,9 @@ public class Save{
     //Modifiers
     public bool[] modifier_unlocks;
 
+    //Levels
+    public bool[] level_unlocks;
+
     //CatCafe
     public int[] catCafe_code;
     public int catCafe_unlockedDigits;
@@ -64,5 +67,7 @@ public class Save{
         catCafe_unlockedElevator = data.catCafe_unlockedElevator;
         //ModifierUnlocks
         modifier_unlocks = data.modifier_unlocks;
+        //LevelUnlocks
+        level_unlocks = data.level_unlocks;
     }
 }

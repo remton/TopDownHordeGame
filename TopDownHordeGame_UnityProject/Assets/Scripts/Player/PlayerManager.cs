@@ -137,7 +137,11 @@ public class PlayerManager : NetworkBehaviour
     }
 
     [ClientRpc]
-    public void SetGaveOverData() {
+    public void SetGaveOverDataRPC() {
+        SetGameOverData();
+    }
+    [Client]
+    public void SetGameOverData() {
         GameOverData.instance.SetData(allPlayers, RoundController.instance.round);
     }
 
@@ -243,7 +247,7 @@ public class PlayerManager : NetworkBehaviour
     public void EndGame(bool forceEnd = false) {
         if (!allowEndGame && !forceEnd)
             return;
-        SetGaveOverData();
+        SetGaveOverDataRPC();
         SavePlayerData();
         MyNetworkManager.instance.ChangeScene(GameOverScene);
     }

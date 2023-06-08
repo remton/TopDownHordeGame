@@ -3846,22 +3846,22 @@ MonoBehaviour:
     Name: Kyle's Cordial Cat Cafe
     description: A formerly lovely cat cafe. Much better service pre-apocalypse.
     preview: {fileID: 7761503127458640220, guid: 0b619538745438e4a8fa0b635b7771ec, type: 3}
-    unlocked: 1
+    level: 0
   - scene: Assets/Scenes/Levels/Testing/TestLevel.unity
     Name: Testing level for devs only
     description: 
     preview: {fileID: 21300000, guid: d2784ad8e20370147a5b40aebcd98e4c, type: 3}
-    unlocked: 0
+    level: 0
   - scene: Assets/Scenes/Levels/Box/TheBox.unity
     Name: The Box
     description: Small, compact, shippable
     preview: {fileID: 3792534909945103846, guid: f8c87ac4f32ac814a8efccf16504a331, type: 3}
-    unlocked: 1
+    level: 1
   - scene: Assets/Scenes/Levels/Catastrophy/Catastrophe.unity
     Name: Catastrophe
     description: Underground lab
     preview: {fileID: 9119892842310178209, guid: a0bde204e9aa6b2478d979fa352f8e0d, type: 3}
-    unlocked: 1
+    level: 2
   mapNameTxt: {fileID: 1553348705}
   mapDescriptionTxt: {fileID: 925801984}
   modifierListTxt: {fileID: 148151752}

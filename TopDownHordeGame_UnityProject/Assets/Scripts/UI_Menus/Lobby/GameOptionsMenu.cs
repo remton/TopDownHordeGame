@@ -11,7 +11,7 @@ public class GameOptionsMenu : Menu
         public string Name;
         [TextArea] public string description;
         public Sprite preview;
-        public bool unlocked;
+        public LevelType level;
     }
     [SerializeField]
     private List<Map> maps;
@@ -34,7 +34,7 @@ public class GameOptionsMenu : Menu
     public void LoadMaps() {
         List<Map> myMaps = new List<Map>();
         for (int i = 0; i < maps.Count; i++) {
-            if (maps[i].unlocked)
+            if (SaveData.instance.level_unlocks[(int)maps[i].level])
                 myMaps.Add(maps[i]);
         }
         maps = myMaps;

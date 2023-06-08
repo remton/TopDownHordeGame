@@ -50,6 +50,9 @@ public class SaveData : MonoBehaviour {
     [Header("Modifers")]
     public bool[] modifier_unlocks;
 
+    [Header("Levels")]
+    public bool[] level_unlocks;
+
     [Header("CatCafe")]
     public int[] catCafe_code;
     public int catCafe_unlockedDigits;
@@ -115,6 +118,8 @@ public class SaveData : MonoBehaviour {
         instance.challenge_zathrakKills = save.challenge_zathrakKills;
         //Modifiers
         instance.modifier_unlocks = save.modifier_unlocks;
+        //Levels
+        instance.level_unlocks = save.level_unlocks;
         //Cat Cafe
         instance.catCafe_code = save.catCafe_code;
         instance.catCafe_unlockedDigits = save.catCafe_unlockedDigits;
@@ -163,6 +168,11 @@ public class SaveData : MonoBehaviour {
         instance.challenge_zathrakKills = 0;
         //Modifiers
         instance.modifier_unlocks = new bool[System.Enum.GetNames(typeof(ModifierType)).Length];
+        //Levels
+        instance.level_unlocks = new bool[System.Enum.GetNames(typeof(LevelType)).Length];
+        instance.level_unlocks[(int)LevelType.CatCafe] = true;
+        instance.level_unlocks[(int)LevelType.TheBox] = false;
+        instance.level_unlocks[(int)LevelType.Catastrophe] = true;
         //CatCafe
         instance.catCafe_code = new int[CatCafe.codeLength];
         for (int i = 0; i < CatCafe.codeLength; i++) {
@@ -170,7 +180,6 @@ public class SaveData : MonoBehaviour {
         }
         instance.catCafe_unlockedDigits = 0;
         instance.catCafe_unlockedElevator = false;
-
         //Update other scripts
         Challenge.ReloadAll();
     }

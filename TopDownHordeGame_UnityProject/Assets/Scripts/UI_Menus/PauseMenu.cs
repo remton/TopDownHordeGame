@@ -24,9 +24,15 @@ public class PauseMenu : Menu {
     }
 
     public void QuitToMainMenu() {
-        PlayerManager.instance.SavePlayerData();
-        SaveData.Save();
-        PlayerConnection.myConnection.Disconnect();
+        if (PlayerConnection.myConnection.isServer) {
+            PlayerManager.instance.EndGame(true);
+        }
+        else {
+            PlayerManager.instance.SetGameOverData();
+            PlayerManager.instance.SavePlayerData();
+            SaveData.Save();
+            PlayerConnection.myConnection.Disconnect();
+        }
     }
 
     public override void Close() {

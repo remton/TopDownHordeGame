@@ -1,5 +1,55 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5128142551897475324
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6077248693868071075}
+  - component: {fileID: 4534128341196247823}
+  m_Layer: 0
+  m_Name: TheBoxUnlock
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6077248693868071075
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5128142551897475324}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8357726940579488290}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4534128341196247823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5128142551897475324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 662bc89286bd62849bbd88830ded9ad6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  title: Survival
+  description: "Survive 5 rounds to unlock a new map!\t"
+  icon: {fileID: 8625781338056251256, guid: 5833106c3abf19f41a15a3d0bc8e7577, type: 3}
+  progress: 0
+  unlocked: 1
+  completed: 0
 --- !u!1 &8357726940579488292
 GameObject:
   m_ObjectHideFlags: 0
@@ -35,6 +85,7 @@ Transform:
   - {fileID: 8357726941600464432}
   - {fileID: 8357726941701170265}
   - {fileID: 8357726940593636782}
+  - {fileID: 6077248693868071075}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
