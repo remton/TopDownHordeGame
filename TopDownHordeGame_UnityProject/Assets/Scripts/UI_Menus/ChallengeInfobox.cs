@@ -11,8 +11,9 @@ public class ChallengeInfobox : MonoBehaviour
     public void SetChallenge(Challenge challenge) {
         title.text = challenge.title;
         description.text = challenge.description;
-        int progressVal = Mathf.FloorToInt(challenge.progress * 100);
-        progress.text = progressVal.ToString() + "%";
+        //int progressVal = Mathf.FloorToInt(challenge.progress * 100);
+        //progress.text = progressVal.ToString() + "%";
+        progress.text = challenge.ProgressText();
     }
 
     public void SetLocation(Vector3 location) {

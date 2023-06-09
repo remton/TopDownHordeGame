@@ -19,10 +19,15 @@ public class Challenge : MonoBehaviour
 
     private static List<Challenge> allChallenges = new List<Challenge>();
 
+
     public static void ReloadAll() {
         foreach (var item in allChallenges) {
             item.Load();
         }
+    }
+
+    public virtual string ProgressText() {
+        return (Mathf.FloorToInt(progress * 100)).ToString() + "%";
     }
 
     public virtual void Load() {

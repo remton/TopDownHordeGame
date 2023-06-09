@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4534128341196247823, guid: dcc1e1630387da547bb6a0797b03da0b, type: 3}
+      propertyPath: description
+      value: "Survive until round 5 to unlock a new map!\t"
+      objectReference: {fileID: 0}
     - target: {fileID: 8357726940579488290, guid: dcc1e1630387da547bb6a0797b03da0b, type: 3}
       propertyPath: m_RootOrder
       value: 9
