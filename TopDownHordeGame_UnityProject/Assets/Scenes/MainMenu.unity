@@ -182,6 +182,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Challenges
       objectReference: {fileID: 0}
+    - target: {fileID: 8357726940593636783, guid: dcc1e1630387da547bb6a0797b03da0b, type: 3}
+      propertyPath: m_Name
+      value: CSWS
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dcc1e1630387da547bb6a0797b03da0b, type: 3}
 --- !u!1 &35172218

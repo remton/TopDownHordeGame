@@ -172,7 +172,7 @@ public class SaveData : MonoBehaviour {
         instance.level_unlocks = new bool[System.Enum.GetNames(typeof(LevelType)).Length];
         instance.level_unlocks[(int)LevelType.CatCafe] = true;
         instance.level_unlocks[(int)LevelType.TheBox] = false;
-        instance.level_unlocks[(int)LevelType.Catastrophe] = true;
+        instance.level_unlocks[(int)LevelType.Catastrophe] = false;
         //CatCafe
         instance.catCafe_code = new int[CatCafe.codeLength];
         for (int i = 0; i < CatCafe.codeLength; i++) {

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum ChallengeType {
-    BasicKills, BiggestFanKills, HockEyeKills, LungsKills, SplitterKills, ZathrakKills, CSWSMovement, TheBoxUnlock
+    BasicKills, BiggestFanKills, HockEyeKills, LungsKills, SplitterKills, ZathrakKills, CSWSMovement, 
+    TheBoxUnlock, CatastropheUnlock
 }
 
 public class Challenge : MonoBehaviour
@@ -60,5 +61,8 @@ public class Challenge : MonoBehaviour
     }
     protected void Awake() {
         allChallenges.Add(this);
+    }
+    protected void OnDestroy() {
+        allChallenges.Remove(this);
     }
 }

@@ -8,6 +8,7 @@ public class CatCafe : NetworkBehaviour
 {
     public static string LevelName = "CatCafe";
     public static int codeLength = 4;
+    public static int roundsPerCode = 3;
     [TextArea]
     public string unlockDigitMessage;
 
@@ -117,7 +118,7 @@ public class CatCafe : NetworkBehaviour
         if (keypad.IsLockedOut())
             keypad.SetLockout(false);
         if (isServer) {
-            if (round >= 10 && round % 10 == 0)
+            if (round >= roundsPerCode && round % roundsPerCode == 0)
                 if(unlockedDigits < codeLength)
                     SpawnCodePickup();
         }

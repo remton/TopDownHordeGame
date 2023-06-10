@@ -1,5 +1,55 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3489841204784858418
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9124123612842572180}
+  - component: {fileID: 5118883936496825341}
+  m_Layer: 0
+  m_Name: CatastropheUnlock
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9124123612842572180
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3489841204784858418}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8357726940579488290}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5118883936496825341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3489841204784858418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c997c4631983fe4db4206cf0ba8fedf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 8
+  title: Codebreaker
+  description: Perhaps there is more to that cat cafe...
+  icon: {fileID: -3110564064609707196, guid: 5833106c3abf19f41a15a3d0bc8e7577, type: 3}
+  progress: 0
+  unlocked: 0
+  completed: 0
 --- !u!1 &5128142551897475324
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,6 +136,7 @@ Transform:
   - {fileID: 8357726941701170265}
   - {fileID: 8357726940593636782}
   - {fileID: 6077248693868071075}
+  - {fileID: 9124123612842572180}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
