@@ -1182,7 +1182,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6025319416998648061, guid: 446f747992bcc224eb7f198f719f8e94, type: 3}
       propertyPath: baseCost
-      value: 800
+      value: 650
       objectReference: {fileID: 0}
     - target: {fileID: 6025319416998648061, guid: 446f747992bcc224eb7f198f719f8e94, type: 3}
       propertyPath: weaponPrefab
@@ -13376,7 +13376,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6025319416998648061, guid: 446f747992bcc224eb7f198f719f8e94, type: 3}
       propertyPath: baseCost
-      value: 400
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 6025319416998648061, guid: 446f747992bcc224eb7f198f719f8e94, type: 3}
       propertyPath: weaponPrefab
@@ -34499,6 +34499,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: WeaponShop
       objectReference: {fileID: 0}
+    - target: {fileID: 3685217096035052142, guid: 6ad4e4a95c89a41408a795b70eac10eb, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4616523170992512858, guid: 6ad4e4a95c89a41408a795b70eac10eb, type: 3}
       propertyPath: sceneId
       value: 766961110
@@ -34593,7 +34597,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5178467419987776371, guid: 6ad4e4a95c89a41408a795b70eac10eb, type: 3}
       propertyPath: baseCost
-      value: 1350
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 5178467419987776371, guid: 6ad4e4a95c89a41408a795b70eac10eb, type: 3}
       propertyPath: expressTime
@@ -35404,7 +35408,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6025319416998648061, guid: 446f747992bcc224eb7f198f719f8e94, type: 3}
       propertyPath: baseCost
-      value: 3150
+      value: 2500
       objectReference: {fileID: 0}
     - target: {fileID: 6025319416998648061, guid: 446f747992bcc224eb7f198f719f8e94, type: 3}
       propertyPath: weaponPrefab
@@ -112918,7 +112922,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6025319416998648033, guid: 446f747992bcc224eb7f198f719f8e94, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 18.2
+      value: 43.2
       objectReference: {fileID: 0}
     - target: {fileID: 6025319416998648033, guid: 446f747992bcc224eb7f198f719f8e94, type: 3}
       propertyPath: m_LocalPosition.y
@@ -112966,7 +112970,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6025319416998648061, guid: 446f747992bcc224eb7f198f719f8e94, type: 3}
       propertyPath: baseCost
-      value: 1125
+      value: 875
       objectReference: {fileID: 0}
     - target: {fileID: 6025319416998648061, guid: 446f747992bcc224eb7f198f719f8e94, type: 3}
       propertyPath: weaponPrefab
@@ -114788,7 +114792,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6025319416998648061, guid: 446f747992bcc224eb7f198f719f8e94, type: 3}
       propertyPath: baseCost
-      value: 1080
+      value: 920
       objectReference: {fileID: 0}
     - target: {fileID: 6025319416998648061, guid: 446f747992bcc224eb7f198f719f8e94, type: 3}
       propertyPath: weaponPrefab

@@ -49,7 +49,7 @@ MonoBehaviour:
   magicTimerUIHolder: {fileID: 0}
   magicTimerUIPrefab: {fileID: 3254687918418978234, guid: de12d5e837a41e64f943e488638acda3, type: 3}
   dropList:
-  - weight: 1
+  - weight: 3000
     obj: {fileID: 1584839167843198278, guid: 91d6317854e7c0946ac01ca5a1ae69dc, type: 3}
   - weight: 10
     obj: {fileID: 177272599253269483, guid: dad35b44912a3a941a1947d28e0771e1, type: 3}
@@ -59,7 +59,7 @@ MonoBehaviour:
     obj: {fileID: 19701994243007283, guid: 07c9492da6f586e4eb7b63ff73f9b787, type: 3}
   - weight: 8
     obj: {fileID: 7609820944762314030, guid: 79b5ba03f56338c408ab4555c56e8c35, type: 3}
-  - weight: 8
+  - weight: 6
     obj: {fileID: 5454472768016782365, guid: 06f2c5833a8041340bd3b4e3118ff664, type: 3}
 --- !u!114 &2260623728002118392
 MonoBehaviour:
