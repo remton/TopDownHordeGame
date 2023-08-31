@@ -69,8 +69,8 @@ MonoBehaviour:
   swapSound: {fileID: 8300000, guid: e53c5f6b8d30c5f4c9ef0c7d7f40ab90, type: 3}
   shootSound: {fileID: 8300000, guid: 86c63c303618beb49b6d7f80525459ed, type: 3}
   shakeIntensity: 3
+  displayAmmoTxt: 1
   spriteControl: {fileID: 165125178573960015}
-  bloodBulletsDamage: 0.1
   pelletCount: 9
   spreadAngle: 15
 --- !u!82 &7853944436744635101

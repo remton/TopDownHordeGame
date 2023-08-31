@@ -156,7 +156,7 @@ public class PlayerWeaponControl : NetworkBehaviour {
         }
     }
     private void Update() {
-        if (equippedWeapon != null) {
+        if (equippedWeapon != null && (!(equippedWeapon is MeleeWeapon) || !(equippedWeapon as MeleeWeapon).GetIsAttacking())) { // weapon sprite does not update if it is a MeleeWeapon which is currently attacking
             equippedWeapon.spriteControl.DirectionChanged(GetComponent<PlayerMovement>().GetCurrentLookDir());
         }
     }

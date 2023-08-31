@@ -184,8 +184,8 @@ MonoBehaviour:
   swapSound: {fileID: 8300000, guid: e53c5f6b8d30c5f4c9ef0c7d7f40ab90, type: 3}
   shootSound: {fileID: 8300000, guid: e7ef617406060cb4eb1040f9f9883b96, type: 3}
   shakeIntensity: 1
+  displayAmmoTxt: 1
   spriteControl: {fileID: 5690047386926144567}
-  bloodBulletsDamage: 0.05
   balanceRadius: 10
   grenadeObjPrefab: {fileID: 6396399298110489017, guid: 4453c43dc2fab504e9aa9ee6e04a7af1, type: 3}
   player: {fileID: 0}

@@ -23,6 +23,7 @@ public class Weapon : NetworkBehaviour
     [SerializeField] public AudioClip swapSound;    //sound played when swapping to this weapon
     [SerializeField] public AudioClip shootSound;   //sound of gunshot
     [SerializeField] protected float shakeIntensity; //Intensity of screen shake
+    [SerializeField] public bool displayAmmoTxt; // whether or not ammo text pop-up should display
     [HideInInspector]public WeaponSpriteController spriteControl; //Controls the sprite for the weapon
 
     protected FireEffectController effectController; //Controller for bullet trail and fire sound
@@ -43,7 +44,6 @@ public class Weapon : NetworkBehaviour
     /// <summary> Called whenever the this weapon is reloaded </summary>
     public event WeaponReloaded EventWeaponReloaded;
     public delegate void WeaponReloaded(GameObject owner, int oldAmmo, int newAmmo);
-
 
     protected virtual void Awake() {
         spriteControl = GetComponent<WeaponSpriteController>();

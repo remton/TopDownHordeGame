@@ -185,8 +185,8 @@ MonoBehaviour:
   swapSound: {fileID: 8300000, guid: e53c5f6b8d30c5f4c9ef0c7d7f40ab90, type: 3}
   shootSound: {fileID: 8300000, guid: 91e5707cac1adba418266eb43225e71f, type: 3}
   shakeIntensity: 2
+  displayAmmoTxt: 1
   spriteControl: {fileID: 4761720175564451057}
-  bloodBulletsDamage: 0.1
 --- !u!82 &7524845823652781340
 AudioSource:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ public class Reticle : MonoBehaviour
     public float ammoUptime; //time before ammo text disappears after ammo is changed
     private Timer timer;
     private System.Guid ammoTimer = System.Guid.Empty;
+    
 
     private Animator animator;
     private SpriteRenderer sprite;
@@ -32,12 +33,23 @@ public class Reticle : MonoBehaviour
 
     public void AmmoChange(int mag, int reserve) {
         ammoTxt.text = mag.ToString() + " / " + (reserve==-1 ? "inf" : reserve.ToString());
-        ammoTxtObj.SetActive(true);
+        DisplayAmmoText();
         timer.KillTimer(ammoTimer);
         ammoTimer = timer.CreateTimer(ammoUptime, HideAmmoText);
     }
     public void HideAmmoText() {
         ammoTxtObj.SetActive(false);
+    }
+
+    public void DisplayAmmoText()
+    {
+        Debug.Log("displayAmmoTxt = " + player.GetComponent<PlayerWeaponControl>().GetEquippedWeapon().displayAmmoTxt);
+        if (!player.GetComponent<PlayerWeaponControl>().GetEquippedWeapon().displayAmmoTxt)
+        {
+            Debug.Log("Ammo text was not displayed.");
+            return;
+        }
+        ammoTxtObj.SetActive(true);
     }
 
     public void Activate(bool b) {
